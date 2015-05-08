@@ -75,3 +75,9 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+Route::post('media/get',['as'=>'gallery','uses'=>'CMS\MediaController@gallery']);
+Route::post('media/getAll',['as'=>'getAll','uses'=>'CMS\MediaController@getAll']);
+Route::resource('media','CMS\MediaController');
+
