@@ -135,8 +135,14 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+		// Laravel Debugbar
+		'Barryvdh\Debugbar\ServiceProvider',
+
+		//News Feeds https://github.com/willvincent/feeds
+		'willvincent\Feeds\FeedsServiceProvider',
+		//Captcha Provider
+		 'Mews\Captcha\CaptchaServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -197,11 +203,16 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+		'Form'		=> 'Illuminate\Html\FormFacade',
+		'Html'		=> 'Illuminate\Html\HtmlFacade',
+		// Laravel Debugbar
 		'Debugbar' => 'Barryvdh\Debugbar\Facade',
+		//News Feeds https://github.com/willvincent/feeds
+		'Feeds'    => 'willvincent\Feeds\Facades\Feeds',
+		//Captcha Provider
+		'Captcha' => 'Mews\Captcha\Facades\Captcha',
 		'Image' => 'Intervention\Image\Facades\Image',
 		'Helpers'   => 'App\Libraries\Helpers'
-
-
 	],
 
 ];

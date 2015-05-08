@@ -1,5 +1,15 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
+|
+*/
 Route::get('/', 'MainController@index');
 
 Route::get('main', 'MainController@index');
@@ -38,9 +48,23 @@ Route::get('isNotAllowed', function()
 	return 'Youre not allowed here!';
 });
 
-//Captcha
+
+//General Setting Controller
+Route::resource('general_settings', 'CMS\GeneralSettingsController');
+//News Feeds Controller
+Route::resource('news_feeds', 'CMS\NewsFeedsController');
+//Captcha Controller
+Route::get('captcha-generator', 'CMS\CaptchaController@index');
+//Change Password Controller
+Route::resource('change_password', 'CMS\ChangePasswordController');
+
 Route::any('captcha-test', function()
     {
+        // $user           = New App\Models\cms\User;
+        // $user->username = 'carlo';
+        // $user->password = Hash::make('carlo');
+        // $user->save();
+
         if (Request::getMethod() == 'POST')
         {
             $rules = ['captcha' => 'required|captcha'];
