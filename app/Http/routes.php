@@ -64,6 +64,13 @@ Route::any('captcha-test', function()
         return $form;
     });
 
+
+// From Allan
+Route::get('admin/menu', 'CMS\CmsMenuController@index');
+Route::post('admin/menu/decode',['as' => 'decode', 'uses' => 'CMS\CmsMenuController@throwJson'] );
+// end  
+
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
