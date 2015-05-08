@@ -10,4 +10,3 @@
 {!! HTML::script('js/DataTables-1.10.3/media/js/jquery.dataTables.min.js') !!}
 {!! HTML::script('js/dataTables.js') !!}
 {!! HTML::script('js/bootstrap.min.js'); !!}
-
