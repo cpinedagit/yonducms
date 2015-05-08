@@ -12,5 +12,6 @@
 		@include('cms.partials.footer');
 	
 	@include('cms.partials.scripts')
+	<!--test-->
 </body>
 </html>
