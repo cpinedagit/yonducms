@@ -1,0 +1,71 @@
+
+#border{
+    margin: 100px;
+}
+
+.border{
+    margin: 100px;
+}
+
+.marginLeft{
+    margin-left:10px;
+
+}
+.marginTop{
+    margin-top:30px;
+}
+
+#listOfFiles{
+    width:500px;
+    top:50;
+    right:20;
+    position :fixed;
+    margin-bottom:100px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding:20px;
+    padding-right:40px;
+
+    border-radius: 20px;
+}
+
+#upload{
+    margin-top:100px;
+
+}
+
+.tableFiles{
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width:100px;
+}
+
+table{
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    width:1000px;
+}
+
+td{
+    text-align: center;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+    padding-left:10px !important;
+    padding-right:10px !important; 
+}
+
+th{
+    text-align: right;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+    padding-left:10px !important;
+    padding-right:10px !important;
+}
+
+
+.Nform-control{
+    width:300px !important;
+    margin:10px;
+}
