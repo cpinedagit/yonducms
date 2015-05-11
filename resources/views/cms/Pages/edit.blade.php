@@ -27,18 +27,29 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     <body>
         <ul class="nav nav-pills nav-tabs">
             <li role="presentation">{!! HTML::link('Editor', 'Code Editor') !!}</li>
-            <li role="presentation">{!! HTML::link('Banners','Banners') !!}</li>
-            <li role="presentation"  class='active'>{!! HTML::link('Pages','Page Management') !!}</li>
-            <li role="presentation">{!! HTML::link('frontEnd','Front End',['target' => '_blank']) !!}</li>   
+            <li role="presentation">{!! HTML::link('Image', 'Images') !!}</li>
+            <li role="presentation">{!! HTML::link('Banners','Banner Management') !!}</li>          
+            <li role="presentation"  class='active'>{!! HTML::link('Pages','Page Management') !!}</li>   
         </ul>
         <div class="border">
             <h2>Edit Page</h2>
             {!! Form::model($pages,array('method'=>'PUT','url'=>'Pages/'.$pages['id'],'files'=>'true')) 	!!}
             {!! Form::label('name', 'Name:') !!} 
-            {!! Form::text('title', $pages['title'],['class' => 'form-control']) !!}                
-            {!! Form::textarea('editor1',$pages['content'],['cols' => '100','rows' => '100']) !!}
-            {!! Form::submit('Save',['class' => 'btn btn-success']) !!}
-            {!! Form::button('Cancel',['onclick' => 'cancel()', 'class' => 'btn btn-danger']) !!}
+            {!! Form::text('title', $pages['title'],['class' => 'form-control Nform-control']) !!}
+            {!! Form::label('name', 'Banner:') !!} 
+            <select name ='banner' class ='form-control Nform-control'>
+                <option value="0">No Banner</option>
+                @foreach($banners as $banner)
+                <option value="{!! $banner->id !!}">{!! $banner->title !!}</option>
+                @endforeach
+            </select>
+            <div class="marginTop">
+                {!! Form::textarea('editor1',$pages['content'],['cols' => '100','rows' => '100']) !!}
+            </div>
+            <div class="marginTop">
+                {!! Form::submit('Save',['class' => 'btn btn-success']) !!}
+                {!! Form::button('Cancel',['onclick' => 'cancel()', 'class' => 'btn btn-danger']) !!}
+            </div>
             {!! Form::close() !!}
         </div>
     </body>
@@ -47,7 +58,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 <script>
     function cancel() {
-        window.location = ('http://localhost/ninang/public/Pages');
+        window.location = ('http://localhost/lwebservice/public/Pages');
     }
 
     // Replace the <textarea id="editor1"> with an CKEditor instance.
@@ -74,6 +85,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
         // Show this sample buttons.
         document.getElementById('eButtons').style.display = 'block';
+
     });
 
     function InsertHTML() {

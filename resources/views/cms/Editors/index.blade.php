@@ -23,10 +23,10 @@
     </head>
     <body>
         <ul class="nav nav-pills nav-tabs">
-            <li role="presentation" class='active'>{!! HTML::link('Editor', 'Code Editor') !!}</li>
-            <li role="presentation" >{!! HTML::link('Banners','Banners') !!}</li>
-            <li role="presentation">{!! HTML::link('Pages','Page Management') !!}</li> 
-            <li role="presentation">{!! HTML::link('frontEnd','Front End',['target' => '_blank']) !!}</li>   
+            <li role="presentation" class='active'>{!! HTML::link('Editor', 'Code Editor') !!}</li>          
+            <li role="presentation" >{!! HTML::link('Image','Images') !!}</li>
+            <li role="presentation" >{!! HTML::link('Banners','Banner Management') !!}</li>
+            <li role="presentation">{!! HTML::link('Pages','Page Management') !!}</li>    
         </ul>
         <div id="border">
             <form id ='form' method="post" action = "Editor/updateFile">             
