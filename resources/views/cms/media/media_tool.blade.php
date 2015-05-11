@@ -81,14 +81,25 @@ $(document).ready(function(){
           console.log(data);
           str="";
             for(x in data[0])
-            {  var str ="";
-                str +="<a href='#'><img src='../"+ data[0][x]['image_path']  +"'";
-                if((data[0][x]['alternative_text']) != "null"){
-                str +="alt = '"+data[0][x]['alternative_text']+"'";
+            {  
+              var str ="";
+              media_path = data[0][x]['media_path'];
+              alt = data[0][x]['alternative_text']; 
+               if (data[0][x]['media_type'] == 1) {
+                    str +="<a href='#'>";
+                    str += '{!! HTML::image("'+media_path+'",'+alt+',array("height"=>100,"width"=>100)) !!}';            
+                    str +="</a>";
+                } else {
+
+                    str += "<video width='320' height='240' controls>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/mp4'>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/ogg'>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/wmv'>";
+                    str += "  Your browser does not support the video tag.";
+                    str += "</video>";
                 }
-                str +="/></a>";
+   
               CKEDITOR.instances['Editor1'].insertHtml(str);
-            //  str += "<a href='#'><img src='../"+ data[0][x]['image_path']  +"' style='height:100px;width:100px' alt = '"+data[0][x]['alternative_text']+"'/></a>";;
             }  
             $('#fileModal').modal("hide");  
            // insertIntoCkeditor(str);    
@@ -121,8 +132,19 @@ function populateImgLibrary()
     function( data ) {
       for(x in data[0])
       {
-      str +='<div class="div_img">'
-      str +='<input type="checkbox" name="cbfiles" value="'+ data[0][x]['image_id'] +'"><img class="_img" src="../' + data[0][x]['image_path'] + '" style="height:100px;width:100px"/></input>'
+      str += '<div class="div_img">'
+      str += '<input type="checkbox" name="cbfiles" value="'+ data[0][x]['media_id'] +'">';
+      media_path=data[0][x]['media_path'];
+        if (data[0][x]['media_type'] == 1) 
+        {
+        str += '{!! HTML::image("'+media_path+'","alt",array("height"=>100,"width"=>100)) !!}';
+        }
+        else
+        {
+        str += '{!! HTML::image("css/video_icon.jpg","alt",array("height"=>100,"width"=>100)) !!}';
+        }
+
+      str += '</input>';
       str +='</div>'
       }
       $('.img_wrapper').append(str);
@@ -155,7 +177,7 @@ function FileSelectHandler(e) {
     }
   };
     formData.append("_token", $('[name=_token').val());
-  xhr.send(formData);
+    xhr.send(formData);
 }
 
 </script>
