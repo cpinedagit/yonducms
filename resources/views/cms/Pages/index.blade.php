@@ -21,16 +21,16 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     <body>
         <ul class="nav nav-pills nav-tabs">
             <li role="presentation">{!! HTML::link('Editor', 'Code Editor') !!}</li>
-            <li role="presentation">{!! HTML::link('Banners','Banners') !!}</li>
+            <li role="presentation">{!! HTML::link('Image','Images') !!}</li>
+            <li role="presentation">{!! HTML::link('Banners','Banner Management') !!}</li>            
             <li role="presentation"  class='active'>{!! HTML::link('Pages','Page Management') !!}</li> 
-            <li role="presentation">{!! HTML::link('frontEnd','Front End',['target' => '_blank']) !!}</li> 
         </ul>
         <div class="border">
             <h2>Pages</h2>           
             <table border='1'>
                 <thead>
                     <tr>
-                        <th> TITLE</th>    
+                        <th> TITLE</th>      
                         <th> DATE PUBLISHED</th>
                         <th> ACTION</th>
                     </tr>
@@ -41,7 +41,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
                    
                         <td>{!! $page['title'] !!}</td>
                         <td><?php echo  date('M d ,Y', strtotime($page['created_at'])); ?></td>
-                        <td><a href ="Pages/{!! $page['id'] !!}/edit">edit</a><a href ="#" onclick = ""></a> | <a target ='_blank' href ="page/{!! $page['id'] !!}">preview</a></td>
+                        <td><a href ="Pages/{!! $page['id'] !!}/edit">edit</a><a href ="#" onclick = ""></a> | <a target ='_blank' href ="page/{!! $page['id'] !!}/{!! $page['banner'] !!}">preview</a></td>
                     </tr>
                     @endforeach                
                 </tbody>

@@ -19,31 +19,35 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
     <body>
         <ul class="nav nav-pills nav-tabs">
             <li role="presentation">{!! HTML::link('Editor', 'Code Editor') !!}</li>
-            <li role="presentation">{!! HTML::link('Image','Images') !!}</li>
-            <li role="presentation"  class='active'>{!! HTML::link('Banners','Banner Management') !!}</li> 
+            <li role="presentation" class='active'>{!! HTML::link('Image','Images') !!}</li>
+            <li role="presentation">{!! HTML::link('Banners','Banner Management') !!}</li> 
             <li role="presentation">{!! HTML::link('Pages','Page Management') !!}</li> 
         </ul>
         <div class="border">
-            <h2>Banners</h2>           
+            <h2>Images</h2>           
             <table border='1'>
                 <thead>
                     <tr>
                         <th> ID</th>
-                        <th> Title</th>
+                        <th> Name</th>
+                        <th> Image</th>
+                        <th> Filename</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>                   
-                    @foreach($banners as $banner)
+                    @foreach($images as $image)
                     <tr>
-                        <td>{!! $banner->id !!}</td>
-                        <td> {!! $banner->title !!}</td>
-                        <td><a href="Banners/{{ $banner->id }}/edit" class="edit" id = "">edit</a> | <a href ="Image" onclick ="del({{ $banner->id }})">del</a></td>
+                        <td>{!! $image->id !!}</td>
+                        <td> {!! $image->name !!}</td>
+                        <td>{!! HTML::image('images/'.$image['image'],null,['width' => '100', 'height' => '50']) !!}</td>
+                        <td>{!! $image['image'] !!}</td>
+                        <td><a href="Image/{{ $image->id }}/edit" class="edit" id = "">edit</a> | <a href ="Image" onclick ="del({{ $image->id }})">del</a></td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <button id ='addBanner' type='button' class="btn btn-success">Add Banner</button>
+            <button id ='addImage' type='button' class="btn btn-success">Add Image</button>
         </div>
 
     </body>
@@ -57,7 +61,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
                     headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url:  'Banners' + "/" + id,
+                    url:  'Image' + "/" + id,
                     dataType: "json",
                     success:(function(data) {
                         
@@ -67,9 +71,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
     $(document).ready(function(){
 
-    $(document).on('click', '#addBanner', function(){
+    $(document).on('click', '#addImage', function(){
 
-    window.location = ('addBanner');
+    window.location = ('addImage');
     });
     });
 

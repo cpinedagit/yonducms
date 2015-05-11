@@ -106,3 +106,23 @@ Route::post('media/get',['as'=>'gallery','uses'=>'CMS\MediaController@gallery'])
 Route::post('media/getAll',['as'=>'getAll','uses'=>'CMS\MediaController@getAll']);
 Route::resource('media','CMS\MediaController');
 
+//this routes is for Code Editor Management
+Route::post('Editor/Showw/{filename}', 'EditorController@Showw');
+Route::post('Editor/updateFile', 'EditorController@updateFile');
+Route::post('Editor/addFile', 'EditorController@addFile');
+
+Route::resource('Editor', 'EditorController');
+
+//this routes is for Image Management
+Route::get('addImage','ImageController@addImage');
+Route::get('frontEnd','ImageController@frontEnd');
+Route::resource('Image', 'ImageController');
+
+//this route is for Banner Management
+Route::get('addBanner','BannerController@addBanner');
+Route::resource('Banners','BannerController');
+
+//this routes is for Page Management
+Route::get('addPage','PageController@addPage');
+Route::get('page/{id}/{bannerid}','PageController@preview');
+Route::resource('Pages','PageController');
