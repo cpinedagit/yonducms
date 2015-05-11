@@ -48,6 +48,7 @@ Route::get('isNotAllowed', function()
 	return 'Youre not allowed here!';
 });
 
+Route::resource('cms/editor', 'EditorController');
 
 //General Setting Controller
 Route::resource('general_settings', 'CMS\GeneralSettingsController');
