@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CMS\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DB;
 
 class UserController extends Controller {
 
