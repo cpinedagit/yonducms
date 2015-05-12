@@ -10,7 +10,7 @@
            </div>
            <div class='main-container__navigation-container__welcome__name'>
                <h4>Welcome</h4>
-               <span>John Smith</span>
+               <span>{{ \Auth()->user()->first_name." ". \Auth()->user()->last_name }}!</span>
                <div class="main-container__navigation-container__welcome__name__status">
                    <small>Status</small>
                    <i class="fa fa-circle-o"></i>

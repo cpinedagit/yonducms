@@ -22,7 +22,9 @@ class AuthController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
-	protected $redirectTo = '/home';
+	//Redirect to CMS Home Page
+	//Once Log-in
+	protected $redirectTo = '/cms';
 
 	/**
 	 * Create a new authentication controller instance.
