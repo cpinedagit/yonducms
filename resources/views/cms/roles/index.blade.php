@@ -25,6 +25,9 @@
 								{!! HTML::linkRoute('cms.role.edit', 'edit', $role->id) !!}
 								</td>
 								<td>
+								{!! HTML::linkRoute('cms.roleaccess.edit', 'access rights', $role->id) !!}
+								</td>
+								<td>
 								
 									{!! Form::open(array('route' => array('cms.role.destroy', $role->id), 'method' => 'delete')) !!}
 									    {!! Form::submit("Delete") !!}

@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('public/font-awesome/css/font-awesome.min.css') }}">
 <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/css/mystyle.css') }}">
 
 {!! HTML::style('css/app.css') !!}
 {!! HTML::style('css/media_style.css') !!}

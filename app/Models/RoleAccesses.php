@@ -6,6 +6,6 @@ class RoleAccesses extends Model {
 
 	protected $table = 'role_accesses';
 
-	protected $fillable = ['addflag', 'editflag', 'deleteflag', 'isactive'];
+	protected $fillable = ['role_id', 'module_id', 'addflag', 'editflag', 'deleteflag', 'isactive'];
 
 }

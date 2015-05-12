@@ -29,11 +29,14 @@ Route::resource('cms/user',
 Route::resource('cms/role',
 				'CMS\RoleController',
 				['except' => ['show']]);
+
 Route::resource('module',
 				'CMS\ModuleController',
 				['except' => ['show']]);
 
-Route::resource('roleaccess',
+Route::post('cms/roleaccess/modify', array('as' => 'cms.roleaccess.modifyAccess', 'uses' => 'CMS\RoleAccessesController@modifyAccess'));
+
+Route::resource('cms/roleaccess',
 				'CMS\RoleAccessesController',
 				['except' => ['show']]);
 
@@ -47,8 +50,6 @@ Route::get('isNotAllowed', function()
 {
 	return 'Youre not allowed here!';
 });
-
-Route::resource('cms/editor', 'EditorController');
 
 //General Setting Controller
 Route::resource('general_settings', 'CMS\GeneralSettingsController');
