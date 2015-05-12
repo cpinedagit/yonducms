@@ -18,13 +18,13 @@
 					        <div class="form-group">	
 					 		{!! Form::label('APP_TITLE', 'Website Title:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('APP_TITLE', str_replace('APP_TITLE=', '', $env[3]), ['class'=>'form-control', 'env-parsley-required'=>'true'] ) !!}
+						 			{!! Form::text('APP_TITLE', str_replace('APP_TITLE=', '', $env[3]), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 						 		</div>
 							</div>
 							<div class="form-group">	
 						 		{!! Form::label('APP_TAG_LINE', 'Website Tag Line:', ['class' =>'col-md-4 control-label']) !!}
 							 		<div class="col-md-6">
-							 			{!! Form::text('APP_TAG_LINE', str_replace('APP_TAG_LINE=', '', $env[4]), ['class'=>'form-control', 'env-parsley-required'=>'true'] ) !!}
+							 			{!! Form::text('APP_TAG_LINE', str_replace('APP_TAG_LINE=', '', $env[4]), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 							 		</div>
 							</div>
 					      </div>
@@ -38,25 +38,25 @@
 					        <div class="form-group">	
 					 		{!! Form::label('MAIL_DRIVER', 'Mail Driver:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('MAIL_DRIVER', str_replace('MAIL_DRIVER=', '', $env[15]), ['class'=>'form-control', 'env-parsley-required'=>'true'] ) !!}
+						 			{!! Form::text('MAIL_DRIVER', str_replace('MAIL_DRIVER=', '', $env[15]), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 						 		</div>
 							</div>
 							<div class="form-group">	
 					 		{!! Form::label('MAIL_HOST', 'Mail Host:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('MAIL_HOST', str_replace('MAIL_HOST=', '', $env[16]), ['class'=>'form-control', 'env-parsley-required'=>'true'] ) !!}
+						 			{!! Form::text('MAIL_HOST', str_replace('MAIL_HOST=', '', $env[16]), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 						 		</div>
 							</div>
 							<div class="form-group">	
 					 		{!! Form::label('MAIL_PORT', 'Mail Port:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'env-parsley-required'=>'true', 'env-parsley-type'=>'integer'] ) !!}
+						 			{!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'env-parsley-type'=>'integer'] ) !!}
 						 		</div>
 							</div>
 							<div class="form-group">	
 					 		{!! Form::label('MAIL_USERNAME', 'Mail Username:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'env-parsley-required'=>'true', 'env-parsley-type'=>'email'] ) !!}
+						 			{!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'env-parsley-type'=>'email'] ) !!}
 						 		</div>
 							</div>
 							<div class="alert alert-warning" role="alert">
@@ -66,7 +66,7 @@
 					 		{!! Form::label('MAIL_PASSWORD', 'Mail Password:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
 						 			{!! Form::hidden('MAIL_PASSWORD_ORIG', str_replace('MAIL_PASSWORD=', '', $env[18])) !!}
-						 			{!! Form::password('MAIL_PASSWORD_NEW',  ['class'=>'form-control', 'env-parsley-required'=>'false'] ) !!}
+						 			{!! Form::password('MAIL_PASSWORD_NEW',  ['class'=>'form-control', 'data-parsley-required'=>'false'] ) !!}
 						 		</div>
 							</div>
 					      </div>
@@ -80,7 +80,7 @@
 					        <div class="form-group">	
 					 		{!! Form::label('APP_RSS_FEED', 'RSS Link:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
-						 			{!! Form::text('APP_RSS_FEED', str_replace('APP_RSS_FEED=', '', $env[21]), ['class'=>'form-control', 'env-parsley-required'=>'true', 'env-parsley-type'=>'url'] ) !!}
+						 			{!! Form::text('APP_RSS_FEED', str_replace('APP_RSS_FEED=', '', $env[21]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'data-parsley-type'=>'url'] ) !!}
 						 		</div>
 							</div>
 					      </div>
@@ -102,7 +102,7 @@
 	//General Setting Form Validation
 	$('#GeneralSettingsFormBtn').on('click',function(){
 		if($('#GeneralSettingsForm').parsley().validate()){
-			
+			//console.log(1);
 			$('#GeneralSettingsForm').submit();
 		}
 	});

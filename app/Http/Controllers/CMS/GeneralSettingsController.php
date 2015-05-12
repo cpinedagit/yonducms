@@ -27,11 +27,7 @@ class GeneralSettingsController extends Controller {
 	
 	public function update($id)
 	{
-		$modules = $this->loadModules();
-		$submenus = $this->loadSubMenus();
-		$data = (object) array(
-							'modules' => $modules,
-							'submenus' => $submenus);
+	
 		//Loop into Session env and set new variables
 		//Based on user inputs
 		foreach (Session::get('env') as $key => $value) 
@@ -75,7 +71,7 @@ class GeneralSettingsController extends Controller {
 		Storage::disk('root')->delete('.env'); 
 		Storage::disk('root')->put('.env', Session::get('env'));
 
-		return redirect('general_settings', compact('data'));
+		return redirect('general_settings');
 	
 	}
 

@@ -2,7 +2,7 @@
    <div class="row">
     <div class="pull-left header__logo">
        <!--Change SRC to put logo-->
-        <img src="{{ asset('public/img/sample-logo.png') }}" alt="CMS Logo">
+       {!! HTML::image(asset('public/img/sample-logo.png'), 'CMS Logo', ''); !!}
     </div>
     <div class="pull-left header__search">
         <a href="#"><i class="fa fa-globe"></i> View Site</a>
@@ -21,7 +21,7 @@
                 <div class="circle header__menu-list__account__dropdown__icon"></div>
                <div class="header__menu-list__account__dropdown__name">
                     <!--Current user firstname-->
-                    John
+                    {{ \Auth()->user()->first_name }}
                     <i class="fa fa-chevron-down"></i>
                 </div>
               </a>

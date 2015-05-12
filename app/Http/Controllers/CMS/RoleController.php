@@ -10,11 +10,6 @@ class RoleController extends Controller {
 	
 	protected $role;
 
-	public function __construct(Role $role)
-	{
-		$this->role = $role;
-	}
-
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.role.index');

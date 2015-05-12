@@ -6,15 +6,11 @@ use App\Http\Requests\CMS\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
+use View;
 
 class UserController extends Controller {
 
 	protected $users;
-
-	public function __construct(User $user)
-	{
-		$this->users = $user;
-	}
 
 	public function index()
 	{
