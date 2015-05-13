@@ -48,10 +48,34 @@ function FileSelectHandler(e) {
 	var form = document.getElementById('upload');
 	var formData = new FormData();
 	for (var i = 0, f; f = files[i]; i++) {
-
-		formData.append('fileselect[]',f); 
-		ParseFile(f);
-		formData.append('file', f);
+		
+			filename = f.name;
+		  var ext =  filename.split('.').pop();
+		  switch(ext){
+		    case 'jpg':
+		    case 'jpeg':
+		    case 'png':
+		    case 'gif':
+		    case 'mov':
+		    	filesize = f.size;
+		    	filesize = filesize/1024/1024;
+		    	if(filesize > 2)
+		    	{
+		    		alert("cant upload");
+		    		break;
+		    	}
+		    	else
+		    	{
+			      	formData.append('fileselect[]',f); 
+					ParseFile(f);
+					formData.append('file', f);		    		
+		    	}
+		      break;
+		    default:
+		      	alert("cant upload");
+		      break;
+		  }
+		
 	}
 	$('[name=_token').val();
 	var xhr = new XMLHttpRequest();
