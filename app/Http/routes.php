@@ -22,9 +22,12 @@ Route::resource('cms',
 				'CMS\CMSController',
 				['only' => ['index']]);
 
+Route::get('cms/user/profile',
+            array('as' => 'cms.user.profile', 
+                  'uses' => 'CMS\UserController@profile'));
+
 Route::resource('cms/user', 
-				'CMS\UserController', 
-				['except' => ['show']]);
+				'CMS\UserController');
 
 Route::resource('cms/role',
 				'CMS\RoleController',

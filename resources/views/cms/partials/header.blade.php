@@ -18,7 +18,9 @@
         <li class="header__menu-list__account">
             <div class="dropdown header__menu-list__account__dropdown">
               <a id="dLabel" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                <div class="circle header__menu-list__account__dropdown__icon"></div>
+                <div class="circle header__menu-list__account__dropdown__icon">
+                  {!! HTML::image('public/images/profile/' . \Auth()->user()->profile_pic, \Auth()->user()->username) !!}
+                </div>
                <div class="header__menu-list__account__dropdown__name">
                     <!--Current user firstname-->
                     {{ \Auth()->user()->first_name }}

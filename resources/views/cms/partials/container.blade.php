@@ -5,12 +5,12 @@
        </div>
        <div class="main-container__navigation-container__welcome">
            <div class="circle main-container__navigation-container__welcome__icon">
-              <!-- Put image here
-              <img src="img/sample.jpeg" alt="">-->
+              <!--  Put image here -->
+              {!! HTML::image('public/images/profile/' . \Auth()->user()->profile_pic, \Auth()->user()->username) !!}
            </div>
            <div class='main-container__navigation-container__welcome__name'>
                <h4>Welcome</h4>
-               <span>{{ \Auth()->user()->first_name." ". \Auth()->user()->last_name }}!</span>
+               <span>{{ \Auth()->user()->username }}!</span>
                <div class="main-container__navigation-container__welcome__name__status">
                    <small>Status</small>
                    <i class="fa fa-circle-o"></i>
