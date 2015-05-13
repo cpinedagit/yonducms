@@ -29,9 +29,11 @@
             <li><a href="#">Home</a></li>           
           </ol> 
       @yield('content')
+      </section>
+      <!-- Flash Update Your Password Message -->
       @if(isset($message))
           <div class="alert alert-danger" role="alert">{{ $message }}</div>
       @endif
-      </section>
+      <!-- Flash Update Your Password Message -->
   </main>
 </div> 
