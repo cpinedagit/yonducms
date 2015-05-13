@@ -82,9 +82,9 @@ function populateImgLibrary()
   $('.img_wrapper').empty();
   str ="";
   $.post(
-    '{!! URL::route("getAll") !!}',
+    '{!! URL::route("cms.media.getAll") !!}',
     {
-        "_token": $( this ).find( 'input[name=_token]' ).val()
+        "_token": $('[name=_token').val()
     },
     function( data ) {
       for(x in data[0])
@@ -145,7 +145,7 @@ function FileSelectHandler(e) {
   }
   $('[name=_token').val();
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', '{!! URL::route("media.store") !!}',true);
+  xhr.open('POST', '{!! URL::route("cms.media.store") !!}',true);
   xhr.onload = function () {
     if (xhr.status === 200) {
       DoneUpload();
@@ -159,7 +159,7 @@ function FileSelectHandler(e) {
 
 </script>
 
-{!! HTML::script('js/upload_tool.js') !!}
+{!! HTML::script('public/js/upload_tool.js') !!}
 
 
 <!-- ckeditor
@@ -172,7 +172,7 @@ function FileSelectHandler(e) {
 
  $.ajax({
         type: 'POST',
-        url: '{!! URL::route("gallery") !!}',
+        url: '{!! URL::route("cms.media.get") !!}',
         data: {'selected':selected},
         dataType:'json',
         success: (function(data){

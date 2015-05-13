@@ -31,7 +31,6 @@ class MediaController extends Controller {
       $file = Media::find($id);
       list($width, $height) = getimagesize($file->media_path);
       $file_name= after_last("/",$file->media_path);
-     // / print_r(File::size($path.$file->image_file_name));
       return View::make('cms.media.show')->with(array('file'=>$file,'filename'=>$file_name,'width'=>$width,'height'=>$height));
   
   }
@@ -89,7 +88,7 @@ class MediaController extends Controller {
       $media->alternative_text= Input::get('alternative_text');
       $media->save();
       Session::flash('message', 'Successfully updated user!');
-      return Redirect::to('media');
+      return Redirect::to('cms/media');
   }
 
   public function destroy($id) {
@@ -97,7 +96,7 @@ class MediaController extends Controller {
         $media->delete();
 
         Session::flash('message', 'Successfully deleted the nerd!');
-        return Redirect::to('media');
+        return Redirect::to('cms/media');
     }
 
  public function gallery()

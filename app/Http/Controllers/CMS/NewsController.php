@@ -46,7 +46,7 @@ class NewsController extends Controller {
       $news->photo_id = Input::get('photo_id');
       $news->save();
           
-      return Redirect::to('news');
+      return Redirect::to('cms/news');
     }
 
   public function edit($slug) {
@@ -64,7 +64,7 @@ class NewsController extends Controller {
       $news->featured = Input::get('featured');
       $news->photo_id = Input::get('photo_id');
       $news->save();
-      return Redirect::to('news');
+      return Redirect::to('cms/news');
   }
 
   public function destroy($id) {

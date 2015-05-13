@@ -86,11 +86,11 @@ Route::controllers([
 ]);
 
 
-Route::post('media/get',['as'=>'gallery','uses'=>'CMS\MediaController@gallery']);
-Route::post('media/getAll',['as'=>'getAll','uses'=>'CMS\MediaController@getAll']);
-Route::resource('media','CMS\MediaController');
+Route::post('cms/media/get',['as'=>'cms.media.get','uses'=>'CMS\MediaController@gallery']);
+Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
+Route::resource('cms/media','CMS\MediaController');
 
-Route::resource('news','CMS\NewsController');
+Route::resource('cms/news','CMS\NewsController');
 Route::resource('site/news','Site\NewsController');
 
 //this routes is for Code Editor Management

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
 <table class="superTable">
 	<thead>
@@ -27,7 +27,7 @@
 				<span class="glyphicon glyphicon-remove"></span>
 			@endif
 		</td>
-		<td>{!! HTML::linkRoute('news.show', 'Edit',$result->news_id) !!}</td>
+		<td>{!! HTML::linkRoute('cms.news.show', 'Edit',$result->news_id) !!}</td>
 	</tr>
 	@endforeach
 	</tbody>
