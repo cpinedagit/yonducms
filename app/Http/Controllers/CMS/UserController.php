@@ -6,9 +6,6 @@ use App\Http\Requests\CMS\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
-use Hash;
-use Input;
-use File;
 use View;
 
 class UserController extends Controller {
@@ -28,28 +25,10 @@ class UserController extends Controller {
 		return view('cms.user.create');
 	}
 
-	public function store()
+	public function store(UserRequest $request)
 	{
-		$user = new User;
-		$path = 'public/images/profile';		
-		$file = Input::file('profile_pic');
-
-		$user->username = Input::get('username');
-		$user->slug = Input::get('username');
-		$user->email = Input::get('email');
-		$user->first_name = Input::get('first_name');
-		$user->last_name = Input::get('last_name');
-		$user->password = Hash::make(Input::get('password'));
-		$user->profile_pic = $file->getClientOriginalName();
-		$user->save();
-
-		$file->move($path, $file->getClientOriginalName());
-		return $this->index();
-	}
-
-	public function show($id)
-	{
-
+		User::create($request->all());	
+		return $this->index();		
 	}
 
 	public function edit($slug)
@@ -59,17 +38,17 @@ class UserController extends Controller {
 		return view('cms.user.edit', compact('user'));
 	}
 
-	public function update($id)
+	public function update(UserRequest $request, $id)
 	{
 		$user = User::find($id);
-		$user->username = Input::get('username'); 
-		$user->first_name = Input::get('first_name');
-		$user->last_name = Input::get('last_name');
-		$user->slug = Input::get('username');
-		$user->email = Input::get('email');
-		$user->password = Hash::make(Input::get('password'));
+		$user->username = $request->input('username'); 
+		$user->firstname = $request->input('firstname');
+		$user->lastname = $request->input('lastname');
+		$user->slug = $request->input('username');
+		$user->email = $request->input('email');
+		$user->password = $request->input('password');
 		$user->save();
-		return $this->index();
+		echo "updated";
 	}
 
 	public function destroy($id)
@@ -77,11 +56,6 @@ class UserController extends Controller {
 		$user = User::find($id);
 		$user->delete();
 		return $this->index();
-	}
-
-	public function profile()
-	{
-		return view('cms.user.profile');
 	}
 
 }

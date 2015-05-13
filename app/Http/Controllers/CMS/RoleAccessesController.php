@@ -12,6 +12,11 @@ class RoleAccessesController extends Controller {
 	
 	protected $roleAccesses;
 
+	public function __construct(RoleAccesses $roleAccess)
+	{
+		$this->roleAccesses = $roleAccess;
+	}
+
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.role.index');

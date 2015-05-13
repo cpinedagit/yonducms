@@ -1,53 +1,43 @@
-
 <nav class='main-container__navigation-container__navigation'>
     <ul class="list-unstyled main-container__navigation-container__navigation__nav-list">
 
     @foreach(modules() as $module)
     
       @if(!empty($module->module_path))
+        <li class="{!! ((Session::get('module') == $module->module_path) ? 'open active' : '') !!}">
+           
+           <a href="{!! URL::route($module->module_path) !!}">
+              <i class="fa {!! $module->module_icon !!}"></i>
+                <span>{!! $module->module_name !!}</span>
+           </a>
 
+            <!-- Submenu section  -->
+            <ul class="list-unstyled">
+                
+              @foreach(submenus() as $submenu)
 
-      @foreach(accesses(Auth()->user()->role_id) as $access)
-          
-        @if($module->id == $access->module_id && $access->isactive == 1)      
+                @if($submenu->module_id == $module->id && !empty($submenu->submenu_path))
 
-            <li class="{!! ((Session::get('module') == $module->module_path) ? 'open active' : '') !!}">
-               
-               <a href="{!! URL::route($module->module_path) !!}">
-                  <i class="fa {!! $module->module_icon !!}"></i>
-                    <span>{!! $module->module_name !!}</span>
-               </a>
+                  <li class="{!! ((Session::get('submenu') == $submenu->submenu_path) ? 'active' : '') !!}">
 
-                <!-- Submenu section  -->
-                <ul class="list-unstyled">
-                    
-                  @foreach(submenus() as $submenu)
+                    <a href="{!! URL::route($submenu->submenu_path) !!}">
+                       {!! $submenu->submenu_name !!}
+                    </a>
 
-                    @if($submenu->module_id == $module->id && !empty($submenu->submenu_path))
+                  </li>
 
-                      <li class="{!! ((Session::get('submenu') == $submenu->submenu_path) ? 'active' : '') !!}">
+                @endif
 
-                        <a href="{!! URL::route($submenu->submenu_path) !!}">
-                           {!! $submenu->submenu_name !!}
-                        </a>
+              @endforeach
 
-                      </li>
+             </ul>
 
-                    @endif
-
-                  @endforeach
-
-                 </ul>
-
-           </li>   
-
-           @endif
-
-        @endforeach
-
+       </li>   
        @endif
 
     @endforeach
 
    </ul>
 </nav>
+
+<!-- Comment -->
