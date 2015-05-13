@@ -6,7 +6,7 @@
 
     <div class="control-group">
       <div class="controls">
-      {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
+      {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*')) !!}
 		<div id="filedrag">or drop files here</div>
      </div>
 	</div>

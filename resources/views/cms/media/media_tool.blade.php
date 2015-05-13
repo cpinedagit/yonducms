@@ -23,8 +23,7 @@
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="upload_file">
 
-                  {!! Form::open(array('id'=>'upload', 'files'=>true)) !!}
-
+                  
                     <div class="control-group">
                       <div class="controls">
                       {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
@@ -32,7 +31,6 @@
                      </div>
                   </div>
 
-                  {!! Form::close() !!}
 
 
               </div>

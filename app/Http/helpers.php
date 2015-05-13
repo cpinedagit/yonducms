@@ -29,4 +29,8 @@ function strrevpos($instr, $needle) {
     else return strlen($instr) - $rev_pos - strlen($needle);
 }
 
+function featured_news() {
+	return \App\Models\News::featured();
+}
+
 ?>

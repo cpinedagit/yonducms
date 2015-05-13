@@ -107,6 +107,9 @@ Route::post('media/get',['as'=>'gallery','uses'=>'CMS\MediaController@gallery'])
 Route::post('media/getAll',['as'=>'getAll','uses'=>'CMS\MediaController@getAll']);
 Route::resource('media','CMS\MediaController');
 
+Route::resource('news','CMS\NewsController');
+Route::resource('site/news','Site\NewsController');
+
 //this routes is for Code Editor Management
 Route::post('Editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('Editor/updateFile', 'EditorController@updateFile');
@@ -127,3 +130,4 @@ Route::resource('Banners','BannerController');
 Route::get('addPage','PageController@addPage');
 Route::get('page/{id}/{bannerid}','PageController@preview');
 Route::resource('Pages','PageController');
+
