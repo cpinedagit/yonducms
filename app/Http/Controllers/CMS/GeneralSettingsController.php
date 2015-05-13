@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Storage;
 use Session;
 use Input;
+use DateTimeZone;
 
 class GeneralSettingsController extends Controller {
 
@@ -27,7 +28,7 @@ class GeneralSettingsController extends Controller {
 	
 	public function update($id)
 	{
-	
+
 		//Loop into Session env and set new variables
 		//Based on user inputs
 		foreach (Session::get('env') as $key => $value) 
@@ -54,13 +55,27 @@ class GeneralSettingsController extends Controller {
 				break;
 				case 19:
 					//If we have a new password
-					if(Input::get('MAIL_PASSWORD_NEW')!='' || Input::get('MAIL_PASSWORD_NEW')!=' ') 
+					if(Input::get('MAIL_PASSWORD_NEW')!='' && Input::get('MAIL_PASSWORD_NEW')!=' ') {
 						Session::put('env.19', 'MAIL_PASSWORD='.Input::get('MAIL_PASSWORD_NEW').PHP_EOL);
-					else
-						Session::put('env.19', 'MAIL_PASSWORD='.Input::get('MAIL_PASSWORD_ORIG').PHP_EOL);
+					}
 				break;
 				case 21:
 					Session::put('env.21', 'APP_RSS_FEED='.Input::get('APP_RSS_FEED').PHP_EOL);
+				break;
+				case 23:
+					Session::put('env.23', 'APP_TIME_ZONE='.$this->getTimeZone(Input::get('APP_TIME_ZONE'), 'Identifier').PHP_EOL);
+				break;
+				case 25:
+					Session::put('env.25', 'APP_MEDIA_FORMATS='.Input::get('APP_MEDIA_FORMATS').PHP_EOL);
+				break;
+				case 26:
+					Session::put('env.26', 'APP_MEDIA_MAX_FILE_SIZE='.Input::get('APP_MEDIA_MAX_FILE_SIZE').PHP_EOL);
+				break;
+				case 28:
+					Session::put('env.28', 'DAYS_BEFORE_PASSWORD_EXPIRES='.Input::get('DAYS_BEFORE_PASSWORD_EXPIRES').PHP_EOL);
+				break;
+				case 29:
+					Session::put('env.29', 'DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE='.Input::get('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE').PHP_EOL);
 				break;
 			}
 
@@ -75,5 +90,30 @@ class GeneralSettingsController extends Controller {
 	
 	}
 
-
+	//Get TimeZone Code Based on Identifier
+	public function getTimeZone($timeZone, $format)
+	{
+		//Remove Extra Spaces/New Line in $timeZone
+		if($format=='index') 
+			$timeZone = trim(preg_replace('/\s\s+/', ' ', $timeZone));
+		//Get All Available timezone identifiers
+		$timezone_identifiers = DateTimeZone::listIdentifiers();
+		
+		//Check for each Identifier
+		for ($i=0; $i<count($timezone_identifiers); $i++) {
+	    	//Check in String
+	    	if($format=='index'){
+		    	if($timeZone==$timezone_identifiers[$i]){
+		    		//Return If Index is being requested
+		    		if($format=='index')
+		    			return $i;
+		    	}
+		    }else{
+		    //Check in index
+		    	if($timeZone==$i){
+		    		return $timezone_identifiers[$i];
+		    	}
+		    }
+		}
+	}
 }

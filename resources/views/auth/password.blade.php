@@ -31,13 +31,13 @@
 						 		<div class="col-md-6">
 						 			{!! Form::text('username', old('username'), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 						 		</div>
-						 		{!! Form::label('captcha', ' ', ['class' =>'col-md-4 control-label']) !!}
-						 		<div class="col-md-6">
-						 			{!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> Refresh</div>" !!}
-						 		</div>
 						 		{!! Form::label('captcha', 'CAPTCHA Field:', ['class' =>'col-md-4 control-label']) !!}
 						 		<div class="col-md-6">
 						 			{!! Form::text('captcha', old('captcha'), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
+						 		</div>
+						 		{!! Form::label('captcha', ' ', ['class' =>'col-md-4 control-label']) !!}
+						 		<div class="col-md-6">
+						 			{!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> Refresh</div>" !!}
 						 		</div>
 							</div>
 							<div class="form-group">

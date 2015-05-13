@@ -66,6 +66,5 @@
     {!! Form::close() !!}
 </div>
 
-@include('cms.media.media_tool')
 
 @stop

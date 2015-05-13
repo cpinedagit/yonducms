@@ -29,8 +29,9 @@
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
               <!--Include menu content here-->
-               <li>Account Settings</li>
-               <li>Logout</li>
+               <li> <a>Account Settings</a></li>
+               <li> {!! HTML::link('change_password_user/'.\Auth()->user()->id.'/edit','Change Password') !!}</li>
+               <li> {!! HTML::link('auth/logout','Log-out') !!}</li>
               </ul>
             </div>
         </li>
