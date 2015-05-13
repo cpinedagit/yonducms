@@ -14,6 +14,11 @@ function submenus()
 	return \App\Models\SubMenu::getActiveSubMenus();
 }
 
+function accesses($id)
+{
+	return \App\Models\RoleAccesses::getAccessFor($id);
+}
+
 function after_last($str, $inthat) {
     if (!is_bool(strrevpos($inthat, $str)))
     return substr($inthat, strrevpos($inthat, $str)+strlen($str));
