@@ -30,6 +30,7 @@ trait ResetsPasswords {
 	 *
 	 * @return Response
 	 */
+
 	public function getEmail()
 	{
 		return view('auth.password');

@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/', 'MainController@index');
 
 Route::get('main', 'MainController@index');
@@ -46,49 +47,28 @@ Route::resource('cms/general_settings',
 Route::resource('news_feeds', 
 				'CMS\NewsFeedsController');
 
+
+
+//Start: Middleware Exmaple
+Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);
 Route::get('isNotAllowed', function()
 {
 	return 'Youre not allowed here!';
 });
+//End: Middleware Exmaple
 
+//Start Gian Modules
 //General Setting Controller
 Route::resource('general_settings', 'CMS\GeneralSettingsController');
 //News Feeds Controller
 Route::resource('news_feeds', 'CMS\NewsFeedsController');
 //Captcha Controller
 Route::get('captcha-generator', 'CMS\CaptchaController@index');
-//Change Password Controller
+//Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
-
-Route::any('captcha-test', function()
-    {
-        // $user           = New App\Models\cms\User;
-        // $user->username = 'carlo';
-        // $user->password = Hash::make('carlo');
-        // $user->save();
-
-        if (Request::getMethod() == 'POST')
-        {
-            $rules = ['captcha' => 'required|captcha'];
-            $validator = Validator::make(Input::all(), $rules);
-            if ($validator->fails())
-            {
-                echo '<p style="color: #ff0000;">Incorrect!</p>';
-            }
-            else
-            {
-                echo '<p style="color: #00ff30;">Matched :)</p>';
-            }
-        }
-
-        $form = '<form method="post" action="captcha-test">';
-        $form .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-        $form .= '<p>' . captcha_img('flat') . '</p>';
-        $form .= '<p><input type="text" name="captcha"></p>';
-        $form .= '<p><button type="submit" name="check">Check</button></p>';
-        $form .= '</form>';
-        return $form;
-    });
+//Change Password Controller Back-End
+Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController');
+//End Gian Modules
 
 
 // From Allan

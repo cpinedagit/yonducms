@@ -103,12 +103,25 @@ trait AuthenticatesAndRegistersUsers {
 				//Require the User To Update his temporary Password
 				return $this->redirectToChangePasswordPage($request, "Sorry, kindly update your temporary password!");
 			}
+			elseif($this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<=0)
+			{ 
+				//Redirect if password expired
+				return $this->redirectToChangePasswordPage($request, "Your password has expired and must be changed!");
+			}
 			else
 			{
 				//Log in User
 				//If no problem occur
 				Auth::login(Auth::user());
-				return redirect()->intended($this->redirectPath());
+
+				//Check if password is nearly expiring
+				//Add notification to user
+				if($this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
+					
+					return view('cms.home')->with("message","Your password will expire in less than ".$this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)." day/s. Kindly update your password!");
+				}else{
+					return redirect()->intended($this->redirectPath());
+				}
 			}
 		}
 		else
@@ -121,6 +134,20 @@ trait AuthenticatesAndRegistersUsers {
 			
 	}
 
+
+	//Check if user's password is not yet expired
+	public function checkIfPasswordExpired($reset_password_timestamp)
+	{
+		//Get current TimeStamp
+		$currentTimeStamp = \Carbon\Carbon::now();
+		//Get days before password expiration
+		$dayBeforePasswordNeedChange = env('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE');  
+		//Last Reset Date + Days Before Password Need to be Change
+		$lastPasswordReset = \Carbon\Carbon::parse($reset_password_timestamp)->addDays($dayBeforePasswordNeedChange);
+		
+		//Compute remaining days based on current timestamp
+		return $currentTimeStamp->diffInDays($lastPasswordReset, false);
+	}
 
 	//If user is new or Need to change his temporary Password
 	public function redirectToChangePasswordPage($request, $error_msg)

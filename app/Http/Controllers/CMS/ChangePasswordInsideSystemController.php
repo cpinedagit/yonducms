@@ -12,20 +12,16 @@ use Auth;
 use DB;
 use Mail;
 
-/**
- * Change Password Controller
- * Handle changing of password outside the system
- * Prompt the user to change his Password
- * Cause he is a new user or 
- * Admin has recently reset his password
- */
+class ChangePasswordInsideSystemController extends Controller {
 
-class ChangePasswordController extends Controller {
-
-	
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
 	public function index()
 	{
-		return view('cms.change_password.index');
+		//
 	}
 
 	/**
@@ -67,7 +63,8 @@ class ChangePasswordController extends Controller {
 	 */
 	public function edit($id)
 	{
-			
+		return view('cms.change_password_user.index')
+					->withUsername(\Auth::user()->username);
 	}
 
 	/**
@@ -76,28 +73,32 @@ class ChangePasswordController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-
-	//Update Outside the system
-	//No Captcha Required
 	public function update($id)
 	{
-
 		$v = Validator::make(Input::all(), [
-	        'username' => 'required', 
-			'password' => 'required',
-			'new_password' => 'required|min:6',
+			'username'             => 'required', 
+			'password'             => 'required',
+			'new_password'         => 'required|min:6',
 			'confirm_new_password' => 'required|min:6',
+			'captcha'  			   => 'required|captcha',
 	    ]);
+
+		$error_msg = ""; //Default Error Message
 
 		//Check if user exist in users table
 		$credentials = Input::only('username', 'password');
 
 		//If credentials are okay
 		//Update user credentials
-		if (Auth::once($credentials))
+		//And there is no error in the input
+		if (Auth::once($credentials) && $v->fails()==false)
 		{
 			//Update temporary password
 			User::updateTemporaryPassword(Auth::user()->id, Input::only('new_password'));
+
+			//Log-out the user
+			//After successfully updating his password
+			Auth::logout();
 
 			//Promp the user to Log in 
 			//After successfull change of temporary password
@@ -110,12 +111,16 @@ class ChangePasswordController extends Controller {
 		else
 		{
 			//Redirect to Change Password Page with username
+			//Add warning if no user found
+			if(!Auth::once($credentials))
+				$error_msg = "These credentials do not match our records!";
+
 			return redirect()->back()
 								->withInput(Input::only('username'))
 								->withErrors(
-									$v->errors()->add('error_msg', 'These credentials do not match our records!')
+									$v->errors()->add('error_msg', $error_msg)
 								);
-		}
+		}		
 	}
 
 	/**

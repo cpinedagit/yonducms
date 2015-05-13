@@ -27,8 +27,11 @@
       <section class="main-container__content__breadcrumbs">
           <ol class="breadcrumb">
             <li><a href="#">Home</a></li>           
-          </ol>         
+          </ol> 
       @yield('content')
+      @if(isset($message))
+          <div class="alert alert-danger" role="alert">{{ $message }}</div>
+      @endif
       </section>
   </main>
 </div> 

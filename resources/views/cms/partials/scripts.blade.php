@@ -12,7 +12,7 @@
 {!! HTML::script('public/js/dataTables.js') !!}
 {!! HTML::script('public/js/bootstrap.min.js'); !!}
 
-<!-- Parsley Start: Gian -->
+<!-- Parsley JS Validation Start: Gian -->
 {!! HTML::script('public/js/parsley/parsley.js'); !!}
 {!! HTML::script('public/js/parsley/parsley.remote.js'); !!}
-<!-- Parsley End: Gian -->
+<!-- Parsley JS Validation End: Gian -->

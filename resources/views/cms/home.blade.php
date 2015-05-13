@@ -7,7 +7,6 @@
 	@include('cms.partials.scripts')
 </head>
 <body>
-	
 		@include('cms.partials.header');
 		@include('cms.partials.container');		
 		@include('cms.partials.footer');
