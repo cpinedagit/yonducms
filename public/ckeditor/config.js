@@ -2,13 +2,15 @@
  * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
-
+CKEDITOR.config.protectedSource.push(/<\?[\s\S]*?\?>/g);
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
+	CKEDITOR.config.protectedSource.push(/<\?[\s\S]*?\?>/g);
+	config.protectedSource.push(/<\?[\s\S]*?\?>/g);
 	config.toolbarGroups = [
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
@@ -38,3 +40,4 @@ CKEDITOR.editorConfig = function( config ) {
       
          
 };
+CKEDITOR.config.protectedSource.push(/<\?[\s\S]*?\?>/g);

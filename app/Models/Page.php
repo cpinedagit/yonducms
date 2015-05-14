@@ -19,7 +19,7 @@ class Page extends Model {
     }
 
     public static function updatePage($id) {
-        $content = Input::get('editor1');
+        $content = Input::get('Editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
         $page->url = Input::get('url');
@@ -33,6 +33,10 @@ class Page extends Model {
                         ->leftJoin('images', 'images.id', '=', 'fk_banners.image_id')
                         ->where('banners.id', '=', $bannerId)
                         ->get(array('images.image'));
+    }
+    
+    public static function getAllBanners(){
+        return DB::table('banners')->get(array('banners.id','banners.title'));
     }
 
 }

@@ -19,7 +19,6 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
         $pages = Page::all();
         $arData = array(
             'pages' => $pages
@@ -48,7 +47,7 @@ class PageController extends Controller {
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->url = 'http://localhost/lwebservice_2/public/site/page/'.$incId;
+        $page->url = 'http://localhost/Web/site/page/'.$incId;
         $page->save();
         return redirect('cms/pages');
     }
@@ -74,10 +73,11 @@ class PageController extends Controller {
 //        foreach ($banners as $banner) {
 //            $arrays[] = (array) $banner;
 //        }
-        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
         $pages = Page::edit($id);
+        $banners = Page::getAllBanners();
         $arData = array(
-            'pages' => $pages
+            'pages' => $pages,
+            'banners' => $banners
         );
         return view('cms/Pages/edit', $arData);
     }
@@ -114,7 +114,6 @@ class PageController extends Controller {
     public function addPage() {
         $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
 //        $id = Page::all()->orderBy('id', 'desc')->first();
-
         return view('cms/Pages/add')->with('banners', $banners);
     }
 

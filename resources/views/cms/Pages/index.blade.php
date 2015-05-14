@@ -1,12 +1,6 @@
 @extends('cms.home')
 @section('content')
 <body>
-    <ul class="nav nav-pills nav-tabs">
-        <li role="presentation">{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
-        <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
-        <li role="presentation">{!! HTML::link('cms/banners','Banner Management') !!}</li> 
-        <li role="presentation" class='active'>{!! HTML::link('cms/pages','Page Management') !!}</li> 
-    </ul>
     <div class="border">
         <h2>Pages</h2>           
         <table border='1'>
@@ -29,9 +23,7 @@
         </table>
         <button id ='addPage' type='button' class="btn btn-success">Add Page</button>
     </div>
-    @stop
-    {!! HTML::script('js/jquery.js') !!}
-    {!! HTML::script('js/bootstrap.min.js') !!}
+
     <script>
         function del(id)
         {
@@ -52,5 +44,4 @@
             });
         });
     </script>
-
-
+    @stop
