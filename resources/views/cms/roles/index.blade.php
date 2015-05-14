@@ -25,7 +25,7 @@
 								{!! HTML::linkRoute('cms.role.edit', 'edit', $role->id) !!}
 								</td>
 								<td>
-								{!! HTML::linkRoute('cms.roleaccess.edit', 'access rights', $role->id) !!}
+								{!! HTML::linkRoute('cms.access.edit', 'access rights', $role->id) !!}
 								</td>
 								<td>
 								

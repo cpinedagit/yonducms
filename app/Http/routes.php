@@ -40,6 +40,11 @@ Route::resource('module',
 
 Route::post('cms/roleaccess/modify', array('as' => 'cms.roleaccess.modifyAccess', 'uses' => 'CMS\RoleAccessesController@modifyAccess'));
 
+Route::post('cms/access/modify', array('as' => 'cms.access.modifyAccess', 'uses' => 'CMS\AccessController@modifyAccess'));
+
+Route::resource('cms/access',
+                'CMS\AccessController');
+
 Route::resource('cms/roleaccess',
 				'CMS\RoleAccessesController',
 				['except' => ['show']]);
@@ -49,7 +54,6 @@ Route::resource('cms/general_settings',
 
 Route::resource('news_feeds', 
 				'CMS\NewsFeedsController');
-
 
 
 //Start: Middleware Exmaple
