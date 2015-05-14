@@ -15,65 +15,55 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use Input;
 use DB;
+use Illuminate\Database\Query\Builder;
 
 class CmsMenuController extends Controller {
 
     //
     public $html = '';
     public $countLoop = 0;
+    public $arrData = [];
 
     function index() {
-
-        $objMenu = DB::table('content_json')->get();
-
-        foreach ($objMenu as $obj) {
-            $objMenuserialize = json_decode($obj->page_content, true);
-        }
-        $innerHtml = $this->decodeRecurse($objMenuserialize);
-        return view('cms.menu.index')->with('innerHtml', $innerHtml);
+        $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
+//        return view('cms.menu.index', compact('objMenu'));
+        return view('cms.menu.app', compact('objMenu'));
     }
 
-    // testing
-    function throwJson() {
+    function updateTitleMenu() {
+        $id = Input::get('menu_id');
+        $label = Input::get('label');
+
+        $menusave = Menu::find($id);
+        $menusave->label = $label;
+        $menusave->save();
+    }
+
+    // stores structure
+    function store() {
+
         $arrJson = Input::get('serialize_menu');
-
-        DB::table('content_json')
-                ->where('page_id', 1)
-                ->update(['page_content' => $arrJson]);
-        return redirect('admin/menu');
-    }
-
-    function decodeRecurse($jsonMenu) {
-//        $this->countLoop++;
-        foreach ($jsonMenu as $key => $value) {
-            if (is_array($value)) {
-//                echo $this->countLoop;
-//                if ($this->countLoop == 1) {
-//                    $this->html .= "<ol class='dd-list' id='list-cont'>";
-//                } else {
-//                }
-//                $this->decodeRecurse($value);
-                if ($key === 'children') {
-
-                    $this->html .= "<ol class='dd-list'>";
+        $arrData = json_decode($arrJson, TRUE);
+        foreach ($arrData as $key => $value) {
+            foreach ($value as $key1 => $value1) {
+                if (($key1 == 1)) {
+                    if ($value[1] === null) {
+                        $parent_id = 0;
+                    } else {
+                        $parent_id = $value[1];
+                    }
+                    $menusave = Menu::find($value[0]);
+                    $menusave->parent_id = $parent_id;
+                    $menusave->save();
                 }
-
-                $this->decodeRecurse($value);
-
-                if ($key === 'children') {
-
-                    $this->html .= "</ol>";
-                }
-            } else {
-
-                if ($jsonMenu['id'] === $value) {
-
-                    $this->html .= "<li class='dd-item' data-id=" . $jsonMenu['id'] . " data-menu=" . $jsonMenu['menu'] . " data-url=" . $jsonMenu['url'] . "><div class='dd-handle'>" . $jsonMenu['menu'] . "</div><div class='dd-remove dd3-remove'></div>";
+                if (($key1 == 2)) {
+                    $menusave = Menu::find($value[0]);
+                    $menusave->order_id = $value[2];
+                    $menusave->save();
                 }
             }
         }
-        $this->html .= "</li>";
-        return $this->html;
+        return $this->index();
     }
 
 }

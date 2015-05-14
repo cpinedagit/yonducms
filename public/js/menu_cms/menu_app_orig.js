@@ -8,56 +8,19 @@
 $(document).ready(function ()
 {
 
-    // changes name and url textboxes if clicked
-    $('.nestable-lists .dd-item').each(function () {
-        $(this).mousedown(function (e) {
-            var mousetarget = e.target;
-                $('#menu-id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
-                $('#menu-title').val(mousetarget.closest('.dd-handle').innerHTML);
-//                $('#menu-link').val($(mousetarget).closest('.dd-item').attr('data-url'));
-        });
-
-    });
-
     // activate Nestable for list
     $('#nestable').nestable()
 
-//
-//    var updateOutput = function (e)
-//    {
-//        var list = e.length ? e : $(e.target),
-//                output = list.data('output');
-//        if (window.JSON) {
-//            output.val(window.JSON.stringify(list.nestable('serialize')));
-//        } else {
-//            output.val('JSON browser support required for this demo.');
-//        }
-//    };
 
-
-    var updateOutput = function ()
+    var updateOutput = function (e)
     {
-        getval = new Array();
-        countr = 0;
-        $('#nestable').find('li').each(function () {
-            getval[countr] = Array(
-                    $(this).attr('data-menu_id'), //0 page id
-                    $(this).parent().parent().attr('data-menu_id'), //2 parent id
-                    $(this).index() + 1, //1 page order
-                    $(this).attr('data-page_id'),
-                    $(this).attr('data-label')
-                    );
-            countr++;
-        });
-        $('#nestable-output').val(JSON.stringify(getval));
-        //
-//        var list = e.length ? e : $(e.target),
-//                output = list.data('output');
-//        if (window.JSON) {
-//            output.val(window.JSON.stringify(list.nestable('serialize')));
-//        } else {
-//            output.val('JSON browser support required for this demo.');
-//        }
+        var list = e.length ? e : $(e.target),
+                output = list.data('output');
+        if (window.JSON) {
+            output.val(window.JSON.stringify(list.nestable('serialize')));
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
     };
 
     // activate Nestable for list
@@ -161,9 +124,4 @@ $(document).ready(function ()
     $("#create-menu").button().on("click", function () {
         dialog.dialog("open");
     });
-
-
-
-
-
 });
