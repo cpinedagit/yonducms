@@ -102,12 +102,10 @@ class MediaController extends Controller {
 
  public function gallery()
     {
-        if(Request::ajax()) {
         $array = Request::get('selected');
         $results = DB::table('content_media')
                     ->whereIn('media_id', $array)->get();
         return Response::json(array($results));
-    }
     } 
 
   public function getAll()

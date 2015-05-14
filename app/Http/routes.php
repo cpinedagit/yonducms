@@ -90,7 +90,7 @@ Route::controllers([
 ]);
 
 
-Route::post('cms/media/get',['as'=>'cms.media.get','uses'=>'CMS\MediaController@gallery']);
+Route::post('cms/media/gallery',['as'=>'cms.media.gallery','uses'=>'CMS\MediaController@gallery']);
 Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
 Route::resource('cms/media','CMS\MediaController');
 
