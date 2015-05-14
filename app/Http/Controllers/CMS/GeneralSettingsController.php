@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Storage;
 use Session;
 use Input;
-use View;
 use DateTimeZone;
 
 class GeneralSettingsController extends Controller {
@@ -17,17 +16,6 @@ class GeneralSettingsController extends Controller {
 	 *
 	 * @return Response
 	 */
-
-	public function __construct()
-	{
-		//Read the settings .env set app title and tag line
-		View::share('APP_TITLE', env('APP_TITLE'));
-		View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
-
-		//$this->middleware('guest'); 	 //Doesn't require active user
-		$this->middleware('is.allowed'); //Require require active user
-	}
-
 	public function index()
 	{	
 		$this->regenerateMenuSession('cms.general_settings.index', 'cms.general_settings.index');
