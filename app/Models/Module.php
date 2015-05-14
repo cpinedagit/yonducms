@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Module extends Model {
 
@@ -10,7 +11,8 @@ class Module extends Model {
 
 	public static function getActiveModules()
 	{
-		$modules = Module::where('enabled', '=', '1')
+		$modules = DB::table('modules')
+					->where('enabled', '=', '1')
 					->get([
 						'id', 'module_name', 'module_path',
 						'module_icon', 'is_selected']);

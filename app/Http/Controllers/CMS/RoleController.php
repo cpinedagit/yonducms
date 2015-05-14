@@ -5,15 +5,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CMS\RoleRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Input;
 
 class RoleController extends Controller {
 	
 	protected $role;
-
-	public function __construct(Role $role)
-	{
-		$this->role = $role;
-	}
 
 	public function index()
 	{
@@ -28,10 +24,14 @@ class RoleController extends Controller {
 		return view('cms.roles.create');
 	}
 
-	public function store(RoleRequest $request)
+	public function store()
 	{	
 		$this->regenerateMenuSession('cms.user.index', 'cms.role.index');
-		Role::create($request->all());
+		$role = new Role;
+		$role->role_name = Input::get('role_name');
+		$role->role_description = Input::get('role_description');
+		$role->role_active = Input::get('role_active');
+		$role->save();
 		return $this->index();
 	}
 
@@ -47,12 +47,12 @@ class RoleController extends Controller {
 		return view('cms.roles.edit', compact('role'));
 	}
 
-	public function update(RoleRequest $request, $id)
+	public function update($id)
 	{
 		$role = Role::find($id);
-		$role->role_name = $request->input('role_name');
-		$role->role_description = $request->input('role_description');
-		$role->role_active = $request->input('role_active');
+		$role->role_name = Input::get('role_name');
+		$role->role_description = Input::get('role_description');
+		$role->role_active = Input::get('role_active');
 		$role->save();
 		return $this->index();	
 	}

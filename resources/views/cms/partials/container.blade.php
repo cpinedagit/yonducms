@@ -5,12 +5,12 @@
        </div>
        <div class="main-container__navigation-container__welcome">
            <div class="circle main-container__navigation-container__welcome__icon">
-              <!-- Put image here
-              <img src="img/sample.jpeg" alt="">-->
+              <!--  Put image here -->
+              {!! HTML::image('public/images/profile/' . \Auth()->user()->profile_pic, \Auth()->user()->username) !!}
            </div>
            <div class='main-container__navigation-container__welcome__name'>
                <h4>Welcome</h4>
-               <span>John Smith</span>
+               <span>{{ \Auth()->user()->username }}!</span>
                <div class="main-container__navigation-container__welcome__name__status">
                    <small>Status</small>
                    <i class="fa fa-circle-o"></i>
@@ -27,8 +27,13 @@
       <section class="main-container__content__breadcrumbs">
           <ol class="breadcrumb">
             <li><a href="#">Home</a></li>           
-          </ol>         
+          </ol> 
       @yield('content')
       </section>
+      <!-- Flash Update Your Password Message -->
+      @if(isset($message))
+          <div class="alert alert-danger" role="alert">{{ $message }}</div>
+      @endif
+      <!-- Flash Update Your Password Message -->
   </main>
 </div> 

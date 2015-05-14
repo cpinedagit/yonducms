@@ -14,6 +14,21 @@ function submenus()
 	return \App\Models\SubMenu::getActiveSubMenus();
 }
 
+function accesses($id)
+{
+	return \App\Models\Access::getAccessFor($id);
+}
+
+function subaccesses($id)
+{
+	return \App\Models\SubAccess::getSubAccessFor($id);
+}
+
+function roles()
+{
+	return \App\Models\Role::getActiveRoles();
+}
+
 function after_last($str, $inthat) {
     if (!is_bool(strrevpos($inthat, $str)))
     return substr($inthat, strrevpos($inthat, $str)+strlen($str));
@@ -27,6 +42,10 @@ function strrevpos($instr, $needle) {
     $rev_pos = strpos (strrev($instr), strrev($needle));
     if ($rev_pos===false) return false;
     else return strlen($instr) - $rev_pos - strlen($needle);
+}
+
+function featured_news() {
+	return \App\Models\News::featured();
 }
 
 ?>

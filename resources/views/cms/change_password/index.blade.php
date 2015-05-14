@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Change Password</div>
+				<div class="panel-heading">Change Password Page</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-success">
@@ -26,7 +26,7 @@
 					 		</div>
 						</div>
 						<div class="form-group">	
-					 		{!! Form::label('password', 'Old Password:', ['class' =>'col-md-4 control-label']) !!}
+					 		{!! Form::label('password', 'Password:', ['class' =>'col-md-4 control-label']) !!}
 					 		<div class="col-md-6">
 					 			{!! Form::password('password', ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
 					 		</div>
@@ -45,7 +45,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								{!! Form::button('Change Password', ['id'=>'ChangePasswordFormBtn' ,'class'=>'btn btn-primary']) !!}
+								{!! Form::button('Submit', ['id'=>'ChangePasswordFormBtn' ,'class'=>'btn btn-primary']) !!}
 							</div>
 						</div>
 					{!! Form::close() !!}

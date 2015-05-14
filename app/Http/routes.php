@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/', 'MainController@index');
 
 Route::get('main', 'MainController@index');
@@ -22,18 +23,29 @@ Route::resource('cms',
 				'CMS\CMSController',
 				['only' => ['index']]);
 
+Route::get('cms/user/profile',
+            array('as' => 'cms.user.profile', 
+                  'uses' => 'CMS\UserController@profile'));
+
 Route::resource('cms/user', 
-				'CMS\UserController', 
-				['except' => ['show']]);
+				'CMS\UserController');
 
 Route::resource('cms/role',
 				'CMS\RoleController',
 				['except' => ['show']]);
+
 Route::resource('module',
 				'CMS\ModuleController',
 				['except' => ['show']]);
 
-Route::resource('roleaccess',
+Route::post('cms/roleaccess/modify', array('as' => 'cms.roleaccess.modifyAccess', 'uses' => 'CMS\RoleAccessesController@modifyAccess'));
+
+Route::post('cms/access/modify', array('as' => 'cms.access.modifyAccess', 'uses' => 'CMS\AccessController@modifyAccess'));
+
+Route::resource('cms/access',
+                'CMS\AccessController');
+
+Route::resource('cms/roleaccess',
 				'CMS\RoleAccessesController',
 				['except' => ['show']]);
 
@@ -43,51 +55,27 @@ Route::resource('cms/general_settings',
 Route::resource('news_feeds', 
 				'CMS\NewsFeedsController');
 
+
+//Start: Middleware Exmaple
+Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);
 Route::get('isNotAllowed', function()
 {
 	return 'Youre not allowed here!';
 });
+//End: Middleware Exmaple
 
-Route::resource('cms/editor', 'EditorController');
-
+//Start Gian Modules
 //General Setting Controller
 Route::resource('general_settings', 'CMS\GeneralSettingsController');
 //News Feeds Controller
 Route::resource('news_feeds', 'CMS\NewsFeedsController');
 //Captcha Controller
 Route::get('captcha-generator', 'CMS\CaptchaController@index');
-//Change Password Controller
+//Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
-
-Route::any('captcha-test', function()
-    {
-        // $user           = New App\Models\cms\User;
-        // $user->username = 'carlo';
-        // $user->password = Hash::make('carlo');
-        // $user->save();
-
-        if (Request::getMethod() == 'POST')
-        {
-            $rules = ['captcha' => 'required|captcha'];
-            $validator = Validator::make(Input::all(), $rules);
-            if ($validator->fails())
-            {
-                echo '<p style="color: #ff0000;">Incorrect!</p>';
-            }
-            else
-            {
-                echo '<p style="color: #00ff30;">Matched :)</p>';
-            }
-        }
-
-        $form = '<form method="post" action="captcha-test">';
-        $form .= '<input type="hidden" name="_token" value="' . csrf_token() . '">';
-        $form .= '<p>' . captcha_img('flat') . '</p>';
-        $form .= '<p><input type="text" name="captcha"></p>';
-        $form .= '<p><button type="submit" name="check">Check</button></p>';
-        $form .= '</form>';
-        return $form;
-    });
+//Change Password Controller Back-End
+Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController');
+//End Gian Modules
 
 
 // From Allan
@@ -102,9 +90,33 @@ Route::controllers([
 ]);
 
 
-Route::post('media/get',['as'=>'gallery','uses'=>'CMS\MediaController@gallery']);
-Route::post('media/getAll',['as'=>'getAll','uses'=>'CMS\MediaController@getAll']);
-Route::resource('media','CMS\MediaController');
+Route::post('cms/media/get',['as'=>'cms.media.get','uses'=>'CMS\MediaController@gallery']);
+Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
+Route::resource('cms/media','CMS\MediaController');
+
+Route::resource('cms/news','CMS\NewsController');
+Route::resource('site/news','Site\NewsController');
+
+//this routes is for Code Editor Management
+Route::post('Editor/Showw/{filename}', 'EditorController@Showw');
+Route::post('Editor/updateFile', 'EditorController@updateFile');
+Route::post('Editor/addFile', 'EditorController@addFile');
+
+Route::resource('Editor', 'EditorController');
+
+//this routes is for Image Management
+Route::get('addImage','ImageController@addImage');
+Route::get('frontEnd','ImageController@frontEnd');
+Route::resource('Image', 'ImageController');
+
+//this route is for Banner Management
+Route::get('addBanner','BannerController@addBanner');
+Route::resource('Banners','BannerController');
+
+//this routes is for Page Management
+Route::get('addPage','PageController@addPage');
+Route::get('page/{id}/{bannerid}','PageController@preview');
+Route::resource('Pages','PageController');
 
 
 //this routes is for Code Editor Management

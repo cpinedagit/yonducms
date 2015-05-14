@@ -39,7 +39,7 @@ return [
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => env('APP_TIME_ZONE'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -140,7 +140,7 @@ return [
 		'Barryvdh\Debugbar\ServiceProvider',
 
 		//News Feeds https://github.com/willvincent/feeds
-		//'willvincent\Feeds\FeedsServiceProvider',
+		'willvincent\Feeds\FeedsServiceProvider',
 		//Captcha Provider
 		 'Mews\Captcha\CaptchaServiceProvider',
 

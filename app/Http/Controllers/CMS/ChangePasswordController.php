@@ -12,13 +12,17 @@ use Auth;
 use DB;
 use Mail;
 
+/**
+ * Change Password Controller
+ * Handle changing of password outside the system
+ * Prompt the user to change his Password
+ * Cause he is a new user or 
+ * Admin has recently reset his password
+ */
+
 class ChangePasswordController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function index()
 	{
 		return view('cms.change_password.index');
@@ -63,7 +67,7 @@ class ChangePasswordController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+			
 	}
 
 	/**
@@ -72,6 +76,9 @@ class ChangePasswordController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
+	//Update Outside the system
+	//No Captcha Required
 	public function update($id)
 	{
 

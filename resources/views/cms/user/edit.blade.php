@@ -14,12 +14,12 @@
 
   		<p>
 			{!! Form::label('firstname', 'Firstname') !!}
-			{!! Form::text('firstname', null) !!}
+			{!! Form::text('first_name', null) !!}
 		</p>
 
 		<p>
 			{!! Form::label('lastname', 'Lastname') !!}
-			{!! Form::text('lastname', null) !!}
+			{!! Form::text('last_name', null) !!}
 		</p>
 
 		<p>

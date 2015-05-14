@@ -1,20 +1,11 @@
-@extends('main')
+@extends('cms.home')
 
 @section('content')
 
-	<h5>Create New Role Access</h5>
+	<h5>Create Role Access for {!! $data->role[0]->role_name !!}</h5>
 
-	{!! Form::open(array('route' => array('roleaccess.store'), 'method' => 'post')) !!}
-
-		<p>
-			{!! Form::label('role_name', 'Role') !!}
-			<select name='role'>
-				@foreach($data->roles as $role)
-					<option value={!! $role->id !!}> {!! $role->role_name !!} </option>
-				@endforeach
-			</select>
-		</p>
-
+	{!! Form::open(array('route' => array('cms.roleaccess.store'), 'method' => 'post')) !!}
+		{!! Form::hidden('role', $data->role[0]->id) !!}
 		<p>
 			<table class="table">
 				<thead>

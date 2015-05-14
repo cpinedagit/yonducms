@@ -1,4 +1,4 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
 <table class="superTable">
 	<thead>
@@ -11,11 +11,17 @@
 	<tbody>
 	@foreach ($files as $file)
 	<tr>
-		<td><img src="{{ $file->image_path  }}" style="height:100px;width:100px"/></td>
-		<td>{{ $file->image_path }}</td>
-		<td>{{ File::size($file->image_path) }} bytes </td>
-		<td>{{ date('F d, Y', (File::lastModified($file->image_path))) }} </td>
-		<td>{!! HTML::linkRoute('media.show', 'Edit',$file->image_id) !!}</td>
+		<td>
+			@if ($file->media_type == 1) 
+			{!! HTML::image($file->media_path,'alt',array('height'=>100,'width'=>100)) !!}
+			@else
+			{!! HTML::image("css/video_icon.jpg",'alt',array('height'=>100,'width'=>100)) !!}
+			@endif
+		</td>
+		<td>{{ after_last('/',$file->media_path) }}</td>
+		<td>{{ File::size($file->media_path) }} bytes </td>
+		<td>{{ date('F d, Y', (File::lastModified($file->media_path))) }} </td>
+		<td>{!! HTML::linkRoute('cms.media.show', 'Edit',$file->media_id) !!}</td>
 	</tr>
 	@endforeach
 	</tbody>

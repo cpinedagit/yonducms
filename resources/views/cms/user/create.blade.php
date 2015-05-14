@@ -5,7 +5,7 @@
 	<h5>Create New User</h5>
 
 		{!! Form::open(array('route' => array('cms.user.store'),
-   'method' => 'post')) !!}
+   'method' => 'post', 'enctype' => 'multipart/form-data')) !!}
 
 		<p>
 			{!! Form::label('username', 'Username') !!}
@@ -14,12 +14,12 @@
 
 		<p>
 			{!! Form::label('firstname', 'Firstname') !!}
-			{!! Form::text('firstname', null) !!}
+			{!! Form::text('first_name', null) !!}
 		</p>
 
 		<p>
 			{!! Form::label('lastname', 'Lastname') !!}
-			{!! Form::text('lastname', null) !!}
+			{!! Form::text('last_name', null) !!}
 		</p>
 
 		<p>
@@ -39,7 +39,7 @@
 
 		<p>
 			{!! Form::label('uploadpic', 'Profile Picture') !!}
-			{!! Form::file('uploadpic') !!}
+			{!! Form::file('profile_pic') !!}
 		</p>
 
 		<p>
