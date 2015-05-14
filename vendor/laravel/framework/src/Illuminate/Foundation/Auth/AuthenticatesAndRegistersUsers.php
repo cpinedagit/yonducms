@@ -103,7 +103,7 @@ trait AuthenticatesAndRegistersUsers {
 				//Require the User To Update his temporary Password
 				return $this->redirectToChangePasswordPage($request, "Sorry, kindly update your temporary password!");
 			}
-			elseif($this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<=0)
+			elseif($this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<=0 AND Auth::user()->user_type=='user')
 			{ 
 				//Redirect if password expired
 				return $this->redirectToChangePasswordPage($request, "Your password has expired and must be changed!");
@@ -115,8 +115,9 @@ trait AuthenticatesAndRegistersUsers {
 				Auth::login(Auth::user());
 
 				//Check if password is nearly expiring
+				//Exception if Admin
 				//Add notification to user
-				if($this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
+				if(Auth::user()->user_type=='user' AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
 					
 					return view('cms.home')->with("message","Your password will expire in less than ".$this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)." day/s. Kindly update your password!");
 				}else{

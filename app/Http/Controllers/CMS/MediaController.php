@@ -112,4 +112,10 @@ class MediaController extends Controller {
     $files = Media::All();
      return Response::json(array($files));
   }
+
+  public function getAllimage()
+  {
+    $files = DB::table('content_media')->where('media_type','=', '1' )->get();
+    return Response::json(array($files));
+  }
 }

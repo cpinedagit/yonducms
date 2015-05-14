@@ -91,6 +91,7 @@ Route::controllers([
 
 Route::post('cms/media/gallery',['as'=>'cms.media.gallery','uses'=>'CMS\MediaController@gallery']);
 Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
+Route::post('/cms/media/getAllimage',['as'=>'cms.media.getAllimage','uses'=>'CMS\MediaController@getAllimage']);
 Route::resource('cms/media','CMS\MediaController');
 
 Route::resource('cms/news','CMS\NewsController');
