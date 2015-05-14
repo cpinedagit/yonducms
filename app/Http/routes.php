@@ -77,8 +77,11 @@ Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemControlle
 
 
 // From Allan
+Route::resource('admin/menu', 'CMS\CmsMenuController');
+
 Route::get('admin/menu', 'CMS\CmsMenuController@index');
-Route::post('admin/menu/decode',['as' => 'decode', 'uses' => 'CMS\CmsMenuController@throwJson'] );
+
+Route::post('admin/menu/updatetitle', ['as' => 'updatetitle', 'uses' => 'CMS\CmsMenuController@updateTitleMenu']);
 // end  
 
 //Authentication and Forgot Password Module: Start
