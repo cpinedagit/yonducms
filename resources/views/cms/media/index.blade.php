@@ -1,4 +1,4 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
 <table class="superTable">
 	<thead>
@@ -18,10 +18,10 @@
 			{!! HTML::image("css/video_icon.jpg",'alt',array('height'=>100,'width'=>100)) !!}
 			@endif
 		</td>
-		<td>{{ $file->media_path }}</td>
+		<td>{{ after_last('/',$file->media_path) }}</td>
 		<td>{{ File::size($file->media_path) }} bytes </td>
 		<td>{{ date('F d, Y', (File::lastModified($file->media_path))) }} </td>
-		<td>{!! HTML::linkRoute('media.show', 'Edit',$file->media_id) !!}</td>
+		<td>{!! HTML::linkRoute('cms.media.show', 'Edit',$file->media_id) !!}</td>
 	</tr>
 	@endforeach
 	</tbody>

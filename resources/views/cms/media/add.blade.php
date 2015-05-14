@@ -1,8 +1,8 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
 
   <div class="secure">Upload form</div>
- 	{!! Form::open(array('route'=>'media.store','method'=>'POST','id'=>'upload', 'files'=>true)) !!}
+ 	{!! Form::open(array('route'=>'cms.media.store','method'=>'POST','id'=>'upload', 'files'=>true)) !!}
 
     <div class="control-group">
       <div class="controls">
@@ -17,6 +17,6 @@
 </div>
 
 
-{!! HTML::script('js/upload.js') !!}
+{!! HTML::script('public/js/upload.js') !!}
 
 @stop

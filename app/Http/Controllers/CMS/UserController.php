@@ -9,6 +9,7 @@ use Hash;
 use Input;
 use File;
 use View;
+use Mail;
 
 class UserController extends Controller {
 
@@ -33,18 +34,50 @@ class UserController extends Controller {
 		$path = 'public/images/profile';		
 		$file = Input::file('profile_pic');
 
-		$user->username = Input::get('username');
-		$user->slug = Input::get('username');
-		$user->email = Input::get('email');
-		$user->first_name = Input::get('first_name');
-		$user->last_name = Input::get('last_name');
-		$user->password = Hash::make(Input::get('password'));
-		$user->profile_pic = $file->getClientOriginalName();
+		$user->username                 = Input::get('username');
+		$user->slug                     = Input::get('username');
+		$user->email                    = Input::get('email');
+		$user->first_name               = Input::get('first_name');
+		$user->last_name                = Input::get('last_name');
+		$user->password                 = Hash::make(Input::get('password'));
+		//Require to update your temporary password
+		$user->reset_password           = 1; 
+		//Set to timestamp
+		$user->reset_password_timestamp = \Carbon\Carbon::now(); 
+		$user->profile_pic              = $file->getClientOriginalName();
 		$user->save();
 
 		$file->move($path, $file->getClientOriginalName());
+
+		//Send Email notification to user
+		$this->sendEmailNotificationToUser($user->id, Input::get('password'), "cms.emails.new_user_notification", "Yondu Webservices Alert: New account notification.");
+
 		return $this->index();
 	}
+
+	//Send Email notification to user
+	public function sendEmailNotificationToUser($user_id, $temporary_password, $template, $add_message)
+	{
+		//Set all necessary fields
+		$user = User::find($user_id);
+		$data = array(
+			'user_id'            => $user->id,
+			'username'           => $user->username,
+			'first_name'         => $user->first_name,
+			'last_name'          => $user->last_name,
+			'to'                 => $user->email,
+			'temporary_password' => $temporary_password,
+			'add_message'        => $add_message
+		);
+
+		Mail::later(5, $template, compact('data'), function($message) use ($data)
+		{
+		    $message->from('yondu.cms@example.com', $data['add_message']);
+
+		    $message->to($data['to'])->subject('Yondu CMS System Notification');
+		});
+	}
+
 
 	public function show($id)
 	{
@@ -60,13 +93,27 @@ class UserController extends Controller {
 
 	public function update($id)
 	{
-		$user = User::find($id);
-		$user->username = Input::get('username'); 
+		$user             = User::find($id);
+		$user->username   = Input::get('username'); 
 		$user->first_name = Input::get('first_name');
-		$user->last_name = Input::get('last_name');
-		$user->slug = Input::get('username');
-		$user->email = Input::get('email');
-		$user->password = Hash::make(Input::get('password'));
+		$user->last_name  = Input::get('last_name');
+		$user->slug       = Input::get('username');
+		$user->email      = Input::get('email');
+
+		//Update password only when password field in not empty
+		if(Input::get('password')!=''){
+			//Send email notification to user
+			$this->sendEmailNotificationToUser($user->id, Input::get('password'), "cms.emails.user_password_reset_notification", "Yondu Webservices Alert: User password change notification.");
+			//Require to update your temporary password
+			$user->reset_password           = 1; 
+			//Set to timestamp
+			$user->reset_password_timestamp = \Carbon\Carbon::now(); 
+			//Set new password
+			$user->password   = Hash::make(Input::get('password'));
+		}else{
+			$user->password   = Hash::make(Input::get('password'));	
+		}
+		
 		$user->save();
 		return $this->index();
 	}

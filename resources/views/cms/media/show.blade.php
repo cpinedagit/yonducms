@@ -1,10 +1,10 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
 
 <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 <div class = "col-md-12">
 <div class = "col-md-6">
-    {!! Form::open(array('route'=>array('media.update', $file->media_id),'method'=>'PUT','id'=>'upload', 'files'=>true)) !!}
+    {!! Form::open(array('route'=>array('cms.media.update', $file->media_id),'method'=>'PUT','id'=>'upload', 'files'=>true)) !!}
         <div class="form-group">
              <label for="image_file_name">File name</label>
             {!! Form::text('image_file_name',$filename, array('class'=>'form-control')) !!}
@@ -61,7 +61,7 @@
      {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
      {!! Form::close() !!}
 
-    {!! Form::open(array('route'=>array('media.destroy', $file->media_id),'method'=>'DELETE')) !!}
+    {!! Form::open(array('route'=>array('cms.media.destroy', $file->media_id),'method'=>'DELETE')) !!}
         {!! Form::submit('Delete Permanently', array('class' => 'btn btn-warning')) !!}
     {!! Form::close() !!}
 </div>

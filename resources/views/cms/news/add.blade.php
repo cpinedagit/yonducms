@@ -1,9 +1,7 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
-<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-<script>tinymce.init({selector:'textarea'});</script>
 
-    {!! Form::open(array('route'=>'news.store','method'=>'POST','id'=>'news')) !!}
+    {!! Form::open(array('route'=>'cms.news.store','method'=>'POST','id'=>'news')) !!}
 
         <div class="form-group">
             <label for="news_title">Title</label>
@@ -21,11 +19,11 @@
         </div>
         <div class="form-group">
             <label for="news_content">Description</label>
-            {!! Form::textarea('description','',array('class' =>'form-control')) !!} 
+            {!! Form::textarea('description','',array('class' =>'form-control ckeditor')) !!} 
         </div> 
         <div class="form-group">
             <label for="news_content">Content</label>
-            {!! Form::textarea('news_content','',array('class' =>'form-control')) !!} 
+            {!! Form::textarea('news_content','',array('class' =>'form-control ckeditor')) !!} 
         </div>   
         <div class="form-group">
             <label for="published">Published</label>
@@ -51,8 +49,8 @@ $(document).ready(function(){
 
  $.ajax({
         type: 'POST',
-        url: '{!! URL::route("gallery") !!}',
-        data: {'selected':selected},
+        url: '{!! URL::route("cms.media.get") !!}',
+        data: {'selected':selected, '_token': $("[name=_token").val()},
         dataType:'json',
         success: (function(data){
             media_path=data[0][0]['media_path'];
@@ -62,6 +60,7 @@ $(document).ready(function(){
         })
 
     })
+
     });
 });
 </script>

@@ -1,9 +1,7 @@
-@extends('main')
+@extends('cms.home')
 @section('content')
-<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-<script>tinymce.init({selector:'textarea'});</script>
 @foreach($result as $result)
-    {!! Form::open(array('route'=>array('news.update', $result->news_id),'method'=>'PUT','id'=>'news')) !!}
+    {!! Form::open(array('route'=>array('cms.news.update', $result->news_id),'method'=>'PUT','id'=>'news')) !!}
 
         <div class="form-group">
             <label for="news_title">Title</label>
@@ -23,11 +21,11 @@
         </div>
         <div class="form-group">
             <label for="news_content">Description</label>
-            {!! Form::textarea('description',$result->description,array('class' =>'form-control')) !!} 
+            {!! Form::textarea('description',$result->description,array('class' =>'ckeditor form-control')) !!} 
         </div> 
         <div class="form-group">
             <label for="news_content">Content</label>
-    		{!! Form::textarea('news_content',$result->news_content,array('class' =>'form-control')) !!} 
+    		{!! Form::textarea('news_content',$result->news_content,array('class' =>'ckeditor form-control')) !!} 
     	</div>   
         <div class="form-group">
             <label for="published">Published</label>
@@ -50,7 +48,7 @@
      {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
      {!! Form::close() !!}
 
-    {!! Form::open(array('route'=>array('news.destroy', $result->news_id),'method'=>'DELETE')) !!}
+    {!! Form::open(array('route'=>array('cms.news.destroy', $result->news_id),'method'=>'DELETE')) !!}
         {!! Form::submit('Delete Permanently', array('class' => 'btn btn-warning')) !!}
     {!! Form::close() !!}
 
@@ -76,8 +74,8 @@ $(document).ready(function(){
 
  $.ajax({
         type: 'POST',
-        url: '{!! URL::route("gallery") !!}',
-        data: {'selected':selected},
+        url: '{!! URL::route("cms.media.get") !!}',
+        data: {'selected':selected, '_token': $("[name=_token").val()},
         dataType:'json',
         success: (function(data){
             media_path=data[0][0]['media_path'];
