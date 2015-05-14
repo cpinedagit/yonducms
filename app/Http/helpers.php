@@ -58,7 +58,7 @@ function getSubMenu($arrVal, $htmlmenu = '') {
             $htmlmenu .= '<ol class = "dd-list">';
             foreach ($menuArrObj as $objChildMenu) {
 
-                $htmlmenu .= '<li class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"><div class = "dd-handle">' . $objChildMenu->label . '</div><button class="circle btn--remove-menu"></button>';
+                $htmlmenu .= '<li class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"><div class = "dd-handle" >' . $objChildMenu->label . '</div><button class="circle btn--remove-menu"></button>';
                 $htmlmenu .= getSubMenu($objChildMenu->menu_id);
                 $htmlmenu .= '</li>';
             }
