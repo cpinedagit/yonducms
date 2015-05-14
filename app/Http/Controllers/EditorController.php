@@ -20,6 +20,7 @@ class EditorController extends Controller {
 //        $clickFile = \DB::table('click_files')
 //                    ->orderBy('clickFile', 'asc')
 //                    ->pluck('clickFile');
+        $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
         $jsPath = 'js';
         $cssPath = 'css';
         $otherPath = 'otherfiles';
@@ -54,6 +55,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function Showw($id) {
+        $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
         $jsPath = 'js';
         $cssPath = 'css';
         $jsFiles = File::files($jsPath);

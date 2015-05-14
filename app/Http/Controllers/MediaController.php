@@ -19,6 +19,7 @@ class MediaController extends Controller {
 
   
   public function index() {
+    $this->regenerateMenuSession('cms.media.index', 'cms.media.index');
     $files = Media::All();
     return View::make('cms.media.index')->with(array('files'=>$files));
   }

@@ -19,6 +19,7 @@ class NewsController extends Controller {
 
   
   public function index() {
+    $this->regenerateMenuSession('cms.news.index', 'cms.news.index');
     $results = News::All();
     return View::make('cms.news.index')->with(array('results'=>$results));
   }

@@ -19,6 +19,7 @@ class BannerController extends Controller {
      * @return Response
      */
     public function index() {
+        $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::all();
 
         $arData = array(
@@ -66,6 +67,7 @@ class BannerController extends Controller {
      * @return Response
      */
     public function edit($id) {
+        $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::edit($id);
         $images = DB::table('images')->get(array('images.image', 'images.id'));
         $currentImages = Banner::getImages($id);
