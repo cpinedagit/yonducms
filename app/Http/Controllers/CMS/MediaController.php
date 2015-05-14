@@ -87,16 +87,13 @@ class MediaController extends Controller {
   //    $media->description= Input::get('description');
       $media->alternative_text= Input::get('alternative_text');
       $media->save();
-      Session::flash('message', 'Successfully updated user!');
-      return Redirect::to('cms/media');
+      return Redirect::to('media');
   }
 
   public function destroy($id) {
         $media = Media::find($id);
         $media->delete();
-
-        Session::flash('message', 'Successfully deleted the nerd!');
-        return Redirect::to('cms/media');
+        return Redirect::to('media');
     }
 
  public function gallery()

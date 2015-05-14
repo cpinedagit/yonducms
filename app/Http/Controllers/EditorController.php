@@ -107,7 +107,7 @@ class EditorController extends Controller {
         $file = '../public/'.$file;
         unlink($file);
         if (file_put_contents($file, $content, FILE_APPEND)) {
-            return redirect('Editor');
+            return redirect('cms/editor');
         }
         
        
@@ -127,9 +127,9 @@ class EditorController extends Controller {
                 $file->move('../public/otherfiles', $filename);
             }
         } else {
-            return redirect('Editor');
+            return redirect('cms/editor');
         }
-        return redirect('Editor');
+        return redirect('cms/editor');
     }
 
 }

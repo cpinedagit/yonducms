@@ -1,44 +1,21 @@
-
-<!DOCTYPE html>
-<!--
-Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or http://ckeditor.com/license
--->
-<html>
-    <head>
-        <meta charset="utf-8">
-
-        <!--other css files-->
-        {!! HTML::style('css/mystyle.css') !!}
-        {!! HTML::style('bootstrap/css/bootstrap.min.css') !!}
-        <!--        other js files-->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        {!! HTML::style('bootstrap/js/bootstrap.js') !!}
-
-  
-
-    </head>
-    <body>
-        <ul class="nav nav-pills nav-tabs">
-            <li role="presentation">{!! HTML::link('Editor', 'Code Editor') !!}</li>
-            <li role="presentation">{!! HTML::link('Image','Images') !!}</li>
-            <li role="presentation">{!! HTML::link('Pages','Page Management') !!}</li>
-            <li role="presentation"  class='active'>{!! HTML::link('Banners','Banner Management') !!}</li> 
-            <li role="presentation">{!! HTML::link('frontEnd','Front End',['target' => '_blank']) !!}</li>  
-        </ul>
-        <div class="border">
-            <h2>Add Banner</h2>           
-            {!! Form::open(array('url'=> 'Banners', 'files' => 'true')) !!}            
-            {!! Form::label('name', 'Name:') !!}
-            {!! Form::text('name',null,['class' => 'form-control Nform-control']) !!}     
-            {!! Form::submit('Save',['class'=> 'btn btn-default marginTop marginLeft']) !!}
-            {!! Form::close() !!} 
-        </div>
-
-    </body>
-</html>
-
-<script>
-</script>
-
-
+@extends('cms.home')
+@section('content')
+<ul class="nav nav-pills nav-tabs">
+    <li role="presentation">{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
+    <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
+    <li role="presentation"   class='active'>{!! HTML::link('cms/banners','Banner Management') !!}</li> 
+    <li role="presentation">{!! HTML::link('cms/pages','Page Management') !!}</li>
+</ul>
+<div class="border">
+    <h2>Add Banner</h2>           
+    {!! Form::open(array('url'=> 'cms/banners', 'files' => 'true')) !!}            
+    {!! Form::label('name', 'Name:') !!}
+    {!! Form::text('name',null,['class' => 'form-control Nform-control']) !!}     
+    {!! Form::label('type', 'Type:') !!}
+    {!! Form::select('type',array('Standard' => 'Standard', 'Advanced' => 'Advanced'), null, array('class' => 'form-control Nform-control')) !!}     
+    {!! Form::submit('Save',['class'=> 'btn btn-default marginTop marginLeft']) !!}
+    {!! Form::close() !!} 
+</div>
+{!! HTML::script('js/jquery.js') !!}
+{!! HTML::script('js/bootstrap.min.js') !!}
+@stop

@@ -1,7 +1,7 @@
 @extends('cms.home')
 @section('content')
 
-    {!! Form::open(array('route'=>'cms.news.store','method'=>'POST','id'=>'news')) !!}
+    {!! Form::open(array('route'=>'cms.news.store','method'=>'POST','id'=>'news','files'=>true)) !!}
 
         <div class="form-group">
             <label for="news_title">Title</label>
@@ -13,9 +13,10 @@
         </div>
         <div class="form-group">
             <label for="photo">Photo</label>
-            <div id="photo"></div>
-            {!! Form::hidden('photo_id','',array('id' =>'photo_id')) !!} 
-            @include('cms.media.media_tool')
+            <div id="photo">
+            {!! HTML::image("","alt",array("id"=>"img","height"=>100,"width"=>100)) !!}
+            </div>
+            {!! Form::file('file', array('multiple'=>false,'id'=>'file','accept'=>'image/*','onchange'=>'loadFile(event)')) !!}
         </div>
         <div class="form-group">
             <label for="news_content">Description</label>
@@ -23,7 +24,7 @@
         </div> 
         <div class="form-group">
             <label for="news_content">Content</label>
-            {!! Form::textarea('news_content','',array('class' =>'form-control ckeditor')) !!} 
+            {!! Form::textarea('news_content','',array('id'=>'Editor1','class' =>'form-control ckeditor')) !!} 
         </div>   
         <div class="form-group">
             <label for="published">Published</label>
@@ -38,31 +39,13 @@
      {!! Form::close() !!}
 
 
+  @include('cms.media.media_tool')
+
 <script>
-$(document).ready(function(){
-    $('#insert').on('click',function(){
-  var selected = new Array();
-    $("input:checkbox[name=cbfiles]:checked").each(function() {
-         selected.push($(this).val());
-    });
-    
-
- $.ajax({
-        type: 'POST',
-        url: '{!! URL::route("cms.media.get") !!}',
-        data: {'selected':selected, '_token': $("[name=_token").val()},
-        dataType:'json',
-        success: (function(data){
-            media_path=data[0][0]['media_path'];
-            $('#photo').append('{!! HTML::image("'+media_path+'","alt",array("height"=>100,"width"=>100)) !!}');
-            $('#photo_id').val(data[0][0]['media_id']);
-            $('#fileModal').modal("hide"); 
-        })
-
-    })
-
-    });
-});
+ var loadFile = function(event) {
+    var output = document.getElementById('img');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
 </script>
 
 @stop

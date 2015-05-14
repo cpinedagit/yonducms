@@ -10,5 +10,6 @@
 {!! HTML::script('public/js/bootstrap.min.js'); !!}
 {!! HTML::script('public/js/parsley/parsley.js'); !!}
 {!! HTML::script('public/js/parsley/parsley.remote.js'); !!}
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
 
 {!! HTML::script('public/js/main.js'); !!}
