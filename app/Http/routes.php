@@ -19,9 +19,7 @@ Route::get('home', 'CMS\LoginController@home');
 
 Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);
 
-Route::resource('cms', 
-				'CMS\CMSController',
-				['only' => ['index']]);
+Route::resource('cms', 'CMS\CMSController', ['only' => ['index'], 'middleware'=>'is.allowed']);
 
 Route::get('cms/user/profile',
             array('as' => 'cms.user.profile', 
@@ -66,7 +64,7 @@ Route::get('isNotAllowed', function()
 
 //Start Gian Modules
 //General Setting Controller
-Route::resource('general_settings', 'CMS\GeneralSettingsController');
+Route::resource('general_settings', 'CMS\GeneralSettingsController', ['middleware'=>'is.allowed']);
 //News Feeds Controller
 Route::resource('news_feeds', 'CMS\NewsFeedsController');
 //Captcha Controller
@@ -74,7 +72,7 @@ Route::get('captcha-generator', 'CMS\CaptchaController@index');
 //Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
 //Change Password Controller Back-End
-Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController');
+Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware'=>'is.allowed']);
 //End Gian Modules
 
 
@@ -83,14 +81,15 @@ Route::get('admin/menu', 'CMS\CmsMenuController@index');
 Route::post('admin/menu/decode',['as' => 'decode', 'uses' => 'CMS\CmsMenuController@throwJson'] );
 // end  
 
-
+//Authentication and Forgot Password Module: Start
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+//Authentication and Forgot Password Module: End
 
 
-Route::post('cms/media/get',['as'=>'cms.media.get','uses'=>'CMS\MediaController@gallery']);
+Route::post('cms/media/gallery',['as'=>'cms.media.gallery','uses'=>'CMS\MediaController@gallery']);
 Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
 Route::resource('cms/media','CMS\MediaController');
 

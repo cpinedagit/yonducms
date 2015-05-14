@@ -84,10 +84,12 @@ $(document).ready(function(){
     });
     
 
+
+
  $.ajax({
         type: 'POST',
-        url: '{!! URL::route("cms.media.get") !!}',
-        data: {'selected':selected},
+        url: '{!! URL::route("cms.media.gallery") !!}',
+        data: {'selected':selected, '_token': $("[name=_token").val()},
         dataType:'json',
         success: (function(data){
           console.log(data);
