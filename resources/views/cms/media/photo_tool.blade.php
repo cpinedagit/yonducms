@@ -1,3 +1,7 @@
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fileModal">
+  Add Photo
+</button>
+
 <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -22,8 +26,8 @@
                   
                     <div class="control-group">
                       <div class="controls">
-                      {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
-                    <div id="filedrag">or drop files here</div>
+                        {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
+                 <div id="filedrag">or drop files here</div>
                      </div>
                   </div>
 
@@ -55,23 +59,6 @@
 
 <script>
 
-editor = CKEDITOR.replace('Editor1');
-
-editor.addCommand("myMediaCommand", { 
-    exec: function(edt) {
-        $('#fileModal').modal("show"); 
-    }
-});
-
-editor.ui.addButton('MediaButton', { 
-    label: "Add media",
-    command: 'myMediaCommand',
-    toolbar: 'tools',
-    icon: 'https://raw.githubusercontent.com/cpinedagit/yonducms/master/public/ckeditor/plugins/image/image/icons/image.png'
-});
-
-
-
 $(document).ready(function(){
 
   populateImgLibrary();
@@ -84,54 +71,14 @@ $(document).ready(function(){
     });
     
 
-
-
- $.ajax({
-        type: 'POST',
-        url: '{!! URL::route("cms.media.gallery") !!}',
-        data: {'selected':selected, '_token': $("[name=_token").val()},
-        dataType:'json',
-        success: (function(data){
-          console.log(data);
-          str="";
-            for(x in data[0])
-            {  
-              str="";
-              media_path = data[0][x]['media_path'];
-              alt = data[0][x]['alternative_text']; 
-               if (data[0][x]['media_type'] == 1) {
-                              console.log("1");
-
-                    str +='<a href="#">';
-                    str += '{!! HTML::image("'+media_path+'",'+alt+') !!}';            
-                    str +='</a>';
-                } else {
-
-                    str += "<video width='320' height='240' controls>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/mp4'>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/ogg'>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/wmv'>";
-                    str += "  Your browser does not support the video tag.";
-                    str += "</video>";
-                }
-              CKEDITOR.instances.Editor1.insertHtml(str);
-            }  
-            $('#fileModal').modal("hide");  
-           // insertIntoCkeditor(str);    
-        })
-      });
+            console.log(selected);
+            $('#fileModal').modal("hide");     
 
 
   });
 
 });
 
-
-
-
-function insertIntoCkeditor(str){
-    CKEDITOR.instances['Editor1'].insertText(str);
-}
 
 function DoneUpload() {
   populateImgLibrary();
@@ -143,9 +90,9 @@ function populateImgLibrary()
   $('.img_wrapper').empty();
   str ="";
   $.post(
-    '{!! URL::route("cms.media.getAll") !!}',
+    '{!! URL::route("cms.media.getAllimage") !!}',
     {
-        "_token": $('[name=_token').val()
+        "_token": $( this ).find( 'input[name=_token]' ).val()
     },
     function( data ) {
       for(x in data[0])
@@ -190,7 +137,7 @@ function FileSelectHandler(e) {
           filesize = filesize/1024/1024;
           if(filesize > 2)
           {
-            alert("cant upload file is over 2MB");
+            alert("cant upload file over 2MB");
             break;
           }
           else
@@ -220,7 +167,7 @@ function FileSelectHandler(e) {
 
 </script>
 
-{!! HTML::script('public/js/upload_tool.js') !!}
+{!! HTML::script('js/upload_tool.js') !!}
 
 
 

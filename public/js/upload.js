@@ -61,7 +61,7 @@ function FileSelectHandler(e) {
 		    	filesize = filesize/1024/1024;
 		    	if(filesize > 2)
 		    	{
-		    		alert("cant upload");
+		    		alert("cant upload file size is over 2MB");
 		    		break;
 		    	}
 		    	else
@@ -72,7 +72,7 @@ function FileSelectHandler(e) {
 		    	}
 		      break;
 		    default:
-		      	alert("cant upload");
+		      	alert("file type error");
 		      break;
 		  }
 		
