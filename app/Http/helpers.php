@@ -16,7 +16,17 @@ function submenus()
 
 function accesses($id)
 {
-	return \App\Models\RoleAccesses::getAccessFor($id);
+	return \App\Models\Access::getAccessFor($id);
+}
+
+function subaccesses($id)
+{
+	return \App\Models\SubAccess::getSubAccessFor($id);
+}
+
+function roles()
+{
+	return \App\Models\Role::getActiveRoles();
 }
 
 function after_last($str, $inthat) {

@@ -9,7 +9,7 @@
 
       @foreach(accesses(Auth()->user()->role_id) as $access)
           
-        @if($module->id == $access->module_id && $access->isactive == 1)      
+        @if($module->id == $access->module_id && $access->is_enabled == 1)      
 
             <li class="{!! ((Session::get('module') == $module->module_path) ? 'open active' : '') !!}">
                
@@ -18,20 +18,25 @@
                     <span>{!! $module->module_name !!}</span>
                </a>
 
-                <!-- Submenu section  -->
                 <ul class="list-unstyled">
                     
                   @foreach(submenus() as $submenu)
 
                     @if($submenu->module_id == $module->id && !empty($submenu->submenu_path))
 
-                      <li class="{!! ((Session::get('submenu') == $submenu->submenu_path) ? 'active' : '') !!}">
+                      @foreach(subaccesses(Auth()->user()->role_id) as $sub)
 
-                        <a href="{!! URL::route($submenu->submenu_path) !!}">
-                           {!! $submenu->submenu_name !!}
-                        </a>
+                         @if($sub->submenu_id == $submenu->id && $sub->is_enabled == 1) 
+                          <li class="{!! ((Session::get('submenu') == $submenu->submenu_path) ? 'active' : '') !!}">
 
-                      </li>
+                            <a href="{!! URL::route($submenu->submenu_path) !!}">
+                               {!! $submenu->submenu_name !!}
+                            </a>
+
+                          </li>
+                          @endif
+
+                      @endforeach
 
                     @endif
 

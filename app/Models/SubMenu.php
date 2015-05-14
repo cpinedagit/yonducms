@@ -1,6 +1,7 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class SubMenu extends Model {
 
@@ -10,10 +11,20 @@ class SubMenu extends Model {
 
 	public static function getActiveSubMenus()
 	{
-		$submenus = SubMenu::where('is_active', '=', '1')
+		return DB::table('submenus')
+					->where('is_active', '=', '1')
 					->get([
-						'submenu_name', 'submenu_description',
-						'submenu_path', 'is_active', 'module_id']);
-		return $submenus;
+						'id', 'submenu_name', 'submenu_description',
+						'submenu_path', 'is_active', 'module_id']);		
+	}
+
+	public static function getActiveSubMenusCountFor($id)
+	{
+		return DB::table('submenus')
+				->where('module_id', '=', $id)
+				->where('is_active', '=', '1')
+				->get([
+						'id', 'submenu_name', 'submenu_description',
+						'submenu_path', 'is_active', 'module_id']);		
 	}
 }
