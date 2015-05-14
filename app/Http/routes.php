@@ -118,3 +118,24 @@ Route::get('addPage','PageController@addPage');
 Route::get('page/{id}/{bannerid}','PageController@preview');
 Route::resource('Pages','PageController');
 
+
+//this routes is for Code Editor Management
+Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
+Route::post('cms/editor/updateFile', 'EditorController@updateFile');
+Route::post('cms/editor/addFile', 'EditorController@addFile');
+
+Route::resource('cms/editor', 'EditorController');
+
+//this routes is for Image Management
+Route::get('cms/addImage','ImageController@addImage');
+Route::get('cms/frontEnd','ImageController@frontEnd');
+Route::resource('cms/image', 'ImageController');
+
+//this route is for Banner Management
+Route::get('cms/addBanner','BannerController@addBanner');
+Route::resource('cms/banners','BannerController');
+
+//this routes is for Page Management
+Route::get('cms/addPage','PageController@addPage');
+Route::get('site/page/{id}','PageController@preview');
+Route::resource('cms/pages','PageController');

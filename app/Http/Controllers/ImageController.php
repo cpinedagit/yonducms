@@ -9,6 +9,7 @@ use App\Models\Image;
 use Input;
 use Cache;
 use Response;
+use DB;
 
 class ImageController extends Controller {
 
@@ -53,10 +54,7 @@ class ImageController extends Controller {
         if (isset($filename))
             $images->image = $filename;
         $images->save();
-
-
-
-        return redirect('Image');
+        return redirect('cms/image');
     }
 
     /**
@@ -89,9 +87,9 @@ class ImageController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update($id) {    
         Image::updateImage($id);
-        return redirect('cms/Image');
+        return redirect('cms/image');
     }
 
     /**
@@ -101,6 +99,13 @@ class ImageController extends Controller {
      * @return Response
      */
     public function destroy($id) {
+
+        $fk_banner = DB::table('fk_banners')->where('image_id', '=', $id);
+        if (count($fk_banner) > 0) {
+            $fk_banner->delete();
+        }
+
+
         Image::destroy($id);
         $image = Image::all();
         return Response::json(array($image));
