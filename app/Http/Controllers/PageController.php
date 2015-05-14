@@ -19,18 +19,11 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-//        $pages = DB::table('content_json')->select('page_content')->get();
-//                echo'<pre>';
-//        foreach($pages as $page)
-//        {
-//          $decoded = json_decode($page->page_content,true);
-//                  print_r($decoded['content']);
-//            
-//        }        
-
         $pages = Page::all();
-        //('palit', $orig)
-        return View('cms/Pages/index')->with('pages', $pages);
+        $arData = array(
+            'pages' => $pages
+        );
+        return View('cms/Pages/index', $arData);
     }
 
     /**
@@ -48,13 +41,15 @@ class PageController extends Controller {
      * @return Response
      */
     public function store() {
+        $lastid = DB::table('pages')->orderBy('id','desc')->pluck('id');
+        $incId = ++$lastid;
         $content = Input::get('editor1');
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->banner = Input::get('banner');
+        $page->url = 'http://localhost/lwebservice_2/public/site/page/'.$incId;
         $page->save();
-        return redirect('Pages');
+        return redirect('cms/pages');
     }
 
     /**
@@ -67,34 +62,30 @@ class PageController extends Controller {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function edit($id) {
-        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
-        foreach ($banners as $banner) {
-            $arrays[] = (array) $banner;
-        }
+//        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
+//        $bannerId = DB::table('pages')
+//                ->where('id', '=', $id)
+//                ->pluck('banner');
+//        $currentbanner = DB::table('banners')
+//                ->where('id', '=', $bannerId)
+//                ->pluck('title');
+//        foreach ($banners as $banner) {
+//            $arrays[] = (array) $banner;
+//        }
         $pages = Page::edit($id);
         $arData = array(
-            'pages' => $pages,
-            'banners' => $banners
+            'pages' => $pages
         );
         return view('cms/Pages/edit', $arData);
     }
 
-    public function preview($id, $bannerId) {
-
-        $banner = Page::getBanner($bannerId);
+    public function preview($id) {
         $pages = Page::edit($id);
         $arData = array(
-            'pages' => $pages,
-            'banners' => $banner
+            'pages' => $pages
         );
-        return view('site/index', $arData);
+        return view('site/Pages/index', $arData);
     }
 
     /**
@@ -105,7 +96,7 @@ class PageController extends Controller {
      */
     public function update($id) {
         Page::updatePage($id);
-        return redirect('Pages');
+        return redirect('cms/pages');
     }
 
     /**
@@ -119,18 +110,10 @@ class PageController extends Controller {
     }
 
     public function addPage() {
-        $id = Page::all()->orderBy('id', 'desc')->first();
-        if ($id) {
-            return view('cms/Pages/add', $id);
-//        mkdir("../resources/views/TESTFOLDER");
-//        fopen("../resources/views/TESTFOLDER/index.blade.php", 'w');
-//        return redirect('Pages');
-        } else {
-            return view('cms/Pages/add');
-//        mkdir("../resources/views/TESTFOLDER");
-//        fopen("../resources/views/TESTFOLDER/index.blade.php", 'w');
-//        return redirect('Pages');
-        }
+        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
+//        $id = Page::all()->orderBy('id', 'desc')->first();
+
+        return view('cms/Pages/add')->with('banners', $banners);
     }
 
 }

@@ -22,19 +22,17 @@ class Page extends Model {
         $content = Input::get('editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
-        $page->banner = Input::get('banner');
+        $page->url = Input::get('url');
         $page->content = $content;
         $page->save();
     }
 
     public static function getBanner($bannerId) {
-
         return DB::table('banners')
                         ->leftJoin('fk_banners', 'fk_banners.banner_id', '=', 'banners.id')
                         ->leftJoin('images', 'images.id', '=', 'fk_banners.image_id')
                         ->where('banners.id', '=', $bannerId)
                         ->get(array('images.image'));
-     
     }
 
 }

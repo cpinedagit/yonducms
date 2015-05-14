@@ -42,16 +42,11 @@ class BannerController extends Controller {
      * @return Response
      */
     public function store() {
-        $images = new Banner;
-        $images->name = Input::get('name');
-
-        if (isset($filename))
-            $images->image = $filename;
-        $images->save();
-
-
-
-        return redirect('Image');
+        $banner = new Banner;
+        $banner->title = Input::get('name');
+        $banner->type = Input::get('type');
+        $banner->save();
+        return redirect('cms/banners');
     }
 
     /**
@@ -74,10 +69,12 @@ class BannerController extends Controller {
         $banners = Banner::edit($id);
         $images = DB::table('images')->get(array('images.image', 'images.id'));
         $currentImages = Banner::getImages($id);
+        $bannerType = Banner::getBannerType($id);
         $arData = array(
             'banners' => $banners,
             'currentImages' => $currentImages,
-            'images' => $images
+            'images' => $images,
+            'type' => $bannerType
         );
         return view('cms/Banners/edit', $arData);
     }
@@ -100,7 +97,7 @@ class BannerController extends Controller {
             }
         }
         Banner::updateBanner($id);
-        return redirect('Banners');
+        return redirect('cms/banners');
     }
 
     /**
@@ -110,9 +107,10 @@ class BannerController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        Image::destroy($id);
-        $image = Image::all();
-        return Response::json(array($image));
+        $fk_banner = DB::table('fk_banners')->where('image_id','=',$id);
+        $fk_banner->delete();         
+        Banner::destroy($id);
+        return Response::json('ok');
     }
 
     public function addBanner() {
