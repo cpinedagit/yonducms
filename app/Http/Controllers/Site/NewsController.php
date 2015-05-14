@@ -17,7 +17,7 @@ use Response;
 
 class NewsController extends Controller {
 	public function index() {
-    	$results = News::all_news();
+    	$results = News::All();
   		$archive = News::archive();
     	return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive));
   	}
