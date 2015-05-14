@@ -1,7 +1,3 @@
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fileModal">
-  Add Media
-</button>
-
 <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -59,9 +55,72 @@
 
 <script>
 
+editor = CKEDITOR.replace('Editor1');
+
+editor.addCommand("myMediaCommand", { 
+    exec: function(edt) {
+        $('#fileModal').modal("show"); 
+    }
+});
+
+editor.ui.addButton('MediaButton', { 
+    label: "Add media",
+    command: 'myMediaCommand',
+    toolbar: 'tools',
+    icon: 'https://raw.githubusercontent.com/cpinedagit/yonducms/master/public/ckeditor/plugins/image/image/icons/image.png'
+});
+
+
+
 $(document).ready(function(){
 
   populateImgLibrary();
+
+
+  $('#insert').on('click',function(){
+  var selected = new Array();
+    $("input:checkbox[name=cbfiles]:checked").each(function() {
+         selected.push($(this).val());
+    });
+    
+
+ $.ajax({
+        type: 'POST',
+        url: '{!! URL::route("cms.media.get") !!}',
+        data: {'selected':selected},
+        dataType:'json',
+        success: (function(data){
+          console.log(data);
+          str="";
+            for(x in data[0])
+            {  
+              str="";
+              media_path = data[0][x]['media_path'];
+              alt = data[0][x]['alternative_text']; 
+               if (data[0][x]['media_type'] == 1) {
+                              console.log("1");
+
+                    str +='<a href="#">';
+                    str += '{!! HTML::image("'+media_path+'",'+alt+') !!}';            
+                    str +='</a>';
+                } else {
+
+                    str += "<video width='320' height='240' controls>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/mp4'>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/ogg'>";
+                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/wmv'>";
+                    str += "  Your browser does not support the video tag.";
+                    str += "</video>";
+                }
+              CKEDITOR.instances.Editor1.insertHtml(str);
+            }  
+            $('#fileModal').modal("hide");  
+           // insertIntoCkeditor(str);    
+        })
+      });
+
+
+  });
 
 });
 
@@ -162,49 +221,4 @@ function FileSelectHandler(e) {
 {!! HTML::script('public/js/upload_tool.js') !!}
 
 
-<!-- ckeditor
-  $('#insert').on('click',function(){
-  var selected = new Array();
-    $("input:checkbox[name=cbfiles]:checked").each(function() {
-         selected.push($(this).val());
-    });
-    
 
- $.ajax({
-        type: 'POST',
-        url: '{!! URL::route("cms.media.get") !!}',
-        data: {'selected':selected},
-        dataType:'json',
-        success: (function(data){
-          console.log(data);
-          str="";
-            for(x in data[0])
-            {  
-              var str ="";
-              media_path = data[0][x]['media_path'];
-              alt = data[0][x]['alternative_text']; 
-               if (data[0][x]['media_type'] == 1) {
-                    str +="<a href='#'>";
-                    str += '{!! HTML::image("'+media_path+'",'+alt+',array("height"=>100,"width"=>100)) !!}';            
-                    str +="</a>";
-                } else {
-
-                    str += "<video width='320' height='240' controls>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/mp4'>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/ogg'>";
-                    str += "<source src='../"+ data[0][x]['media_path']  +"' type='video/wmv'>";
-                    str += "  Your browser does not support the video tag.";
-                    str += "</video>";
-                }
-   
-              CKEDITOR.instances['Editor1'].insertHtml(str);
-            }  
-            $('#fileModal').modal("hide");  
-           // insertIntoCkeditor(str);    
-        })
-      });
-
-
-  });
-
--->

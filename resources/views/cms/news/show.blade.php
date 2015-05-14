@@ -1,7 +1,7 @@
 @extends('cms.home')
 @section('content')
-@foreach($result as $result)
-    {!! Form::open(array('route'=>array('cms.news.update', $result->news_id),'method'=>'PUT','id'=>'news')) !!}
+
+    {!! Form::open(array('route'=>array('cms.news.update', $result->news_id),'method'=>'PUT','id'=>'news','files'=>true)) !!}
 
         <div class="form-group">
             <label for="news_title">Title</label>
@@ -14,10 +14,9 @@
         <div class="form-group">
             <label for="photo">Photo</label>
             <div id="photo">
-            {!! HTML::image("$result->media_path","alt",array("height"=>100,"width"=>100)) !!}
+            {!! HTML::image($result->image_path,"alt",array("id"=>"img","height"=>100,"width"=>100)) !!}
             </div>
-            {!! Form::hidden('photo_id',$result->photo_id,array('id' =>'photo_id')) !!} 
-            @include('cms.media.media_tool')
+            {!! Form::file('file', array('multiple'=>false,'id'=>'file','accept'=>'image/*','onchange'=>'loadFile(event)')) !!}
         </div>
         <div class="form-group">
             <label for="news_content">Description</label>
@@ -25,7 +24,7 @@
         </div> 
         <div class="form-group">
             <label for="news_content">Content</label>
-    		{!! Form::textarea('news_content',$result->news_content,array('class' =>'ckeditor form-control')) !!} 
+    		{!! Form::textarea('news_content',$result->news_content,array('id'=>'Editor1','class' =>'ckeditor form-control')) !!} 
     	</div>   
         <div class="form-group">
             <label for="published">Published</label>
@@ -52,7 +51,9 @@
         {!! Form::submit('Delete Permanently', array('class' => 'btn btn-warning')) !!}
     {!! Form::close() !!}
 
-@endforeach
+
+
+            @include('cms.media.media_tool')
 <script>
 $('.cbox').on('click',function(){
     val = $(this).val();
@@ -64,31 +65,11 @@ $('.cbox').on('click',function(){
         $(this).val('1');        
     }
 });
-$(document).ready(function(){
-    $('#insert').on('click',function(){
-  var selected = new Array();
-    $("input:checkbox[name=cbfiles]:checked").each(function() {
-         selected.push($(this).val());
-    });
-    
 
- $.ajax({
-        type: 'POST',
-        url: '{!! URL::route("cms.media.get") !!}',
-        data: {'selected':selected, '_token': $("[name=_token").val()},
-        dataType:'json',
-        success: (function(data){
-            media_path=data[0][0]['media_path'];
-            $('#photo').empty();
-            $('#photo').append('{!! HTML::image("'+media_path+'","alt",array("height"=>100,"width"=>100)) !!}');
-            p_id=data[0][0]['media_id'];
-            $('#photo_id').val(p_id);
-            $('#fileModal').modal("hide"); 
-        })
-
-    })
-    });
-});
+  var loadFile = function(event) {
+    var output = document.getElementById('img');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
 </script> 
 
 @stop

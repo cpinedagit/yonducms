@@ -28,13 +28,17 @@ class NewsController extends Controller {
   }
 
   public function show($id, $slug = '') {
-      $result = News::show_news($id);
+      $result = News::find($id);
       return View::make('cms.news.show')->with(array('result'=>$result));
   
   }
 
   public function store()
   {
+      $file = Input::file('file');
+      $filename = $file->getClientOriginalName();
+      $file->move('uploads/news_image/', $filename);
+      $original_path = 'uploads/news_image/'.$filename;
 
       $news = new News;
       $news->news_title = Input::get('news_title');
@@ -43,7 +47,8 @@ class NewsController extends Controller {
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
-      $news->photo_id = Input::get('photo_id');
+      $news->image_path = $original_path;
+
       $news->save();
           
       return Redirect::to('cms/news');
@@ -55,6 +60,12 @@ class NewsController extends Controller {
   }
 
   public function update($id) {
+
+      $file = Input::file('file');
+      $filename = $file->getClientOriginalName();
+      $file->move('uploads/news_image/', $filename);
+      $original_path = 'uploads/news_image/'.$filename;
+
       $news = News::find($id);
       $news->news_title = Input::get('news_title');
       $news->news_content = Input::get('news_content');
@@ -62,7 +73,7 @@ class NewsController extends Controller {
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
-      $news->photo_id = Input::get('photo_id');
+      $news->image_path = $original_path;
       $news->save();
       return Redirect::to('cms/news');
   }
