@@ -38,6 +38,15 @@
 		</p>
 
 		<p>
+			{!! Form::label('rolelabel', 'Role') !!}
+			<select name='role_id'>
+				@foreach(roles() as $role)
+					<option value='{!! $role->id !!}'>{!! $role->role_name !!}</option>
+				@endforeach
+			</select>
+		</p>
+		
+		<p>
 			{!! Form::submit('Submit') !!}
 		</p>
 

@@ -40,6 +40,7 @@ class UserController extends Controller {
 		$user->first_name               = Input::get('first_name');
 		$user->last_name                = Input::get('last_name');
 		$user->password                 = Hash::make(Input::get('password'));
+		$user->role_id 					= Input::get('role_id');
 		//Require to update your temporary password
 		$user->reset_password           = 1; 
 		//Set to timestamp
@@ -99,6 +100,7 @@ class UserController extends Controller {
 		$user->last_name  = Input::get('last_name');
 		$user->slug       = Input::get('username');
 		$user->email      = Input::get('email');
+		$user->role_id    = Input::get('role_id');
 
 		//Update password only when password field in not empty
 		if(Input::get('password')!=''){

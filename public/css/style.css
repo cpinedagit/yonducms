@@ -127,18 +127,36 @@ a:focus{
     bottom: 15px;
     right: 15px;
 }
-
-
+.btn-reset{
+    background: #666666;
+    border-color: #666666;
+    color: #fff;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.btn-reset:hover,
+.btn-reset:focus{
+    background: #797878;
+    border-color: #797878;
+    color: #fff;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
 /********* BOOTSTRAP OVERWRITE ***************/
 .dropdown-menu{
     background: #35414f;
     left: -70px;
 }
 .dropdown-menu > li{
-     color: #A1ACC0;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    color: #fff;
+    padding: 5px 20px;
+    text-align: center;
     
     -webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
@@ -154,7 +172,24 @@ a:focus{
 	     -o-transition: all 0.3s ease-in-out;
 	        transition: all 0.3s ease-in-out;
 }
-
+.dropdown-menu > li > a{
+    color: #A1ACC0;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus{
+    background: transparent;
+    color: #fff;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
 
 
 
@@ -286,11 +321,14 @@ a:focus{
 }
 .header__menu-list > li{
     cursor: pointer;
-    color: white;
+    color: #fff;
     float: left;
     font-size: 18px;
     margin-top: 12px;
     padding: 0 15px;
+}
+.header__menu-list > li > a{
+    color: #fff;
 }
 .header__menu-list__notification:before{
     font-family: FontAwesome;
@@ -348,6 +386,42 @@ a:focus{
 .header__menu-list__account__dropdown__name > .fa{
     font-size: 14px;
 }
+.header__menu-list__account__dropdown__options_icon{
+    height: 120px;
+    width: 120px;
+    margin: 15px auto;
+    background: #fff;
+    position: relative;
+}
+.header__menu-list__account__dropdown__options_icon:before{
+    font-family: FontAwesome;
+    content: '\f007';
+    position: absolute;
+    color: #35414f;
+    font-size: 72px;
+    left: 31px;
+    top: 7px;
+}
+.header__menu-list__account__dropdown__options_icon > img{
+    max-width: 100%;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+}
+.header__menu-list__account__dropdown__options{
+    padding: 10px 20px;
+}
+.header__menu-list__account__dropdown__options__acct-info{
+    margin-bottom: 15px;
+}
+
+.header__menu-list__account__dropdown__options > li{
+    padding: 0;
+}
+.header__menu-list__account__dropdown__options > li > a{
+    padding: 5px 20px;
+}
+
 
 
 
@@ -669,7 +743,6 @@ a:focus{
 }
 
 
-
 /********* MAIN CONTENT ***************/
 .main-container__content{
     padding-bottom: 100px;
@@ -923,7 +996,38 @@ table.table--data tr td:first-child{
     visibility: hidden;
     height: 0!important;
 }
-
+.main-container__content__reminder{
+    padding: 0 10px;
+    color: #6b6b6b;
+}
+.main-container__content__reminder > i{
+    color: #44b4ac;
+}
+.cke_contents{
+    height: 300px!important;
+}
+.cke_resizer{
+    display: none;
+}
+.form-title{
+    font-weight: normal;
+}
+.main-container__content__info .form-group{
+    margin-bottom: 30px;
+}
+.main-container__content__info__options{
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    padding-top: 15px;
+}
+.main-container__content__info__options > .checkbox{
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+.main-container__content__info__options__action-holder{
+    border-top: 2px solid #cccccc;
+    padding-top: 10px;
+}
 
 
 /********* FOOTER ***************/
@@ -935,6 +1039,7 @@ table.table--data tr td:first-child{
 .footer--fixed{
     position: absolute;
     bottom: 0;
+    z-index: 9999;
 }
 .footer * {
     color: #A1ACC0;
