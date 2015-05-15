@@ -2,6 +2,7 @@ $(document).ready(function() {
     $('.superTable').dataTable({
 		"bJQueryUI": false,
 		"sPaginationType": "full_numbers",
-		"iDisplayLength":50
+		"iDisplayLength":10,
+		"lengthChange": false
     });
 });
