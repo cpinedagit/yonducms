@@ -85,16 +85,16 @@ class MediaController extends Controller {
       rename($path.'/'.$old_filename,$path.'/'.$new_filename);
       $media->media_path = $path.'/'.$new_filename;
       $media->caption= Input::get('caption');
-  //    $media->description= Input::get('description');
+      $media->description= Input::get('description');
       $media->alternative_text= Input::get('alternative_text');
       $media->save();
-      return Redirect::to('media');
+      return Redirect::to('cms/media');
   }
 
   public function destroy($id) {
         $media = Media::find($id);
         $media->delete();
-        return Redirect::to('media');
+        return Redirect::to('cms/media');
     }
 
  public function gallery()
