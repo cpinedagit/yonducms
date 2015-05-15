@@ -1,52 +1,60 @@
 @extends('cms.home')
 @section('content')
-<ul class="nav nav-pills nav-tabs">
-    <li role="presentation">{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
-    <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
-    <li role="presentation"  class='active'>{!! HTML::link('cms/banners','Banner Management') !!}</li> 
-    <li role="presentation">{!! HTML::link('cms/pages','Page Management') !!}</li> 
-</ul>
-<div class="border">
-    <h2>Edit Banners</h2>
-    {!! Form::model($banners,array('method'=>'PUT','url'=>'cms/banners/'.$banners['id'],'files'=>'true')) 	!!}
-    {!! Form::label('name', 'Name:') !!} 
-    {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}       
-    <select name ='banner' class ='form-control Nform-control'>
-        <option value="{{ $banners['type']}}" selected disabled>{{ $banners['type']}}</option>                                 
-        <option value="Standard">Standard</option>
-        <option value="Advanced">Advanced</option>
-    </select> {!! Form::label('','Current Images:') !!}<br>    
+<div class="border col-md-8">
+    <div class="col-md-6">
+        <h2>Edit Banners</h2>
+        {!! Form::model($banners,array('method'=>'PUT','url'=>'cms/banners/'.$banners['id'],'files'=>'true')) 	!!}
+        {!! Form::label('name', 'Name:') !!} 
+        {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}
+        {!! Form::hidden('curType',$type) !!}
+        {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}
+        <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+        <select name ='type' class ='form-control Nform-control'>
+            <option value="{{ $banners['type']}}" selected disabled>{{ $banners['type']}}</option>                                 
+            <option value="Standard">Standard</option>
+            <option value="Advanced">Advanced</option>
+        </select> {!! Form::label('','Current Images:') !!}<br>  
+        @foreach($currentImages as $currentImage)
+        @if($currentImage->media_path === null)
+        {!! HTML::image('public/images/noimage.png',null,['width' => '100','height' => '100','style=margin-left:100px:']) !!}<br><br>
+        @else
+        {!! HTML::image($currentImage->media_path,null,['width' => '100','height' => '100','style=margin-left:100px:']) !!}            
+        <a href='#' id='{!!$currentImage->media_id!!}' title ='delete this one?' class="glyphicon glyphicon-trash delCur" aria-hidden="true"></a><br><br>
+        @endif
+        @endforeach 
+        @include('cms.media.photo_tool')
 
-    @foreach($currentImages as $currentImage)
-    @if($currentImage->image === null)
-    {!! HTML::image('images/noimage.png',null,['width' => '100','height' => '100','style=margin-left:100px:']) !!}<br><br>           
-
-    @else
-    {!! HTML::image('images/'.$currentImage->image,null,['width' => '100','height' => '100','style=margin-left:100px:']) !!}            
-    <a href='#' id='{!!$currentImage->id!!}' title ='delete this one?' class="glyphicon glyphicon-trash delCur" aria-hidden="true"></a>
-    <br><br>
-    @endif
-    @endforeach            
-    {!! Form::label('image','Select Image for '.$banners['title']) !!}<br>
-    @foreach($images as $image)
-    {!! HTML::image('images/'.$image->image,null,['width' => '100','height' => '100','style=margin-left:100px:']) !!} {!! Form::checkbox('ID[]',$image->id,false) !!}<br><br>
-    @endforeach
-    @if($type == 'Advanced')
-    {!! Form::textarea('editor') !!}
-    @endif()
+    </div>    
+    <div class="col-md-6">
+        @if($type == 'Advanced')
+        <small><i>note: please use spacing for different classes.</i></small>
+        {!! Form::text('classes',null,['class' => 'form-control Nform-control']) !!}        
+        {!! Form::textarea('editor',null,array('class' => 'codeEditor','id' => 'codeEditor')) !!}        
+        @else
+        {!! Form::hidden('classes',null,['class' => 'form-control Nform-control']) !!}
+        @endif
+    </div>
+</div>
+<div class='col-md-6'>
     {!! Form::submit('Save',['class' => 'btn btn-success']) !!}
     {!! Form::button('Cancel',['id' => 'cancel', 'class' => 'btn btn-danger']) !!}
-    {!! Form::close() !!}
+    {!! Form::close() !!}<br><br>
 </div>
-{!! HTML::script('js/jquery.js') !!}
-{!! HTML::script('js/bootstrap.min.js') !!}
 <script>
 
+
     $(document).ready(function () {
+//        code editor for banner effects
+        var filename = 'public/css/banner.css';
+        $.get('../../../' + filename, function (data)//Remember, same domain
+        {
+            var _data = data;
+            $('#codeEditor').val(data);
+        });
 
         $(document).on("click", "#cancel", function () {
 
-            window.location = ("http://localhost/lwebservice_2/public/cms/banners");
+            window.location = ("http://localhost/Web/cms/banners");
         });
 
         $(document).on("click", '.delCur', function () {
@@ -69,6 +77,5 @@
         })
     });
 </script>
-
 @stop
 

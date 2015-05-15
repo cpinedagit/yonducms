@@ -19,9 +19,7 @@ class BannerController extends Controller {
      * @return Response
      */
     public function index() {
-        $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::all();
-
         $arData = array(
             'banners' => $banners
         );
@@ -67,7 +65,6 @@ class BannerController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::edit($id);
         $images = DB::table('images')->get(array('images.image', 'images.id'));
         $currentImages = Banner::getImages($id);
@@ -76,9 +73,14 @@ class BannerController extends Controller {
             'banners' => $banners,
             'currentImages' => $currentImages,
             'images' => $images,
-            'type' => $bannerType
+            'type' => $bannerType,
         );
         return view('cms/Banners/edit', $arData);
+    }
+
+    public function saveImage() {  
+        $saveImage = Banner::saveImage();
+        return Response::json('ok');
     }
 
     /**
@@ -89,15 +91,6 @@ class BannerController extends Controller {
      */
     public function update($id) {
         $checked = Input::get('ID');
-        if (Input::has('ID')) {
-            foreach ($checked as $check) {
-                DB::table('fk_banners')->insertGetId(
-                        array(
-                            'banner_id' => $id,
-                            'image_id' => $check)
-                );
-            }
-        }
         Banner::updateBanner($id);
         return redirect('cms/banners');
     }
@@ -109,8 +102,8 @@ class BannerController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $fk_banner = DB::table('fk_banners')->where('image_id','=',$id);
-        $fk_banner->delete();         
+        $fk_banner = DB::table('fk_banners')->where('image_id', '=', $id);
+        $fk_banner->delete();
         Banner::destroy($id);
         return Response::json('ok');
     }

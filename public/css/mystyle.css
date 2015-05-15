@@ -1,12 +1,3 @@
-
-#border{
-    margin: 100px;
-}
-
-.border{
-    margin: 100px;
-}
-
 .marginLeft{
     margin-left:10px;
 
@@ -57,7 +48,7 @@ td{
 }
 
 th{
-    text-align: right;
+    text-align: center;
     padding-top:10px !important;
     padding-bottom:10px !important;
     padding-left:10px !important;
@@ -68,4 +59,51 @@ th{
 .Nform-control{
     width:300px !important;
     margin:10px;
+}
+
+.Tform-control{
+    width:500px !important;
+    margin:10px;
+}
+
+.bannerImage{
+    width:1000px;
+    height:100px;
+}
+
+.defaultBannerImage{
+    width:1000px;
+    height:100px;
+}
+
+#cke_editor1{
+    width:800px;
+}
+
+#bannerList{
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    width:500px;
+    height:300px;
+    overflow: auto;
+}
+
+.tableBanner{
+    width:350px;
+    margin-left:10px;
+    overflow: auto;
+
+}
+
+.codeEditor{
+height:500px;
+width:500px;
+}
+
+.myCarousel {
+    margin:auto;
+    width:900px;
+    height:700px;
 }

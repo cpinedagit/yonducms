@@ -1,11 +1,5 @@
 @extends('cms.home')
 @section('content')
-<ul class="nav nav-pills nav-tabs">
-    <li role="presentation">{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
-    <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
-    <li role="presentation"  class='active'>{!! HTML::link('cms/banners','Banner Management') !!}</li> 
-    <li role="presentation">{!! HTML::link('cms/pages','Page Management') !!}</li> 
-</ul>
 <div class="border">
     <h2>Banners</h2>           
     <table border='1'>
@@ -30,12 +24,9 @@
     </table>
     <button id ='addBanner' type='button' class="btn btn-success">Add Banner</button>
 </div>
-
-{!! HTML::script('js/jquery.js') !!}
-{!! HTML::script('js/bootstrap.min.js') !!}
 <script>
             function del(id){
-
+//            console.log($('meta[name="csrf-token"]').attr('content'));
             if (confirm('are you really want to delete this banner') == true)
             {
             $.ajax({

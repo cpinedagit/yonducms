@@ -1,11 +1,5 @@
 @extends('cms.home')
 @section('content')
-<ul class="nav nav-pills nav-tabs">
-    <li role="presentation">{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
-    <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
-    <li role="presentation"   class='active'>{!! HTML::link('cms/banners','Banner Management') !!}</li> 
-    <li role="presentation">{!! HTML::link('cms/pages','Page Management') !!}</li>
-</ul>
 <div class="border">
     <h2>Add Banner</h2>           
     {!! Form::open(array('url'=> 'cms/banners', 'files' => 'true')) !!}            

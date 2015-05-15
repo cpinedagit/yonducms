@@ -12,10 +12,7 @@
         {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <textarea id='textarea' name="content" cols="100" rows="30"></textarea>
-        <input id ='hidden' name ='hidden' type='hidden' value=''>                
-        <br>
-        <br>
-        <br>
+        <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
         <input id ='update' class="btn btn-success" type ="submit" value = "update file" class = "btn btn-success">
         {!! Form::close() !!}
         <div id = 'listOfFiles'>               
@@ -67,14 +64,11 @@
         </div>
     </div>
 </body>
-
-@stop
-{!! HTML::script('js/jquery.js') !!}
 <script>
     $(document).on('click', '.a', function (e) {
         var filename = this.id;
 //        alert(filename);
-        $.get('../../public/' + filename, function (data)//Remember, same domain
+        $.get('../' + filename, function (data)//Remember, same domain
         {
             var _data = data;
             $('#textarea').val(data);
@@ -85,7 +79,7 @@
 
     $(document).on('click', '.b', function () {
         var filename = this.id;
-        $.get('../../public/' + filename, function (data)//Remember, same domain
+        $.get('../' + filename, function (data)//Remember, same domain
         {
             var _data = data;
             $('#textarea').val(data);
@@ -96,7 +90,7 @@
 
     $(document).on('click', '.c', function () {
         var filename = this.id;
-        $.get('../../public/' + filename, function (data)//Remember, same domain
+        $.get('../' + filename, function (data)//Remember, same domain
         {
             var _data = data;
             $('#textarea').val(data);
@@ -104,3 +98,5 @@
         });
     });
 </script>
+
+@stop

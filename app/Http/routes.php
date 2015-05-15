@@ -101,28 +101,6 @@ Route::resource('cms/news','CMS\NewsController');
 Route::resource('site/news','Site\NewsController');
 
 //this routes is for Code Editor Management
-Route::post('Editor/Showw/{filename}', 'EditorController@Showw');
-Route::post('Editor/updateFile', 'EditorController@updateFile');
-Route::post('Editor/addFile', 'EditorController@addFile');
-
-Route::resource('Editor', 'EditorController');
-
-//this routes is for Image Management
-Route::get('addImage','ImageController@addImage');
-Route::get('frontEnd','ImageController@frontEnd');
-Route::resource('Image', 'ImageController');
-
-//this route is for Banner Management
-Route::get('addBanner','BannerController@addBanner');
-Route::resource('Banners','BannerController');
-
-//this routes is for Page Management
-Route::get('addPage','PageController@addPage');
-Route::get('page/{id}/{bannerid}','PageController@preview');
-Route::resource('Pages','PageController');
-
-
-//this routes is for Code Editor Management
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addFile', 'EditorController@addFile');
@@ -136,9 +114,13 @@ Route::resource('cms/image', 'ImageController');
 
 //this route is for Banner Management
 Route::get('cms/addBanner','BannerController@addBanner');
+Route::put('cms/saveImage', ['as' => 'cms.banner.saveImage', 'uses' => 'BannerController@saveImage']);
 Route::resource('cms/banners','BannerController');
 
 //this routes is for Page Management
 Route::get('cms/addPage','PageController@addPage');
 Route::get('site/page/{id}','PageController@preview');
+Route::get('site/page/{id}/{url}','PageController@preview');
+Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
+Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');

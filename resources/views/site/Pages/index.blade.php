@@ -1,8 +1,6 @@
-@extends('cms.home')
-@section('content')
-
-@stop
-
+@extends('site.home')
+@section('sitecontent')
 <!--this is the banner if this page has banner-->
-
-{{ eval('?>'. $pages['content'])}}
+<h1>{!!$pages['title'] !!}</h1>
+{{ eval('?>'. $pages['content'] . "<?")}}
+@stop
