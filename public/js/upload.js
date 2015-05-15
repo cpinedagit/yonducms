@@ -40,7 +40,6 @@ function FileDragHover(e) {
 }
 
 function FileSelectHandler(e) {
-
 	FileDragHover(e);
 
 	var files = e.target.files || e.dataTransfer.files;
@@ -49,19 +48,20 @@ function FileSelectHandler(e) {
 	var formData = new FormData();
 	for (var i = 0, f; f = files[i]; i++) {
 		
-			filename = f.name;
+		  filename = f.name;
 		  var ext =  filename.split('.').pop();
-		  switch(ext){
-		    case 'jpg':
-		    case 'jpeg':
-		    case 'png':
-		    case 'gif':
-		    case 'mov':
-		    	filesize = f.size;
+
+		  if(formats.indexOf(ext) < 0)
+		  {
+		  	alert("file type error");
+		  }
+		  else
+		  {
+		  		filesize = f.size;
 		    	filesize = filesize/1024/1024;
-		    	if(filesize > 2)
+		    	if(filesize > default_size)
 		    	{
-		    		alert("cant upload file size is over 2MB");
+		    		alert("cant upload file size is over "+default_size+"MB");
 		    		break;
 		    	}
 		    	else
@@ -70,10 +70,6 @@ function FileSelectHandler(e) {
 					ParseFile(f);
 					formData.append('file', f);		    		
 		    	}
-		      break;
-		    default:
-		      	alert("file type error");
-		      break;
 		  }
 		
 	}

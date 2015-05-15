@@ -10,13 +10,18 @@
 		<div id="filedrag">or drop files here</div>
      </div>
 	</div>
+{{ env('APP_MEDIA_FORMATS') }}
+{{ env('APP_MEDIA_MAX_FILE_SIZE') }} MB
 
 	{!! Form::close() !!}
 	<div id="messages">
 	</div>
 </div>
-
-
+<script>
+var formats = "{{ env('APP_MEDIA_FORMATS') }}";
+formats = formats.split(',');
+var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";	
+</script>
 {!! HTML::script('public/js/upload.js') !!}
 
 @stop

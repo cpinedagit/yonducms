@@ -24,6 +24,8 @@
                       <div class="controls">
                       {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
                     <div id="filedrag">or drop files here</div>
+                    {{ env('APP_MEDIA_FORMATS') }}
+                    {{ env('APP_MEDIA_MAX_FILE_SIZE') }} MB
                      </div>
                   </div>
 
@@ -172,7 +174,9 @@ function populateImgLibrary()
 }
 
 function FileSelectHandler(e) {
-
+var formats = "{{ env('APP_MEDIA_FORMATS') }}";
+formats = formats.split(',');
+var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
   FileDragHover(e);
 
   var files = e.target.files || e.dataTransfer.files;
@@ -181,27 +185,25 @@ function FileSelectHandler(e) {
 
       filename = f.name;
       var ext =  filename.split('.').pop();
-      switch(ext){
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'gif':
+      if(formats.indexOf(ext) < 0)
+      {
+        alert("file type error");
+      }
+      else
+      {
           filesize = f.size;
           filesize = filesize/1024/1024;
-          if(filesize > 2)
+          if(filesize > default_size)
           {
-            alert("cant upload file is over 2MB");
+            alert("cant upload file size is over "+default_size+"MB");
             break;
           }
           else
           {
-            formData.append('fileselect[]',f); 
-            formData.append('file', f);           
+              formData.append('fileselect[]',f); 
+          ParseFile(f);
+          formData.append('file', f);           
           }
-          break;
-        default:
-            alert("file type error");
-          break;
       }
   }
   $('[name=_token').val();
