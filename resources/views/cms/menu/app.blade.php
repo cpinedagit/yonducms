@@ -257,207 +257,123 @@
                                             <ol class="dd-list">
 
                                                 @if(isset($objMenu))
-
                                                 @foreach($objMenu as $menu)
-                                                <li class="dd-item dd-copy" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}">
-                                                    <div class="dd-handle">{{ $menu->label }} </div>
-                                                    <button class='circle btn--remove-menu'></button>
+                                                <li id="idli_{{ $menu->menu_id }}" class="dd-item" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}">
+                                                    <div class="dd-handle" id="target_{{ $menu->menu_id }}">{{ $menu->label }} </div>
+                                                    <button class='circle btn--remove-menu' onclick="delThis({{ $menu->menu_id }})"></button>
                                                     {!! getSubMenu($menu->menu_id) !!}
                                                 </li>
                                                 @endforeach
-                                                @else
-
-                                                <li class="dd-item" data-id="1">
-                                                    <div class="dd-handle" data-url="www.sample1.com">Item 1</div>
-                                                    <!-- THIS IS THE REMOVE BUTTON, INSERT IT AFTER dd-handle CLASS  -->
-                                                    <button class='circle btn--remove-menu'></button>
-                                                </li>
-
-                                                <li class="dd-item" data-id="2">
-                                                    <div class="dd-handle" data-url="www.sample2.com">Item 2</div>
-                                                    <button class='circle btn--remove-menu'></button>
-                                                    <ol class="dd-list">
-                                                        <li class="dd-item" data-id="3">
-                                                            <div class="dd-handle" data-url="www.sample3.com">Item 3</div>
-                                                            <button class='circle btn--remove-menu'></button>
-                                                        </li>
-                                                        <li class="dd-item" data-id="4">
-                                                            <div class="dd-handle" data-url="www.sample4.com">Item 4</div>
-                                                            <button class='circle btn--remove-menu'></button>
-                                                        </li>
-                                                        <li class="dd-item" data-id="5">
-                                                            <div class="dd-handle" data-url="www.sample5.com">Item 5</div>
-                                                            <button class='circle btn--remove-menu'></button>
-                                                            <ol class="dd-list">
-                                                                <li class="dd-item" data-id="6">
-                                                                    <div class="dd-handle" data-url="www.sample6.com">Item 6</div>
-                                                                    <button class='circle btn--remove-menu'></button>
-                                                                </li>
-                                                                <li class="dd-item" data-id="7">
-                                                                    <div class="dd-handle" data-url="www.sample7.com">Item 7</div>
-                                                                    <button class='circle btn--remove-menu'></button>
-                                                                </li>
-                                                                <li class="dd-item" data-id="8">
-                                                                    <div class="dd-handle" data-url="www.sample8.com">Item 8</div>
-                                                                    <button class='circle btn--remove-menu'></button>
-                                                                </li>
-                                                            </ol>
-                                                        </li>
-                                                        <li class="dd-item" data-id="9">
-                                                            <div class="dd-handle" data-url="www.sample9.com">Item 9</div>
-                                                            <button class='circle btn--remove-menu'></button>
-                                                        </li>
-                                                        <li class="dd-item" data-id="10">
-                                                            <div class="dd-handle" data-url="www.sample10.com">Item 10</div>
-                                                            <button class='circle btn--remove-menu'></button>
-                                                        </li>
-                                                    </ol>
-                                                </li>
-                                                <li class="dd-item" data-id="11">
-                                                    <div class="dd-handle" data-url="www.sample11.com">Item 11</div>
-                                                    <button class='circle btn--remove-menu'></button>
-                                                </li>
-                                                <li class="dd-item" data-id="12">
-                                                    <div class="dd-handle" data-url="www.sample12.com">Item 12</div>
-                                                    <button class='circle btn--remove-menu'></button>
-                                                </li>
                                                 @endif
-
-
 
                                             </ol>
                                         </div>
                                     </div>
-                                    {!! Form::open(array('route' => 'admin.menu.store', 'method' => 'POST', 'class' => 'form')) !!}
 
-                                    {!! Form::open(array('route' => 'admin.menu.store', 'method' => 'POST', 'class' => 'form')) !!}
-                                    <input type="hidden" name="serialize_menu" id="nestable-output">
-                                    {!! Form::submit('Save', array('class'=>'btn btn-add center-block')) !!}
+                                    <form id="structure_menu" name="structure_menu">
 
-                                    {!! Form::close() !!}
+                                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
+                                        <input type="hidden" name="nestable-output" id="nestable-output">
+                                    </form>
+
+                                    {!! Form::submit('Save', array('class'=>'btn btn-add center-block', 'id' => 'saveMenuStructure')) !!}
+
+
+                                </div>
+                                <div class="alert alert-success" style="display: none" id="alertSaveData">
+                                    Data Save :D
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="main-container__content__info__tabpanel col-sm-8 center-block">
-                                <div role="tabpanel" class="center-block">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default panel--custom main-container__content__info__properties">         
 
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#pages" aria-controls="home" role="tab" data-toggle="tab">Pages</a></li>
-                                        <li role="presentation"><a href="#links" aria-controls="profile" role="tab" data-toggle="tab">Links</a></li>
-
-                                    </ul>
-
-                                    <!-- Tab panes -->
-                                    <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane tab-pages active" id="pages">
-                                            <input type="text" class='form-control' placeholder="Search page">
-                                            <div class="page-list-holder">
-                                                <ol class="list-unstyled">
-                                                    <li>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> Home
-                                                            </label>
-                                                        </div>
-                                                        <ol class="list-unstyled">
-                                                            <li>                                                                                                                                                             <div class="checkbox">
-                                                                    <label>
-                                                                        <input type="checkbox"> Page 01
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>                                                                                                                                                             <div class="checkbox">
-                                                                    <label>
-                                                                        <input type="checkbox"> Page 02
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>                                                                                                                                                             <div class="checkbox">
-                                                                    <label>
-                                                                        <input type="checkbox"> Page 03
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>                                                                                                                                                             <div class="checkbox">
-                                                                    <label>
-                                                                        <input type="checkbox"> Page 04
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-
-                                                        </ol>
-                                                    </li>
-                                                    <li>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> Contact Us
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> FAQs
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox"> About Us
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                </ol>
+                                        <div class="panel-heading"><h4>Properties</h4></div>
+                                        <div class="panel-body">
+                                            <div class="panel-body__instruction">
+                                                Click on a menu item to edit the properties
                                             </div>
-                                            <div class="btn-holder">
-                                                <button class="btn btn-add">Select All</button>
-                                                <button class="btn btn-add">Add to Navigation</button>
-                                            </div>
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="links">
-                                            <div class="textbox-holder">
-                                                <input type="text" class="form-control" placeholder="URL">
-                                                <input type="text" class="form-control" placeholder="Navigation Label">
+                                            <div class="panel-body__textbox-holder">
+
+                                                <form id="menu_form" name="menu_form">
+
+                                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                                    <input type="hidden" name="menu_id" class="form-control"  id="menu_id">
+                                                    <input type="text"  name="menu_label" class="form-control" placeholder="Title" readonly="true" id="menu_label">
+                                                    <input type="text" class="form-control" placeholder="Link" readonly id='menu-link'>                                    
+                                                </form>
+                                                <br>
+
+
+                                                <button id="saveMenuChanges" disabled="true" class="btn btn-add">Apply Changes</button>
+                                                <button class="btn btn-warning" disabled="true" id='clear_btn' onclick="autoClear()">Cancel</button>
                                             </div>
 
-                                            <button class="btn btn-add pull-right pull-bottom-right">Add to Navigation</button>
                                         </div>
 
                                     </div>
 
+
                                 </div>
+                                
                             </div>
-                            <div class="col-sm-12">
-                                <div class="panel panel-default panel--custom main-container__content__info__properties">         
+                             
+                            <div class="row">
+                                <div class="main-container__content__info__tabpanel col-sm-8 center-block">
+                                    <div role="tabpanel" class="center-block">
 
-                                    <div id="alert" ></div>
-                                    <div class="panel-heading"><h4>Properties</h4></div>
-                                    <div class="panel-body">
-                                        <div class="panel-body__instruction">
-                                            Click on a menu item to edit the properties
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pages" aria-controls="home" role="tab" data-toggle="tab">Pages</a></li>
+                                            <li role="presentation"><a href="#links" aria-controls="profile" role="tab" data-toggle="tab">Links</a></li>
+
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane tab-pages active" id="pages">
+                                                <input type="text" class='form-control' placeholder="Search page">
+                                                <div class="page-list-holder">
+                                                    <ol class="list-unstyled">
+
+                                                        @if(isset($objPage))
+                                                        @foreach($objPage as $pages)
+                                                        <li>                                                                                                                                                             <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox"> {{ $pages->title }}
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        @endforeach
+                                                        @endif
+ 
+                                                    </ol>
+                                                </div>
+                                                <div class="btn-holder">
+                                                    <button class="btn btn-add">Select All</button>
+                                                    <button class="btn btn-add">Add to Navigation</button>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="links">
+                                                <div class="textbox-holder">
+                                                    <input type="text" class="form-control" placeholder="URL">
+                                                    <input type="text" class="form-control" placeholder="Navigation Label">
+                                                </div>
+
+                                                <button class="btn btn-add pull-right pull-bottom-right">Add to Navigation</button>
+                                            </div>
+
                                         </div>
-                                        <div class="panel-body__textbox-holder">
 
-                                            <form id="menu_title" name="menu_title">
-
-                                                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                                                <input type="hidden" name="menu_id" class="form-control" placeholder="Title" id='menu-id'>
-                                                <input type="text" name="label" class="form-control" placeholder="Title" id='menu-title'>
-                                                <input type="text" class="form-control" placeholder="Link" readonly id='menu-link'>                                    
-                                            </form>
-
-                                        </div>
-                                        <button id="saveMenuChanges" class="btn btn-add center-block">Apply Changes</button>
                                     </div>
-
                                 </div>
-
-
                             </div>
+                            
+                           
                         </div>
                     </div>
             </main>
@@ -477,24 +393,56 @@
 
         <script type="text/javascript">
 $('#saveMenuChanges').on('click', function () {
-
-    var data = $("#menu_title").serialize();
+    var data = $("#menu_form").serialize();
     $.ajax({
         type: 'POST',
         url: "{!! URL::route('updatetitle') !!}",
         data: data,
         success: function () {
-            $("#menu-title")
+            data_id = $('#menu_id').val();
+            $("div #target_" + data_id).html($('#menu_label').val());
+            autoClear();
         },
         error: function () { // if error occured
-            alert("Error occured, please try again");
+            alert("Error: select menu and try again");
         },
     });
 });
 
 
+$('#saveMenuStructure').on('click', function () {
+    var data = $("#structure_menu").serialize();
+    $.ajax({
+        type: 'POST',
+        url: "{!! URL::route('admin.menu.store') !!}",
+        data: data,
+        success: function () {
+            $("#alertSaveData").show().delay(1000).fadeOut();
+        },
+        error: function () { // if error occured
+            alert("Error: try again");
+        },
+    });
+});
+
+function autoClear() {
+    $('#menu_id').val('');
+    $('#menu_label').val('');
+
+    $('#saveMenuChanges').attr('disabled', true);
+    $('#menu_label').attr('readonly', true);
+    $("#clear_btn").attr('disabled', true);
 
 
+}
+
+function delThis(idMenu){
+    autoClear();
+
+    if(confirm('this action will effect to db permanently, are you sure of this? if yes, why? . .. . . to be continued on May 18, 2015')){
+            $( "#idli_"+idMenu ).remove();
+    }
+    }
         </script>  
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

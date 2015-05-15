@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
+use App\Models\Page;
 use Input;
 use DB;
 use Illuminate\Database\Query\Builder;
@@ -26,23 +27,28 @@ class CmsMenuController extends Controller {
 
     function index() {
         $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
+        $objPage = Page::all();
+        $objData = [
+            'objMenu' => $objMenu,
+            'objPage' => $objPage,
+        ];
 //        return view('cms.menu.index', compact('objMenu'));
-        return view('cms.menu.app', compact('objMenu'));
+        return view('cms.menu.app', $objData);
     }
 
     function updateTitleMenu() {
         $id = Input::get('menu_id');
-        $label = Input::get('label');
+        $label = Input::get('menu_label');
 
-        $menusave = Menu::find($id);
-        $menusave->label = $label;
-        $menusave->save();
+        $menu_name_update = Menu::find($id);
+        $menu_name_update->label = $label;
+        $menu_name_update->save();
     }
 
     // stores structure
     function store() {
 
-        $arrJson = Input::get('serialize_menu');
+        $arrJson = Input::get('nestable-output');
         $arrData = json_decode($arrJson, TRUE);
         foreach ($arrData as $key => $value) {
             foreach ($value as $key1 => $value1) {
