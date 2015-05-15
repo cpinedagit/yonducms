@@ -93,6 +93,10 @@ class MediaController extends Controller {
 
   public function destroy($id) {
         $media = Media::find($id);
+        $filename = $media->media_path;
+         if (file_exists($filename)) {
+         unlink($filename);
+         }
         $media->delete();
         return Redirect::to('cms/media');
     }
