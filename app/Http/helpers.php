@@ -102,5 +102,48 @@ function parentElement($arrVal, $element) {
     }
 }
 
+function banner($id) {
+
+    $objBanner = \App\Models\Banner::myBanner($id);
+    $class = \App\Models\Banner::getClass($id);
+    $banner = "";
+    if (!$objBanner == null) {
+
+        $banner = "<div id='" . $id . "' class='" . $class . "' data-ride='carousel'>
+                <ol class='carousel-indicators'>                
+                    <li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>";
+        foreach($objBanner as $slide) {
+            $banner .="<li data-target = '#carousel-example-generic' data-slide-to = '".$slide->media_id."'></li>";
+        }
+        $banner .= "</ol>
+                <div class='carousel-inner' role='listbox'>
+                <div class='item active'>
+                " . HTML::image('public/images/home_1.png', null, array('class' => 'bannerImage')) . "
+                </div>";
+        foreach ($objBanner as $image) {
+            $banner.= "
+                <div class='item'>" . HTML::image($image->media_path, null, array('class' => 'bannerImage')) . "
+                
+                </div>
+                ";
+        }
+        $banner.= "
+
+    </div>
+    <a class='left carousel-control' href='#" . $id . "' role='button' data-slide='prev'>
+        <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
+        <span class='sr-only'>Previous</span>
+    </a>
+    <a class='right carousel-control' href='#" . $id . "' role='button' data-slide='next'>
+        <span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
+        <span class='sr-only'>Next</span>
+    </a>
+</div>";
+    }
+
+    return $banner;
+}
+
+
 
 ?>

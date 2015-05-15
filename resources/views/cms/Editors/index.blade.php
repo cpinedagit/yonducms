@@ -1,12 +1,5 @@
 @extends('cms.home')
 @section('content')
-<body>
-    <ul class="nav nav-pills nav-tabs">
-        <li role="presentation" class='active'>{!! HTML::link('cms/editor', 'Code Editor') !!}</li>
-        <li role="presentation">{!! HTML::link('cms/image','Images') !!}</li>
-        <li role="presentation">{!! HTML::link('cms/banners','Banner Management') !!}</li> 
-        <li role="presentation">{!! HTML::link('cms/pages','Page Management') !!}</li> 
-    </ul>
     <div id="border">
         <!--<form id ='form' method="post" action = "editor/updateFile">-->  
         {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
@@ -63,7 +56,6 @@
             <!--</form>-->
         </div>
     </div>
-</body>
 <script>
     $(document).on('click', '.a', function (e) {
         var filename = this.id;
