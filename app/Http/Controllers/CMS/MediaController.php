@@ -51,8 +51,8 @@ class MediaController extends Controller {
           $filename = $file->getClientOriginalName();
           $extension = $file->getClientOriginalExtension();
           $filePath = realpath($file);
-
-          $mime = mime_content_type($filePath);
+          $finfo = finfo_open(FILEINFO_MIME_TYPE);
+          $mime=finfo_file($finfo, $filePath);
           if(strstr($mime, "video/")){
               $fileType= 2;
               $file->move($videosPath.'/'.$year.'/'.$month, $filename);
