@@ -19,6 +19,7 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
         $pages = Page::all();
         $arData = array(
             'pages' => $pages

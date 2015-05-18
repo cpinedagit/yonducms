@@ -59,4 +59,12 @@
 			@endforeach
 
 		@endif
+<script type = "text/javascript">
+	$('#UserCreateUpdate').on('click', function(){
+		if($('#UserCreateForm').parsley().validate()) {
+			$('#UserCreateForm').submit();
+		}
+	});
+</script>
+@endsection
 @stop
