@@ -16,7 +16,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function index() {
-
+        $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
 //        $clickFile = \DB::table('click_files')
 //                    ->orderBy('clickFile', 'asc')
 //                    ->pluck('clickFile');
