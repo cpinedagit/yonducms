@@ -43,7 +43,17 @@ $('#selecctall').click(function(event) {  //on click
         });         
     }
 });
-
+$('#selecctall-banner').click(function(event) {  //on click 
+    if(this.checked) { // check select status
+        $('.banner-content-list li input[type="checkbox"]').each(function() { //loop through each checkbox
+            this.checked = true;  //select all checkboxes with class "checkbox1"               
+        });
+    }else{
+        $('.banner-content-list li input[type="checkbox"]').each(function() { //loop through each checkbox
+            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+        });         
+    }
+});
 
 
 /******* ACTION LIST *******/
@@ -60,10 +70,46 @@ $('.action>i').each(function(){
                 element.parent('.action').toggleClass('open-action')
             },100)
         };
-       
-         
-        /*element.toggleClass('show');
-        element.siblings('.action-list').toggleClass('show');*/
     });
 });
+
+
+
+/******* FILTER DROPDOWN *******/
+$('.main-container__content__info__search__dropdown').change(function(){
+    var choice = $(this).val();
+    
+    $('.main-container__content__info__search__option:visible').fadeOut(function(){
+        $('#'+choice).fadeIn(function(){
+            $('#'+choice).removeClass('hide')
+        });
+    });
+})
+
+
+
+
+/******* UPLOAD PHOTO AND PREVIEW *******/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        $('#blah').show();
+        $('.upload-image-container__upload > .fa').show();
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+        $("#imgInp").hide();
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function(){
+    readURL(this);
+});
+
+$('#deleteimage').click(function(){
+    $('#blah').attr('src','').hide().removeClass('show');
+    $('.upload-image-container__upload > .fa').hide().removeClass('show');
+    $("#imgInp").val('').show().removeClass('hide');
+})
     
