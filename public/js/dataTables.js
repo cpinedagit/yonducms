@@ -1,10 +1,6 @@
-$(document).ready(function() {
-    $('.superTable').dataTable({
-		"bJQueryUI": false,
-		"sPaginationType": "full_numbers",
-		"iDisplayLength":10,
-		"lengthChange": false,
-		"aaSorting": [0],
+ $(document).ready(function() {
+                $('.superTable').DataTable({
+                    aaSorting: [0],
                     bInfo: false,
                     columnDefs: [
                        { orderable: false, targets: 0 },
@@ -19,6 +15,6 @@ $(document).ready(function() {
                         }
                         
                     }
-    });
-$( ".datepicker" ).datepicker();
-});
+                });
+                $( ".datepicker" ).datepicker();
+            } );

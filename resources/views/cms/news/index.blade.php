@@ -68,7 +68,7 @@
 			<tr>
 				<th><input type="checkbox" id='selecctall'></th>
 				<th>News Date</th>
-				<th>News Title</th>
+				<th>Title</th>
 				<th>Published</th>
 				<th>Featured</th>
 				<th>Action</th>
