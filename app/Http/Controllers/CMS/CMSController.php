@@ -4,7 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use App\Models\cms\User;
 use View;
+use Feeds;
 
 class CMSController extends Controller {
 
@@ -21,7 +23,25 @@ class CMSController extends Controller {
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.index', 'cms.index');
-		return view('cms.home');
+		//Get News Feeds When requesting for dashboard
+		$data['news_feeds'] = $this->getNewsFeedsFromVendor();
+		//Get all users that request for password reset
+		$data['user_requests'] = User::usersThatRequestForPasswordReset();
+
+		return view('cms.home')->withData($data);
 	}
 
+
+	public function getNewsFeedsFromVendor()
+	{
+		//Add .rss link
+		$feed = Feeds::make(env('APP_RSS_FEED_VENDOR'));
+	    $data = array(
+	      'title'     => $feed->get_title(),
+	      'permalink' => $feed->get_permalink(),
+	      'items'     => $feed->get_items(),
+	    );
+	   
+	    return $data;	
+	}
 }

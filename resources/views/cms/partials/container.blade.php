@@ -30,10 +30,12 @@
           </ol> 
       @yield('content')
       </section>
+      
+      @if(isset($data['message']))
       <!-- Flash Update Your Password Message -->
-      @if(isset($message))
-          <div class="alert alert-danger" role="alert">{{ $message }}</div>
+          <div class="alert alert-danger" role="alert">{{ $data['message'] }}</div>
+      <!-- Flash Update Your Password Message -->
       @endif
-      <!-- Flash Update Your Password Message -->
+      
   </main>
 </div> 
