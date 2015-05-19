@@ -1,17 +1,5 @@
 @extends('cms.home')
 @section('content')
-<style>
-.btn-delete{
-	background-color: Transparent;
-	background-repeat:no-repeat;
-	border: none;
-	cursor:pointer;
-	overflow: hidden;
-	outline:none;
-	color: #7b8698;
-	transition: all 0.3s ease-in-out;
-}
-</style>
 <div class='main-container__content__info'>
 	<div class="main-container__content__info__summary">
 		<span>
@@ -31,7 +19,7 @@
 				<option value="" disabled selected>Choose Action</option>
 				<option value="">Delete</option>
 			</select>
-			<input type="submit" class='btn btn-filter' value="Apply">
+			<input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
 		</div>
 		<div class="main-container__content__info__search">
 			<div class="form-inline">
@@ -77,7 +65,7 @@
 		<tbody>
 			@foreach ($results as $result)
 			<tr>
-				<td><input type="checkbox"></td>
+				<td><input type="checkbox" name="cbox" id="{!! $result->news_id !!}"></td>
 				<td>{{ $result->news_date }}</td>
 				<td>{{ $result->news_title }}</td>
 				<td>
@@ -98,14 +86,69 @@
 					<i class="fa fa-chevron-left"></i>
 					<ul class="list-unstyled action-list">
 						<li>{!! HTML::linkRoute('cms.news.show', 'Edit',$result->news_id) !!}</li>
-						<li>{!! Form::open(array('route'=>array('cms.news.destroy', $result->news_id),'method'=>'DELETE')) !!}
-							{!! Form::submit('Delete', array('class' => 'btn-delete')) !!}
-							{!! Form::close() !!}</li>
-						</ul>
+						<li>
+							<a href="#" onclick="deleteThis({{ $result->news_id }})">Delete</a>
+							{!! Form::open(array('route'=>array('cms.news.destroy', $result->news_id),'method'=>'DELETE')) !!}
+							{!! Form::close() !!}
+						</li>
+					</ul>
 					</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
 	</div>
+
+	<script>
+	function deleteSelected(){
+
+		if (confirm('Are your sure you want to delete the news') == true)
+		{
+			var selected = new Array();
+			$("input:checkbox[name=cbox]:checked").each(function() {
+				selected.push(this.id);
+			});
+
+			$.post(
+				'{!! URL::route("cms.news.deleteSelected") !!}',
+				{
+					"_token": $('[name=_token').val(),
+					"selected": selected
+				},
+				function(data){
+					location.reload();
+				},
+				'json'
+				);
+		} else{
+			return false;
+		}
+
+	}
+
+	function deleteThis(id){
+
+		if (confirm('Are your sure you want to delete the news') == true)
+		{
+			$.post(
+				'{!! URL::route("cms.news.destroy","") !!}/' +id,
+				{
+					"_token": $('[name=_token').val(),
+					"_method": "delete"
+				},
+				function(data){
+					location.reload();
+				},
+				'json'
+				);
+		} else{
+			return false;
+		}
+
+	}
+
+
+
+	</script>
+
 	@stop

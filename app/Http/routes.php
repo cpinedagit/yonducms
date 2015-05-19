@@ -91,15 +91,18 @@ Route::controllers([
 ]);
 //Authentication and Forgot Password Module: End
 
-
+//Media Management
+Route::post('/cms/media/deleteSelected',['as'=>'cms.media.deleteSelected','uses'=>'CMS\MediaController@deleteSelected']);
 Route::post('cms/media/gallery',['as'=>'cms.media.gallery','uses'=>'CMS\MediaController@gallery']);
 Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
 Route::post('/cms/media/getAllimage',['as'=>'cms.media.getAllimage','uses'=>'CMS\MediaController@getAllimage']);
 Route::resource('cms/media','CMS\MediaController');
-
+//end media management
+//News Management
+Route::post('/cms/news/deleteSelected',['as'=>'cms.news.deleteSelected','uses'=>'CMS\NewsController@deleteSelected']);
 Route::resource('cms/news','CMS\NewsController');
 Route::resource('site/news','Site\NewsController');
-
+//end news management
 //this routes is for Code Editor Management
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');

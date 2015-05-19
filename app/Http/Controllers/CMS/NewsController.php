@@ -94,6 +94,15 @@ class NewsController extends Controller {
   public function destroy($id) {
       $news = News::find($id);
       $news->delete();
-      return Redirect::to('cms/news');
+      return Response::json(array($id)); 
     }
+
+  public function deleteSelected() {
+      $selected = Request::get('selected');
+      foreach ($selected as $select) {
+         $news = News::find($select);
+         $news->delete();
+       }
+      return Response::json(array($selected)); 
+  }
 }

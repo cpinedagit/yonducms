@@ -42,7 +42,6 @@
                     </div>
                 </li>
                <li><a href="#">Account Settings</a></li>
-               <li> {!! HTML::link('change_password_user/'.\Auth()->user()->id.'/edit','Change Password') !!}</li>
                <li> {!! HTML::link('auth/logout','Log-out') !!}</li>
                <li><a href="#">Help</a></li>
               </ul>
