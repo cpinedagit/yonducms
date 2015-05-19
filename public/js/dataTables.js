@@ -16,5 +16,4 @@
                         
                     }
                 });
-                $( ".datepicker" ).datepicker();
             } );

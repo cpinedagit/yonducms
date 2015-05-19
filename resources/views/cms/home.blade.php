@@ -4,13 +4,8 @@
 	<title>{{ $APP_TITLE }}</title>
 	@include('cms.partials.meta')
 	@include('cms.partials.styles')
-	<script type="text/javascript" src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js') }}"></script>
-
-	{!! HTML::script('public/js/plugins.js') !!}
-	{!! HTML::script('public/js/parsley/parsley.js'); !!}
-	{!! HTML::script('public/js/parsley/parsley.remote.js'); !!}
-	{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
 	
 </head>
 <body>
@@ -20,6 +15,6 @@
 	
 	<!--test-->
 		
-@include('cms.partials.scripts')
+	@include('cms.partials.scripts')	
 </body>
 </html>
