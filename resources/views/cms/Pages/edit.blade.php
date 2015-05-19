@@ -47,7 +47,7 @@
 {!! Form::close() !!}
 <script>
     function cancel() {
-        window.location = ('http://localhost/Web/cms/pages');
+        window.location = ('http://localhost/yonducms/cms/pages');
     }
 </script>
 @include('cms.media.media_tool')

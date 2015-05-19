@@ -25,6 +25,7 @@ class MediaController extends Controller {
   }
 
   public function create() {
+    $this->regenerateMenuSession('cms.media.index', 'cms.media.create');
      return View::make('cms.media.add');
   }
 
@@ -51,6 +52,7 @@ class MediaController extends Controller {
           $filename = $file->getClientOriginalName();
           $extension = $file->getClientOriginalExtension();
           $filePath = realpath($file);
+
           $finfo = finfo_open(FILEINFO_MIME_TYPE);
           $mime=finfo_file($finfo, $filePath);
           if(strstr($mime, "video/")){

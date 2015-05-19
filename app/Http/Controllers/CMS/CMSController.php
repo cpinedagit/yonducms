@@ -20,6 +20,7 @@ class CMSController extends Controller {
 
 	public function index()
 	{
+		$this->regenerateMenuSession('cms.index', 'cms.index');
 		return view('cms.home');
 	}
 

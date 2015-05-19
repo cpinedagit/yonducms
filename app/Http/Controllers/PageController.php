@@ -42,13 +42,14 @@ class PageController extends Controller {
      * @return Response
      */
     public function store() {
+
         $lastid = DB::table('pages')->orderBy('id','desc')->pluck('id');
         $incId = ++$lastid;
-        $content = Input::get('editor1');
+        $content = Input::get('Editor1');
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->url = 'http://localhost/Web/site/page/'.$incId;
+        $page->url = 'http://localhost:8080/yonducms/site/page/'.$incId;
         $page->save();
         return redirect('cms/pages');
     }
@@ -64,6 +65,7 @@ class PageController extends Controller {
     }
 
     public function edit($id) {
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
 //        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
 //        $bannerId = DB::table('pages')
 //                ->where('id', '=', $id)

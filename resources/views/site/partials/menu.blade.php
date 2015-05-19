@@ -8,9 +8,9 @@
         </div>
         <nav>
             <ul class="nav masthead-nav">
-                <li><a href="http://localhost/Web/site/page/1">Home</a></li>
-                <li><a href="http://localhost/Web/site/page/2">About Us</a></li>
-                <li><a href="http://localhost/Web/site/page/3">Contact Us</a></li>
+                <li><a href="http://localhost:8080/yonducms/site/page/1">Home</a></li>
+                <li><a href="http://localhost:8080/yonducms/site/page/2">About Us</a></li>
+                <li><a href="http://localhost:8080/yonducms/site/page/3">Contact Us</a></li>
             </ul>
         </nav>
 
