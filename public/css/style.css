@@ -1325,3 +1325,11 @@ table.table--data tr td:first-child{
     @media only screen and (max-width : 320px) {
         
     }
+
+/*Dashboard*/
+.news-feeds-dashboard-div
+{
+  margin-left: 15%;
+  margin-top: -6%;
+}
+/*Dashboard*/

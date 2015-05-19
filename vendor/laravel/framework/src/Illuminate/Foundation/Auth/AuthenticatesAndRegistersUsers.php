@@ -8,6 +8,7 @@ use Validator;
 use Auth;
 use DB;
 use Mail;
+use Feeds;
 
 trait AuthenticatesAndRegistersUsers {
 
@@ -119,7 +120,11 @@ trait AuthenticatesAndRegistersUsers {
 				//Add notification to user
 				if(Auth::user()->user_type=='user' AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
 					
-					return view('cms.home')->with("message","Your password will expire in less than ".$this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)." day/s. Kindly update your password!");
+					$data['message']       = "Your password will expire in less than ".$this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)." day/s. Kindly update your password!";
+					$data['news_feeds']    = $this->getNewsFeedsFromVendor();
+					$data['user_requests'] = User::usersThatRequestForPasswordReset();
+					
+					return view('cms.home')->withData($data);
 				}else{
 					return redirect()->intended($this->redirectPath());
 				}
@@ -135,6 +140,19 @@ trait AuthenticatesAndRegistersUsers {
 			
 	}
 
+	//Get News Feeds From Vendor
+	public function getNewsFeedsFromVendor()
+	{
+		//Add .rss link
+		$feed = Feeds::make(env('APP_RSS_FEED_VENDOR'));
+	    $data = array(
+	      'title'     => $feed->get_title(),
+	      'permalink' => $feed->get_permalink(),
+	      'items'     => $feed->get_items(),
+	    );
+	   
+	    return $data;	
+	}
 
 	//Check if user's password is not yet expired
 	public function checkIfPasswordExpired($reset_password_timestamp)
