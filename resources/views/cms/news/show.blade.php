@@ -72,25 +72,15 @@
 <div class="main-container__content__info__options">
     <div class="checkbox">
         <div class="form-group">
-            @if($result->published == 1)
-            {!! $pub = true !!}
-            @else
-            {!! $pub = false !!}
-            @endif
             <label for="published">
-                {!! Form::checkbox('published',$result->published,$pub,array('class' =>'cbox')) !!} 
+                {!! Form::checkbox('published',$result->published, ($result->published == 1) ? true : false,array('class' =>'cbox')) !!} 
                 Published</label>
             </div> 
         </div>
         <div class="checkbox">
             <div class="form-group">
-                @if($result->featured == 1)
-                {!! $fea = true !!}
-                @else
-                {!! $fea = false !!}
-                @endif
                 <label for="featured">
-                    {!! Form::checkbox('featured',$result->featured,$fea,array('class' =>'cbox')) !!} 
+                    {!! Form::checkbox('featured',$result->featured,($result->featured == 1) ? true : false,array('class' =>'cbox')) !!} 
                     Featured</label>
 
                 </div>  

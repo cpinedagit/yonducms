@@ -15,6 +15,7 @@
 	
 	<!--test-->
 		
-	@include('cms.partials.scripts')	
+	@include('cms.partials.scripts')
+		
 </body>
 </html>
