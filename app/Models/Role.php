@@ -13,7 +13,7 @@ class Role extends Model {
 	{
 		return DB::table('role_details')
 				->where('role_active', '=', 1)
-				->get(['id', 'role_name', 'role_description', 'role_active']);
+				->get(['id', 'role_name', 'role_description', 'role_active', 'type']);
 	}
 
 	public static function getRoleOf($id)
@@ -21,6 +21,14 @@ class Role extends Model {
 		return DB::table('role_details')
 				->where('id', '=', $id)
 				->get(['id', 'role_name']);
+	}
+
+	public static function getActiveAllowedRoles()
+	{
+		return DB::table('role_details')
+				->where('role_active', '=', 1)
+				->where('type', '=', 0)
+				->get(['id', 'role_name', 'role_description', 'role_active', 'type']);
 	}
 
 }

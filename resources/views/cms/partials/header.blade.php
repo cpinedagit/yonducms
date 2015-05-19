@@ -13,8 +13,8 @@
     </div>
     <ul class="pull-right list-unstyled header__menu-list">
         <li class="header__menu-list__notification"></li>
-        <li class="header__menu-list__messages"></li>
-        <li class="header__menu-list__calendar"></li>
+      <!--   <li class="header__menu-list__messages"></li>
+        <li class="header__menu-list__calendar"></li> -->
          <li class="header__menu-list__account">
             <div class="dropdown header__menu-list__account__dropdown">
               <a id="dLabel" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
