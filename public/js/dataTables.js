@@ -1,8 +1,19 @@
-$(document).ready(function() {
-    $('.superTable').dataTable({
-		"bJQueryUI": false,
-		"sPaginationType": "full_numbers",
-		"iDisplayLength":10,
-		"lengthChange": false
-    });
-});
+ $(document).ready(function() {
+                $('.superTable').DataTable({
+                    aaSorting: [0],
+                    bInfo: false,
+                    columnDefs: [
+                       { orderable: false, targets: 0 },
+                       { orderable: false, targets: -1 }
+                    ],
+                    "dom":'<"top">rt<"bottom"lp>',
+                    "oLanguage": {
+                        "sSearch": "<span class='lbl-filter'>Search</span> ",
+                        "oPaginate": {
+                            "sPrevious": '<i class="fa fa-chevron-left"></i>',
+                            "sNext": '<i class="fa fa-chevron-right"></i>'
+                        }
+                        
+                    }
+                });
+            } );

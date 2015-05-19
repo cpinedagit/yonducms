@@ -20,8 +20,18 @@ class NewsController extends Controller {
   
   public function index() {
     $this->regenerateMenuSession('cms.news.index', 'cms.news.index');
+    $all = DB::table('content_news')->count();
+    $published = DB::table('content_news')
+                     ->select(DB::raw('count(*) as c_pub'))
+                     ->where('published', '=', 1)
+                     ->get();
+    $featured = DB::table('content_news')
+                     ->select(DB::raw('count(*) as c_fea'))
+                     ->where('featured', '=', 1)
+                     ->get();
+
     $results = News::All();
-    return View::make('cms.news.index')->with(array('results'=>$results));
+    return View::make('cms.news.index')->with(array('results'=>$results,'all'=>$all,'published'=>$published,'featured'=>$featured));
   }
 
   public function create() {
@@ -44,7 +54,7 @@ class NewsController extends Controller {
       $news = new News;
       $news->news_title = Input::get('news_title');
       $news->news_content = Input::get('news_content');
-      $news->news_date = Input::get('news_date');
+      $news->news_date = date("Y-m-d",strtotime(Input::get('news_date')));
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
@@ -62,19 +72,21 @@ class NewsController extends Controller {
 
   public function update($id) {
 
+      $news = News::find($id);
       $file = Input::file('file');
+      $file_count = count($file);
+      if($file_count > 0) {
       $filename = $file->getClientOriginalName();
       $file->move('uploads/news_image/', $filename);
       $original_path = 'uploads/news_image/'.$filename;
-
-      $news = News::find($id);
+      $news->image_path = $original_path;
+      }
       $news->news_title = Input::get('news_title');
       $news->news_content = Input::get('news_content');
-      $news->news_date = Input::get('news_date');
+      $news->news_date = date("Y-m-d",strtotime(Input::get('news_date')));
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
-      $news->image_path = $original_path;
       $news->save();
       return Redirect::to('cms/news');
   }
