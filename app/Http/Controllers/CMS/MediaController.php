@@ -20,8 +20,17 @@ class MediaController extends Controller {
   
   public function index() {
     $this->regenerateMenuSession('cms.media.index', 'cms.media.index');
+    $all = DB::table('content_media')->count();
+    $images = DB::table('content_media')
+                     ->select(DB::raw('count(*) as c_img'))
+                     ->where('media_type', '=', 1)
+                     ->get();
+    $videos = DB::table('content_media')
+                     ->select(DB::raw('count(*) as c_vid'))
+                     ->where('media_type', '=', 2)
+                     ->get();
     $files = Media::All();
-    return View::make('cms.media.index')->with(array('files'=>$files));
+    return View::make('cms.media.index')->with(array('files'=>$files,'all'=>$all,'images'=>$images,'videos'=>$videos));
   }
 
   public function create() {
@@ -100,7 +109,7 @@ class MediaController extends Controller {
          unlink($filename);
          }
         $media->delete();
-        return Redirect::to('cms/media');
+        return Response::json(array($id));
     }
 
  public function gallery()
@@ -123,5 +132,14 @@ class MediaController extends Controller {
   {
     $files = DB::table('content_media')->where('media_type','=', '1' )->get();
     return Response::json(array($files));
+  }
+
+  public function deleteSelected() {
+      $selected = Request::get('selected');
+      foreach ($selected as $select) {
+         $news = Media::find($select);
+         $news->delete();
+       }
+      return Response::json(array($selected)); 
   }
 }

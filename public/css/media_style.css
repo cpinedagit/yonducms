@@ -1,24 +1,37 @@
+.filedrag-holder{
+    display: table-row;
+    width: 100%;
+    height: 100%;
+    height: 400px;
+}
+
 #filedrag
 {
-	display: none;
-	font-weight: bold;
-	text-align: center;
-	padding: 1em 0;
-	margin: 1em 0;
-	color: #555;
-	border: 2px dashed #555;
-	border-radius: 7px;
-	cursor: default;
+    display: none;
+    font-weight: bold;
+    text-align: center;
+    /* padding: 1em 0; */
+    height: 100%;
+    /* margin: 1em 0; */
+    color: #999999;
+    border: 3px dashed #999999;
+    border-radius: 7px;
+    cursor: default;
+        
+    display: table-cell!important;
+    height: 100%;
+    vertical-align: middle;
 }
 
 #filedrag.hover
 {
-	color: #f00;
-	border-color: #f00;
-	border-style: solid;
-	box-shadow: inset 0 3px 4px #888;
+    color: #44b6ae;
+    border-color: #44b6ae;
+    border-style: solid;
 }
-
+.filedrag__modal{
+    margin-top: 10px;
+}
 .img_wrapper {
     overflow:hidden;
     width:100%;
@@ -31,4 +44,12 @@
 ._img {
     width:100px;
     height:75px; 
+}
+.controls--upload{
+    display: table;
+    width: 100%;
+    height: 400px;
+    box-shadow: 0 0 5px #cccece;
+    padding: 15px;
+    margin-bottom: 30px;
 }

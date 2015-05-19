@@ -6,11 +6,11 @@
     </div>
     <div class='main-container__content__info'>
        <div class="row main-container__content__info__row-custom">
-          {!! Form::open(array('route'=>array('cms.news.update', $result->news_id),'method'=>'PUT','id'=>'news','files'=>true)) !!}
+          {!! Form::open(array('route'=>array('cms.news.update', $result->news_id),'method'=>'PUT','id'=>'news','files'=>true, 'data-parsley-validate')) !!}
           <div class="col-sm-9 main-container__content__info__panel-custom">
             <div class="form-group">
                 <label for="news_title" class="form-title">News Title *</label>
-                {!! Form::text('news_title',$result->news_title,array('class'=>'form-control','placeholder'=>'Enter title' )) !!}
+                {!! Form::text('news_title',$result->news_title,array('class'=>'form-control','placeholder'=>'Enter title', 'required' )) !!}
             </div>
             <div class="row">
 
@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label for="news-date" class='form-title'>Date *</label>
                         <div class="input-group">
-                         {!! Form::text('news_date',$result->news_date,array('class'=>'form-control datepicker')) !!}
+                         {!! Form::text('news_date',$result->news_date,array('class'=>'form-control datepicker', 'required')) !!}
                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                      </div>
 
@@ -54,7 +54,7 @@
     <div class="main-container__content__info__photo">
      <h4 class='main-container__content__info__photo__title'>Photo</h4>
      <div id="photo" class="main-container__content__info__photo__uploaded-photo-container">
-        {!! HTML::image($result->image_path,"alt",array("id"=>"blah","class"=>"show")) !!}
+        {!! HTML::image($result->image_path,"alt",array("id"=>"blah","class"=>"show", 'required')) !!}
     </div>
     <div class="main-container__content__info__photo__delete">
      <a href="#" id='deleteimage' role="button">Delete</a>
@@ -88,9 +88,6 @@
             <div class="main-container__content__info__options__action-holder btn-holder">
                 <button class="btn btn-reset">Cancel</button>
                 {!! Form::submit('Save', array('class'=>'btn btn-add')) !!}
-                {!! Form::close() !!}
-                {!! Form::open(array('route'=>array('cms.news.destroy', $result->news_id),'method'=>'DELETE')) !!}
-                {!! Form::submit('Delete Permanently', array('class' => 'btn btn-warning')) !!}
                 {!! Form::close() !!}
             </div>
         </div>

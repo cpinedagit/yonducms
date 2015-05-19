@@ -103,13 +103,46 @@ function readURL(input) {
     }
 }
 
+function readImage(file) {
+
+    var reader = new FileReader();
+    var image  = new Image();
+
+    reader.readAsDataURL(file);  
+    reader.onload = function(_file) {
+        image.src    = _file.target.result;              // url.createObjectURL(file);
+        image.onload = function() {
+            var w = this.width,
+                h = this.height,
+                t = file.type.split('/')[1],                           // ext only: // file.type.split('/')[1],
+                n = file.name,
+                s = ((file.size/1024).toFixed(1)) +' kb';
+                $('.file-type').text(t);
+                $('.file-size').text(s);
+                $('.file-dimension').text(w+'x'+h);
+            console.log(w+'x'+h+' '+s+' '+t+' '+n);
+        };
+        image.onerror= function() {
+            alert('Invalid file type: '+ file.type);
+        };      
+    };
+
+}
+
 $("#imgInp").change(function(){
     readURL(this);
+    var F = this.files;
+    if(F && F[0]) for(var i=0; i<F.length; i++){
+        readImage( F[i] );
+    }
 });
 
 $('#deleteimage').click(function(){
     $('#blah').attr('src','').hide().removeClass('show');
     $('.upload-image-container__upload > .fa').hide().removeClass('show');
     $("#imgInp").val('').show().removeClass('hide');
+    $('.file-type').text("");
+    $('.file-size').text("");
+    $('.file-dimension').text("");
 })
     
