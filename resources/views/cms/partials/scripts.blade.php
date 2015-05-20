@@ -19,6 +19,12 @@
   	var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
   	</script>
 	{!! HTML::script('public/js/main.js') !!}
+<<<<<<< HEAD
+=======
+	{!! HTML::script('public/js/menu_cms/jquery.nestable.js') !!}
+	{!! HTML::script('public/js/menu_cms/menu_app.js') !!}
+	
+>>>>>>> 54f8f841678f500e28fc4fe6a6d192f81352b660
 
 <script>
 	$(document).ready(function() {

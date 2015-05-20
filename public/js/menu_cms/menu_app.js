@@ -8,32 +8,64 @@
 $(document).ready(function ()
 {
 
-    // changes name and url textboxes if clicked
-    $('.nestable-lists .dd-item').each(function () {
-        $(this).mousedown(function (e) {
-            // enable text input
-            $('#menu_label').attr('readonly', false);
-            $("#clear_btn").attr('disabled', false);
+// add menu from pages
+    $('#addPagestonavi').click(function () {
+        var tagitem = document.getElementsByClassName('dd-item');
+        var nestablecount = tagitem.length + 1;
 
-            // automatic focus
-            $('#menu_label').focus();
-            $('#saveMenuChanges').attr('disabled', false);
-            
-            var mousetarget = e.target;
-            $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
-//           $('#menu_label').val($(mousetarget).closest('.dd-item').attr('data-label'));
-            $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
+        var len = $("input[name='pages[]']:checked").length;
 
-//            $('#menu_label').val($(mousetarget).closest('.dd-handle').innerHtml);
-//                $('#menu-label').val(mousetarget.closest('.dd-handle').innerHTML);
-//                $('#menu-link').val($(mousetarget).closest('.dd-item').attr('data-url'));
+        $('.check_pages:checked').each(function () {
+
+            var label = $(this).val();
+            var page_id = $(this).data('page_id');
+            $.ajax({
+                type: 'POST',
+                url: window.location + "/addpagetomenu",
+                data: {'label': label, 'page_id': page_id, 'order_id': nestablecount, '_token': $('[name=_token').val()},
+                success: function (response) {
+
+                    var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu' onclick='delThis(" + response['last_id'] + ")'></button></li>";
+
+                    $(htmlmenu).hide().appendTo("#list-cont").fadeIn(1000);
+                    nestablecount++;
+                    updateOutput($('#nestable').data('output', $('#nestable-output')));
+
+                    len--;
+                    if (len === 0)
+                    {
+                        $(".nestable-lists .dd-item").mousedown(function (e) {
+                            var mousetarget = e.target;
+
+                            // enable text input
+                            if ($(mousetarget).hasClass('delete-item')) {
+                            } else {
+
+                                $('#menu_label').attr('readonly', false);
+                                $("#clear_btn").attr('disabled', false);
+
+                                $('#saveMenuChanges').attr('disabled', false);
+
+                                $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
+                                $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
+                            }
+
+
+                        });
+                    }
+
+                },
+                error: function () { // if error occured
+                    alert("Error: try again");
+                }
+            });
+
         });
+
     });
 
     // activate Nestable for list
     $('#nestable').nestable();
-
-
 
     var updateOutput = function ()
     {
@@ -50,7 +82,6 @@ $(document).ready(function ()
             countr++;
         });
         $('#nestable-output').val(JSON.stringify(getval));
-
     };
 
     // activate Nestable for list
@@ -61,20 +92,6 @@ $(document).ready(function ()
     // output initial serialised data
     updateOutput($('#nestable').data('output', $('#nestable-output')));
 
-    $('#nestable-menu').on('click', function (e)
-    {
-        var target = $(e.target),
-                action = target.data('action');
-        if (action === 'expand-all') {
-            $('.dd').nestable('expandAll');
-        }
-        if (action === 'collapse-all') {
-            $('.dd').nestable('collapseAll');
-        }
-    });
-
-
-
     function updateTips(t) {
         tips
                 .text(t)
@@ -83,82 +100,100 @@ $(document).ready(function ()
             tips.removeClass("ui-state-highlight", 1500);
         }, 500);
     }
+});
+
+// changes name and url textboxes if clicked
+$('.nestable-lists .dd-item').each(function () {
+    $(this).mousedown(function (e) {
+        var mousetarget = e.target;
+//            console.log(mousetarget);
+        // enable text input
+        if ($(mousetarget).hasClass('delete-item')) {
+        } else {
+            $('#menu_label').attr('readonly', false);
+            $("#clear_btn").attr('disabled', false);
+
+            $('#saveMenuChanges').attr('disabled', false);
+            $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
+            $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
+        }
+
+    });
+});
 
 
-//    var dialog, form,
-////            emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-//            menu_var = $("#menu"),
-//            url_var = $("#url"),
-//            allFields = $([]).add(menu_var).add(url_var),
-//            tips = $(".validateTips");
+$('#saveMenuChanges').click(function () {
+    var data = $("#menu_form").serialize();
 
-//    function checkLength(o, n, min) {
-//        if (o.val().length < min) {
-//            o.addClass("ui-state-error");
-//            updateTips("Length of " + n + " must be atleast " +
-//                    min);
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//
-//    function checkRegexp(o, regexp, n) {
-//        if (!(regexp.test(o.val()))) {
-//            o.addClass("ui-state-error");
-//            updateTips(n);
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-//    function addMenu() {
-//        var valid = true;
-//        allFields.removeClass("ui-state-error");
-//        // valid lenght of string must have atleast 1
-//        valid = valid && checkLength(menu_var, "menu", 1);
-//        valid = valid && checkLength(url_var, "url", 1);
-//        // use this as reference for menu html tag
-//        var tagitem = document.getElementsByClassName('dd-item');
-//        // get the last number and increment by 1 for the id of nxt append li element
-//        var nestablecount = tagitem.length + 1;
-//        if (valid) {
-//            $('#list-cont').append('<li class="dd-item" data-id="' + nestablecount + '" data-menu="' + menu_var.val() + '" data-url="' + url_var.val() + '"><div class="dd-handle">' + menu_var.val() + '</div><div class="dd-remove dd3-remove"></div></li>');
-//            nestablecount++;
-//            updateOutput($('#nestable').data('output', $('#nestable-output')));
-//            dialog.dialog("close");
-//        }
-//        return valid;
-//    }
-
-//    dialog = $("#dialog-form").dialog({
-//        autoOpen: false,
-//        height: 380,
-//        width: 350,
-//        modal: true,
-//        buttons: {
-//            "Create menu": addMenu,
-//            Cancel: function () {
-//                dialog.dialog("close");
-//            }
-//        },
-//        close: function () {
-//            form[ 0 ].reset();
-//            allFields.removeClass("ui-state-error");
-//        }
-//    });
-
-//    form = dialog.find("form").on("submit", function (event) {
-//        event.preventDefault();
-//        addMenu();
-//    });
-
-//    $("#create-menu").button().on("click", function () {
-//        dialog.dialog("open");
-//    });
-
+    $.ajax({
+        type: 'POST',
+        url: window.location + "/updatelabel",
+        data: data,
+        success: function () {
+            data_id = $('#menu_id').val();
+            $("div #target_" + data_id).html($('#menu_label').val());
+            autoClear();
+        },
+        error: function () { // if error occured
+            alert("Error: select menu and try again");
+        },
+    });
 
 });
 
 
+function saveMenuStructure() {
+    var data = $("#structure_menu").serialize();
+    $.ajax({
+        type: 'POST',
+        url: window.location + "/updatemenu",
+        data: data,
+        success: function () {
+           // $("#alertSaveData").show().delay(1000).fadeOut();
+        },
+        error: function () { // if error occured
+            alert("Error: try again");
+        },
+    });
+}
+
+$('#selectUs').click(function (event) {
+    if (this.checked) { // check select status
+        $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
+            this.checked = true;  //select all checkboxes with class "checkbox1"               
+        });
+    } else {
+        $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
+            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+        });
+    }
+});
+
+
+
+function autoClear() {
+    $('#menu_id').val('');
+    $('#menu_label').val('');
+    $('#saveMenuChanges').attr('disabled', true);
+    $('#menu_label').attr('readonly', true);
+    $("#clear_btn").attr('disabled', true);
+}
+
+function delThis(idMenu) {
+    if (confirm('this action will affect to data record permanently, are you sure of this?')) {
+        autoClear();
+
+        $.ajax({
+            type: 'POST',
+            url: window.location + "/deletemenu",
+            data: {'del_id': idMenu, '_token': $('[name=_token').val()},
+            success: function () {
+                $("#idli_" + idMenu).remove();
+            },
+            error: function () {
+                alert("Error: try again");
+            }
+        });
+
+    }
+}

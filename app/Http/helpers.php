@@ -57,7 +57,7 @@ function getSubMenu($arrVal, $htmlmenu = '') {
             $htmlmenu .= '<ol class = "dd-list">';
             foreach ($menuArrObj as $objChildMenu) {
 
-                $htmlmenu .= '<li id="idli_' . $objChildMenu->menu_id . '" class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"><div class = "dd-handle"  id="target_' . $objChildMenu->menu_id . '" }}">' . $objChildMenu->label . '</div><button class="circle btn--remove-menu" onclick="delThis(' .
+                $htmlmenu .= '<li id="idli_' . $objChildMenu->menu_id . '" class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"><div class = "dd-handle"  id="target_' . $objChildMenu->menu_id . '" }}">' . $objChildMenu->label . '</div><button class="circle btn--remove-menu delete-item" onclick="delThis(' .
                         $objChildMenu->menu_id
                         . ')"></button>';
                 $htmlmenu .= getSubMenu($objChildMenu->menu_id);
@@ -101,6 +101,8 @@ function parentElement($arrVal, $element) {
         }
     }
 }
+// end here for menu
+
 
 function banner($id) {
 
