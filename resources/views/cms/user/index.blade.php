@@ -78,7 +78,13 @@
 	            		{!! $user->email !!}
 	            	</td>
 	            	<td>
-	            		role
+	            		@foreach($roles as $role)
+
+	            			@if($role->id == $user->role_id)
+	            				{!! $role->role_name !!}
+	            			@endif
+
+	            		@endforeach
 	            	</td>
 	            	 <td class='action'>
                         <i class="fa fa-chevron-left"></i>
