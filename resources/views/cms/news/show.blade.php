@@ -61,8 +61,8 @@
  </div>
  {!! Form::file('file', array('class'=>'show','multiple'=>false,'id'=>'imgInp','accept'=>'image/*')) !!}
  <small class="main-container__content__info__photo__limitations">
-    File type: JPG, GIF, PNG <br>
-    Maximum file size: 2MB <br>
+    File type: {{ env('APP_MEDIA_FORMATS') }} <br>
+    Maximum file size: {{ env('APP_MEDIA_MAX_FILE_SIZE') }}MB <br>
     Recommended image dimension: 600 x 600
 </small>
 </div>

@@ -43,7 +43,7 @@
 				@endif
 			</td>
 			<td>{{ after_last('/',$file->media_path) }}</td>
-			<td>{{ File::size($file->media_path) }} bytes </td>
+			<td> {{ (round(File::size($file->media_path) /1024,1))}} bytes </td>
 			<td>{{ date('F d, Y', (File::lastModified($file->media_path))) }} </td>
 			<td class='action'>
 				<i class="fa fa-chevron-left"></i>

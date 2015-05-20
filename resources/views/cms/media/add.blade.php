@@ -1,8 +1,31 @@
 @extends('cms.home')
 @section('content')
+<style>
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+</style>
+
 <div class="main-container__content__reminder">
                     <i class="fa fa-exclamation-circle"></i>
                     <small>Reminder: Allowed file types: {{ env('APP_MEDIA_FORMATS') }}.</small>
+                    <small>Maximum file size: {{ env('APP_MEDIA_MAX_FILE_SIZE') }}MB</small>
                 </div>
 
 
@@ -21,8 +44,10 @@
                                             <div id="filedrag">
                                                 <h3>Drop files here</h3>
                                                 or <br>
-                                               {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*','class'=>'btn btn-add filedrag__modal')) !!}
-                               
+                                                <span class="btn btn-add filedrag__modal btn-file">
+                                                    Select Files{!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*')) !!}
+                                                </span>
+                                               
                                             </div>
                                         </div>
                                      </div>
@@ -35,22 +60,6 @@
                         </div>
                    {!! Form::close() !!}
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script>
