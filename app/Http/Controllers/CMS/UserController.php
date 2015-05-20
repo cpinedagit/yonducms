@@ -27,7 +27,8 @@ class UserController extends Controller {
 	public function create()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.user.create');
-		return view('cms.user.create');
+		$roles = Role::getActiveRoles();
+		return view('cms.user.create', compact('roles'));
 	}
 
 	public function store()
@@ -100,6 +101,9 @@ class UserController extends Controller {
 	public function update($id)
 	{
 		$user             = User::find($id);
+		$path = 'public/images/profile';		
+		$file = Input::file('profile_pic');
+
 		$user->username   = Input::get('username'); 
 		$user->first_name = Input::get('first_name');
 		$user->last_name  = Input::get('last_name');
@@ -120,8 +124,11 @@ class UserController extends Controller {
 		}else{
 			$user->password   = Hash::make(Input::get('password'));	
 		}
-		
+		$user->profile_pic = $file->getClientOriginalName();		
 		$user->save();
+
+		$file->move($path, $file->getClientOriginalName());
+
 		return $this->index();
 	}
 
