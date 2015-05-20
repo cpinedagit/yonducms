@@ -2,55 +2,83 @@
 
 @section('content')
 
-	<h3>Edit {!! $user->username !!}</h3>
+	<div class='main-container__content__info'>
+       <div class="row">
+           <div class="col-sm-12">
+               <h3>Edit {!! ucwords(strtolower($user->username)) !!}</h3>
+           </div>
+       </div>
+       <div class="row">
 
-	{!! Form::model($user, array('route' => array('cms.user.update', $user->id),
-   'method' => 'put')) !!}
+       	 {!! Form::model($user, array('route' => array('cms.user.update', $user->id), 'method' => 'put', 'enctype' => 'multipart/form-data')) !!}
+            
+            <div class="col-sm-7">               
+           
+                <div class="form-group">
+                   {!! Form::label('rolelabel', 'User Role', array('class' => 'form-title')) !!}
+                   <div class="profile-role-holder">
+                       <div class="profile-role-holder__role col-sm-9">                            
+		                    <select name='role_id' class='form-control'>				
+								@foreach(roles() as $role)
+									<option value='{!! $role->id !!}'>{!! ucwords(strtolower($role->role_name)) !!}</option>
+								@endforeach
 
-   		<p>
-			{!! Form::label('username', 'Username') !!}
-			{!! Form::text('username', null) !!}
-		</p>
+								@if(!empty($user->role_id) && $user->role_id != '' && $user->role_id != NULL)
 
-  		<p>
-			{!! Form::label('firstname', 'Firstname') !!}
-			{!! Form::text('first_name', null) !!}
-		</p>
+									<option value='{!! $user->role_id !!}' selected>{!! ucwords(strtolower($role->role_name)) !!}</option>
+								@endif
+							</select>
+                       </div>
+                       {!! Form::submit('Update Profile', array('class' => 'btn btn-add pull-right')) !!}                       
+                   </div>
+                </div>
 
-		<p>
-			{!! Form::label('lastname', 'Lastname') !!}
-			{!! Form::text('last_name', null) !!}
-		</p>
+                <div class="form-group">
+                    {!! Form::label('username', 'Username', array('class' => 'form-title')) !!}
+                    {!! Form::text('username', null, array('class' => 'form-control', 'placeholder' => 'Enter username')) !!}
+                </div>
 
-		<p>
-			{!! Form::label('email', 'Email') !!}
-			{!! Form::email('email', null) !!}
-		</p>
+                <div class="form-group">
+                    {!! Form::label('firstname', 'Firstname', array('class' => 'form-title')) !!}
+                    {!! Form::text('first_name', null, array('class' => 'form-control', 'placeholder' => 'Enter first name')) !!}
+                </div>
+				
+				<div class="form-group">
+                    {!! Form::label('lastname', 'Lastname', array('class' => 'form-title')) !!}
+                    {!! Form::text('last_name', null, array('class' => 'form-control', 'placeholder' => 'Enter last name')) !!}
+                </div>
+            	
+            	<div class="form-group">
+                    {!! Form::label('email', 'Email', array('class' => 'form-title')) !!}
+                    {!! Form::email('email', null, array('class' => 'form-control', 'placeholder' => 'Enter email address')) !!}
+                </div>
+            	
+            	<div class="form-group">
+                    {!! Form::label('password', 'Password', array('class' => 'form-title')) !!}
+                    {!! Form::password('password', array('class' => 'form-control', 'placeholder' => 'Type password')) !!}
+                </div>
+            	
+            	<div class="form-group">
+                    {!! Form::label('password', 'Confirm Password', array('class' => 'form-title')) !!}
+                    {!! Form::password('password', array('class' => 'form-control', 'placeholder' => 'Re-type the password')) !!}
+                </div>
+            	            	
+            </div>
 
-		<p>
-			{!! Form::label('password', 'Password') !!}
-			{!! Form::password('password', null) !!}
-		</p>
+            <div class="col-sm-3 col-sm-offset-1">
+              <h4>Profile Picture</h4>
+               <div class="main-container__content__info__photo--profile">
+                   <div class="main-container__content__info__photo__uploaded-photo-container main-container__content__info__photo__uploaded-photo--profile">
+                        {!! HTML::image('public/images/profile/' . $user->profile_pic, $user->username, array('class' => 'show')) !!}
+                   </div>
+                  	{!! Form::file('profile_pic', array('class' => 'show')) !!}
+               </div>
+            </div>
 
-		<p>
-			{!! Form::label('passwordconfirm', 'Confirm Password') !!}
-			{!! Form::password('passwordconfirm', null) !!}
-		</p>
+            {!! Form::close() !!}
 
-		<p>
-			{!! Form::label('rolelabel', 'Role') !!}
-			<select name='role_id'>
-				@foreach(roles() as $role)
-					<option value='{!! $role->id !!}'>{!! $role->role_name !!}</option>
-				@endforeach
-			</select>
-		</p>
-		
-		<p>
-			{!! Form::submit('Submit') !!}
-		</p>
-
-		{!! Form::close() !!}
+        </div>
+   </div>
 
 		@if($errors->any())
 

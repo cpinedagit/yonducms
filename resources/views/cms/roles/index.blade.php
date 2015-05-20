@@ -21,19 +21,24 @@
 								<td>
 								{!! $role->role_name !!}
 								</td>
-								<td>
-								{!! HTML::linkRoute('cms.role.edit', 'edit', $role->id) !!}
-								</td>
-								<td>
-								{!! HTML::linkRoute('cms.access.edit', 'access rights', $role->id) !!}
-								</td>
-								<td>
-								
-									{!! Form::open(array('route' => array('cms.role.destroy', $role->id), 'method' => 'delete')) !!}
-									    {!! Form::submit("Delete") !!}
-									{!! Form::close() !!}
 
-								</td>
+								@if($role->type == 0)
+
+									<td>
+									{!! HTML::linkRoute('cms.role.edit', 'edit', $role->id) !!}
+									</td>
+									<td>
+									{!! HTML::linkRoute('cms.access.edit', 'access rights', $role->id) !!}
+									</td>
+									<td>
+									
+										{!! Form::open(array('route' => array('cms.role.destroy', $role->id), 'method' => 'delete')) !!}
+										    {!! Form::submit("Delete") !!}
+										{!! Form::close() !!}
+
+									</td>
+								@endif
+
 							</tr>
 						</table>
 					</li>					

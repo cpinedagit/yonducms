@@ -15,7 +15,7 @@ class isAllowed {
 	{
 		if(!$request->user())
 		{
-			return redirect('isNotAllowed');
+			return redirect('/auth/login');
 		}
 
 

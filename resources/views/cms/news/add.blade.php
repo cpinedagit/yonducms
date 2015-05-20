@@ -6,11 +6,11 @@
 </div>
 <div class='main-container__content__info'>
  <div class="row main-container__content__info__row-custom">
-  {!! Form::open(array('route'=>'cms.news.store','method'=>'POST','id'=>'news','files'=>true)) !!}
+  {!! Form::open(array('route'=>'cms.news.store','method'=>'POST','id'=>'news','files'=>true, "data-parsley-validate")) !!}
   <div class="col-sm-9 main-container__content__info__panel-custom">
     <div class="form-group">
       <label for="news_title" class="form-title">News Title *</label>
-      {!! Form::text('news_title','',array('class'=>'form-control','placeholder'=>'Enter title' )) !!}
+      {!! Form::text('news_title','',array('class'=>'form-control','placeholder'=>'Enter title', 'required' )) !!}
     </div>
     <div class="row">
 
@@ -18,7 +18,7 @@
         <div class="form-group">
           <label for="news-date" class='form-title'>Date *</label>
           <div class="input-group">
-           {!! Form::text('news_date','',array('class'=>'form-control datepicker')) !!}
+           {!! Form::text('news_date','',array('class'=>'form-control datepicker', 'required')) !!}
            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
          </div>
 
@@ -36,13 +36,13 @@
     <div class="col-sm-12">
       <div class="form-group">
         <label for="news_content" class='form-title'>Description *</label>
-        {!! Form::textarea('description','',array('class' =>'ckeditor invisible')) !!} 
+        {!! Form::textarea('description','',array('class' =>'ckeditor invisible', 'required')) !!} 
       </div> 
     </div>
     <div class="col-sm-12">
      <div class="form-group">
       <label for="editor2" class='form-title'>Content *</label>
-      {!! Form::textarea('news_content','',array('id'=>'Editor1','class' =>'invisible ckeditor')) !!} 
+      {!! Form::textarea('news_content','',array('id'=>'Editor1','class' =>'invisible ckeditor', 'required')) !!} 
     </div>
   </div>
   
@@ -59,7 +59,7 @@
   <div class="main-container__content__info__photo__delete">
    <a href="#" id='deleteimage' role="button">Delete</a>
  </div>
- {!! Form::file('file', array('class'=>'show','multiple'=>false,'id'=>'imgInp','accept'=>'image/*')) !!}
+ {!! Form::file('file', array('class'=>'show','multiple'=>false,'id'=>'imgInp','accept'=>'image/*', 'required')) !!}
  <small class="main-container__content__info__photo__limitations">
   File type: JPG, GIF, PNG <br>
   Maximum file size: 2MB <br>

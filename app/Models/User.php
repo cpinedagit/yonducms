@@ -18,4 +18,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	protected $hidden = ['password', 'remember_token'];
 	
+	public static function getAllUsers()
+	{
+		return DB::table('users')
+				->where('is_active', '=', 1)
+				->get(['id', 'username', 'first_name',
+						'last_name', 'email', 'role_id', 'is_active']);
+	}
 }

@@ -79,9 +79,14 @@ Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemControlle
 // From Allan
 Route::resource('admin/menu', 'CMS\CmsMenuController');
 
-Route::get('admin/menu', 'CMS\CmsMenuController@index');
+Route::post('admin/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
 
-Route::post('admin/menu/updatetitle', ['as' => 'updatetitle', 'uses' => 'CMS\CmsMenuController@updateTitleMenu']);
+Route::post('admin/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
+
+Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@delete']);
+
+Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
+
 // end  
 
 //Authentication and Forgot Password Module: Start
@@ -91,15 +96,18 @@ Route::controllers([
 ]);
 //Authentication and Forgot Password Module: End
 
-
+//Media Management
+Route::post('/cms/media/deleteSelected',['as'=>'cms.media.deleteSelected','uses'=>'CMS\MediaController@deleteSelected']);
 Route::post('cms/media/gallery',['as'=>'cms.media.gallery','uses'=>'CMS\MediaController@gallery']);
 Route::post('cms/media/getAll',['as'=>'cms.media.getAll','uses'=>'CMS\MediaController@getAll']);
 Route::post('/cms/media/getAllimage',['as'=>'cms.media.getAllimage','uses'=>'CMS\MediaController@getAllimage']);
 Route::resource('cms/media','CMS\MediaController');
-
+//end media management
+//News Management
+Route::post('/cms/news/deleteSelected',['as'=>'cms.news.deleteSelected','uses'=>'CMS\NewsController@deleteSelected']);
 Route::resource('cms/news','CMS\NewsController');
 Route::resource('site/news','Site\NewsController');
-
+//end news management
 //this routes is for Code Editor Management
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');

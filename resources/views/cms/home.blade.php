@@ -11,11 +11,13 @@
 <body>
 		@include('cms.partials.header')
 		@include('cms.partials.container')
+		<!-- Include News Feeds -->
+		@if(isset($data['news_feeds']))
+			@include('cms.news_feeds.index')
+		@endif
+		<!-- Include News Feeds -->
 		@include('cms.partials.footer')
-	
-	<!--test-->
 		
 	@include('cms.partials.scripts')
-		
 </body>
 </html>

@@ -30,6 +30,7 @@ function Init() {
 		filedrag.style.display = "block";
 		
 	}
+   
 
 }
 
@@ -39,18 +40,43 @@ function FileDragHover(e) {
 	e.target.className = (e.type == "dragover" ? "hover" : "");
 }
 
-function FileSelectHandler(e) {
-	FileDragHover(e);
+function readURL2(input,lengthfile) {
+    //if (input.files && input.files[0]) {
+        for ( var x=0; x < lengthfile; x++){
+            (function(file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    
+                    var uploadphotocontainer = $("<div>",{class:"main-container__content__info__photo__uploaded-photo-container uploaded-photo-container-multiple hide-before"});
+                    /*var i = $("<i>",{class:"fa fa-times-circle show delete-multiple"});*/
+                    var image = $("<img>",{id:"blah", src:e.target.result, alt:"your image"}).css("display","inline");
+                    $(uploadphotocontainer).append(image) 
+                    $('.uploadfiles-multiple').append(uploadphotocontainer);
+                    //$('').append(uploadphotocontainer);
+                }
+                reader.readAsDataURL(input.files[x]);
+            })(input.files[x]);
+        }
+   // }
+}
 
+function FileSelectHandler(e) {
+    $('.uploadfiles-multiple .main-container__content__info__photo__uploaded-photo-container').each(function(){
+        $(this).remove();
+    });
+    
+	FileDragHover(e);
+    
+    readURL2(fileselect,fileselect.files.length);
+  
 	var files = e.target.files || e.dataTransfer.files;
 
 	var form = document.getElementById('upload');
 	var formData = new FormData();
 	for (var i = 0, f; f = files[i]; i++) {
-		
 		  filename = f.name;
 		  var ext =  filename.split('.').pop();
-
+        
 		  if(formats.indexOf(ext) < 0)
 		  {
 		  	alert("file type error");
@@ -95,6 +121,5 @@ function ParseFile(file) {
 		"</strong> type: <strong>" + file.type +
 		"</strong> size: <strong>" + file.size +
 		"</strong> bytes</p>"
-	);
-	
+	);	
 }

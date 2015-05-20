@@ -14,7 +14,7 @@ class RoleController extends Controller {
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.role.index');
-		$roles = Role::all();
+		$roles = Role::getActiveRoles();
 		return view('cms.roles.index', compact('roles'));
 	}
 

@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CMS\UserRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Hash;
 use Input;
@@ -18,14 +19,16 @@ class UserController extends Controller {
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.user.index');
-		$users = User::all();
-		return view('cms.user.index', compact('users'));
+		$users = User::getAllUsers();
+		$roles = Role::getActiveRoles();
+		return view('cms.user.index', compact('users', 'roles'));
 	}
 
 	public function create()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.user.create');
-		return view('cms.user.create');
+		$roles = Role::getActiveRoles();
+		return view('cms.user.create', compact('roles'));
 	}
 
 	public function store()
@@ -89,12 +92,18 @@ class UserController extends Controller {
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.user.index');
 		$user = User::where('slug', '=', $slug)->firstOrFail();
-		return view('cms.user.edit', compact('user'));
+		$roles = Role::getActiveRoles();
+		$roleName = Role::getRoleOf($user->role_id);
+		$roleName = (object) $roleName[0];
+		return view('cms.user.edit', compact('user', 'roleName', 'roles'));
 	}
 
 	public function update($id)
 	{
 		$user             = User::find($id);
+		$path = 'public/images/profile';		
+		$file = Input::file('profile_pic');
+
 		$user->username   = Input::get('username'); 
 		$user->first_name = Input::get('first_name');
 		$user->last_name  = Input::get('last_name');
@@ -115,8 +124,11 @@ class UserController extends Controller {
 		}else{
 			$user->password   = Hash::make(Input::get('password'));	
 		}
-		
+		$user->profile_pic = $file->getClientOriginalName();		
 		$user->save();
+
+		$file->move($path, $file->getClientOriginalName());
+
 		return $this->index();
 	}
 

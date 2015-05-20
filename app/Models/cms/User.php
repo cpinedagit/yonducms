@@ -119,4 +119,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	}
 
+	//List all users that request for password reset
+	public static function usersThatRequestForPasswordReset()
+	{
+		return DB::table('users')
+							->select(DB::raw('first_name, last_name, username, profile_pic'))
+							->where('forgot_password', 1)
+							->get();
+	}
+
 }
