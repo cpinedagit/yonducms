@@ -1,106 +1,143 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-        <title>Menu Management</title>
-        <link href="{{ asset('public/css/menu_cms/nestable.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('public/css/jquery-ui.css') }}" rel="stylesheet" type="text/css">
-        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+@extends('cms.home')
 
-        <script src="{{ asset('public/js/jquery.js') }}"></script>
-        <script src="{{ asset('public/js/jquery-ui.js') }}"></script>
-        <script src="{{ asset('public/js/menu_cms/jquery.nestable.js') }}"></script>
-        <script src="{{ asset('public/js/menu_cms/menu_app.js') }}"></script>
 
-    </head>
-    <body>
+@section('content')
 
-        <div id="dialog-form" title="Create a menu">
-            <p class="validateTips"></p>
+                <div class='main-container__content__info'>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="panel panel-default panel--custom">
+                                <div class="panel-heading"><h4>Menu Structure</h4></div>
+                                <div class="panel-body">
+                                    <div class="panel-body__instruction">
+                                        Drag each item into the order you prefer, or add a new menu
+                                    </div>
+                                    <div class="cf nestable-lists">
+                                        <div class="dd" id="nestable">
+                                            <ol class="dd-list" id="list-cont">
 
-            <form>
-                <fieldset>
-                    <label for="menu">Menu title</label>
-                    <input type="text" name="menu" id="menu" class="text ui-widget-content ui-corner-all">
-                    <label for="url">URL</label>
-                    <input type="text" name="url" id="url" class="text ui-widget-content ui-corner-all">
+                                                @if(isset($objMenu))
+                                                @foreach($objMenu as $menu)
+                                                <li id="idli_{{ $menu->menu_id }}" class="dd-item" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}">
+                                                    <div class="dd-handle" id="target_{{ $menu->menu_id }}">{{ $menu->label }} </div>
+                                                    
+                                                    {!! getSubMenu($menu->menu_id) !!}
+                                                    
+                                                    <button class='circle btn--remove-menu delete-item' onclick="delThis({{ $menu->menu_id }})"></button>
+                                                </li>
+                                                
+                                                @endforeach
+                                                @endif
 
-                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
-                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-                </fieldset>
-            </form>
+                                            </ol>
+                                        </div>
+                                    </div>
+
+                                    <form id="structure_menu" name="structure_menu">
+
+                                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+
+                                        <input type="hidden" name="nestable-output" id="nestable-output">
+                                    </form>
+
+                                </div>
+                                <div class="alert alert-success" style="display: none" id="alertSaveData">
+                                    Data Save :D
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default panel--custom main-container__content__info__properties">         
+
+                                        <div class="panel-heading"><h4>Properties</h4></div>
+                                        <div class="panel-body">
+                                            <div class="panel-body__instruction">
+                                                Click on a menu item to edit the properties
+                                            </div>
+                                            <div class="panel-body__textbox-holder">
+
+                                                <form id="menu_form" name="menu_form">
+
+                                                    <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                                                    <input type="hidden" name="menu_id" class="form-control"  id="menu_id">
+                                                    <input type="text"  name="menu_label" class="form-control" placeholder="Title" readonly="true" id="menu_label">
+                                                    <input type="text" class="form-control" placeholder="Link" readonly id='menu-link'>                                    
+                                                </form>
+                                                <br>
+
+
+                                                <button id="saveMenuChanges" disabled="true" class="btn btn-add">Apply Changes</button>
+                                                <button class="btn btn-warning" disabled="true" id='clear_btn' onclick="autoClear()">Cancel</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="main-container__content__info__tabpanel col-sm-8 center-block">
+                                    <div role="tabpanel" class="center-block">
+
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pages" aria-controls="home" role="tab" data-toggle="tab">Pages</a></li>
+                                            <li role="presentation"><a href="#links" aria-controls="profile" role="tab" data-toggle="tab">Links</a></li>
+
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane tab-pages active" id="pages">
+                                                <input type="text" class='form-control' placeholder="Search page">
+                                                <div class="page-list-holder">
+                                                    <ol class="list-unstyled" id="page-table">
+
+                                                        @if(isset($objPage))
+                                                        @foreach($objPage as $pages)
+                                                        <li>                                                                                                                      <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" class="check_pages" name="pages[]" value="{{ $pages->title }}" data-url="{{ $pages->url }}" data-page_id="{{ $pages->id }}" data-label="{{ $pages->title }}"> {{ $pages->title }}
+                                                                </label>
+                                                            </div>
+                                                        </li>
+
+                                                        @endforeach
+                                                        @endif
+
+                                                    </ol>
+                                                </div>
+                                                <div class="btn-holder">
+                                                    <button class="btn btn-add">
+                                                        <input type="checkbox" name="my-checkbox" id="selectUs"><label for='selectUs'>Check All</label></button>
+                                                    <button class="btn btn-add" id="addPagestonavi">Add to Navigation</button>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="links">
+                                                <div class="textbox-holder">
+                                                    <input type="text" class="form-control" placeholder="URL">
+                                                    <input type="text" class="form-control" placeholder="Navigation Label">
+                                                </div>
+
+                                                <button class="btn btn-add pull-right pull-bottom-right">Add to Navigation</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+            </main>
+
         </div>
-
-
-
-        <menu id="nestable-menu">
-            <button type="button" data-action="expand-all">Expand All</button>
-            <button type="button" data-action="collapse-all">Collapse All</button>
-            <a href="../"><button type="button">Open Site</button></a>
-
-        </menu>
-        <button id="create-menu">Add menu</button>
-
-        <div class="cf nestable-lists">
-
-            <div class="dd" id="nestable">
-                <ol class="dd-list" id="list-cont">
-                    @if(isset($innerHtml))
-                    {!! $innerHtml !!}
-                    @endif
-<!--                    <li class="dd-item" data-id="1" data-menu="one" data-url="home/one">
-                        <div class="dd-handle">Item 1</div>
-                    </li>
-
-                    <li class="dd-item" data-id="2" data-menu="two" data-url="home/two">
-                        <div class="dd-handle">Item 2</div>
-                        <ol class="dd-list">
-
-                            <li class="dd-item" data-name="asda" data-id="3" data-menu="three" data-url="home/three"><div class="dd-handle">Item 3</div></li>
-
-                            <li class="dd-item" data-id="4" data-menu="four" data-url="home/four"><div class="dd-handle">Item 4</div></li>
-
-                            <li class="dd-item" data-id="5" data-menu="five" data-url="home/five">
-                                <div class="dd-handle">Item 5</div>
-
-                                <ol class="dd-list">
-
-                                    <li class="dd-item" data-id="6" data-menu="six" data-url="home/six"><div class="dd-handle">Item 6</div></li>
-
-                                    <li class="dd-item" data-id="7" data-menu="seven" data-url="home/seven"><div class="dd-handle">Item 7</div></li>
-
-                                    <li class="dd-item" data-id="8" data-menu="eight" data-url="home/eight"><div class="dd-handle">Item 8</div></li>
-
-                                </ol>
-
-                            </li>
-
-                            <li class="dd-item" data-id="9" data-menu="nine" data-url="home/nine"><div class="dd-handle">Item 9</div></li>
-
-                            <li class="dd-item" data-id="10" data-menu="ten" data-url="home/ten"><div class="dd-handle">Item 10</li>
-
-
-                        </ol>
-                    </li>-->
-
-                    <!-- for remove button
-                     <div class="dd-remove dd3-remove"></div>
-                    -->
-
-                </ol>
-            </div>
-        </div>
-
-        {!! Form::open(array('route' => 'decode', 'method' => 'POST', 'class' => 'form')) !!}
-        <input type="hidden" name="serialize_menu" id="nestable-output">
-        {!! Form::submit('Save', array('id'=>'blah')) !!}
-        {!! Form::close() !!}
-        <p>&nbsp;</p>
-
-    </body>
-</html>
-
-
-
-
-
+@stop
