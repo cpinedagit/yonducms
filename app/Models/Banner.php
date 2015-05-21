@@ -46,7 +46,8 @@ class Banner extends Model {
                             'fk_banners.image_name',
                             'fk_banners.image_description',
                             'fk_banners.id'
-                             ));    }
+        ));
+    }
 
     public static function saveImage() {
         if (Request::get('selected')) {
@@ -92,6 +93,14 @@ class Banner extends Model {
 
     public static function getClass($id) {
         return Banner::find($id)->pluck('classes');
+    }
+
+    public static function getAllMainBanner() {
+        return DB::table('banners')->where('title', '=', 'Main Banner')->get();
+    }
+    
+    public static function getAllSubBanner(){
+        return DB::table('banners')->where('title', '=', 'Sub Banner')->get();
     }
 
 }

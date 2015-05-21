@@ -17,9 +17,9 @@ class Page extends Model {
     public static function edit($id) {
         return Page::find($id);
     }
-    
-    public static function preview($slug){
-        return DB::table('pages')->where('slug','=',$slug)->first();
+
+    public static function preview($slug) {
+        return DB::table('pages')->where('slug', '=', $slug)->first();
     }
 
     public static function updatePage($id) {
@@ -38,9 +38,13 @@ class Page extends Model {
                         ->where('banners.id', '=', $bannerId)
                         ->get(array('images.image'));
     }
-    
-    public static function getAllBanners(){
-        return DB::table('banners')->get(array('banners.id','banners.title'));
+
+    public static function getAllBanners() {
+        return DB::table('banners')->get(array('banners.id', 'banners.title'));
+    }
+
+    public static function getAllPublished() {
+        return DB::table('pages')->where('status', '=', 'Published')->get();
     }
 
 }

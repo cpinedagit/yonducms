@@ -16,13 +16,13 @@
         <div class='main-container__content__info'>
             <div class="main-container__content__info__summary">
                 <span>
-                    <strong>All</strong> (10)
+                    <strong>All</strong> ({{ $bannersCount }})
                 </span>
                 <span>
-                    <strong>Main Banner</strong> (1)
+                    <strong>Main Banner</strong> ({{ $getAllMainBannerCount }})
                 </span>
                 <span>
-                    <strong>Sub Banner</strong> (9)
+                    <strong>Sub Banner</strong> ({{ $getAllSubBannerCount }})
                 </span>
             </div>
             <table id="example" class="table table-striped table--data table--lastaction">

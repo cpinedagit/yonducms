@@ -14,10 +14,10 @@
 <div class='main-container__content__info'>
     <div class="main-container__content__info__summary">
         <span>
-            <strong>All</strong> (30)
+            <strong>All</strong> ({{ $pagesCount }})
         </span>
         <span>
-            <strong>Published</strong> (20)
+            <strong>Published</strong> ({{ $publishedCount }})
         </span>
     </div>
     <div class="main-container__content__info__filter">
