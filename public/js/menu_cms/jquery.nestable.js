@@ -113,7 +113,6 @@
                     e.preventDefault();
                     list.dragMove(e.touches ? e.touches[0] : e);
                 }
-
             };
 
             var onEndEvent = function (e)
@@ -121,10 +120,9 @@
                 if (list.dragEl) {
                     e.preventDefault();
                     list.dragStop(e.touches ? e.touches[0] : e);
-                    // added this for update structure menu, responsible: Allan Perez {May 20,2015 4:47pm} 
+                    // added this for update structure menu, Allan Perez, May 20,2015 4:47pm
                     saveMenuStructure();
                 }
-
             };
 
             if (hasTouch) {
@@ -132,13 +130,12 @@
                 window.addEventListener('touchmove', onMoveEvent, false);
                 window.addEventListener('touchend', onEndEvent, false);
                 window.addEventListener('touchcancel', onEndEvent, false);
-                
             }
 
             list.el.on('mousedown', onStartEvent);
             list.w.on('mousemove', onMoveEvent);
             list.w.on('mouseup', onEndEvent);
-        
+
         },
         serialize: function ()
         {

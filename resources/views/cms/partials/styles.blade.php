@@ -7,3 +7,4 @@
 {!! HTML::style('public/css/media_style.css') !!}
 {!! HTML::style('public/css/style.css') !!}
 {!! HTML::style('public/css/menu_cms/nestable.css') !!}
+{!! HTML::style('public/css/loader.css') !!}

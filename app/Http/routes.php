@@ -83,7 +83,7 @@ Route::post('admin/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\Cms
 
 Route::post('admin/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
 
-Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@delete']);
+Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@deleteMenu']);
 
 Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 
