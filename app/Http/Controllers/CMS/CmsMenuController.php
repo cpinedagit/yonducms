@@ -10,13 +10,14 @@ namespace App\Http\Controllers\CMS;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\Page;
 use Input;
 use DB;
 use Illuminate\Database\Query\Builder;
+use Request;
+use Response;
 
 class CmsMenuController extends Controller {
 
@@ -33,10 +34,10 @@ class CmsMenuController extends Controller {
             'objPage' => $objPage,
         ];
 //        return view('cms.menu.index', compact('objMenu'));
-        return view('cms.menu.app', $objData);
+        return view('cms.menu.index', $objData);
     }
 
-    function updateTitleMenu() {
+    function updateLabelMenu() {
         $id = Input::get('menu_id');
         $label = Input::get('menu_label');
 
@@ -45,8 +46,8 @@ class CmsMenuController extends Controller {
         $menu_name_update->save();
     }
 
-    // stores structure
-    function store() {
+    // we use other than resource method to avoid ajax conflict
+    function updatemenu() {
 
         $arrJson = Input::get('nestable-output');
         $arrData = json_decode($arrJson, TRUE);
@@ -69,7 +70,37 @@ class CmsMenuController extends Controller {
                 }
             }
         }
-        return $this->index();
+    }
+
+    function addPagetoMenu(Menu $page_menu) {
+        if (Request::ajax()) {
+            $label = Request::get('label');
+            $page_id = Request::get('page_id');
+            $order_id = Request::get('order_id');
+            $page_menu->label = $label;
+            $page_menu->parent_id = 0;
+            $page_menu->page_id = $page_id;
+            $page_menu->order_id = $order_id;
+            if ($page_menu->save()) {
+                return Response::json(array('last_id' => $page_menu->menu_id));
+            }
+        }
+    }
+
+    // we use delete word than resource destroy method to avoid ajax conflict
+    function delete() {
+        if (Request::ajax()) {
+            $id = Request::get('del_id');
+
+            $menu_parent = Menu::find($id);
+            if ($menu_parent->delete()) {
+
+                $menu_child = Menu::where('menu_id', '=', $id);
+                foreach ($menu_child as $id_child) {
+                    $id_child->delete();
+                }
+            }
+        }
     }
 
 }

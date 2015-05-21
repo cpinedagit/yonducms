@@ -89,16 +89,53 @@ class MediaController extends Controller {
   }
 
   public function update($id) {
+
       $media = Media::find($id);
-      $new_filename = Input::get('image_file_name');
-      $old_filename = Input::get('image_file_name_orig');
-      $path = before_last ('/',$media->media_path);
-      rename($path.'/'.$old_filename,$path.'/'.$new_filename);
-      $media->media_path = $path.'/'.$new_filename;
-      $media->caption= Input::get('caption');
-      $media->description= Input::get('description');
-      $media->alternative_text= Input::get('alternative_text');
-      $media->save();
+      $file = Input::file('file');
+      $file_count = count($file);
+      if($file_count > 0) {
+          $imagesPath = 'uploads/image';
+          $videosPath = 'uploads/video';
+          $year = date("Y");
+          $month = date("m");
+          $filename = $file->getClientOriginalName();
+          $extension = $file->getClientOriginalExtension();
+          $filePath = realpath($file);
+
+          $finfo = finfo_open(FILEINFO_MIME_TYPE);
+          $mime=finfo_file($finfo, $filePath);
+          if(strstr($mime, "video/")){
+              $fileType= 2;
+              $file->move($videosPath.'/'.$year.'/'.$month, $filename);
+              $original_path = $videosPath.'/'.$year.'/'.$month.'/'.$filename;
+          }else if(strstr($mime, "image/")){
+              $fileType = 1;
+              $file->move($imagesPath.'/'.$year.'/'.$month, $filename);
+              $original_path = $imagesPath.'/'.$year.'/'.$month.'/'.$filename;
+          }
+          $fileOld = $media->media_path;
+          if (file_exists($fileOld)) {
+           unlink($fileOld);
+          }
+          $media->media_path = $original_path;
+          $media->media_type = $fileType;
+        }
+        else
+        {
+          $new_filename = Input::get('image_file_name');
+          $old_filename = Input::get('image_file_name_orig');
+          $path = before_last ('/',$media->media_path);
+          $media->media_path = $path.'/'.$new_filename;
+          rename($path.'/'.$old_filename,$path.'/'.$new_filename);
+        }
+          $media->caption= Input::get('caption');
+          $media->description= Input::get('description');
+          $media->alternative_text= Input::get('alternative_text');
+          $media->save();
+
+          if(Request::ajax()) {
+          return Response::json(array($id));
+        }
       return Redirect::to('cms/media');
   }
 

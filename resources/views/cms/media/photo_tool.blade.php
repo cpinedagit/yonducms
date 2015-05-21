@@ -94,7 +94,7 @@ function populateImgLibrary()
   $.post(
     '{!! URL::route("cms.media.getAllimage") !!}',
     {
-        "_token": $( this ).find( 'input[name=_token]' ).val()
+        "_token": $('[name=_token').val()
     },
     function( data ) {
       for(x in data[0])
@@ -148,7 +148,6 @@ var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
           else
           {
               formData.append('fileselect[]',f); 
-          ParseFile(f);
           formData.append('file', f);           
           }
       }
@@ -169,7 +168,7 @@ var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
 
 </script>
 
-{!! HTML::script('js/upload_tool.js') !!}
+{!! HTML::script('public/js/upload_tool.js') !!}
 
 
 

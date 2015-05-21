@@ -92,14 +92,39 @@ $('.main-container__content__info__search__dropdown').change(function(){
 /******* UPLOAD PHOTO AND PREVIEW *******/
 function readURL(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        $('#blah').show();
-        $('.upload-image-container__upload > .fa').show();
-        reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
+        var extension = input.files[0].name.split('.').pop().toLowerCase();  //file extension from input file
+        if (formats.indexOf(extension) > -1) {
+            if(((input.files[0].size)/1024/1024) > default_size){
+                
+                alert("cant upload file size is over "+default_size+"MB");
+                $('.upload-image-container__upload > .fa').hide().removeClass('show');
+                $("#imgInp").val('').show().removeClass('hide');
+                $('.file-type').text("");
+                $('.file-size').text("");
+                $('.file-dimension').text("");
+            }
+            else
+            {
+                 var reader = new FileReader();
+                $('#blah').show();
+                $('.upload-image-container__upload > .fa').show();
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+                $("#imgInp").hide();
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-        $("#imgInp").hide();
-        reader.readAsDataURL(input.files[0]);
+        else
+        {
+            alert("file type error");
+            $('.upload-image-container__upload > .fa').hide().removeClass('show');
+            $("#imgInp").val('').show().removeClass('hide');
+            $('.file-type').text("");
+            $('.file-size').text("");
+            $('.file-dimension').text("");
+
+        }
     }
 }
 
@@ -119,6 +144,7 @@ function readImage(file) {
                 s = ((file.size/1024).toFixed(1)) +' kb';
                 $('.file-type').text(t);
                 $('.file-size').text(s);
+                $('#page-title').val(n);
                 $('.file-dimension').text(w+'x'+h);
             console.log(w+'x'+h+' '+s+' '+t+' '+n);
         };

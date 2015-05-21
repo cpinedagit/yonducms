@@ -17,6 +17,7 @@
 		@endif
 		<!-- Include News Feeds -->
 		@include('cms.partials.footer')
+	
 		
 	@include('cms.partials.scripts')
 </body>
