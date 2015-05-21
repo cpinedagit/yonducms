@@ -869,7 +869,8 @@ a:focus{
 .main-container__content__info__summary span:last-child{
     border-right: none;
 }
-.table--data{
+.table--data,
+.table--banner{
     border: 1px solid #d7dada;
     border-radius: 5px;
     box-shadow: 0 0 5px #ccc;
@@ -1267,6 +1268,9 @@ table.table--noaction tr td:first-child{
 .main-container__content__info__photo__title{
     margin-top: 0;
 }
+.main-container__content__info__photo__title > .fa{
+    margin-right: 10px;
+}
 .main-container__content__info__photo__uploaded-photo-container{
     position: relative;
     width: 176px;
@@ -1338,8 +1342,7 @@ table.table--noaction tr td:first-child{
     margin-bottom: 30px;
 }
 .file-list > li{
-    width: 50%;
-    float: left;
+    width: 100%;
     margin: 5px 0;
 }
 .file-list > li > a{
@@ -1360,7 +1363,7 @@ table.table--noaction tr td:first-child{
 }
 .editor-textarea{
     width: 100%;
-    height: 450px!important;
+    height: 600px!important;
     overflow: auto;
     resize: none;
 }
@@ -1511,10 +1514,31 @@ table.table--noaction tr td:first-child{
     text-align: center;
     margin-top: 70px;
 }
+.alert-danger--login{
+    clear: both;
+    background: #ffcccc;
+    margin-top: 15px;
+}
 .form-control-small{
     width: 30%;
 }
-
+.textbox--editable{
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding-left: 0;
+    padding-bottom: 8px;
+}
+.textbox--editable[disabled]{
+    cursor:auto;
+   background: transparent; 
+}
+.no-margin-bottom{
+    margin-bottom: 0!important;
+}
+.error-list{
+    text-align: left;
+}
 
 
 /********* FOOTER ***************/
