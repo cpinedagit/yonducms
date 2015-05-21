@@ -28,7 +28,7 @@ $(document).ready(function ()
                 },
                 success: function (response) {
 
-                    var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu' onclick='delThis(" + response['last_id'] + ")'></button></li>";
+                    var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
 
                     $(htmlmenu).hide().appendTo("#list-cont").fadeIn(1000);
                     nestablecount++;
@@ -62,7 +62,7 @@ $(document).ready(function ()
                 error: function () { // if error occured
                     alert("Error: try again");
                     $(".loader-container").removeClass('show');
-                    
+
                 }
             });
 
@@ -127,21 +127,21 @@ $('.nestable-lists .dd-item').each(function () {
     });
 });
 
-    
+
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
     data_id = $('#menu_id').val();
+    var label_text = $('#menu_label').val();
 
     $.ajax({
         type: 'POST',
         url: window.location + "/updatelabel",
         data: data,
         beforeSend: function () {
-            $("div #target_" + data_id).addClass('highlight-menu').css({'background-color':'white'});
+            $("div #target_" + data_id).addClass('highlight-menu').css({'background-color': 'white'});
         },
         success: function () {
-            $("div #target_" + data_id).html($('#menu_label').val()).removeClass('highlight-menu').css({'background-color':'#bcbcbc'});
-
+            $("div #target_" + data_id).html(label_text).removeClass('highlight-menu').css({'background-color': '#bcbcbc'});
             autoClear();
         },
         error: function () { // if error occured
@@ -169,15 +169,30 @@ function saveMenuStructure() {
         },
     });
 }
+$('.checkbox input[type="checkbox"]').click(function (event) {
+    var checkedAtLeastOne = false;
+    $('.checkbox input[type="checkbox"]').each(function () {
+        if ($(this).is(":checked")) {
+            checkedAtLeastOne = true;
+        }
+    });
+    if (checkedAtLeastOne === true) {
+        $('#addPagestonavi').attr('disabled', false);
+    } else {
+        $('#addPagestonavi').attr('disabled', true);
+    }
+});
 
 $('#selectUs').click(function (event) {
     if (this.checked) { // check select status
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
-            this.checked = true;  //select all checkboxes with class "checkbox1"               
+            this.checked = true;  //select all checkboxes with class "checkbox1" 
+            $('#addPagestonavi').attr('disabled', false);
         });
     } else {
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
-            this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+            this.checked = false; //deselect all checkboxes with class "checkbox1"  
+            $('#addPagestonavi').attr('disabled', true);
         });
     }
 });
@@ -185,11 +200,12 @@ $('#selectUs').click(function (event) {
 
 
 function autoClear() {
-    $('#menu_id').val('');
-    $('#menu_label').val('');
+    
     $('#saveMenuChanges').attr('disabled', true);
     $('#menu_label').attr('readonly', true);
     $("#clear_btn").attr('disabled', true);
+    $('#menu_id').val('');
+    $('#menu_label').val('');
 }
 
 function delThis(idMenu) {
