@@ -21,8 +21,16 @@ class BannerController extends Controller {
     public function index() {
         $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::all();
+        $bannersCount = count($banners);
+        $getAllMainBanner = Banner::getAllMainBanner();
+        $getAllMainBannerCount = count($getAllMainBanner);
+        $getAllSubBanner = Banner::getAllSubBanner();
+        $getAllSubBannerCount = count($getAllSubBanner);
         $arData = array(
-            'banners' => $banners
+            'banners' => $banners,
+            'bannersCount' => $bannersCount,
+            'getAllMainBannerCount' => $getAllMainBannerCount,
+            'getAllSubBannerCount' => $getAllSubBannerCount
         );
         return view('cms/Banners/index', $arData);
     }
