@@ -1,5 +1,5 @@
  $(document).ready(function() {
-                $('.superTable').DataTable({
+                $('.dtable').DataTable({
                     aaSorting: [0],
                     bInfo: false,
                     columnDefs: [
@@ -17,7 +17,7 @@
                     }
                 });
 
-                 $('.dtable').DataTable({
+                 $('.superTable').DataTable({
                     aaSorting: [0],
                     bInfo: false,
                     columnDefs: [

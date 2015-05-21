@@ -13,15 +13,15 @@
 		</span>
 	</div>
 
-	<div class="main-container__content__info__filter-container">
-		<div class="main-container__content__info__filter2">
+<!--	<div class="main-container__content__info__filter-container">
+	-->	<div class="main-container__content__info__filter">
 			<select name="" id="" class="form-control">
 				<option value="" disabled selected>Choose Action</option>
 				<option value="">Delete</option>
 			</select>
 			<input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
 		</div>
-		<div class="main-container__content__info__search">
+<!--		<div class="main-container__content__info__search">
 			<div class="form-inline">
 				<select name="" id="" class="form-control main-container__content__info__search__dropdown">
 					<option value="title">Title</option>
@@ -49,9 +49,9 @@
 				<input type="submit" class='btn btn-filter' value="Search">
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<table class="superTable table table-striped table--data table--lastaction">
+	<table class="superTable table table-striped table--data table--lastaction ">
 		<thead>
 			<tr>
 				<th><input type="checkbox" id='selecctall'></th>

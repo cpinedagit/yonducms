@@ -20,7 +20,7 @@
 			<input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
 		
 </div>
-<table class="dtable table-striped table--data table--lastaction table--thumbnail">
+<table class="superTable table-striped table--data table--lastaction table--thumbnail">
 		<thead>
 		<tr>
 			<th><input type="checkbox" id='selecctall'></th>

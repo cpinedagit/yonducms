@@ -1,15 +1,33 @@
 @extends('cms.home')
 @section('content')
-<div class="border">
-    <h2>Add Banner</h2>           
-    {!! Form::open(array('url'=> 'cms/banners', 'files' => 'true')) !!}            
-    {!! Form::label('name', 'Name:') !!}
-    {!! Form::text('name',null,['class' => 'form-control Nform-control']) !!}     
-    {!! Form::label('type', 'Type:') !!}
-    {!! Form::select('type',array('Standard' => 'Standard', 'Advanced' => 'Advanced'), null, array('class' => 'form-control Nform-control')) !!}     
-    {!! Form::submit('Save',['class'=> 'btn btn-default marginTop marginLeft']) !!}
-    {!! Form::close() !!} 
+<div class="main-container__content__reminder">
+    <i class="fa fa-exclamation-circle"></i>
+    <small>Reminder: Fields with asterisk(*) are required.</small>
+</div>    
+<div class='main-container__content__info'>
+    <div class="row">  
+        {!! Form::open(array('url'=> 'cms/banners', 'files' => 'true')) !!} 
+        <div class="col-sm-9">
+            <div class="form-group">
+                <label for="banner-title" class='form-title'>Banner Title *</label>
+                {!! Form::text('name',null,['class' => 'form-control','id'=>'banner-title','placeholder'=>'Enter title here']) !!}  
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="banner-type" class='form-title'>Type *</label>
+                        {!! Form::select('type',array('Standard' => 'Standard', 'Advanced' => 'Advanced'), null, array('class' => 'form-control')) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="btn-holder with-border-top">
+                <div class="pull-right">
+                    {!! Form::reset('Reset',['class'=> 'btn btn-reset']) !!}
+                    {!! Form::submit('Save',['class'=> 'btn btn-add']) !!}
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!} 
+    </div>
 </div>
-{!! HTML::script('js/jquery.js') !!}
-{!! HTML::script('js/bootstrap.min.js') !!}
 @stop
