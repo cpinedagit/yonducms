@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Page;
 use Input;
 use DB;
 use File;
+use Request;
+use Response;
 
 class PageController extends Controller {
 
@@ -19,10 +20,15 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');        
         $pages = Page::all();
+        $pagesCount = count($pages);
+        $published = Page::getAllPublished();
+        $publishedCount = count($published);
         $arData = array(
-            'pages' => $pages
+            'pages' => $pages,
+            'pagesCount' => $pagesCount,
+            'publishedCount' => $publishedCount
         );
         return View('cms/Pages/index', $arData);
     }
@@ -42,14 +48,18 @@ class PageController extends Controller {
      * @return Response
      */
     public function store() {
-
-        $lastid = DB::table('pages')->orderBy('id','desc')->pluck('id');
-        $incId = ++$lastid;
         $content = Input::get('Editor1');
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->url = 'http://localhost:8080/yonducms/site/page/'.$incId;
+        $page->slug = Input::get('slug');
+        $page->parent_id = Input::get('parent');
+        $publish = Input::get('publish');
+        if (isset($publish)) {
+            $page->status = 'Published';
+        } else {
+            $page->status = 'Unpublished';
+        }
         $page->save();
         return redirect('cms/pages');
     }
@@ -85,8 +95,8 @@ class PageController extends Controller {
         return view('cms/Pages/edit', $arData);
     }
 
-    public function preview($id) {
-        $pages = Page::edit($id);
+    public function preview($slug) {
+        $pages = Page::preview($slug);
         $arData = array(
             'pages' => $pages
         );
@@ -111,13 +121,33 @@ class PageController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        
     }
 
     public function addPage() {
-        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
-//        $id = Page::all()->orderBy('id', 'desc')->first();
-        return view('cms/Pages/add')->with('banners', $banners);
+//        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
+        $Pages = Page::all();
+        $arData = array(
+            'pages' => $Pages
+        );
+        return view('cms/Pages/add', $arData);
+    }
+
+    public function delPage() {
+//        $selected = Request::get('selected');
+//        foreach ($selected as $select) {
+//            $fk_banner = DB::table('fk_banners')->where('id', '=', $select);
+//            $fk_banner->delete();
+//        }
+//        return Response::json('ok');
+        
+        $checked = Request::get('checked');
+        
+        foreach($checked as $che){
+            $page = Page::find($che);
+            $page->delete();        
+        }
+        return Response::json('ok');
     }
 
 }

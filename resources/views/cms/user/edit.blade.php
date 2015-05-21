@@ -69,9 +69,9 @@
               <h4>Profile Picture</h4>
                <div class="main-container__content__info__photo--profile">
                    <div class="main-container__content__info__photo__uploaded-photo-container main-container__content__info__photo__uploaded-photo--profile">
-                        {!! HTML::image('public/images/profile/' . $user->profile_pic, $user->username, array('class' => 'show')) !!}
+                        {!! HTML::image('public/images/profile/' . $user->profile_pic, $user->username, array('class' => 'show', 'id' => 'blah')) !!}
                    </div>
-                  	{!! Form::file('profile_pic', array('class' => 'show')) !!}
+                  	{!! Form::file('profile_pic', array('class' => 'show', 'id' => 'imgInp')) !!}
                </div>
             </div>
 

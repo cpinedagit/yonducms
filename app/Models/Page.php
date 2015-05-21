@@ -18,11 +18,15 @@ class Page extends Model {
         return Page::find($id);
     }
 
+    public static function preview($slug) {
+        return DB::table('pages')->where('slug', '=', $slug)->first();
+    }
+
     public static function updatePage($id) {
         $content = Input::get('Editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
-        $page->url = Input::get('url');
+        $page->slug = Input::get('url');
         $page->content = $content;
         $page->save();
     }
@@ -34,9 +38,13 @@ class Page extends Model {
                         ->where('banners.id', '=', $bannerId)
                         ->get(array('images.image'));
     }
-    
-    public static function getAllBanners(){
-        return DB::table('banners')->get(array('banners.id','banners.title'));
+
+    public static function getAllBanners() {
+        return DB::table('banners')->get(array('banners.id', 'banners.title'));
+    }
+
+    public static function getAllPublished() {
+        return DB::table('pages')->where('status', '=', 'Published')->get();
     }
 
 }

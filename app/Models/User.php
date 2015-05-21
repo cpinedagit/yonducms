@@ -25,4 +25,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 				->get(['id', 'username', 'first_name',
 						'last_name', 'email', 'role_id', 'is_active']);
 	}
+
+	public static function getUserPerRoleCount()
+	{
+		return DB::table('users')
+				->groupBy('role_id')
+				->select(DB::raw('count(*) as c_user'), 'role_id')
+				->get();
+	}
 }

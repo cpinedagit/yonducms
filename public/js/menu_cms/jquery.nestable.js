@@ -113,6 +113,7 @@
                     e.preventDefault();
                     list.dragMove(e.touches ? e.touches[0] : e);
                 }
+
             };
 
             var onEndEvent = function (e)
@@ -120,10 +121,10 @@
                 if (list.dragEl) {
                     e.preventDefault();
                     list.dragStop(e.touches ? e.touches[0] : e);
+                    // added this for update structure menu, responsible: Allan Perez {May 20,2015 4:47pm} 
+                    saveMenuStructure();
                 }
 
-                // added this for update structure menu, Allan Perez, May 20,2015 4:47pm
-                saveMenuStructure();
             };
 
             if (hasTouch) {

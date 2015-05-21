@@ -13,14 +13,20 @@
 	{!! HTML::script('public/js/parsley/parsley.remote.js'); !!}
 	{!! HTML::script('public/js/dataTables.js') !!}
 	{!! HTML::script('public/js/vendor/modernizr-2.8.3.min.js'); !!}
+	{!! HTML::script('public/js/menu_cms/jquery.nestable.js') !!}
+	{!! HTML::script('public/js/menu_cms/menu_app.js') !!}
 	<script>
 	var formats = "{{ env('APP_MEDIA_FORMATS') }}";
   	formats = formats.split(',');
   	var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
   	</script>
 	{!! HTML::script('public/js/main.js') !!}
+<<<<<<< HEAD
 	{!! HTML::script('public/js/menu_cms/jquery.nestable.js') !!}
 	{!! HTML::script('public/js/menu_cms/menu_app.js') !!}
+=======
+
+>>>>>>> origin/master
 
 <script>
 	$(document).ready(function() {

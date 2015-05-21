@@ -95,7 +95,7 @@ class CmsMenuController extends Controller {
             $menu_parent = Menu::find($id);
             if ($menu_parent->delete()) {
 
-                $menu_child = Menu::where('menu_id', '=', $id);
+                $menu_child = Menu::where('parent_id', '=', $id);
                 foreach ($menu_child as $id_child) {
                     $id_child->delete();
                 }

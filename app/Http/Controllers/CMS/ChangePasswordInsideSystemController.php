@@ -42,7 +42,8 @@ class ChangePasswordInsideSystemController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('cms.change_password_user.index')
+					->withUsername(\Auth::user()->username);
 	}
 
 	/**
@@ -102,6 +103,7 @@ class ChangePasswordInsideSystemController extends Controller {
 		//If credentials are okay
 		//Update user credentials
 		//And there is no error in the input
+
 		if (Auth::once($credentials) && $v->fails()==false)
 		{
 			//Update temporary password
