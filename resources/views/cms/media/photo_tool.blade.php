@@ -1,17 +1,45 @@
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fileModal">
+<style>
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+.controls--upload
+{
+  height: 250px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+</style>
+
+<button type="button" class="btn btn-add" data-toggle="modal" data-target="#fileModal">
   Add Photo
 </button>
 
-<div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal modal-custom fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Insert Media</h4>
+        <h4 class="modal-title" id="myModalLabel">Add Image</h4>
       </div>
       <div class="modal-body">
         
-          <div role="tabpanel">
+          <div role="tabpanel" class="modal-body__media">
 
             <!-- Nav tabs -->
             <ul id="myTab" class="nav nav-tabs" role="tablist">
@@ -22,26 +50,36 @@
             <!-- Tab panes -->
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="upload_file">
-
-                  
-                    <div class="control-group">
-                      <div class="controls">
-                        {!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect')) !!}
-                 <div id="filedrag">or drop files here</div>
-                 {{ env('APP_MEDIA_FORMATS') }}
-                  {{ env('APP_MEDIA_MAX_FILE_SIZE') }} MB
-                     </div>
-                  </div>
-
-
-
+              <div class="main-container__content__reminder">
+                <i class="fa fa-exclamation-circle"></i>
+                <small>Reminder: Allowed file types: {{ env('APP_MEDIA_FORMATS') }}.</small>
+                <small>Maximum file size: {{ env('APP_MEDIA_MAX_FILE_SIZE') }}MB</small>
               </div>
+              <div class="control-group">
+                <div class="controls controls--upload">
+
+                  <div class="filedrag-holder">
+                    <div id="filedrag">
+                      <h3>Drop files here</h3>
+                      or <br>
+                      <span class="btn btn-add filedrag__modal btn-file">
+                        Select Files{!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*')) !!}
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
               <div role="tabpanel" class="tab-pane" id="media_library">
-
-                  <div class="img_wrapper">
-                          
-                  </div>
-              </div>
+                <div class="medialibrary__container">
+                 <ul class="list-unstyled medialibrary__list">
+                 </ul>
+            </div>
+            </div>
             </div>
 
           </div>
@@ -50,8 +88,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="insert">Insert File</button>
+         <button type="button" class="btn btn-reset" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-add" id="insert">Add</button>
       </div>
     </div>
   </div>
@@ -89,7 +127,7 @@ function DoneUpload() {
 
 function populateImgLibrary()
 {
-  $('.img_wrapper').empty();
+  $('.medialibrary__list').empty();
   str ="";
   $.post(
     '{!! URL::route("cms.media.getAllimage") !!}',
@@ -99,22 +137,22 @@ function populateImgLibrary()
     function( data ) {
       for(x in data[0])
       {
-      str += '<div class="div_img">'
+      str += '<li></label>'
       str += '<input type="checkbox" name="cbfiles" value="'+ data[0][x]['media_id'] +'">';
       media_path=data[0][x]['media_path'];
         if (data[0][x]['media_type'] == 1) 
         {
-        str += '{!! HTML::image("'+media_path+'","alt",array("height"=>100,"width"=>100)) !!}';
+        str += '{!! HTML::image("'+media_path+'","alt",array("class"=>"tbl-img-thumbnail-2x")) !!}';
         }
         else
         {
-        str += '{!! HTML::image("css/video_icon.jpg","alt",array("height"=>100,"width"=>100)) !!}';
+        str += '{!! HTML::image("css/video_icon.jpg","alt",array("class"=>"tbl-img-thumbnail-2x")) !!}';
         }
 
       str += '</input>';
-      str +='</div>'
+      str +='</label></li>'
       }
-      $('.img_wrapper').append(str);
+      $('.medialibrary__list').append(str);
     },
       'json'
   );
@@ -129,12 +167,16 @@ var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
   var files = e.target.files || e.dataTransfer.files;
   var formData = new FormData();
   for (var i = 0, f; f = files[i]; i++) {
+    blob = f.type;
+    blob = blob.split("/");
+    if((blob[0]) == "image") {
 
       filename = f.name;
       var ext =  filename.split('.').pop();
       if(formats.indexOf(ext) < 0)
       {
         alert("file type error");
+        return false;
       }
       else
       {
@@ -143,14 +185,20 @@ var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
           if(filesize > default_size)
           {
             alert("cant upload file size is over "+default_size+"MB");
-            break;
+            return false;
           }
           else
           {
-              formData.append('fileselect[]',f); 
-          formData.append('file', f);           
+            formData.append('fileselect[]',f); 
+            formData.append('file', f);           
           }
       }
+    }
+    else
+    {
+      alert("image only");
+      return false;
+    }
   }
   $('[name=_token').val();
   var xhr = new XMLHttpRequest();

@@ -80,6 +80,7 @@ function FileSelectHandler(e) {
 		  if(formats.indexOf(ext) < 0)
 		  {
 		  	alert("file type error");
+		  	return false;
 		  }
 		  else
 		  {
@@ -88,7 +89,7 @@ function FileSelectHandler(e) {
 		    	if(filesize > default_size)
 		    	{
 		    		alert("cant upload file size is over "+default_size+"MB");
-		    		break;
+		    		return false;
 		    	}
 		    	else
 		    	{
