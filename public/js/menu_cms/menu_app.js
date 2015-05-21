@@ -23,6 +23,9 @@ $(document).ready(function ()
                 type: 'POST',
                 url: window.location + "/addpagetomenu",
                 data: {'label': label, 'page_id': page_id, 'order_id': nestablecount, '_token': $('[name=_token').val()},
+                beforeSend: function () {
+                    $(".loader-container").addClass('show');
+                },
                 success: function (response) {
 
                     var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu' onclick='delThis(" + response['last_id'] + ")'></button></li>";
@@ -53,10 +56,13 @@ $(document).ready(function ()
 
                         });
                     }
+                    $(".loader-container").removeClass('show');
 
                 },
                 error: function () { // if error occured
                     alert("Error: try again");
+                    $(".loader-container").removeClass('show');
+                    
                 }
             });
 
@@ -121,26 +127,28 @@ $('.nestable-lists .dd-item').each(function () {
     });
 });
 
-
+    
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
+    data_id = $('#menu_id').val();
 
     $.ajax({
         type: 'POST',
         url: window.location + "/updatelabel",
         data: data,
+        beforeSend: function () {
+            $("div #target_" + data_id).addClass('highlight-menu').css({'background-color':'white'});
+        },
         success: function () {
-            data_id = $('#menu_id').val();
-            $("div #target_" + data_id).html($('#menu_label').val());
+            $("div #target_" + data_id).html($('#menu_label').val()).removeClass('highlight-menu').css({'background-color':'#bcbcbc'});
+
             autoClear();
         },
         error: function () { // if error occured
             alert("Error: select menu and try again");
-        },
+        }
     });
-
 });
-
 
 function saveMenuStructure() {
     var data = $("#structure_menu").serialize();
@@ -148,11 +156,16 @@ function saveMenuStructure() {
         type: 'POST',
         url: window.location + "/updatemenu",
         data: data,
+        beforeSend: function () {
+            $(".loader-container").addClass('show');
+        },
         success: function () {
-           // $("#alertSaveData").show().delay(1000).fadeOut();
+            $(".loader-container").removeClass('show');
         },
         error: function () { // if error occured
             alert("Error: try again");
+            $(".loader-container").removeClass('show');
+
         },
     });
 }

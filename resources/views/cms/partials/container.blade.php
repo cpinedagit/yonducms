@@ -1,3 +1,12 @@
+      <div class="loader-container">
+       <div class="loader">
+          <div class="dot dot1"></div>
+          <div class="dot dot2"></div>
+          <div class="dot dot3"></div>
+          <div class="dot dot4"></div>
+        </div>
+      </div>
+
 <div class="main-container">
   <section class="main-container__navigation-container">
      <div class="main-container__navigation-container__toggle">
