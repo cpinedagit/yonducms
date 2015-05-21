@@ -24,7 +24,7 @@
 						</div>
 					@endif
 					
-					{!! Form::open(['url'=>url('/change_password_user/update'), 'method'=>'PUT', 'id'=>'ChangePasswordForm', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+					{!! Form::open(['url'=>url('/cms/change_password_user/update'), 'method'=>'PUT', 'id'=>'ChangePasswordForm', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 					 	<div class="form-group">	
 					 		{!! Form::label('username', 'Username:', ['class' =>'col-md-4 control-label']) !!}
 					 		<div class="col-md-6">

@@ -23,7 +23,6 @@ class CmsMenuController extends Controller {
 
     //
     public $html = '';
-    public $countLoop = 0;
     public $arrData = [];
 
     function index() {
@@ -88,19 +87,29 @@ class CmsMenuController extends Controller {
     }
 
     // we use delete word than resource destroy method to avoid ajax conflict
-    function delete() {
-        if (Request::ajax()) {
-            $id = Request::get('del_id');
-
-            $menu_parent = Menu::find($id);
-            if ($menu_parent->delete()) {
-
-                $menu_child = Menu::where('parent_id', '=', $id);
-                foreach ($menu_child as $id_child) {
-                    $id_child->delete();
-                }
+    function deleteMenu(Menu $menu) {
+        $id = Request::get('del_id');
+        $menu_parent = Menu::find($id);
+        if ($menu_parent->delete()) {
+            
+           // $menu_child = Menu::where('parent_id', '=', $id);
+            $menu_child = $menu->where('parent_id', '=', $id)->get();
+            foreach ($menu_child as $id_child) {
+                $this->deleteChildMenu($id_child->menu_id);
             }
         }
     }
+    
+    function deleteChildMenu($id) {
+        $menu_parent = Menu::find($id);
+        if ($menu_parent->delete()) {
+            $menu_child = DB::table('site_menus')->where('parent_id', '=', $id)->get();
+            foreach ($menu_child as $id_child) {
+                $this->deleteChildMenu($id_child->menu_id);
+            }
+        }
+    }
+    
+    
 
 }

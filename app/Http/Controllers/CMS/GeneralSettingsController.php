@@ -8,6 +8,7 @@ use Storage;
 use Session;
 use Input;
 use View;
+use File;
 use DateTimeZone;
 
 class GeneralSettingsController extends Controller {
@@ -88,6 +89,17 @@ class GeneralSettingsController extends Controller {
 				break;
 				case 29:
 					Session::put('env.29', 'DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE='.Input::get('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE').PHP_EOL);
+				break;
+				case 32:
+					$destinationPath = 'public/img/';		
+					$file = Input::file('APP_LOGO');
+					//If logo has been set
+					if (Input::hasFile('APP_LOGO')){
+					 	$filename           = $file->getClientOriginalName();	
+					 	$file->move($destinationPath, $filename);
+
+					 	Session::put('env.32', 'APP_LOGO='.$file->getClientOriginalName().PHP_EOL);
+					}
 				break;
 			}
 

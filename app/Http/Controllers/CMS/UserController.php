@@ -6,6 +6,7 @@ use App\Http\Requests\CMS\UserRequest;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Validator;
 use Hash;
 use Input;
 use File;
@@ -38,28 +39,52 @@ class UserController extends Controller {
 		$path = 'public/images/profile';		
 		$file = Input::file('profile_pic');
 
-		$user->username                 = Input::get('username');
-		$user->slug                     = Input::get('username');
-		$user->email                    = Input::get('email');
-		$user->first_name               = Input::get('first_name');
-		$user->last_name                = Input::get('last_name');
-		$user->password                 = Hash::make(Input::get('password'));
-		$user->role_id 					= Input::get('role_id');
-		//Require to update your temporary password
-		$user->reset_password           = 1; 
-		//Set to timestamp
-		$user->reset_password_timestamp = \Carbon\Carbon::now(); 
+		$v = Validator::make(Input::all(), [
+				'username'		=> 'required',
+				'email'			=> 'required|email',
+				'first_name'	=> 'required',
+				'last_name'		=> 'required',
+				'password'		=> 'required|min:6'
+			]);
 
-		if(Input::file('profile_pic') != '') {
-			$user->profile_pic              = $file->getClientOriginalName();
-			$file->move($path, $file->getClientOriginalName());
+		$userCount = User::getUsername(Input::get('username'));
+
+		if($v->fails() == false && $userCount[0]->c_user <= 0) {				
+			$user->username                 = Input::get('username');
+			$user->slug                     = Input::get('username');
+			$user->email                    = Input::get('email');
+			$user->first_name               = Input::get('first_name');
+			$user->last_name                = Input::get('last_name');
+			$user->password                 = Hash::make(Input::get('password'));
+			$user->role_id 					= Input::get('role_id');
+			//Require to update your temporary password
+			$user->reset_password           = 1; 
+			//Set to timestamp
+			$user->reset_password_timestamp = \Carbon\Carbon::now(); 
+
+			if(Input::file('profile_pic') != '') {
+				$user->profile_pic              = $file->getClientOriginalName();
+				$file->move($path, $file->getClientOriginalName());
+			}
+
+			$user->save();
+			//Send Email notification to user
+			$this->sendEmailNotificationToUser($user->id, Input::get('password'), "cms.emails.new_user_notification", "Yondu Webservices Alert: New account notification.");
+
+			return $this->index();		
+
+		} else {
+			if($userCount[0]->c_user > 0) {
+				$error_msg = "Username is already in use.";
+			}
+
+			return redirect()->back()
+								->withInput(Input::only('username', 'first_name', 'last_name', 'email'))
+								->withErrors(
+									$v->errors()->add('error_msg', $error_msg)
+								);
 		}
 
-		$user->save();
-		//Send Email notification to user
-		$this->sendEmailNotificationToUser($user->id, Input::get('password'), "cms.emails.new_user_notification", "Yondu Webservices Alert: New account notification.");
-
-		return $this->index();
 	}
 
 	//Send Email notification to user

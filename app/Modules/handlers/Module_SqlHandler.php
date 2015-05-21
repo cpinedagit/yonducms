@@ -41,6 +41,8 @@
 *
 \***************************************************************************/
 
+use DB;
+
 class Module_SqlHandler
 {
    //
@@ -214,16 +216,20 @@ class Module_SqlHandler
       $host = 'localhost';
       $user = 'root';
       $pass = 'root';
-      $db = 'yws_dev_mods';
-
-      mysql_connect($host,$user,$pass) or die('error connection');
-      mysql_select_db($db) or die('error database selection');
+      $db = 'yws_dev';
+      
+      $mysqli = new mysqli($host, $user, $pass, $db) or die('Error in connection.');
 
       $i=1;
       foreach ( $sql_query as $sql ) {
-         echo $i++;
-         echo "\n";
-         mysql_query($sql) or die('error in query');
+         // echo $i++;
+         // echo ": ";
+         if( $mysqli->query($sql) === TRUE ) {
+            // echo "Query run successfully.";
+         } else {
+            // echo "Error in query execution.";
+         // echo "\n";
+         }
       }
    }
 
@@ -233,6 +239,7 @@ class Module_SqlHandler
       set_time_limit ( 0 );
       //Open directory.
       $scriptlist = opendir($filepath);
+      echo $filepath;
       //Check each file in the directory...
       while( ( $file = readdir( $scriptlist ) ) !== FALSE ) {
          $fullpath = $filepath . '/' . $file;
@@ -254,4 +261,4 @@ class Module_SqlHandler
 }
 
 //Diagnostic message:
-echo "SQL execution framework loaded.\n";
+// echo "SQL execution framework loaded.\n";

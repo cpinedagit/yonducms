@@ -9,7 +9,7 @@
 
 	<!-- Settings Controller-->
 	<div class='main-container__content__info'>
-	   {!! Form::open(['url'=>url('/general_settings/update'), 'id'=>'GeneralSettingsForm', 'method'=>'PUT', 'class'=>'form-horizontal']) !!}
+	   {!! Form::open(['url'=>url('/general_settings/update'), 'id'=>'GeneralSettingsForm', 'method'=>'PUT', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data']) !!}
            <div class="row">
                 <div class="col-sm-12">
                    <div role="tabpanel" class="modal-body__media">
@@ -37,6 +37,15 @@
                       <div class="tab-content tab-content--settings">
                         <div role="tabpanel" class="tab-pane active" id="website">
                             <div class="form-horizontal form-horizontal--settings">
+                                    <div class="form-group">
+                                        <label for="website-title" class="col-sm-2 control-label">Website Logo</label>
+                                        <div class="col-sm-10">
+                                         <div class="main-container__content__info__photo__uploaded-photo-container main-container__content__info__photo__uploaded-photo--profile">
+                                            {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'blah')) !!}
+                                          </div>
+                                           {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'imgInp')) !!}
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="website-title" class="col-sm-2 control-label">Website Title</label>
                                         <div class="col-sm-10">
@@ -73,7 +82,7 @@
                                       {!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Enter Mail Port', 'env-parsley-type'=>'integer'] ) !!}
                                     </div>
                                 </div>
-								<div class="form-group">
+								      <div class="form-group">
                                     <label for="mail-port" class="col-sm-2 control-label">Mail Username</label>
                                     <div class="col-sm-10">
                                      {!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Mail Username', 'env-parsley-type'=>'email'] ) !!}
@@ -86,10 +95,9 @@
                                     <label for="mail-passport" class="col-sm-2 control-label">Mail Password</label>
                                     <div class="col-sm-10">
                                       {!! Form::hidden('MAIL_PASSWORD_ORIG', str_replace('MAIL_PASSWORD=', '', $env[19])) !!}
-			 						  {!! Form::password('MAIL_PASSWORD_NEW',  ['class'=>'form-control', 'data-parsley-required'=>'false'] ) !!}
+			 						                  {!! Form::password('MAIL_PASSWORD_NEW',  ['class'=>'form-control', 'data-parsley-required'=>'false'] ) !!}
                                     </div>
                                 </div>
-                                   
                             </div> 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="password">

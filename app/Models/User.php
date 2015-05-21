@@ -33,4 +33,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 				->select(DB::raw('count(*) as c_user'), 'role_id')
 				->get();
 	}
+
+	public static function getUsername($username)
+	{
+		return DB::table('users')
+				->where('username', '=', $username)
+				->select(DB::raw('count(*) as c_user'))
+				->get();
+	}
 }
