@@ -1,63 +1,67 @@
-@extends('app')
+@extends('auth')
 
 @section('content')
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
-				<div class="panel-heading">Forgot Password Page</div>
-				<div class="panel-body">					
-					<div class="panel-body">
-						@if (count($errors) > 0)
-							<div class="alert alert-success">
-								<strong>Messages:</strong><br><br>
-								<ul>
-									@foreach ($errors->all() as $error)
-										@if ($error=='validation.captcha')
-											<li>The captcha field is incorrect.</li>
-										@elseif(($error==''))
-											
-										@else
-											<li><?php print_r($error); ?></li>
-										@endif
-									@endforeach
-								</ul>
-							</div>
-						@endif
-						
-						{!! Form::open(['url'=>url('/password/reset'), 'id'=>'ResetPasswordForm', 'class'=>'form-horizontal', 'role'=>'form']) !!}
-						 	<div class="form-group">	
-						 		{!! Form::label('username', 'Username:', ['class' =>'col-md-4 control-label']) !!}
-						 		<div class="col-md-6">
-						 			{!! Form::text('username', old('username'), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
-						 		</div>
-						 		{!! Form::label('captcha', 'CAPTCHA Field:', ['class' =>'col-md-4 control-label']) !!}
-						 		<div class="col-md-6">
-						 			{!! Form::text('captcha', old('captcha'), ['class'=>'form-control', 'data-parsley-required'=>'true'] ) !!}
-						 		</div>
-						 		{!! Form::label('captcha', ' ', ['class' =>'col-md-4 control-label']) !!}
-						 		<div class="col-md-6">
-						 			{!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> Refresh</div>" !!}
-						 		</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-6 col-md-offset-4">
-									{!! Form::button('Submit', ['id'=>'ResetPasswordFormBtn' ,'class'=>'btn btn-primary']) !!}
-								</div>
-							</div>
-						{!! Form::close() !!}
+<div class="container">
+	
+	{!! Form::open(['url'=>url('/password/reset'), 'id'=>'ResetPasswordForm', 'class'=>'login-holder-form', 'role'=>'form']) !!}
+		<div class="login-holder-form__container" id="login-form">
+			<h3 class="login-holder-form_title">Forgot Password?</h3>
+				{!! Form::text('username', old('username'), ['class'=>'form-control', 'placeholder'=>'Username', 'data-parsley-required'=>'true','data-parsley-error-message'=>'Username is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
+				{!! Form::text('captcha', old('captcha'), ['class'=>'form-control','placeholder'=>'Captcha', 'data-parsley-required'=>'true', 'data-parsley-error-message'=>'Captcha is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
+				<div class="login-holder-form__captcha">
+                    {!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> Refresh</div>" !!}
+                </div>
+				<div class="btn-holder">
+					{!! Form::button('SUBMIT', ['id'=>'ResetPasswordFormBtn' ,'class'=>'btn btn-add btn-add--login']) !!}
+                    <input type="button" class="btn btn-add btn-add--login" id="go-to-log-in-page" value="CANCEL">
+                </div>
+                <!-- Backend Error-->
+				@if (count($errors) > 0)
+					<div class="alert alert-danger alert-danger--login text-center back-end-error" role="alert">
+						@foreach ($errors->all() as $error)
+							@if ($error=='validation.captcha')
+								The captcha field is incorrect.<br/>
+							@elseif(($error==''))
+								
+							@else
+								<?php print_r($error); ?>
+							@endif
+						@endforeach
 					</div>
-				</div>
-			</div>
+				@endif
+				<!-- Backend Error-->
+				<!-- Front End Error-->
+		        <div class="alert alert-danger alert-danger--login text-center front-end-error hide" role="alert">
+		        </div>
+				<!-- Front End Error-->
 		</div>
-	</div>
+		<footer class="login-holder-form__footer">
+	        &copy; 2015 <a href="//www.yondu.com">Yondu</a> Website Service
+	    </footer>
+	{!! Form::close() !!}
+					
+	
 </div>
 <script type="text/javascript">
 	//Validate forgot Password Form
 	$('#ResetPasswordFormBtn').on('click',function(){
 	if($('#ResetPasswordForm').parsley().validate()){
 		$('#ResetPasswordForm').submit();
+		}else{
+			//Hide backend error to show front-end side error list
+			$('.back-end-error').addClass('hide');
+			//Show Front-end error
+			$('.front-end-error').removeClass('hide');
 		}
+	});
+
+	//Hide Error List 
+	$(document).keypress(function(e) {
+	 	//Find front-end-error 
+	 	var error_ctr = $('ul.parsley-errors-list.filled');
+
+	 	if(error_ctr.length==0)
+	 		$('.front-end-error').addClass('hide');
 	});
 
 	//Refresh Captcha 
@@ -71,5 +75,21 @@
 			 })
 		});
 	});
+
+	//Cancel button
+	//Goto log-in page
+	$("#go-to-log-in-page").on('click', function(){
+		location.href = "{{ URL('auth/login') }}";
+	});
+
+
 </script>
+<style type="text/css">
+	.parsley-custom-error-message
+	{
+		font-size: 14px;
+		padding: 10px; 	
+	}
+</style>
 @endsection
+
