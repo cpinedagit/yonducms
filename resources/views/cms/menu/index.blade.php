@@ -98,7 +98,7 @@
 
                                                         @if(isset($objPage))
                                                         @foreach($objPage as $pages)
-                                                        <li>                                                                                                                      <div class="checkbox">
+                                                        <li>                                                                  <div class="checkbox">
                                                                 <label>
                                                                     <input type="checkbox" class="check_pages" name="pages[]" value="{{ $pages->title }}" data-url="{{ $pages->url }}" data-page_id="{{ $pages->id }}" data-label="{{ $pages->title }}"> {{ $pages->title }}
                                                                 </label>

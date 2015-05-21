@@ -182,7 +182,6 @@ $('.checkbox input[type="checkbox"]').click(function (event) {
         $('#addPagestonavi').attr('disabled', true);
     }
 });
-
 $('#selectUs').click(function (event) {
     if (this.checked) { // check select status
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
@@ -200,7 +199,6 @@ $('#selectUs').click(function (event) {
 
 
 function autoClear() {
-    
     $('#saveMenuChanges').attr('disabled', true);
     $('#menu_label').attr('readonly', true);
     $("#clear_btn").attr('disabled', true);
