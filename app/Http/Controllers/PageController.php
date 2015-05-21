@@ -20,10 +20,15 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');        
         $pages = Page::all();
+        $pagesCount = count($pages);
+        $published = Page::getAllPublished();
+        $publishedCount = count($published);
         $arData = array(
-            'pages' => $pages
+            'pages' => $pages,
+            'pagesCount' => $pagesCount,
+            'publishedCount' => $publishedCount
         );
         return View('cms/Pages/index', $arData);
     }
