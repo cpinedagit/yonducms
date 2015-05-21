@@ -8,3 +8,5 @@
 {!! HTML::style('public/site/css/bootstrap.min.css') !!}
 {!! HTML::style('public/site/css/transformicon.css') !!}
 {!! HTML::style('public/site/css/style.css') !!}
+{!! HTML::style('public/css/banner.css') !!}
+{!! HTML::style('public/css/mystyle.css') !!}

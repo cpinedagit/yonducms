@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Models\Editor;
@@ -17,21 +18,17 @@ class EditorController extends Controller {
      */
     public function index() {
         $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
-//        $clickFile = \DB::table('click_files')
-//                    ->orderBy('clickFile', 'asc')
-//                    ->pluck('clickFile');
         $jsPath = 'public/site/js';
         $cssPath = 'public/site/css';
-//        $otherPath = 'public/site/otherfiles';
+        $sitePath = 'resources/views/site';
         $jsFiles = File::files($jsPath);
         $cssFiles = File::files($cssPath);
-        $jsFolders =  File::directories($jsPath);
+        $siteFiles = File::files($sitePath);
 //        $otherFiles = File::files($otherPath);
         $arData = array(
             'cssFiles' => $cssFiles,
             'jsFiles' => $jsFiles,
-            'jsFolders' => $jsFolders
-//            'otherFiles' => $otherFiles
+            'siteFiles' => $siteFiles
         );
         return View('cms/Editors.index', $arData);
     }
@@ -56,6 +53,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function Show($id) {
+        
     }
 
     /**
@@ -93,14 +91,13 @@ class EditorController extends Controller {
     }
 
     public function updateFile() {
+        //file path
         $file = Input::get('hidden');
-        $content = $_POST['content'];
+        $content = Input::get('content');
         unlink($file);
         if (file_put_contents($file, $content, FILE_APPEND)) {
             return redirect('cms/editor');
         }
-        
-       
     }
 
     public function addFile(Request $request) {
@@ -110,11 +107,11 @@ class EditorController extends Controller {
             $filename = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
             if ($extension == 'js') {
-                $file->move('public/js', $filename);
+                $file->move('public/site/js', $filename);
             } elseif ($extension == 'css') {
-                $file->move('public/css', $filename);
+                $file->move('public/site/css', $filename);
             } else {
-                $file->move('public/otherfiles', $filename);
+                $file->move('resources/views/site', $filename);
             }
         } else {
             return redirect('cms/editor');

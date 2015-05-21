@@ -13,7 +13,7 @@
     position :fixed;
     margin-bottom:100px;
     border-top: 1px solid black;
-    border-left: 1px solid black;
+    border-lefmyCarouselt: 1px solid black;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     padding:20px;
@@ -66,16 +66,6 @@ th{
     margin:10px;
 }
 
-.bannerImage{
-    width:1000px;
-    height:100px;
-}
-
-.defaultBannerImage{
-    width:1000px;
-    height:100px;
-}
-
 #cke_editor1{
     width:800px;
 }
@@ -100,10 +90,4 @@ th{
 .codeEditor{
 height:500px;
 width:500px;
-}
-
-.myCarousel {
-    margin:auto;
-    width:900px;
-    height:700px;
 }
