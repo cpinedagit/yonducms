@@ -153,7 +153,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'Intervention\Image\ImageServiceProvider'
-
+	
 	],
 
 	/*

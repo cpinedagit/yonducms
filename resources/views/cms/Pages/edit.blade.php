@@ -15,12 +15,33 @@
     <i class="fa fa-exclamation-circle"></i>
     <small>Reminder: Fields with asterisk(*) are required.</small>
 </div>
+<!-- 
+    Choose color using these classes:
+     1. alert-success
+     2. alert-info
+     3. alert-warning
+     4. alert-danger
+
+     then use "open" class to show the alert
+-->
+
+<!--<div class="alert alert-danger alert-danger--login show" role="alert">
+    Invalid Username/Password
+     sample list of errors
+    <div class="error-list">
+        <h5><strong>Message:</strong> </h5>
+        <ul>
+            <li>Invalid Username/Password</li>
+            <li>Invalid Username/Password</li>
+        </ul>
+    </div>
+</div>-->
 <div class='main-container__content__info'>
     <div class="row">
         <div class="col-sm-9">
             <div class="form-group">
                 <label for="page-title" class='form-title'>Edit Page *</label>
-                {!! Form::text('title', $pages['title'],['class' => 'form-control Nform-control', 'placeholder' => 'Enter title here']) !!} 
+                {!! Form::text('title', $pages['title'],['class' => 'form-control Nform-control', 'placeholder' => 'Enter title here']) !!}
             </div>
             <div class="row">
                 <div class="col-sm-4">
@@ -33,47 +54,58 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <div class="form-group">
+                    <div class="form-group no-margin-bottom">
                         <label for="page-url" class='form-title'>URL Key</label>
-                        <div id ='nonEditableUrl'>
-                            {!! URL::to('/site')!!}/{!! $pages['slug'] !!} | <a href='#' id='edit'>edit</a><br><br>          
+                        <div class="form-inline">
+                            <div class="form-group" id ="nonEditableUrl">
+                                <label>{!! URL::to('/site')!!}/</label>
+                                <input type="text" name ="slug" class="form-control textbox--editable" value="{!! $pages['slug'] !!}" id="texturlkey" disabled>
+                                <button id="edit" type="button" class="btn btn-reset">Edit</button>
+                            </div>
+                            <div class="form-group" id="editableUrl">
+                                <label>{!! URL::to('/site')!!}/</label>
+                                <input type="text" name="slug" class="form-control" value="{!! $pages['slug'] !!}" id="texturlkey">
+                                <button id="cancel" type="button" class="btn btn-reset">cancel</button>
+                            </div>
                         </div>
-                        <div id ='editableUrl'>
-                            {!! Form::label('url', 'Url:') !!} 
-                            {!! URL::to('/site')!!}{!! Form::text('url',$pages['slug'],['cols' => '1000', 'rows' => '1','id' => 'slug']) !!} | <a href='#' id='cancel'>cancel</a><br><br>          
-                        </div> 
-                        {!! Form::label('table','Banner list:') !!}
-                        <table border='1' class="tableBanner">
-                            <tr>
-                                <th>banner</th>
-                                <th>id</th>
-                            </tr>
-                            @foreach($banners as $banner)
-                            <tr>
-                                <td>{{ $banner->title}}</td>
-                                <td>{{ $banner->id}}</td>
-                            </tr>
-                            @endforeach
-                            <tr>
-                                <td><i>Sample format :</i></td>
-                                <td>
-                                    <!--echo htmlspecialchars("");-->
-                                    <?php
-                                    $str = "" . "?php " . "echo banner(n)" . " ?" . "";
-                                    ?>
-                                    {!! Form::text('sample','<'.$str.'>') !!}
-                                </td>
-                            </tr>
-                        </table> 
                     </div>
-
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <label for="Editor1" class='form-title'>Content *</label>
-                       {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
+                        <table id="example" class="table table-striped table--banner">
+                            <thead>
+                                <tr>
+                                    <th>Banner</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($banners as $banner)
+                                <tr>
+                                    <td>{{ $banner->title}}</td>
+                                    <td>{{ $banner->id}}</td>
+                                </tr>
+                                @endforeach
+                                <tr>
+                                    <td><em>Sample format:</em></td>
+                                    <td>
+                                        <em>
+                                            <?php
+                                            $str = "" . "?php " . "echo banner(n)" . " ?" . "";
+                                            ?>
+                                            {{ '<'.$str.'>' }}
+                                        </em>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="editor1" class='form-title'>Content *</label>
+                        {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
+                    </div>
                 </div>
             </div>
         </div>
@@ -84,13 +116,13 @@
                         <input type="checkbox" checked> Publish Page
                     </label>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" checked> Include Widget
-                    </label>
-                </div>
+                <!--                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" checked> Include Widget
+                                    </label>
+                                </div>-->
                 <div class="main-container__content__info__options__action-holder btn-holder">
-                    <button class="btn btn-reset" onclick = "cancel()">Reset</button>
+                    <button class="btn btn-reset" onclick = "cancel()">Cancel</button>
                     <input type="submit" class="btn btn-add" value="Save">
                 </div>
             </div>

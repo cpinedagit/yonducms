@@ -21,7 +21,8 @@ class UserController extends Controller {
 		$this->regenerateMenuSession('cms.user.index', 'cms.user.index');
 		$users = User::getAllUsers();
 		$roles = Role::getActiveRoles();
-		return view('cms.user.index', compact('users', 'roles'));
+		$userCounts = User::getUserPerRoleCount();
+		return view('cms.user.index', compact('users', 'roles', 'userCounts'));
 	}
 
 	public function create()
@@ -48,11 +49,13 @@ class UserController extends Controller {
 		$user->reset_password           = 1; 
 		//Set to timestamp
 		$user->reset_password_timestamp = \Carbon\Carbon::now(); 
-		$user->profile_pic              = $file->getClientOriginalName();
+
+		if(Input::file('profile_pic') != '') {
+			$user->profile_pic              = $file->getClientOriginalName();
+			$file->move($path, $file->getClientOriginalName());
+		}
+
 		$user->save();
-
-		$file->move($path, $file->getClientOriginalName());
-
 		//Send Email notification to user
 		$this->sendEmailNotificationToUser($user->id, Input::get('password'), "cms.emails.new_user_notification", "Yondu Webservices Alert: New account notification.");
 
@@ -124,10 +127,14 @@ class UserController extends Controller {
 		}else{
 			$user->password   = Hash::make(Input::get('password'));	
 		}
-		$user->profile_pic = $file->getClientOriginalName();		
+
+		if(Input::file('profile_pic') != '') {
+			$user->profile_pic = $file->getClientOriginalName();	
+			$file->move($path, $file->getClientOriginalName());
+		}
+
 		$user->save();
 
-		$file->move($path, $file->getClientOriginalName());
 
 		return $this->index();
 	}

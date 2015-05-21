@@ -15,18 +15,18 @@
     <div class="col-sm-3">
         <div class="main-container__content__info__photo">
             <div class="main-container__content__info__photo--js">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>JS FILES</h5>
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>JS FOLDER</h5>
                 <ul class='file-list'>
                     @foreach($jsFiles as $jsFiles)
                     <li>                           
                         <a href="#" class="a" data-ext ='{!! File::name($jsFiles) !!}' id ='{!! $jsFiles !!}'>{!! File::name($jsFiles) !!}.{!! File::extension($jsFiles) !!}</a>                                
                         <input id ="ext" type='hidden' value ="{!! File::extension($jsFiles) !!}">
                     </li>
-                    @endforeach
+                    @endforeach                    
                 </ul>
             </div>
             <div class="main-container__content__info__photo--css">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>CSS FILES</h5>
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>CSS FOLDER</h5>
                 <ul class='file-list'>
                     @foreach($cssFiles as $cssFiles)
                     <li>                           
@@ -37,16 +37,16 @@
                 </ul>
             </div>
             <div class="main-container__content__info__photo--css">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>OTHER FILES</h5>
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER</h5>
                 <ul class='file-list'>
-                    @foreach($otherFiles as $oth)
+                    @foreach($cssFiles as $cssFiles)
                     <li>                           
-                        <a href='#' class="c" id ='{!! $oth !!}'>{!! File::name($oth) !!}.{!! File::extension($oth) !!}</a>                             
-                        <input id ="ext3" type='hidden' value ="{!! File::extension($oth) !!}">
+                        <a href='#' class="b" id ='{!! $cssFiles !!}'>{!! File::name($cssFiles) !!}.{!! File::extension($cssFiles) !!}</a>
+                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
                     </li>
                     @endforeach
                 </ul>
-            </div>   
+            </div>
         </div>
         {!! Form::open(array('action' => 'EditorController@addFile','files' => 'true', 'method' => 'post')) !!}
         <input style="float:right;"  type ="file" name ="file" title="upload file?"> 

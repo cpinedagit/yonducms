@@ -15,7 +15,7 @@ Route::get('/', 'MainController@index');
 
 Route::get('main', 'MainController@index');
 
-Route::get('home', 'CMS\LoginController@home');
+//Route::get('home', 'CMS\LoginController@home');
 
 Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);
 
@@ -72,13 +72,11 @@ Route::get('captcha-generator', 'CMS\CaptchaController@index');
 //Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
 //Change Password Controller Back-End
-Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware'=>'is.allowed']);
+Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware'=>'is.allowed']);
 //End Gian Modules
 
 
 // From Allan
-Route::resource('admin/menu', 'CMS\CmsMenuController');
-
 Route::post('admin/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
 
 Route::post('admin/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
@@ -87,6 +85,7 @@ Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMe
 
 Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 
+Route::resource('admin/menu', 'CMS\CmsMenuController');
 // end  
 
 //Authentication and Forgot Password Module: Start
@@ -131,3 +130,9 @@ Route::get('site/page/{id}/{url}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');
+
+//These routes are for Module Management
+Route::get('modules', 'ModuleController@index');
+Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
+Route::post('modules/upload', 'ModuleController@upload');
+require_once(__DIR__ . '/../Modules/Module_Routes.php');
