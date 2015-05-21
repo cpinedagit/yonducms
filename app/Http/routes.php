@@ -72,7 +72,7 @@ Route::get('captcha-generator', 'CMS\CaptchaController@index');
 //Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
 //Change Password Controller Back-End
-Route::resource('change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware'=>'is.allowed']);
+Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware'=>'is.allowed']);
 //End Gian Modules
 
 

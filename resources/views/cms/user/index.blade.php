@@ -20,7 +20,14 @@
 		@foreach($roles as $role)
 
 			<span>
-				<strong>{!! ucwords(strtolower($role->role_name)) !!}</strong>
+				<strong>{!! ucwords(strtolower($role->role_name)) !!}</strong> 
+
+                @foreach($userCounts as $userCount)
+                    @if($userCount->role_id == $role->id)
+                        ({!! $userCount->c_user !!})
+                    @endif
+                @endforeach
+
 			</span>
 
 		@endforeach

@@ -19,15 +19,15 @@
                    <div class="profile-role-holder">
                        <div class="profile-role-holder__role col-sm-9">                            
 		                    <select name='role_id' class='form-control'>				
-								@foreach(roles() as $role)
-									<option value='{!! $role->id !!}'>{!! ucwords(strtolower($role->role_name)) !!}</option>
-								@endforeach
+        								@foreach(roles() as $role)
+        									<option value='{!! $role->id !!}'>{!! ucwords(strtolower($role->role_name)) !!}</option>
+        								@endforeach
 
-								@if(!empty($user->role_id) && $user->role_id != '' && $user->role_id != NULL)
+        								@if(!empty($user->role_id) && $user->role_id != '' && $user->role_id != NULL)
 
-									<option value='{!! $user->role_id !!}' selected>{!! ucwords(strtolower($role->role_name)) !!}</option>
-								@endif
-							</select>
+        									<option value='{!! $user->role_id !!}' selected>{!! ucwords(strtolower($role->role_name)) !!}</option>
+        								@endif
+        							</select>
                        </div>
                        {!! Form::submit('Update Profile', array('class' => 'btn btn-add pull-right')) !!}                       
                    </div>
@@ -43,7 +43,7 @@
                     {!! Form::text('first_name', null, array('class' => 'form-control', 'placeholder' => 'Enter first name')) !!}
                 </div>
 				
-				<div class="form-group">
+				      <div class="form-group">
                     {!! Form::label('lastname', 'Lastname', array('class' => 'form-title')) !!}
                     {!! Form::text('last_name', null, array('class' => 'form-control', 'placeholder' => 'Enter last name')) !!}
                 </div>
@@ -69,9 +69,9 @@
               <h4>Profile Picture</h4>
                <div class="main-container__content__info__photo--profile">
                    <div class="main-container__content__info__photo__uploaded-photo-container main-container__content__info__photo__uploaded-photo--profile">
-                        
+                         <img id="blah" src="images/1.jpg" alt="your image" class=""/>
                    </div>
-                  	{!! Form::file('profile_pic', array('class' => 'show')) !!}
+                  	{!! Form::file('profile_pic', array('class' => 'show', 'id' => 'imgInp')) !!}
                </div>
             </div>
 
@@ -94,6 +94,28 @@
 			$('#UserCreateForm').submit();
 		}
 	});
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            aaSorting: [0],
+            bInfo: false,
+            columnDefs: [
+               { orderable: false, targets: -1 }
+            ],
+            "dom":'<"top">rt<"bottom"lp>',
+            "oLanguage": {
+                "sSearch": "<span class='lbl-filter'>Search</span> ",
+                "oPaginate": {
+                    "sPrevious": '<i class="fa fa-chevron-left"></i>',
+                    "sNext": '<i class="fa fa-chevron-right"></i>'
+                }
+                
+            }
+        });
+        $( ".datepicker" ).datepicker();
+    } );
 </script>
 
 @endsection
