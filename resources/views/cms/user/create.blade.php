@@ -2,6 +2,17 @@
 
 @section('content')
 
+  @if (count($errors) > 0)
+      <div class="alert alert-success">
+        <strong>Messages:</strong><br><br>
+        <ul>
+          @foreach ($errors->all() as $error)              
+              <li><?php print_r($error); ?></li>              
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
 	<div class='main-container__content__info'>
        <div class="row">
            <div class="col-sm-12">
@@ -79,15 +90,6 @@
 
         </div>
    </div>
-
-		@if($errors->any())
-
-			@foreach($errors->all() as $error)
-				<li>{!! $error !!}</li>
-			@endforeach
-
-		@endif
-
 <script type = "text/javascript">
 	$('#UserCreateUpdate').on('click', function(){
 		if($('#UserCreateForm').parsley().validate()) {
