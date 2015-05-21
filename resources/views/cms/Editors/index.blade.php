@@ -38,10 +38,13 @@
             </div>
             <div class="main-container__content__info__photo--css">
                 <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER</h5>
+                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>NEWS FOLDER</h6>
+                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>PAGES FOLDER</h6>
+                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>PARTIALS FOLDER</h6>
                 <ul class='file-list'>
-                    @foreach($cssFiles as $cssFiles)
+                    @foreach($siteFiles as $siteFiles)
                     <li>                           
-                        <a href='#' class="b" id ='{!! $cssFiles !!}'>{!! File::name($cssFiles) !!}.{!! File::extension($cssFiles) !!}</a>
+                        <a href='#' class="b" id ='{!! $siteFiles !!}'>{!! File::name($siteFiles) !!}.{!! File::extension($siteFiles) !!}</a>
                         <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
                     </li>
                     @endforeach
