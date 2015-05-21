@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Page;
+use App\Models\Menu;
 use Input;
 use DB;
 use File;
@@ -20,7 +21,7 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');        
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
         $pages = Page::all();
         $pagesCount = count($pages);
         $published = Page::getAllPublished();
@@ -97,8 +98,10 @@ class PageController extends Controller {
 
     public function preview($slug) {
         $pages = Page::preview($slug);
+        $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
         $arData = array(
-            'pages' => $pages
+            'pages' => $pages,
+            'objMenu' => $objMenu
         );
         return view('site/Pages/index', $arData);
     }
@@ -140,12 +143,12 @@ class PageController extends Controller {
 //            $fk_banner->delete();
 //        }
 //        return Response::json('ok');
-        
+
         $checked = Request::get('checked');
-        
-        foreach($checked as $che){
+
+        foreach ($checked as $che) {
             $page = Page::find($che);
-            $page->delete();        
+            $page->delete();
         }
         return Response::json('ok');
     }

@@ -20,16 +20,18 @@ class EditorController extends Controller {
 //        $clickFile = \DB::table('click_files')
 //                    ->orderBy('clickFile', 'asc')
 //                    ->pluck('clickFile');
-        $jsPath = 'public/js';
-        $cssPath = 'public/css';
-        $otherPath = 'public/otherfiles';
+        $jsPath = 'public/site/js';
+        $cssPath = 'public/site/css';
+//        $otherPath = 'public/site/otherfiles';
         $jsFiles = File::files($jsPath);
         $cssFiles = File::files($cssPath);
-        $otherFiles = File::files($otherPath);
+        $jsFolders =  File::directories($jsPath);
+//        $otherFiles = File::files($otherPath);
         $arData = array(
             'cssFiles' => $cssFiles,
             'jsFiles' => $jsFiles,
-            'otherFiles' => $otherFiles
+            'jsFolders' => $jsFolders
+//            'otherFiles' => $otherFiles
         );
         return View('cms/Editors.index', $arData);
     }
