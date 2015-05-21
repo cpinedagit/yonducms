@@ -25,4 +25,4 @@ class Module_Editor
 }
 
 //Diagnostic message:
-echo "Code injection framework loaded.\n";
+// echo "Code injection framework loaded.\n";

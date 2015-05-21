@@ -1,0 +1,1 @@
+INSERT INTO `modules` (`id`, `module_name`, `module_description`, `module_path`, `module_icon`, `module_type`, `is_deleted`, `enabled`, `is_selected`) VALUES (NULL, 'SampleModule', 'This is a sample module.', 'testmodule.main', 'fa-wrench', 'Test', '0', '1', '0');

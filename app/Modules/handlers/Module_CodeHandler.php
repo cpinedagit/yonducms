@@ -5,7 +5,7 @@
 
 class Module_CodeHandler
 {
-	CONST MODULE_ROUTES = "Module_Routes.php";
+	CONST MODULE_ROUTES = "../app/Modules/Module_Routes.php";
 	// CONST MODULE_CONTROLLERS = "Controllers/";
 	CONST CUSTOM_CODE_INDEX = 'custom-appends';
 	CONST NEW_ROUTE_INDEX = 'routes-appends';
@@ -24,7 +24,6 @@ class Module_CodeHandler
 				if(is_array($jsonArray[self::CUSTOM_CODE_INDEX])) {
 					$codeArray = $jsonArray[self::CUSTOM_CODE_INDEX];
 					foreach($codeArray as $filepath => $code) {
-						echo "Something";
 						$this->appendString(self::ROOT_PATH . $filepath, $code);
 					}
 				} else { //WARNING: No custom code index in JSON file.
@@ -33,7 +32,7 @@ class Module_CodeHandler
 					$newRoutes = $jsonArray[self::NEW_ROUTE_INDEX];
 					foreach($newRoutes as $newRoute) {
 						if(is_array($newRoute)) {
-							print_r($newRoute);
+							// print_r($newRoute);
 							$this->addRoute($newRoute['url'], $newRoute['controller'], $newRoute['method']);
 						} else { //WARNING: New route is not an array. 
 						}
@@ -62,6 +61,5 @@ class Module_CodeHandler
 		}
 	}
 }
-
 // $test = new Module_CodeHandler('../../../');
 // $test->writeCode('TEST.json');

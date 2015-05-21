@@ -15,7 +15,7 @@ Route::get('/', 'MainController@index');
 
 Route::get('main', 'MainController@index');
 
-Route::get('home', 'CMS\LoginController@home');
+//Route::get('home', 'CMS\LoginController@home');
 
 Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);
 
@@ -142,3 +142,9 @@ Route::resource('cms/banners','BannerController');
 Route::get('cms/addPage','PageController@addPage');
 Route::get('site/page/{id}','PageController@preview');
 Route::resource('cms/pages','PageController');
+
+//These routes are for Module Management
+Route::get('modules', 'ModuleController@index');
+Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
+Route::post('modules/upload', 'ModuleController@upload');
+require_once(__DIR__ . '/../Modules/Module_Routes.php');

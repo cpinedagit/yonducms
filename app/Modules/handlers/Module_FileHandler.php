@@ -21,4 +21,4 @@ class Module_FileHandler
 }
 
 //Diagnostic message:
-echo "File transfer framework loaded.\n";
+// echo "File transfer framework loaded.\n";
