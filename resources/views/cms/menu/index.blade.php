@@ -20,12 +20,12 @@
                                                 @foreach($objMenu as $menu)
                                                 <li id="idli_{{ $menu->menu_id }}" class="dd-item" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}">
                                                     <div class="dd-handle" id="target_{{ $menu->menu_id }}">{{ $menu->label }} </div>
-                                                    
+
                                                     {!! getSubMenu($menu->menu_id) !!}
-                                                    
+
                                                     <button class='circle btn--remove-menu delete-item' onclick="delThis({{ $menu->menu_id }})"></button>
                                                 </li>
-                                                
+
                                                 @endforeach
                                                 @endif
 
@@ -40,9 +40,6 @@
                                         <input type="hidden" name="nestable-output" id="nestable-output">
                                     </form>
 
-                                </div>
-                                <div class="alert alert-success" style="display: none" id="alertSaveData">
-                                    Data Save :D
                                 </div>
                             </div>
                         </div>
@@ -116,7 +113,7 @@
                                                 <div class="btn-holder">
                                                     <button class="btn btn-add">
                                                         <input type="checkbox" name="my-checkbox" id="selectUs"><label for='selectUs'>Check All</label></button>
-                                                    <button class="btn btn-add" id="addPagestonavi">Add to Navigation</button>
+                                                    <button class="btn btn-add" id="addPagestonavi" disabled="true">Add to Navigation</button>
                                                 </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="links">
