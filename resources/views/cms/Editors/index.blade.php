@@ -1,61 +1,59 @@
 @extends('cms.home')
 @section('content')
-    <div id="border">
-        <!--<form id ='form' method="post" action = "editor/updateFile">-->  
-        {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <textarea id='textarea' name="content" cols="100" rows="30"></textarea>
-        <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
-        <input id ='update' class="btn btn-success" type ="submit" value = "update file" class = "btn btn-success">
-        {!! Form::close() !!}
-        <div id = 'listOfFiles'>               
-            <table class="tableFiles">
-                <tr>
-                    <td>
-                        <ul>    
-                            <h3>JS FILES</h3>   
-                            @foreach($jsFiles as $jsFiles)
-                            <li>                           
-                                <a href="#" class="a" data-ext ='{!! File::name($jsFiles) !!}' id ='{!! $jsFiles !!}'>{!! File::name($jsFiles) !!}.{!! File::extension($jsFiles) !!}</a>                                
-                                <input id ="ext" type='hidden' value ="{!! File::extension($jsFiles) !!}">
-                            </li><br> 
-                            @endforeach
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>    
-                            <h3>CSS FILES</h3>
-                            @foreach($cssFiles as $cssFiles)
-                            <li>                           
-                                <a href='#' class="b" id ='{!! $cssFiles !!}'>{!! File::name($cssFiles) !!}.{!! File::extension($cssFiles) !!}</a>
-                                <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
-                            </li><br> 
-                            @endforeach
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>    
-                            <h3>Other FILES</h3>
-                            @foreach($otherFiles as $oth)
-                            <li>                           
-                                <a href='#' class="c" id ='{!! $oth !!}'>{!! File::name($oth) !!}.{!! File::extension($oth) !!}</a>                             
-                                <input id ="ext3" type='hidden' value ="{!! File::extension($oth) !!}">
-
-                            </li><br> 
-                            @endforeach
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <!--<form type ="post" action ="editor/aCddFile" enctype="multipart/form-data">-->
-            {!! Form::open(array('action' => 'EditorController@addFile','files' => 'true', 'method' => 'post')) !!}
-            <input style="float:right;"  type ="file" name ="file" title="upload file?"> 
-            <input class="btn btn-info" style="float:right;margin-right: 10px" type ='submit' value ='upload file'>
+<div class="row">
+    <div class="col-sm-9">
+        <div class="form-group">
+            {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
+            <label for="edit-themes" class='form-title'><h4>Edit Themes</h4></label>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <textarea id='textarea' class="form-control editor-textarea" name="content" cols="100" rows="30"></textarea>
+            <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
+            <input id ='update' class="btn btn-add" type ="submit" value = "update file" class = "btn btn-success">
             {!! Form::close() !!}
-            <!--</form>-->
         </div>
     </div>
+    <div class="col-sm-3">
+        <div class="main-container__content__info__photo">
+            <div class="main-container__content__info__photo--js">
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>JS FILES</h5>
+                <ul class='file-list'>
+                    @foreach($jsFiles as $jsFiles)
+                    <li>                           
+                        <a href="#" class="a" data-ext ='{!! File::name($jsFiles) !!}' id ='{!! $jsFiles !!}'>{!! File::name($jsFiles) !!}.{!! File::extension($jsFiles) !!}</a>                                
+                        <input id ="ext" type='hidden' value ="{!! File::extension($jsFiles) !!}">
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="main-container__content__info__photo--css">
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>CSS FILES</h5>
+                <ul class='file-list'>
+                    @foreach($cssFiles as $cssFiles)
+                    <li>                           
+                        <a href='#' class="b" id ='{!! $cssFiles !!}'>{!! File::name($cssFiles) !!}.{!! File::extension($cssFiles) !!}</a>
+                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="main-container__content__info__photo--css">
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>OTHER FILES</h5>
+                <ul class='file-list'>
+                    @foreach($otherFiles as $oth)
+                    <li>                           
+                        <a href='#' class="c" id ='{!! $oth !!}'>{!! File::name($oth) !!}.{!! File::extension($oth) !!}</a>                             
+                        <input id ="ext3" type='hidden' value ="{!! File::extension($oth) !!}">
+                    </li>
+                    @endforeach
+                </ul>
+            </div>   
+        </div>
+        {!! Form::open(array('action' => 'EditorController@addFile','files' => 'true', 'method' => 'post')) !!}
+        <input style="float:right;"  type ="file" name ="file" title="upload file?"> 
+        <input type ='submit' value ='upload file' class="btn btn-add center-block" style="float:right;margin-right: 10px">
+        {!! Form::close() !!}
+    </div>   
+</div>
 <script>
     $(document).on('click', '.a', function (e) {
         var filename = this.id;

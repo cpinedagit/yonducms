@@ -40,8 +40,13 @@ class Banner extends Model {
                         ->leftJoin('fk_banners', 'fk_banners.banner_id', '=', 'banners.id')
                         ->leftJoin('content_media', 'content_media.media_id', '=', 'fk_banners.image_id')
                         ->where('banners.id', '=', $id)
-                        ->get(array('content_media.media_path', 'content_media.media_id'));
-    }
+                        ->get(array(
+                            'content_media.media_path',
+                            'content_media.media_id',
+                            'fk_banners.image_name',
+                            'fk_banners.image_description',
+                            'fk_banners.id'
+                             ));    }
 
     public static function saveImage() {
         if (Request::get('selected')) {

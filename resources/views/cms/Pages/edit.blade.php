@@ -10,8 +10,14 @@
         <option>page1</option>
         <option>page 2</option>        
     </select>
-    {!! Form::label('url', 'Url:') !!} 
-    {!! Form::textarea('url', $pages['url'],['cols' => '1000', 'rows' => '1','class' => 'form-control Tform-control']) !!}          
+    <div id ='nonEditableUrl'>
+        {!! Form::label('url', 'Url:') !!} 
+        {!! URL::to('/site')!!}/{!! $pages['slug'] !!} | <a href='#' id='edit'>edit</a><br><br>          
+    </div>
+    <div id ='editableUrl'>
+        {!! Form::label('url', 'Url:') !!} 
+        {!! URL::to('/site')!!}{!! Form::text('url',$pages['slug'],['cols' => '1000', 'rows' => '1','id' => 'slug']) !!} | <a href='#' id='cancel'>cancel</a><br><br>          
+    </div>
     {!! Form::label('table','Banner list:') !!}
     <table border='1' class="tableBanner">
         <tr>
@@ -27,7 +33,7 @@
         <tr>
             <td><i>Sample format :</i></td>
             <td>
-                 <!--echo htmlspecialchars("");-->
+                <!--echo htmlspecialchars("");-->
                 <?php
                 $str = "" . "?php " . "echo banner(n)" . " ?" . "";
                 ?>
@@ -39,15 +45,42 @@
 <div class="marginTop">
     {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
 </div>
-
 <div class="marginTop">
     {!! Form::submit('Save',['class' => 'btn btn-success']) !!}
     {!! Form::button('Cancel',['onclick' => 'cancel()', 'class' => 'btn btn-danger']) !!}
 </div>
 {!! Form::close() !!}
 <script>
+    $('#editableUrl').hide();
+    $(document).on("click", "#edit", function (e) {
+
+        $('#editableUrl').show();
+        $('#nonEditableUrl').hide();
+        $('#slug').focus();
+        $('#slug').focusTextToEnd();
+        e.stopPropagation();
+    });
+    
+    $(document).on("dblclick", "#nonEditableUrl", function () {
+        $('#editableUrl').show();
+        $('#nonEditableUrl').hide();
+        $('#slug').focus();
+    });
+    
+    $(document).on("click", "#cancel", function () {
+        $('#editableUrl').hide();
+        $('#nonEditableUrl').show();
+    });
+    
     function cancel() {
-        window.location = ('http://localhost/yonducms/cms/pages');
+        window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
+    }
+    
+    function focusTextToEnd() {
+        this.focus();
+        var $thisVal = this.val();
+        this.val('').val($thisVal);
+        return this;
     }
 </script>
 @include('cms.media.media_tool')

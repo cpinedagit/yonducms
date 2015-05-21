@@ -108,26 +108,25 @@ Route::post('/cms/news/deleteSelected',['as'=>'cms.news.deleteSelected','uses'=>
 Route::resource('cms/news','CMS\NewsController');
 Route::resource('site/news','Site\NewsController');
 //end news management
+
+
 //this routes is for Code Editor Management
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addFile', 'EditorController@addFile');
-
 Route::resource('cms/editor', 'EditorController');
-
-//this routes is for Image Management
-Route::get('cms/addImage','ImageController@addImage');
-Route::get('cms/frontEnd','ImageController@frontEnd');
-Route::resource('cms/image', 'ImageController');
 
 //this route is for Banner Management
 Route::get('cms/addBanner','BannerController@addBanner');
 Route::put('cms/saveImage', ['as' => 'cms.banner.saveImage', 'uses' => 'BannerController@saveImage']);
+Route::delete('cms/delImage', 'BannerController@delImage');
+Route::delete('cms/delCurrentImage/{id}','BannerController@delCurrentImage');
 Route::resource('cms/banners','BannerController');
 
 //this routes is for Page Management
 Route::get('cms/addPage','PageController@addPage');
-Route::get('site/page/{id}','PageController@preview');
+Route::delete('cms/delPage','PageController@delPage');
+Route::get('site/{slug}','PageController@preview');
 Route::get('site/page/{id}/{url}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');

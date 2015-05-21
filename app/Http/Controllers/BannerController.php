@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Banner;
 use Input;
 use Cache;
 use Response;
 use DB;
+use Request;
 
 class BannerController extends Controller {
 
@@ -80,8 +80,23 @@ class BannerController extends Controller {
         return view('cms/Banners/edit', $arData);
     }
 
-    public function saveImage() {  
+    public function saveImage() {
         $saveImage = Banner::saveImage();
+        return Response::json('ok');
+    }
+
+    public function delImage() {
+        $selected = Request::get('selected');
+        foreach ($selected as $select) {
+            $fk_banner = DB::table('fk_banners')->where('id', '=', $select);
+            $fk_banner->delete();
+        }
+        return Response::json('ok');
+    }
+
+    public function delCurrentImage($id) {
+        $fk_banner = DB::table('fk_banners')->where('id', '=', $id);
+        $fk_banner->delete();
         return Response::json('ok');
     }
 
@@ -104,8 +119,7 @@ class BannerController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        $fk_banner = DB::table('fk_banners')->where('image_id', '=', $id);
-        $fk_banner->delete();
+
         Banner::destroy($id);
         return Response::json('ok');
     }
