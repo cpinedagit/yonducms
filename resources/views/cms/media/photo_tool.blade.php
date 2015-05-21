@@ -108,10 +108,22 @@ $(document).ready(function(){
   var selected = new Array();
     $("input:checkbox[name=cbfiles]:checked").each(function() {
          selected.push($(this).val());
-    });
-    
+    });   
 
             console.log(selected);
+                       $.ajax({
+                method: 'put',
+                url: '{!! route("cms.banner.saveImage") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {id: id, selected: selected},
+                cache: false,
+                success: function (msg)
+                {
+                    location.reload();
+                }
+            })
             $('#fileModal').modal("hide");     
 
 

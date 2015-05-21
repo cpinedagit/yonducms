@@ -61,6 +61,7 @@ a:focus{
 .btn-add:focus{
     background: #50D3CA;
     color: #fff;
+    outline: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
@@ -87,11 +88,16 @@ a:focus{
 .btn-filter:focus{
     background: #6780A1;
     color: #fff;
+    outline: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
 	     -o-transition: all 0.3s ease-in-out;
 	        transition: all 0.3s ease-in-out;
+}
+.btn-add--login{
+    font-size: 16px;
+    padding: 8px 35px;
 }
 .action-list{
     position: absolute;
@@ -159,7 +165,6 @@ a:focus{
     background: #666666;
     border-color: #666666;
     color: #fff;
-    
     -webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
 	     -o-transition: all 0.3s ease-in-out;
@@ -170,7 +175,7 @@ a:focus{
     background: #797878;
     border-color: #797878;
     color: #fff;
-    
+    outline: 0;
     -webkit-transition: all 0.3s ease-in-out;
 	   -moz-transition: all 0.3s ease-in-out;
 	     -o-transition: all 0.3s ease-in-out;
@@ -242,6 +247,8 @@ a:focus{
 .modal{
     z-index: 999999;
 }
+
+
 
 
 /********* JQUERY DATATABLE OVERWRITE ***************/
@@ -1457,6 +1464,58 @@ table.table--noaction tr td:first-child{
 .profile-role-holder > .profile-role-holder__role{
     padding-left: 0;
 }
+.my-profile{
+    border-bottom: 1px solid #bcbcbc;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+.modal-header--changepassword{
+    background: #44b6ae;
+    color: white;
+}
+.modal-body--changepassword{    
+    padding: 40px 100px;
+}
+.modal-footer--changepassword{
+    border-top: 0;
+}
+.modal-content--changepassword{
+    border-radius: 0;
+}
+.tab-footer{
+    background: #e4e4e4;
+    padding: 20px;
+    overflow: hidden;
+}
+.nav-tabs--settings > li > a{
+    padding: 10px 25px;
+}
+.nav-tabs--settings > li.active > a{
+    background: #44b6ae!important;
+    color: #fff!important;
+}
+.tab-content--settings{
+    padding: 100px 200px!important;
+}
+.form-horizontal--settings > .form-group label{
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: normal;
+    font-size: 16px;
+    padding-top: 6px;
+}
+.alert-danger--settings{
+    background: #ffcccc;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 70px;
+}
+.form-control-small{
+    width: 30%;
+}
+
+
 
 /********* FOOTER ***************/
 .footer{
@@ -1478,6 +1537,86 @@ table.table--noaction tr td:first-child{
 }
 
 
+
+
+/********* LOGIN ***************/
+.login{
+    min-height: 100%;
+    height: 100%;
+    background: url('../images/blurred.jpg') 100% 100% fixed;
+    background-size: cover;
+}
+
+.login-holder-form{
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-height: 400px;
+    max-width: 500px;
+}
+.login-holder-form__container{
+    background: #35414f;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #000;
+    overflow: hidden;
+}
+.login-holder-form__container > .form-control{
+    height: 45px;
+    margin-bottom: 30px;
+    border-radius: 0;
+    background: #dce3ed;
+}
+.login-holder-form__container > .form-control:focus{
+    outline: 0;
+    border: 0;
+    box-shadow: none;
+}
+.login-holder-form__logo{
+    /*max-height: 40px;*/
+    width: 200px;
+    margin: 0 auto 50px;
+    display: block;
+}
+.login-holder-form__footer{
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+.login-holder-form__footer > a{
+    color: #fff;
+}
+.forgot-password{
+    color: #69788b;
+    font-size: 16px;
+    line-height: 35px;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.forgot-password:hover,
+.forgot-password:focus{
+    color: #8799B0;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.login-holder-form_title{
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #fff;
+}
+.login-holder-form__captcha{
+    margin-bottom: 30px;
+}
 
 
 /*==========  Non-Mobile First Method  ==========*/
@@ -1508,11 +1647,3 @@ table.table--noaction tr td:first-child{
     @media only screen and (max-width : 320px) {
         
     }
-
-/*Dashboard*/
-.news-feeds-dashboard-div
-{
-  margin-left: 15%;
-  margin-top: -6%;
-}
-/*Dashboard*/
