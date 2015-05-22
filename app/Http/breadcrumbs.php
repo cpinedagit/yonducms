@@ -50,6 +50,7 @@ Breadcrumbs::register('cms.news.show', function($breadcrumbs)
     $breadcrumbs->push('Edit', route('cms.news.show'));
 });
 
+
 //Home > Modules 
 Breadcrumbs::register('modules.index', function($breadcrumbs)
 {
@@ -84,4 +85,11 @@ Breadcrumbs::register('cms.role.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.user.index');
     $breadcrumbs->push('User Access', route('cms.role.index'));
+});
+
+// Home > General Settings
+Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
