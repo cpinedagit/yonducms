@@ -1,11 +1,11 @@
 @extends('cms.home')
 
 @section('content')
-@if(isset($env['message']))
+@if((Session::has('message')))
   <!-- Flash Update Your Password Message -->
-      <div class="alert alert-danger" role="alert">{{ $env['message'] }}</div>
+      <div class="alert alert-danger" role="alert">{{ Session::get('message') }}</div>
   <!-- Flash Update Your Password Message -->
-  @endif
+@endif
 
 	<!-- Settings Controller-->
 	<div class='main-container__content__info'>
@@ -41,7 +41,7 @@
                                         <label for="website-title" class="col-sm-2 control-label">Website Logo</label>
                                         <div class="col-sm-10">
                                          <div class="APP_LOGO_container">
-                                            {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'blah')) !!}
+                                            {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'APP_LOGO_img')) !!}
                                           </div>
                                            {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'APP_LOGO_selector')) !!}
                                         </div>
