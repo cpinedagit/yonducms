@@ -6,7 +6,7 @@
   <div class="col-md-7">
   	@foreach ($results as $result)
   	<div>
-  		<h3>{!! HTML::linkAction('Site\NewsController@show',  $result->news_title , array($result->news_id)) !!}</h3>
+  		<h3>{!! HTML::linkAction('Site\NewsController@show',  $result->news_title , array($result->slug)) !!}</h3>
   		 <div class="col-md-12">
  		 	<div class="col-md-4">
   		  		{!! HTML::image("$result->image_path","alt",array("height"=>150,"width"=>150)) !!}
