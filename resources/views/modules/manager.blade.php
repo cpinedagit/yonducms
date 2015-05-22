@@ -1,5 +1,7 @@
 @extends('cms.home')
-
+@section('title')
+<h2>Module Management</h2>
+@stop
 @section('content')
 	<div>Enable or disable module visibility.</div>
 

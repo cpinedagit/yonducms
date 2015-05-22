@@ -1,5 +1,8 @@
 @extends('cms.home')
-
+@section('title')
+<h2>User Management</h2>
+{!! HTML::linkRoute('cms.user.create', 'Add New',array(),array('class'=>'btn btn-add')) !!}
+@stop
 @section('content')
 <style>
 .btn-delete {

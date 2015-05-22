@@ -49,3 +49,39 @@ Breadcrumbs::register('cms.news.show', function($breadcrumbs)
     $breadcrumbs->parent('cms.news.index');
     $breadcrumbs->push('Edit', route('cms.news.show'));
 });
+
+//Home > Modules 
+Breadcrumbs::register('modules.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Modules', route('modules.index'));
+});
+
+
+//Home > Users 
+Breadcrumbs::register('cms.user.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Users', route('cms.user.index'));
+});
+
+//Home > Users > Add Users
+Breadcrumbs::register('cms.user.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.user.index');
+    $breadcrumbs->push('Add', route('cms.user.create'));
+});
+
+//Home > Users > Edit
+Breadcrumbs::register('cms.user.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.user.index');
+    $breadcrumbs->push('Edit', route('cms.user.create'));
+});
+
+//Home > Users > User Access
+Breadcrumbs::register('cms.role.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.user.index');
+    $breadcrumbs->push('User Access', route('cms.role.index'));
+});
