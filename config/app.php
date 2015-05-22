@@ -152,7 +152,8 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-		'Intervention\Image\ImageServiceProvider'
+		'Intervention\Image\ImageServiceProvider',
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
 	
 	],
 
@@ -212,7 +213,8 @@ return [
 		//Captcha Provider
 		'Captcha' => 'Mews\Captcha\Facades\Captcha',
 		'Image' => 'Intervention\Image\Facades\Image',
-		'Helpers'   => 'App\Libraries\Helpers'
+		'Helpers'   => 'App\Libraries\Helpers',
+		'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
 	],
 
 ];
