@@ -1,5 +1,9 @@
 @extends('cms.home')
 
+@section('title')
+<h2>General Settings</h2>
+@stop
+
 @section('content')
 @if((Session::has('message')))
   <!-- Flash Update Your Password Message -->
