@@ -26,7 +26,7 @@ class Page extends Model {
         $content = Input::get('Editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
-        $page->slug = Input::get('url');
+        $page->slug = Input::get('slug');
         $page->content = $content;
         $page->save();
     }
