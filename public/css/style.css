@@ -1643,6 +1643,25 @@ table.table--noaction tr td:first-child{
 }
 
 
+
+
+
+/********* CAPTCHA ***************/
+.login-holder-form__captcha > div{
+    float: left;
+}
+.login-holder-form__captcha > #capthca-img{
+    width: 60%;
+    text-align: center;
+}
+.login-holder-form__captcha > .glyphicon-refresh{
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 /*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */

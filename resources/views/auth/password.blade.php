@@ -8,8 +8,8 @@
 			<h3 class="login-holder-form_title">Forgot Password?</h3>
 				{!! Form::text('username', old('username'), ['class'=>'form-control', 'placeholder'=>'Username', 'data-parsley-required'=>'true','data-parsley-error-message'=>'Username is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
 				{!! Form::text('captcha', old('captcha'), ['class'=>'form-control','placeholder'=>'Captcha', 'data-parsley-required'=>'true', 'data-parsley-error-message'=>'Captcha is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
-				<div class="login-holder-form__captcha">
-                    {!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> Refresh</div>" !!}
+				<div class="login-holder-form__captcha clearfix">
+                    {!! "<div id='capthca-img'>". captcha_img('flat') ."</div> <div class='glyphicon glyphicon-refresh' id='refresh-captcha-button'> <label>Refresh</label></div>" !!}
                 </div>
 				<div class="btn-holder">
 					{!! Form::button('SUBMIT', ['id'=>'ResetPasswordFormBtn' ,'class'=>'btn btn-add btn-add--login']) !!}
