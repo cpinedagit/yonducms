@@ -85,7 +85,7 @@ Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMe
 
 Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 
-Route::resource('admin/menu', 'CMS\CmsMenuController');
+Route::resource('admin/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);
 // end  
 
 //Authentication and Forgot Password Module: Start

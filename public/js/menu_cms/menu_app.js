@@ -14,11 +14,11 @@ $(document).ready(function ()
         var nestablecount = tagitem.length + 1;
 
         var len = $("input[name='pages[]']:checked").length;
-
         $('.check_pages:checked').each(function () {
 
             var label = $(this).val();
             var page_id = $(this).data('page_id');
+
             $.ajax({
                 type: 'POST',
                 url: window.location + "/addpagetomenu",
