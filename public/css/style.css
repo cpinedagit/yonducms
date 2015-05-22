@@ -1661,6 +1661,29 @@ table.table--noaction tr td:first-child{
     font-weight: bold;
     cursor: pointer;
 }
+/********* CAPTCHA ***************/
+
+/*General Settings*/
+#APP_LOGO_selector
+{
+    width: 100%;
+    margin-left: 33%;
+}
+
+.APP_LOGO_container
+{
+    width: 520px;
+    background-color: #293542;
+    margin-bottom: 5%;
+}
+/*General Settings*/
+
+/*Dashboard*/
+.dash-board-feeds{
+    margin-left: 16%;
+    margin-top: -7%;
+}
+/*Dashboard*/
 
 /*==========  Non-Mobile First Method  ==========*/
 
@@ -1691,17 +1714,4 @@ table.table--noaction tr td:first-child{
         
     }
 
-    /*General Settings*/
-    #APP_LOGO_selector
-    {
-        width: 100%;
-        margin-left: 33%;
-    }
 
-    .APP_LOGO_container
-    {
-        width: 520px;
-        background-color: #293542;
-        margin-bottom: 5%;
-    }
-    /*General Settings*/

@@ -1,5 +1,5 @@
 <?php extract($data['news_feeds']); ?>
-	<div class="row news-feeds-dashboard-div">
+	<div class="main-container__content__info dash-board-feeds">
 		<div class="col-xs-6">
 			<div class="panel panel-default">
 				<div class="panel-heading"><b>Vendor News Feed: <a href="{{ $permalink }}">{{ $title }}</a> </b></div>
@@ -30,7 +30,7 @@
 
 		<div class="col-xs-6">
 			<div class="panel panel-default">
-				<div class="panel-heading"><b>System Alert: Password Reset</b></div>
+				<div class="panel-heading"><b>Reset password requests.</b></div>
 				<div class="panel-body">
 					@foreach ($data['user_requests'] as $user)
 				    <div class="media">
