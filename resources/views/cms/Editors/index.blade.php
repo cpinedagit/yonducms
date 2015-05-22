@@ -38,10 +38,21 @@
             </div>
             <div class="main-container__content__info__photo--css">
                 <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER</h5>
-                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>NEWS FOLDER</h6>
-                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>PAGES FOLDER</h6>
-                <h6 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>PARTIALS FOLDER</h6>
-                <ul class='file-list'>
+                @foreach($directories as $directory)
+                    @if(File::isDirectory($directory))                
+                    <h6 class='main-container__content__info__photo__title' style='margin-left: 10px;'><i class="fa fa-folder-open-o"></i>{{ basename($directory)}}</h6>
+                    <?php $files = File::files('resources/views/site/' . basename($directory)); ?>                        
+                        @foreach($files as $file)
+                        <ul class='file-list' margin-left:10px;>
+                        <li style="margin-left:10px;">                           
+                            <a href='#' class="c" id ='{!! $file !!}' style='margin-left: 10px;'>{!! File::name($file) !!}.{!! File::extension($file) !!}</a>
+                            <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
+                        </li>
+                        </ul>
+                        @endforeach
+                    @endif    
+                @endforeach
+                <ul class='file-lis'>
                     @foreach($siteFiles as $siteFiles)
                     <li>                           
                         <a href='#' class="b" id ='{!! $siteFiles !!}'>{!! File::name($siteFiles) !!}.{!! File::extension($siteFiles) !!}</a>
@@ -72,6 +83,7 @@
 
     $(document).on('click', '.b', function () {
         var filename = this.id;
+       
         $.get('../' + filename, function (data)//Remember, same domain
         {
             var _data = data;
@@ -82,7 +94,7 @@
     });
 
     $(document).on('click', '.c', function () {
-        var filename = this.id;
+        var filename = this.id; 
         $.get('../' + filename, function (data)//Remember, same domain
         {
             var _data = data;
