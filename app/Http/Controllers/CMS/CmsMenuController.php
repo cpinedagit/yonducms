@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\Page;
 use Input;
+use View;
 use DB;
 use Illuminate\Database\Query\Builder;
 use Request;
@@ -24,6 +25,16 @@ class CmsMenuController extends Controller {
     //
     public $html = '';
     public $arrData = [];
+
+    public function __construct()
+    {
+        //Read the settings .env set app title and tag line
+        View::share('APP_TITLE', env('APP_TITLE'));
+        View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
+
+        //$this->middleware('guest');    //Doesn't require active user
+        $this->middleware('is.allowed'); //Require require active user
+    }
 
     function index() {
         $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();

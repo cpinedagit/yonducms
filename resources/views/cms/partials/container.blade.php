@@ -35,7 +35,7 @@
     <div class='main-container__content__title'>
       @yield('title')
     </div>
-      <div class="main-container__content__breadcrumbs">
+    <div class="main-container__content__breadcrumbs">
       {!! Breadcrumbs::renderIfExists() !!}
     </div>
 

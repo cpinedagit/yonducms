@@ -28,11 +28,17 @@
                  </div>
              </div>
 
+
+
+
              <div class="col-sm-8">
                 <div class="form-group">
                     <label for="page-url" class='form-title'>URL Key</label>
-                    <input type="text" class="form-control" id="page-url" placeholder="None">
-                </div>
+                    <div class="form-group" id="editableUrl">
+                    <label>{!! URL::to('/site/news')!!}/</label>
+                     {!! Form::text('slug',$result->slug,array('class'=>'form-control', 'required' )) !!}
+                  </div>
+            </div>
             </div>
 
 

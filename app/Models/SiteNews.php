@@ -1,11 +1,11 @@
-<?php namespace App\Models;
+<?php namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
 class News extends Model {
 	protected $table = "content_news";
-	protected $primaryKey = "news_id";
+	protected $primaryKey = "slug";
 
     public static function archive()
     {

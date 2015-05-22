@@ -1,8 +1,8 @@
-@extends('app')
-
+@extends('cms.home')
+@section('title')
+<h2>Module Management</h2>
+@stop
 @section('content')
-	<h1>Module Manager</h1>
-	<h2>Toggle modules.</h2>
 	<div>Enable or disable module visibility.</div>
 
 	@if(!is_null($message))

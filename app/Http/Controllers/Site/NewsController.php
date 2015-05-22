@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Site\News;
 use Request;
 use DB;
 use View;
@@ -10,7 +11,6 @@ use Validator;
 use Redirect;
 use Session;
 use File;
-use App\Models\News;
 use HTML; 
 use Image;
 use Response;
@@ -25,8 +25,8 @@ class NewsController extends Controller {
 	public function show($id, $slug = '') {
     	$result = News::find($id);
     	$archive = News::archive();
+     // return view('site/News/show', array('result'=>$result,'archive'=>$archive));
       	return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive));
 	}
-
 
 }

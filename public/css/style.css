@@ -841,7 +841,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;

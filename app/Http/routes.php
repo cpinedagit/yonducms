@@ -85,7 +85,7 @@ Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMe
 
 Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 
-Route::resource('admin/menu', 'CMS\CmsMenuController');
+Route::resource('admin/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);
 // end  
 
 //Authentication and Forgot Password Module: Start
@@ -133,6 +133,7 @@ Route::resource('cms/pages','PageController');
 
 //These routes are for Module Management
 Route::get('modules', 'ModuleController@index');
+Route::resource('modules', 'ModuleController');
 Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
 Route::post('modules/upload', 'ModuleController@upload');
 require_once(__DIR__ . '/../Modules/Module_Routes.php');
