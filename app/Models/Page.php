@@ -28,6 +28,12 @@ class Page extends Model {
         $page->title = Input::get('title');
         $page->slug = Input::get('slug');
         $page->content = $content;
+        $parent = Input::get('parent');
+        if ($parent === null) {
+            $page->parent_id = Input::get('hideParent');
+        } else {
+            $page->parent_id = $parent;
+        }
         $page->save();
     }
 

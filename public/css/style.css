@@ -327,6 +327,7 @@ a:focus{
     height: 100%;
     line-height: 45px;
     margin-right: 35px;
+    text-align: center;
 }
 .header__logo > img{
     max-width: 100%;
@@ -1683,7 +1684,22 @@ table.table--noaction tr td:first-child{
     margin-left: 16%;
     margin-top: -7%;
 }
+
+#APP_LOGO_img{
+    height: 88px;
+    position: inherit;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 /*Dashboard*/
+
+/*APP Logo*/
+.app_logo_header
+{
+   max-height: 50px;
+}
+/*APP Logo*/
 
 /*==========  Non-Mobile First Method  ==========*/
 

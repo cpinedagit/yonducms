@@ -32,13 +32,14 @@
 
   </section>
   <main class="container-fluid main-container__content">
-      <h2>Title</h2>
-      <section class="main-container__content__breadcrumbs">
-          <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>           
-          </ol> 
+    <div class='main-container__content__title'>
+      @yield('title')
+    </div>
+      <div class="main-container__content__breadcrumbs">
+      {!! Breadcrumbs::renderIfExists() !!}
+    </div>
+
       @yield('content')
-      </section>
       
       @if(isset($data['message']))
       <!-- Flash Update Your Password Message -->

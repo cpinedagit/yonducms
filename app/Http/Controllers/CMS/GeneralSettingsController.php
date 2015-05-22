@@ -110,14 +110,11 @@ class GeneralSettingsController extends Controller {
 		Storage::disk('root')->delete('.env'); 
 		Storage::disk('root')->put('.env', Session::get('env'));
 
-		$this->regenerateMenuSession('cms.general_settings.index', 'cms.general_settings.index');
-		$env = file('.env'); 		//Open .env File input as Array
-		Session::put('env', $env);		//Set it to an Session to be use later
-
 		//Message confirmation
-		$env['message'] = "Settings saved.";
+		Session::flash('message', 'Settings saved.');
 
-		return view('cms.general_settings.index', compact('env'));
+		//Redirect to gen setting 
+		return redirect('cms/general_settings');
 	
 	}
 

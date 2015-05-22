@@ -4,6 +4,7 @@
 @section('content')
 
                 <div class='main-container__content__info'>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="panel panel-default panel--custom">
@@ -40,6 +41,12 @@
                                         <input type="hidden" name="nestable-output" id="nestable-output">
                                     </form>
 
+
+
+
+                                </div>
+                                <div class="alert alert-success" style="display: none" id="alertSaveData">
+                                    Data Save :D
                                 </div>
                             </div>
                         </div>
@@ -98,7 +105,7 @@
 
                                                         @if(isset($objPage))
                                                         @foreach($objPage as $pages)
-                                                        <li>                                                                  <div class="checkbox">
+                                                        <li>                                                                                                                      <div class="checkbox">
                                                                 <label>
                                                                     <input type="checkbox" class="check_pages" name="pages[]" value="{{ $pages->title }}" data-url="{{ $pages->url }}" data-page_id="{{ $pages->id }}" data-label="{{ $pages->title }}"> {{ $pages->title }}
                                                                 </label>
@@ -113,7 +120,7 @@
                                                 <div class="btn-holder">
                                                     <button class="btn btn-add">
                                                         <input type="checkbox" name="my-checkbox" id="selectUs"><label for='selectUs'>Check All</label></button>
-                                                    <button class="btn btn-add" id="addPagestonavi" disabled="true">Add to Navigation</button>
+                                                    <button class="btn btn-add" id="addPagestonavi"  disabled="true">Add to Navigation</button>
                                                 </div>
                                             </div>
                                             <div role="tabpanel" class="tab-pane" id="links">

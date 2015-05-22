@@ -1,4 +1,8 @@
 @extends('cms.home')
+@section('title')
+<h2>News Management</h2>
+{!! HTML::linkRoute('cms.news.create', 'Add New',array(),array('class'=>'btn btn-add')) !!}
+@stop
 @section('content')
 <div class='main-container__content__info'>
 	<div class="main-container__content__info__summary">

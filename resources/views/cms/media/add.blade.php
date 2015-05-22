@@ -1,4 +1,7 @@
 @extends('cms.home')
+@section('title')
+<h2>Media</h2>
+@stop
 @section('content')
 <style>
 .btn-file {
@@ -23,43 +26,39 @@
 </style>
 
 <div class="main-container__content__reminder">
-                    <i class="fa fa-exclamation-circle"></i>
-                    <small>Reminder: Allowed file types: {{ env('APP_MEDIA_FORMATS') }}.</small>
-                    <small>Maximum file size: {{ env('APP_MEDIA_MAX_FILE_SIZE') }}MB</small>
-                </div>
-
-
-
-
+    <i class="fa fa-exclamation-circle"></i>
+    <small>Reminder: Allowed file types: {{ env('APP_MEDIA_FORMATS') }}.</small>
+    <small>Maximum file size: {{ env('APP_MEDIA_MAX_FILE_SIZE') }}MB</small>
+</div>
 <div class='main-container__content__info'>
-                   {!! Form::open(array('route'=>'cms.media.store','method'=>'POST','id'=>'upload', 'files'=>true)) !!}
-                       <div class="row">
-                            <div class="col-sm-12">
-                               <div class="form-group">
-                                    <label for="media-upload" class='form-title'>Add New Media</label>
-                                    <div class="control-group">
-                                      <div class="controls controls--upload">
-                                        
-                                        <div class="filedrag-holder">
-                                            <div id="filedrag">
-                                                <h3>Drop files here</h3>
-                                                or <br>
-                                                <span class="btn btn-add filedrag__modal btn-file">
-                                                    Select Files{!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*')) !!}
-                                                </span>
-                                               
-                                            </div>
-                                        </div>
-                                     </div>
-                                    </div>
-                                    <div class="preview-drag-drop"></div>
-                                  <div id="messages"></div>
-                                  
-                                </div>     
-                            </div>
-                        </div>
-                   {!! Form::close() !!}
+ {!! Form::open(array('route'=>'cms.media.store','method'=>'POST','id'=>'upload', 'files'=>true)) !!}
+ <div class="row">
+    <div class="col-sm-12">
+     <div class="form-group">
+        <label for="media-upload" class='form-title'>Add New Media</label>
+        <div class="control-group">
+          <div class="controls controls--upload">
+            
+            <div class="filedrag-holder">
+                <div id="filedrag">
+                    <h3>Drop files here</h3>
+                    or <br>
+                    <span class="btn btn-add filedrag__modal btn-file">
+                        Select Files{!! Form::file('fileselect[]', array('multiple'=>true,'id'=>'fileselect','accept'=>'image/*,video/*')) !!}
+                    </span>
+                    
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="preview-drag-drop"></div>
+    <div id="messages"></div>
+    
+</div>     
+</div>
+</div>
+{!! Form::close() !!}
+</div>
 
 
 <script>

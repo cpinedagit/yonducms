@@ -1,4 +1,7 @@
     @extends('cms.home')
+    @section('title')
+<h2>News Management</h2>
+@stop
     @section('content')
     <div class="main-container__content__reminder">
         <i class="fa fa-exclamation-circle"></i>
