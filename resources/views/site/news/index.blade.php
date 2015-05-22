@@ -1,5 +1,5 @@
-@extends('index')
-@section('content')
+@extends('site.home')
+@section('sitecontent')
 
 <!-- Stack the columns on mobile by making one full-width and the other half-width -->
 <div class="col-md-12">
