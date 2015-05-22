@@ -1690,3 +1690,18 @@ table.table--noaction tr td:first-child{
     @media only screen and (max-width : 320px) {
         
     }
+
+    /*General Settings*/
+    #APP_LOGO_selector
+    {
+        width: 100%;
+        margin-left: 33%;
+    }
+
+    .APP_LOGO_container
+    {
+        width: 520px;
+        background-color: #293542;
+        margin-bottom: 5%;
+    }
+    /*General Settings*/

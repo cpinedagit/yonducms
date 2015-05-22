@@ -50,12 +50,12 @@
 		}
 	});
 
-	//Hide front-end warning message
+	//Whenever there is no error message hide error list div
 	$(document).keypress(function(e) {
 	 	//Find front-end-error 
 	 	var error_ctr = $('ul.parsley-errors-list.filled');
-	 	console.log(error_ctr.length);
-	 	if(error_ctr.length==1)
+	 	
+	 	if(error_ctr.length<=1)
 	 		$('.front-end-error').addClass('hide');
 	});
 

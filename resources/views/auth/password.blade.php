@@ -55,12 +55,12 @@
 		}
 	});
 
-	//Hide Error List 
+	//Whenever there is no error message hide error list div
 	$(document).keypress(function(e) {
 	 	//Find front-end-error 
 	 	var error_ctr = $('ul.parsley-errors-list.filled');
 
-	 	if(error_ctr.length==0)
+	 	if(error_ctr.length<=1)
 	 		$('.front-end-error').addClass('hide');
 	});
 

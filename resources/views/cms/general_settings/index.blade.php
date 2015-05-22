@@ -40,10 +40,10 @@
                                     <div class="form-group">
                                         <label for="website-title" class="col-sm-2 control-label">Website Logo</label>
                                         <div class="col-sm-10">
-                                         <div class="main-container__content__info__photo__uploaded-photo-container main-container__content__info__photo__uploaded-photo--profile">
+                                         <div class="APP_LOGO_container">
                                             {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'blah')) !!}
                                           </div>
-                                           {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'imgInp')) !!}
+                                           {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'APP_LOGO_selector')) !!}
                                         </div>
                                     </div>
                                     <div class="form-group">

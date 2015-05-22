@@ -2,7 +2,7 @@
    <div class="row">
     <div class="pull-left header__logo">
        <!--Change SRC to put logo-->
-       {!! HTML::image(asset('public/img/sample-logo.png'), 'CMS Logo', ''); !!}
+       {!! HTML::image(asset('public/img/'.env('APP_LOGO')), 'CMS Logo', ''); !!}
     </div>
     <div class="pull-left header__search">
         <a href="#"><i class="fa fa-globe"></i> View Site</a>
