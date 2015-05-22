@@ -127,7 +127,6 @@
         var filename = 'public/css/banner.css';
         $.get('../../../' + filename, function (data)//Remember, same domain
         {
-//            alert(filename);
             var _data = data;
             $('#codeEditor').val(data);
         });

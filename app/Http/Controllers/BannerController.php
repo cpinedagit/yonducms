@@ -53,6 +53,7 @@ class BannerController extends Controller {
         $banner = new Banner;
         $banner->title = Input::get('name');
         $banner->type = Input::get('type');
+        $banner->classes = 'carousel slide myCarousel';
         $banner->save();
         return redirect('cms/banners');
     }
@@ -117,7 +118,13 @@ class BannerController extends Controller {
     public function update($id) {
         $checked = Input::get('ID');
         Banner::updateBanner($id);
-        return redirect('cms/banners');
+        //file path
+        $file = 'public/css/banner.css';
+        $content = Input::get('editor');
+        unlink($file);
+        if (file_put_contents($file, $content, FILE_APPEND)) {
+            return redirect('cms/banners');
+        }
     }
 
     /**

@@ -24,13 +24,18 @@ class EditorController extends Controller {
         $jsFiles = File::files($jsPath);
         $cssFiles = File::files($cssPath);
         $siteFiles = File::files($sitePath);
-//        $otherFiles = File::files($otherPath);
+        $directories = File::directories('resources/views/site');
         $arData = array(
             'cssFiles' => $cssFiles,
             'jsFiles' => $jsFiles,
-            'siteFiles' => $siteFiles
+            'siteFiles' => $siteFiles,
+            'directories' => $directories
         );
-        return View('cms/Editors.index', $arData);
+        return View('cms/Editors.test', $arData);
+    }
+    
+    public function folder(){
+        return 'test';
     }
 
     public function create() {
