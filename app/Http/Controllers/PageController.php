@@ -88,21 +88,22 @@ class PageController extends Controller {
 //            $arrays[] = (array) $banner;
 //        }
         $pages = Page::edit($id);
-        $banners = Page::getAllBanners();
-        $getAllPages = Page::where('id', '!=', $id)->get();
+        $banners = Page::getAllBanners();        
         $getParentId = Page::where('id', '=', $id)->pluck('parent_id');
+        $getAllPages = DB::table('pages')->whereNotIn('id',array($getParentId,$id))->get();
         $getParent = Page::where('id', '=', $getParentId)
                 ->pluck('title');
         $arData = array(
             'pages' => $pages,
             'banners' => $banners,
             'getAllPages' => $getAllPages,
-            'getParent' => $getParent
+            'getParent' => $getParent,
+            'getParentId' => $getParentId
         );
         return view('cms/Pages/edit', $arData);
     }
 
-    public function preview($slug) {
+    public function preview($slug,$slug2 = false) {
         $pages = Page::preview($slug);
         $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
         $arData = array(

@@ -8,11 +8,19 @@
         </div>
         <nav>
             <ul class="nav masthead-nav">
-                <li><a href="http://localhost:8080/yonducms/site/page/1">Home</a></li>
-                <li><a href="http://localhost:8080/yonducms/site/page/2">About Us</a></li>
-                <li><a href="http://localhost:8080/yonducms/site/page/3">Contact Us</a></li>
+            @if(isset($objMenu))
+            @foreach($objMenu as $siteMenu)
+
+              <li {!! parentElement($siteMenu->menu_id, 'dropdown') !!} >
+                <a href="#">
+                <span class="link-title">{!! $siteMenu->label !!}</span> 
+                {!! parentElement($siteMenu->menu_id, 'caret') !!}
+                </a> 
+                {!! getSubMenuSite($siteMenu->menu_id) !!}
+              </li>
+              @endforeach
+              @endif
             </ul>
         </nav>
-
     </div>
 </div>

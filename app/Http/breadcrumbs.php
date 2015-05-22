@@ -49,3 +49,31 @@ Breadcrumbs::register('cms.news.show', function($breadcrumbs)
     $breadcrumbs->parent('cms.news.index');
     $breadcrumbs->push('Edit', route('cms.news.show'));
 });
+
+//Home > Banner
+Breadcrumbs::register('cms.banners.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Banner', route('cms.banners.index'));
+});
+
+//Home > Banner > Add New
+Breadcrumbs::register('cms.Banners.add', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Add New', route('cms.Banners.add'));
+});
+
+//Home > Pages
+Breadcrumbs::register('cms.pages.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Pages', route('cms.pages.index'));
+});
+
+//Home > Pages > Add New
+Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.pages.index');
+    $breadcrumbs->push('Add New', route('cms.pages.addPage'));
+});
