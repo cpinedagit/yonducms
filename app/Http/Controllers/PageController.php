@@ -89,9 +89,15 @@ class PageController extends Controller {
 //        }
         $pages = Page::edit($id);
         $banners = Page::getAllBanners();
+        $getAllPages = Page::where('id', '!=', $id)->get();
+        $getParentId = Page::where('id', '=', $id)->pluck('parent_id');
+        $getParent = Page::where('id', '=', $getParentId)
+                ->pluck('title');
         $arData = array(
             'pages' => $pages,
-            'banners' => $banners
+            'banners' => $banners,
+            'getAllPages' => $getAllPages,
+            'getParent' => $getParent
         );
         return view('cms/Pages/edit', $arData);
     }

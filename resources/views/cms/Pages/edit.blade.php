@@ -1,16 +1,6 @@
 @extends('cms.home')
 @section('content')
 {!! Form::model($pages,array('method'=>'PUT','url'=>'cms/pages/'.$pages['id'],'files'=>'true')) !!}
-<div class='main-container__content__title'>
-    <h2>Pages</h2>
-</div>
-<div class="main-container__content__breadcrumbs">
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Pages</a></li>
-        <li class="active">Edit</li>
-    </ol>
-</div>
 <div class="main-container__content__reminder">
     <i class="fa fa-exclamation-circle"></i>
     <small>Reminder: Fields with asterisk(*) are required.</small>
@@ -41,15 +31,18 @@
         <div class="col-sm-9">
             <div class="form-group">
                 <label for="page-title" class='form-title'>Edit Page *</label>
-                {!! Form::text('title', $pages['title'],['class' => 'form-control Nform-control', 'placeholder' => 'Enter title here']) !!}
+                {!! Form::text('title', $pages['title'],['class' => 'form-control', 'placeholder' => 'Enter title here']) !!}
             </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="page-title" class='form-title'>Parent Page *</label>
-                        <select class='form-control'>
-                            <option>page1</option>
-                            <option>page 2</option>        
+                        <label for="page-title" class='form-title'>Parent Page *</label>  
+                        <input name ='hideParent' type='hidden' value='{!! $getParent !!}'>
+                        <select name ="parent" class='form-control'>
+                            <option disabled selected value='{!! $getParent !!}'>{!! $getParent !!}</option>
+                            @foreach($getAllPages as $pages)
+                            <option value="{{ $pages->id }}">{!! $pages->title !!}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
