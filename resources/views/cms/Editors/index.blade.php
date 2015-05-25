@@ -1,4 +1,7 @@
 @extends('cms.home')
+@section('title')
+<h2>Editor</h2>
+@stop
 @section('content')
 <div class="row">
     <div class="col-sm-9">

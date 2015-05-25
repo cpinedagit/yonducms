@@ -1,16 +1,9 @@
 @extends('cms.home')
+@section('title')
+<h2>Pages</h2>
+ <button id='addPage' value="Add New" class='btn btn-add'>Add Page</button>
+@stop
 @section('content')
-<div class='main-container__content__title'>
-    <h2>Pages</h2>
-    <button id='addPage' value="Add New" class='btn btn-add'>Add Page</button>
-</div>
-<div class="main-container__content__breadcrumbs">
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Pages</a></li>
-        <li class="active">View List</li>
-    </ol>
-</div>
 <div class='main-container__content__info'>
     <div class="main-container__content__info__summary">
         <span>

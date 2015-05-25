@@ -65,6 +65,13 @@ Breadcrumbs::register('cms.Banners.add', function($breadcrumbs)
     $breadcrumbs->push('Add New', route('cms.Banners.add'));
 });
 
+//Home > Banner > Edit
+Breadcrumbs::register('cms.banners.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.banners.index');
+    $breadcrumbs->push('Edit', route('cms.banners.edit'));
+});
+
 //Home > Pages
 Breadcrumbs::register('cms.pages.index', function($breadcrumbs)
 {
@@ -77,6 +84,13 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.pages.index');
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
+});
+
+//Home > Editor
+Breadcrumbs::register('cms.editor.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Editor', route('cms.editor.index'));
 });
 
 
