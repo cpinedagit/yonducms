@@ -126,13 +126,14 @@ Route::resource('cms/banners','BannerController');
 Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController@addPage']);
 Route::delete('cms/delPage','PageController@delPage');
 Route::get('site/{slug}','PageController@preview');
-Route::get('site/page/{id}/{url}','PageController@preview');
+Route::get('site/{slug}/{slug2}/','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');
 
 //These routes are for Module Management
 Route::get('modules', 'ModuleController@index');
+Route::resource('modules', 'ModuleController');
 Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
 Route::post('modules/upload', 'ModuleController@upload');
 require_once(__DIR__ . '/../Modules/Module_Routes.php');

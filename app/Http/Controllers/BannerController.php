@@ -125,6 +125,7 @@ class BannerController extends Controller {
         if (file_put_contents($file, $content, FILE_APPEND)) {
             return redirect('cms/banners');
         }
+        return redirect('cms/banners');
     }
 
     /**

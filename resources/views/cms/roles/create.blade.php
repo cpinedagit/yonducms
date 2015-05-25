@@ -1,5 +1,7 @@
 @extends('cms.home')
-
+@section('title')
+<h2>User Management</h2>
+@stop
 @section('content')
 
 	<h5>Create New Role</h5>

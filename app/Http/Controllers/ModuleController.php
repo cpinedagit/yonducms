@@ -18,8 +18,13 @@ class ModuleController extends Controller {
 	 */
 	public function index($message = NULL)
 	{
+		$this->regenerateMenuSession('modules.index', 'modules.index');
 		$moduleScript = 'SELECT modules.id, modules.module_name, modules.module_description, modules.enabled FROM `modules` WHERE ?';
-		$moduleList = DB::select($moduleScript, array(1));
+		//$moduleList = DB::select($moduleScript, array(1));
+		$moduleList = DB::table('modules')
+					->where('module_type', '=', '1')
+					->select('id', 'module_name', 'module_description', 'enabled', 'module_type')
+					->get();
 		return view('modules.manager')->with([
 				'modules' => count($moduleList),
 				'data' => (array) $moduleList,

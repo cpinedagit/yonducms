@@ -28,12 +28,6 @@
        </div>
      </div>
 
-     <div class="col-sm-8">
-      <div class="form-group">
-        <label for="page-url" class='form-title'>URL Key</label>
-        <input type="text" class="form-control" id="page-url" placeholder="None">
-      </div>
-    </div>
 
 
     <div class="col-sm-12">

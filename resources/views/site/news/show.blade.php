@@ -1,5 +1,5 @@
-@extends('index')
-@section('content')
+@extends('site.home')
+@section('sitecontent')
 <div class="col-md-12">
   	<div class="col-md-7">
 		<h1> {{$result->news_title}} </h1>

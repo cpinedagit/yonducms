@@ -1,5 +1,7 @@
 @extends('cms.home')
-
+@section('title')
+<h2>User Management</h2>
+@stop
 @section('content')
 
   @if (count($errors) > 0)
@@ -14,11 +16,6 @@
     @endif
 
 	<div class='main-container__content__info'>
-       <div class="row">
-           <div class="col-sm-12">
-               <h3>Add New User</h3>
-           </div>
-       </div>
        <div class="row">
 
        	 {!! Form::open(array('route' => array('cms.user.store'), 'id' => 'UserCreateForm', 'method' => 'post', 'enctype' => 'multipart/form-data')) !!}

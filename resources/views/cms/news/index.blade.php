@@ -95,6 +95,8 @@
 							{!! Form::open(array('route'=>array('cms.news.destroy', $result->news_id),'method'=>'DELETE')) !!}
 							{!! Form::close() !!}
 						</li>
+						<li>{!! HTML::linkAction('Site\NewsController@show',  'Preview' , array($result->slug),array('target'=>'_blank')) !!}}</li>
+						
 					</ul>
 					</td>
 				</tr>

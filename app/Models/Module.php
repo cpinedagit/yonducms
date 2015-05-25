@@ -19,4 +19,15 @@ class Module extends Model {
 		return $modules;
 	}
 
+	public static function getInstalledModules()
+	{
+		$modules = DB::table('modules')
+					->where('enabled', '=', '1')
+					->where('module_type', '=', '1')
+					->get([
+						'id', 'module_name', 'module_path',
+						'module_icon', 'is_selected']);
+		return $modules;
+	}
+
 }
