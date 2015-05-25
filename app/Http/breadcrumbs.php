@@ -49,3 +49,10 @@ Breadcrumbs::register('cms.news.show', function($breadcrumbs)
     $breadcrumbs->parent('cms.news.index');
     $breadcrumbs->push('Edit', route('cms.news.show'));
 });
+
+// Home > Menu
+Breadcrumbs::register('admin.menu.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Menu', route('admin.menu.index'));
+});

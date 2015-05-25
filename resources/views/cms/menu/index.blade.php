@@ -1,5 +1,10 @@
 @extends('cms.home')
 
+@section('title')
+<h2>
+    Menu Management
+</h2>
+@stop
 
 @section('content')
 
