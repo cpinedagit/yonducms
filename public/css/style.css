@@ -355,6 +355,7 @@ a:focus{
     height: 100%;
     line-height: 45px;
     margin-right: 35px;
+    text-align: center;
 }
 .header__logo > img{
     max-width: 100%;
@@ -868,7 +869,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;
@@ -1794,6 +1795,63 @@ table.table--noaction tr td:first-child{
     margin-bottom: 30px;
 }
 
+
+
+
+
+/********* CAPTCHA ***************/
+.login-holder-form__captcha > div{
+    float: left;
+}
+.login-holder-form__captcha > #capthca-img{
+    width: 60%;
+    text-align: center;
+}
+.login-holder-form__captcha > .glyphicon-refresh{
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/********* CAPTCHA ***************/
+
+/*General Settings*/
+#APP_LOGO_selector
+{
+    width: 100%;
+    margin-left: 33%;
+}
+
+.APP_LOGO_container
+{
+    width: 520px;
+    background-color: #293542;
+    margin-bottom: 5%;
+}
+/*General Settings*/
+
+/*Dashboard*/
+.dash-board-feeds{
+    margin-left: 16%;
+    margin-top: -7%;
+}
+
+#APP_LOGO_img{
+    height: 88px;
+    position: inherit;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*Dashboard*/
+
+/*APP Logo*/
+.app_logo_header
+{
+   max-height: 50px;
+}
+/*APP Logo*/
 
 /*==========  Non-Mobile First Method  ==========*/
 
