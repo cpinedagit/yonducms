@@ -44,12 +44,19 @@
                                     <div class="form-group">
                                         <label for="website-title" class="col-sm-2 control-label">Website Logo</label>
                                         <div class="col-sm-10">
-                                         <div class="APP_LOGO_container">
-                                            {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'APP_LOGO_img')) !!}
+                                          <div class="APP_LOGO_container">
+                                            {!! HTML::image('public/images/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'APP_LOGO_img')) !!}
                                           </div>
                                            {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'APP_LOGO_selector', 'accept'=>'image/*')) !!}
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="website-title" class="col-sm-2 control-label">Website Favicon</label>
+                                        <div class="APP_FavIconDiv">
+                                            {!! HTML::image('public/images/'.str_replace('APP_FAVICON=', '', $env[33]), 'Favicon', array('class' => 'show', 'id' => 'APP_Favicon')) !!}
+                                          </div>
+                                           {!! Form::file('APP_FAVICON', array('class' => 'show', 'id' => 'APP_FAVICON_selector', 'accept'=>'ico')) !!}
+                                        </div>
                                     <div class="form-group">
                                         <label for="website-title" class="col-sm-2 control-label">Website Title</label>
                                         <div class="col-sm-10">

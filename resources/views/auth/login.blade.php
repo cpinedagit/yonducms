@@ -6,7 +6,7 @@
 	
 	{!! Form::open(['url'=>url('/auth/login'), 'id'=>'LogInForm', 'class'=>'login-holder-form', 'role'=>'form']) !!}
 		<div class="login-holder-form__container" id="login-form">
-			{!! HTML::image('public/images/sample-logo.png', 'Yondu Web Service', ['class'=>'login-holder-form__logo']) !!}
+			{!! HTML::image('public/images/'.env('APP_LOGO'), 'Yondu Web Service', ['class'=>'login-holder-form__logo']) !!}
 		 		{!! Form::text('username', old('username'), ['class'=>'form-control', 'placeholder'=>'Username', 'data-parsley-required'=>'true','data-parsley-error-message'=>'Username is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
 		 		{!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password', 'data-parsley-required'=>'true', 'data-parsley-error-message'=>'Password is required.', 'data-parsley-errors-container'=>'.front-end-error'] ) !!}
 				<div class="clearfix">

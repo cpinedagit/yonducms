@@ -91,7 +91,7 @@ class GeneralSettingsController extends Controller {
 					Session::put('env.29', 'DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE='.Input::get('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE').PHP_EOL);
 				break;
 				case 32:
-					$destinationPath = 'public/img/';		
+					$destinationPath = 'public/images/';		
 					$file = Input::file('APP_LOGO');
 					//If logo has been set
 					if (Input::hasFile('APP_LOGO')){
@@ -101,6 +101,18 @@ class GeneralSettingsController extends Controller {
 					 	Session::put('env.32', 'APP_LOGO='.$file->getClientOriginalName().PHP_EOL);
 					}
 				break;
+				case 33:
+					$destinationPath = 'public/images/';		
+					$file = Input::file('APP_FAVICON');
+					//If logo has been set
+					if (Input::hasFile('APP_FAVICON')){
+					 	$filename           = $file->getClientOriginalName();	
+					 	$file->move($destinationPath, $filename);
+
+					 	Session::put('env.33', 'APP_FAVICON='.$file->getClientOriginalName().PHP_EOL);
+					}
+				break;
+				//APP_FAVICON
 			}
 
 		}

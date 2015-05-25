@@ -1754,8 +1754,8 @@ table.table--noaction tr td:first-child{
 }
 .login-holder-form__logo{
     /*max-height: 40px;*/
-    width: 200px;
-    margin: 0 auto 50px;
+    width: 320px;
+    margin: 0 auto 25px;
     display: block;
 }
 .login-holder-form__footer{
@@ -1820,7 +1820,23 @@ table.table--noaction tr td:first-child{
 #APP_LOGO_selector
 {
     width: 100%;
-    margin-left: 33%;
+}
+
+#APP_FAVICON_selector
+{
+    width: 100%;
+    margin-left: 19%;
+}
+
+.APP_FavIconDiv
+{
+  width: 100%;
+  margin-left: 24%;
+}
+
+#APP_Favicon
+{
+    max-height: 21px;
 }
 
 .APP_LOGO_container
