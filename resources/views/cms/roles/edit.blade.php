@@ -26,26 +26,28 @@
                   <!-- Tab panes -->
                   <div class="tab-content tab-content--settings tab-content--usermngt">
 
-                  	{!! Form::model($role, array('route' => array('cms.role.update', $role->id), 'method' => 'put')) !!}
+                  	{!! Form::open(array('route' => array('cms.role.modifyAccess'), 'method' => 'post')) !!}
+                    {!! Form::hidden('role_id', $role->id) !!}
                     <div role="tabpanel" class="tab-pane active" id="editrole">
                        <div class="row">
                            <div class="col-sm-8">
                                 <div class="form-group">
-                                    {!! Form::label('role_name', 'Role Name', array('class' => 'form-title', 'for' => 'user-role')) !!}
-									{!! Form::text('role_name', null, array('class' => 'form-control', 'id' => 'user-role', 'placeholder' => 'Enter user role')) !!}
+                                     {!! Form::label('role_name', 'Role Name', array('class' => 'form-title', 'for' => 'user-role')) !!}
+									                   {!! Form::text('role_name', $role->role_name, array('class' => 'form-control', 'id' => 'user-role', 'placeholder' => 'Enter user role')) !!}
                                 </div>
                                 <div class="form-group">                                    
                                     {!! Form::label('role_description', 'Desciption', array('for' => 'user-role-desc', 'class' => 'form-title')) !!}
-                                    {!! Form::textarea('role_description', null, array('id' => 'user-role-desc', 'class' => 'form-control', 'rows' => '5')) !!}
+                                    {!! Form::textarea('role_description', $role->role_description, array('id' => 'user-role-desc', 'class' => 'form-control', 'rows' => '5')) !!}
                                 </div>
                            </div>
                            
                            <div class="col-sm-3 col-sm-offset-1">
                               <h4>Status</h4>
                                <div class="main-container__content__info__options main-container__content__info__options--userrole">
+                                   @if($role->role_active == 1)
                                    <div class="checkbox">
                                         <label>
-                                          {!! Form::radio('role_active', 1) !!} Active
+                                          {!! Form::radio('role_active', 1, true) !!} Active
                                         </label>
                                     </div>
                                     <div class="checkbox">
@@ -53,6 +55,18 @@
                                           {!! Form::radio('role_active', 0) !!} Inactive
                                         </label>
                                     </div>
+                                    @else
+                                    <div class="checkbox">
+                                        <label>
+                                          {!! Form::radio('role_active', 1) !!} Active
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                          {!! Form::radio('role_active', 0, true) !!} Inactive
+                                        </label>
+                                    </div>
+                                    @endif;
                                </div>
                             </div>
                        </div>                           
@@ -73,7 +87,7 @@
                                             <li>
                                                 <label for="{!! strtolower($module->module_name) !!}">
                                                     <span>{!! ucwords(strtolower($module->module_name)) !!}</span>
-                                                    {!! Form::checkbox('module_enabled' . $module->id, $acc->is_enabled, $acc->is_enabled, array('class' => 'module_checkbox')); !!} 
+                                                    {!! Form::checkbox('module_enabled' . $module->id, $acc->is_enabled, $acc->is_enabled, array('class' => 'module_checkbox', 'attr' => $module->id )); !!} 
                                                 </label>
                                                 <div class="sub-module_container">
                                                     <ul class="list-unstyled sub-module_list clearfix">
@@ -86,7 +100,7 @@
                                                                             <label for="{!! strtolower($module->module_name) . '_' . strtolower($menu->submenu_name) !!}">
                                                                                 <span>{!! ucwords(strtolower($menu->submenu_name)) !!}</span>
                                                                                 {!! Form::checkbox('sub_enabled' . $menu->id, $subAcc->is_enabled, $subAcc->is_enabled,
-                                                                                                array('class' => 'module_checkbox')); !!} 
+                                                                                                array('class' => 'module_checkbox', 'attr' => $module->id )); !!} 
                                                                             </label>
                                                                         </li>
                                                                     @endif
@@ -125,3 +139,32 @@
 	@endif
 
 @stop
+<script type="text/javascript" src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js') }}"></script>
+<script>
+  $(document).ready(function(){
+    $('.module_checkbox').click(function(e){
+      if(parseInt(this.value) == 0) {
+        this.value = 1;
+        var mod_attr = $(this).attr('attr');
+
+        $('.module_checkbox').each(function(){
+            if(parseInt(mod_attr) == parseInt($(this).attr('attr'))) {
+              $(this).val(1);
+            }
+        });
+
+      } else {
+        this.value = 0;
+
+        var mod_attr = $(this).attr('attr');
+
+        $('.module_checkbox').each(function(){
+            if(parseInt(mod_attr) == parseInt($(this).attr('attr'))) {
+              $(this).val(0);
+            }
+        });
+      }
+    });
+  });
+
+</script>

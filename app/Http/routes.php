@@ -36,6 +36,8 @@ Route::resource('module',
 				'CMS\ModuleController',
 				['except' => ['show']]);
 
+Route::post('cms/role/modify', array('as' => 'cms.role.modifyAccess', 'uses' => 'CMS\RoleController@modifyAccess'));
+
 Route::post('cms/roleaccess/modify', array('as' => 'cms.roleaccess.modifyAccess', 'uses' => 'CMS\RoleAccessesController@modifyAccess'));
 
 Route::post('cms/access/modify', array('as' => 'cms.access.modifyAccess', 'uses' => 'CMS\AccessController@modifyAccess'));

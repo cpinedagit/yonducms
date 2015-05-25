@@ -18,7 +18,7 @@ class RoleController extends Controller {
 	public function index()
 	{
 		$this->regenerateMenuSession('cms.user.index', 'cms.role.index');
-		$roles = Role::getActiveRoles();
+		$roles = Role::all();
 		return view('cms.roles.index', compact('roles'));
 	}
 
@@ -138,4 +138,41 @@ class RoleController extends Controller {
 				->delete();
 	}
 
+	public function modifyAccess()
+	{
+		$id = Input::get('role_id');
+		$role = Role::find($id);
+		$role->role_name = Input::get('role_name');
+		$role->role_description = Input::get('role_description');
+		$role->role_active = Input::get('role_active');
+		
+		if($role->save()) {
+			$module_enabled = "module_enabled";
+			$sub_enabled = "sub_enabled";
+			$module_log = null;
+			$sub_log = null;
+			$role_id = $id;
+			$this->destroyAccess($id);
+
+			foreach(modules() as $module):			
+				$module_name = $module_enabled . $module->id;
+				$access = new Access;
+				$access->role_id = $role_id;
+				$access->module_id = $module->id;
+				$access->is_enabled = (Input::get($module_name) != null && Input::get($module_name) != '') ? Input::get($module_name) : 0;
+				$access->save();
+			endforeach;
+
+			foreach(submenus() as $menu):
+				$sub_name = $sub_enabled . $menu->id;
+				$subAccess = new SubAccess;
+				$subAccess->role_id = $role_id;
+				$subAccess->submenu_id = $menu->id;
+				$subAccess->is_enabled = (Input::get($sub_name) != null && Input::get($sub_name) != '') ? Input::get($sub_name) : 0;
+				$subAccess->save();
+			endforeach;
+		}
+
+		return Redirect::route('cms.role.index');
+	}
 }
