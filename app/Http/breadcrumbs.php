@@ -65,6 +65,13 @@ Breadcrumbs::register('cms.Banners.add', function($breadcrumbs)
     $breadcrumbs->push('Add New', route('cms.Banners.add'));
 });
 
+//Home > Banner > Edit
+Breadcrumbs::register('cms.banners.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.banners.index');
+    $breadcrumbs->push('Edit', route('cms.banners.edit'));
+});
+
 //Home > Pages
 Breadcrumbs::register('cms.pages.index', function($breadcrumbs)
 {
@@ -79,6 +86,20 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
 });
 
+//Home > Editor
+Breadcrumbs::register('cms.editor.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Editor', route('cms.editor.index'));
+});
+
+
+// Home > Menu
+Breadcrumbs::register('cms.menu.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Menu', route('cms.menu.index'));
+});
 
 //Home > Modules 
 Breadcrumbs::register('modules.index', function($breadcrumbs)
@@ -86,7 +107,6 @@ Breadcrumbs::register('modules.index', function($breadcrumbs)
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('Modules', route('modules.index'));
 });
-
 
 //Home > Users 
 Breadcrumbs::register('cms.user.index', function($breadcrumbs)
@@ -116,14 +136,31 @@ Breadcrumbs::register('cms.role.index', function($breadcrumbs)
     $breadcrumbs->push('User Access', route('cms.role.index'));
 });
 
+Breadcrumbs::register('cms.role.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.role.index');
+    $breadcrumbs->push('Add', route('cms.role.create'));
+});
+
+//Home > Users > User Access > Modify
+Breadcrumbs::register('cms.role.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.role.index');
+    $breadcrumbs->push('Modify', route('cms.role.edit'));
+});
+
 // Home > General Settings
 Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
+<<<<<<< HEAD
         
         
+=======
+
+>>>>>>> origin/master
 Breadcrumbs::register('cms.user.edit', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.user.index');
@@ -143,6 +180,7 @@ Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
+<<<<<<< HEAD
 
 
 //Home > Banner
@@ -172,3 +210,5 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
     $breadcrumbs->parent('cms.pages.index');
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
 });
+=======
+>>>>>>> origin/master

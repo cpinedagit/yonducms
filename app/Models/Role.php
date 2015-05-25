@@ -31,4 +31,14 @@ class Role extends Model {
 				->get(['id', 'role_name', 'role_description', 'role_active', 'type']);
 	}
 
+	public static function saveGetId($role)
+	{
+		return DB::table('role_details')
+				->insertGetId(array(
+					'role_name' => $role->role_name,
+					'role_description' => $role->role_description,
+					'role_active' => $role->role_active		
+					));
+	}
+
 }

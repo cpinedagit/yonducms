@@ -1,18 +1,11 @@
 @extends('cms.home')
+@section('title')
+<h2>Banner</h2>
+<input id ='addBanner' type="submit" value="Add New" class='btn btn-add'>
+@stop
 @section('content')
 <!-- Add your site or application content here -->
 <div class="main-container">
-    <div class='main-container__content__title'>
-        <h2>Banner</h2>
-        <input id ='addBanner' type="submit" value="Add New" class='btn btn-add'>
-    </div>
-    <div class="main-container__content__breadcrumbs">
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Banner</a></li>
-            <li class="active">View List</li>
-        </ol>
-    </div>
     <div class='main-container__content__info'>
         <div class="main-container__content__info__summary">
             <span>

@@ -51,8 +51,11 @@
             </div>
         </div>
     </div>
-    <div class="preview-drag-drop"></div>
-    <div id="messages"></div>
+    <div class="preview-drag-drop "></div>
+    <div id="messages">
+        <div class="uploadfiles-multiple">
+        </div>
+    </div>
     
 </div>     
 </div>

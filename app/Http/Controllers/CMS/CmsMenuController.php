@@ -37,7 +37,7 @@ class CmsMenuController extends Controller {
     }
 
     function index() {
-        $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
+        $objMenu = Menu::ParentNavi();
         $objPage = Page::all();
         $objData = [
             'objMenu' => $objMenu,
@@ -50,9 +50,11 @@ class CmsMenuController extends Controller {
     function updateLabelMenu() {
         $id = Input::get('menu_id');
         $label = Input::get('menu_label');
+        $menu_link = Input::get('menu-link');
 
         $menu_name_update = Menu::find($id);
         $menu_name_update->label = $label;
+        $menu_name_update->external_link = $menu_link;
         $menu_name_update->save();
     }
 
@@ -81,18 +83,30 @@ class CmsMenuController extends Controller {
             }
         }
     }
-
+    
+    // data add from page table
     function addPagetoMenu(Menu $page_menu) {
         if (Request::ajax()) {
-            $label = Request::get('label');
-            $page_id = Request::get('page_id');
-            $order_id = Request::get('order_id');
-            $page_menu->label = $label;
+            $page_menu->label = Request::get('label');
             $page_menu->parent_id = 0;
-            $page_menu->page_id = $page_id;
-            $page_menu->order_id = $order_id;
+            $page_menu->page_id = Request::get('page_id');
+            $page_menu->order_id = Request::get('order_id');
             if ($page_menu->save()) {
                 return Response::json(array('last_id' => $page_menu->menu_id));
+            }
+        }
+    }
+    
+    // adding external links
+    function addLinktoMenu(Menu $link_menu) {
+        if (Request::ajax()) {
+            $link_menu->label = Request::get('label');
+            $link_menu->parent_id = 0;
+            $link_menu->page_id = 0;
+            $link_menu->external_link = Request::get('external_link');
+            $link_menu->order_id = Request::get('order_id');
+            if ($link_menu->save()) {
+                return Response::json(array('last_id' => $link_menu->menu_id));
             }
         }
     }

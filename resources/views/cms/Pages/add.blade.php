@@ -1,15 +1,8 @@
 @extends('cms.home')
+@section('title')
+<h2>Add Pages</h2>
+@stop
 @section('content')
-<div class='main-container__content__title'>
-    <h2>Pages</h2>
-</div>
-<div class="main-container__content__breadcrumbs">
-    <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Pages</a></li>
-        <li class="active">Add New</li>
-    </ol>
-</div>
 <div class="main-container__content__reminder">
     <i class="fa fa-exclamation-circle"></i>
     <small>Reminder: Fields with asterisk(*) are required.</small>

@@ -10,3 +10,6 @@
 {!! HTML::style('public/site/css/style.css') !!}
 {!! HTML::style('public/css/banner.css') !!}
 {!! HTML::style('public/css/mystyle.css') !!}
+<!-- Favicon image -->
+<link rel="shortcut icon" href="{!! asset('public/images/'.env('APP_FAVICON')) !!}" type="image/x-icon" />
+<!-- Favicon image -->

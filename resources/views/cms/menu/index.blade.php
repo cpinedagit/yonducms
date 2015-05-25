@@ -1,5 +1,10 @@
 @extends('cms.home')
 
+@section('title')
+<h2>
+    Menu Management
+</h2>
+@stop
 
 @section('content')
 
@@ -19,7 +24,8 @@
 
                                                 @if(isset($objMenu))
                                                 @foreach($objMenu as $menu)
-                                                <li id="idli_{{ $menu->menu_id }}" class="dd-item" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}">
+                                                <?php $url_origin = ($menu->page_id == 0) ? 'external' : 'slug'; ?>
+                                                <li id="idli_{{ $menu->menu_id }}" class="dd-item" data-menu_id="{{ $menu->menu_id }}" data-page_id="{{ $menu->page_id }}" data-parent_id="{{ $menu->parent_id }}" data-label="{{ $menu->label }}" data-url="{{ $menu->slug ? $menu->slug : $menu->external_link  }}" data-url_origin="{{ $url_origin }}">
                                                     <div class="dd-handle" id="target_{{ $menu->menu_id }}">{{ $menu->label }} </div>
 
                                                     {!! getSubMenu($menu->menu_id) !!}
@@ -67,7 +73,7 @@
                                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                                     <input type="hidden" name="menu_id" class="form-control"  id="menu_id">
                                                     <input type="text"  name="menu_label" class="form-control" placeholder="Title" readonly="true" id="menu_label">
-                                                    <input type="text" class="form-control" placeholder="Link" readonly id='menu-link'>                                    
+                                                    <input type="text" class="form-control" placeholder="Link" readonly name='menu-link' id='menu-link'>                                    
                                                 </form>
                                                 <br>
 
@@ -107,7 +113,7 @@
                                                         @foreach($objPage as $pages)
                                                         <li>                                                                                                                      <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" class="check_pages" name="pages[]" value="{{ $pages->title }}" data-url="{{ $pages->url }}" data-page_id="{{ $pages->id }}" data-label="{{ $pages->title }}"> {{ $pages->title }}
+                                                                    <input type="checkbox" class="check_pages" name="pages[]" value="{{ $pages->title }}" data-page_id="{{ $pages->id }}" data-label="{{ $pages->title }}" data-url="{{ $pages->slug }}"> {{ $pages->title }}
                                                                 </label>
                                                             </div>
                                                         </li>
@@ -123,13 +129,14 @@
                                                     <button class="btn btn-add" id="addPagestonavi"  disabled="true">Add to Navigation</button>
                                                 </div>
                                             </div>
+                                            
                                             <div role="tabpanel" class="tab-pane" id="links">
                                                 <div class="textbox-holder">
-                                                    <input type="text" class="form-control" placeholder="URL">
-                                                    <input type="text" class="form-control" placeholder="Navigation Label">
+                                                    <input type="text" class="form-control" name="external_label" id="external_label" placeholder="Navigation Label">
+                                                    <input type="text" class="form-control" name="external_link" id="external_link" placeholder="External Link">
                                                 </div>
 
-                                                <button class="btn btn-add pull-right pull-bottom-right">Add to Navigation</button>
+                                                <button class="btn btn-add pull-right pull-bottom-right" disabled="true"  id="addExternalLink">Add to Navigation</button>
                                             </div>
 
                                         </div>

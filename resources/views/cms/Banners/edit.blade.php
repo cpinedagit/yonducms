@@ -1,4 +1,7 @@
 @extends('cms.home')
+@section('title')
+<h2>Edit Banner</h2>
+@stop
 @section('content')
 <div class='main-container__content__info'>
     <div role="tabpanel" class="tabpanel-custom">
