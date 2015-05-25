@@ -81,10 +81,10 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
 
 
 // Home > Menu
-Breadcrumbs::register('admin.menu.index', function($breadcrumbs)
+Breadcrumbs::register('cms.menu.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.index');
-    $breadcrumbs->push('Menu', route('admin.menu.index'));
+    $breadcrumbs->push('Menu', route('cms.menu.index'));
 });
 
 //Home > Modules 
