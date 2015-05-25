@@ -1,32 +1,27 @@
-<?php 
+<?php
 
 function gallery(array $arr) {
-	 return \App\Models\Media::gallery($arr);
+    return \App\Models\Media::gallery($arr);
 }
 
-function modules()
-{
-	return \App\Models\Module::getActiveModules();	
+function modules() {
+    return \App\Models\Module::getActiveModules();
 }
 
-function submenus()
-{
-	return \App\Models\SubMenu::getActiveSubMenus();
+function submenus() {
+    return \App\Models\SubMenu::getActiveSubMenus();
 }
 
-function accesses($id)
-{
-	return \App\Models\Access::getAccessFor($id);
+function accesses($id) {
+    return \App\Models\Access::getAccessFor($id);
 }
 
-function subaccesses($id)
-{
-	return \App\Models\SubAccess::getSubAccessFor($id);
+function subaccesses($id) {
+    return \App\Models\SubAccess::getSubAccessFor($id);
 }
 
-function roles()
-{
-	return \App\Models\Role::getActiveRoles();
+function roles() {
+    return \App\Models\Role::getActiveRoles();
 }
 
 function siteIndex()
@@ -36,7 +31,7 @@ function siteIndex()
 
 function after_last($str, $inthat) {
     if (!is_bool(strrevpos($inthat, $str)))
-    return substr($inthat, strrevpos($inthat, $str)+strlen($str));
+        return substr($inthat, strrevpos($inthat, $str) + strlen($str));
 }
 
 function before_last($this, $inthat) {
@@ -44,15 +39,16 @@ function before_last($this, $inthat) {
 }
 
 function strrevpos($instr, $needle) {
-    $rev_pos = strpos (strrev($instr), strrev($needle));
-    if ($rev_pos===false) return false;
-    else return strlen($instr) - $rev_pos - strlen($needle);
+    $rev_pos = strpos(strrev($instr), strrev($needle));
+    if ($rev_pos === false)
+        return false;
+    else
+        return strlen($instr) - $rev_pos - strlen($needle);
 }
 
 function featured_news() {
-	return \App\Models\News::featured();
+    return \App\Models\News::featured();
 }
-
 
 // menu management (admin)
 function getSubMenu($arrVal, $htmlmenu = '') {
@@ -61,8 +57,10 @@ function getSubMenu($arrVal, $htmlmenu = '') {
         if ($menuArrObj) {
             $htmlmenu .= '<ol class = "dd-list">';
             foreach ($menuArrObj as $objChildMenu) {
+                $urllink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
+                $pageOrlink = ($objChildMenu->page_id == 0) ? 'external' : 'slug';
 
-                $htmlmenu .= '<li id="idli_' . $objChildMenu->menu_id . '" class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"><div class = "dd-handle"  id="target_' . $objChildMenu->menu_id . '" }}">' . $objChildMenu->label . '</div><button class="circle btn--remove-menu delete-item" onclick="delThis(' .
+                $htmlmenu .= '<li id="idli_' . $objChildMenu->menu_id . '" class = "dd-item" data-menu_id = "' . $objChildMenu->menu_id . '" data-page_id ="' . $objChildMenu->page_id . '" data-parent_id ="' . $objChildMenu->parent_id . '" data-label ="' . $objChildMenu->label . '"  data-url="' . $urllink . '" data-url_origin="' . $pageOrlink . '"><div class = "dd-handle"  id="target_' . $objChildMenu->menu_id . '" }}">' . $objChildMenu->label . '</div><button class="circle btn--remove-menu delete-item" onclick="delThis(' .
                         $objChildMenu->menu_id
                         . ')"></button>';
                 $htmlmenu .= getSubMenu($objChildMenu->menu_id);
@@ -81,7 +79,8 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
         if ($menuArrObj) {
             $htmlmenu .= '<ul class="dropdown-menu">';
             foreach ($menuArrObj as $objChildMenu) {
-                $htmlmenu .= '<li><a href = "#"><span class = "link-title">' . $objChildMenu->label . '</span></a>';
+                $menulink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
+                $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span></a>';
 
                 $htmlmenu .= getSubMenuSite($objChildMenu->menu_id);
                 $htmlmenu .= '</li>';
@@ -106,6 +105,7 @@ function parentElement($arrVal, $element) {
         }
     }
 }
+
 // end here for menu
 
 
@@ -119,8 +119,8 @@ function banner($id) {
         $banner = "<div id='" . $id . "' class='" . $class . "' data-ride='carousel'>
                 <ol class='carousel-indicators'>                
                     <li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>";
-        foreach($objBanner as $slide) {
-            $banner .="<li data-target = '#carousel-example-generic' data-slide-to = '".$slide->media_id."'></li>";
+        foreach ($objBanner as $slide) {
+            $banner .="<li data-target = '#carousel-example-generic' data-slide-to = '" . $slide->media_id . "'></li>";
         }
         $banner .= "</ol>
                 <div class='carousel-inner' role='listbox'>
@@ -150,7 +150,5 @@ function banner($id) {
 
     return $banner;
 }
-
-
 
 ?>

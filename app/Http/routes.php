@@ -78,9 +78,10 @@ Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemContr
 //End Gian Modules
 
 
-// From Allan
+// Menu management route
 Route::post('cms/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
 Route::post('cms/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
+Route::post('cms/menu/addexternallink', ['as' => 'addexternallink', 'uses' => 'CMS\CmsMenuController@addLinktoMenu']);
 Route::post('cms/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@deleteMenu']);
 Route::post('cms/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 Route::resource('cms/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);

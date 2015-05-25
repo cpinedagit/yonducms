@@ -105,7 +105,7 @@ class PageController extends Controller {
 
     public function preview($slug,$slug2 = false) {
         $pages = Page::preview($slug);
-        $objMenu = Menu::where('parent_id', 0)->orderBy('order_id')->get();
+        $objMenu = Menu::ParentNavi();
         $arData = array(
             'pages' => $pages,
             'objMenu' => $objMenu
