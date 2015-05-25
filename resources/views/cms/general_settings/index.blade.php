@@ -47,7 +47,7 @@
                                          <div class="APP_LOGO_container">
                                             {!! HTML::image('public/img/'.str_replace('APP_LOGO=', '', $env[32]), 'App Logo', array('class' => 'show', 'id' => 'APP_LOGO_img')) !!}
                                           </div>
-                                           {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'APP_LOGO_selector')) !!}
+                                           {!! Form::file('APP_LOGO', array('class' => 'show', 'id' => 'APP_LOGO_selector', 'accept'=>'image/*')) !!}
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -83,13 +83,13 @@
                                 <div class="form-group">
                                     <label for="mail-port" class="col-sm-2 control-label">Mail Port</label>
                                     <div class="col-sm-10">
-                                      {!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Enter Mail Port', 'env-parsley-type'=>'integer'] ) !!}
+                                      {!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Enter Mail Port', 'data-parsley-type'=>'integer'] ) !!}
                                     </div>
                                 </div>
 								      <div class="form-group">
                                     <label for="mail-port" class="col-sm-2 control-label">Mail Username</label>
                                     <div class="col-sm-10">
-                                     {!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Mail Username', 'env-parsley-type'=>'email'] ) !!}
+                                     {!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Mail Username', 'data-parsley-type'=>'email'] ) !!}
                                     </div>
                                 </div>
                                 <div class="alert alert-danger alert-danger--settings" role="alert">
@@ -105,14 +105,14 @@
                             </div> 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="password">
-                            <div class="form-horizontal form-horizontal--settings">
-                                <div class="form-group">
+                            <div class="form-horizontal form-horizontal--settings" style="width:120%">
+                                <div class="form-group" style="width:92%">
                                     <label for="password-before" class="col-sm-2 control-label">Days Before Password Expires</label>
                                     <div class="col-sm-10">
                                       {!! Form::text('DAYS_BEFORE_PASSWORD_EXPIRES', str_replace('DAYS_BEFORE_PASSWORD_EXPIRES=', '', $env[28]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'data-parsley-type'=>'integer'] ) !!}
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                 <div class="form-group" style="width:92%">
                                     <label for="password-days" class="col-sm-2 control-label">Password Auto Expiration in Days</label>
                                     <div class="col-sm-10">
                                      {!! Form::text('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE', str_replace('DAYS_BEFORE_PASSWORD_NEEDS_TO_BE_CHANGE=', '', $env[29]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'data-parsley-type'=>'integer'] ) !!}

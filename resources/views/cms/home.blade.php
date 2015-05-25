@@ -4,9 +4,9 @@
 	<title>{{ env('APP_TITLE') }}</title>
 	@include('cms.partials.meta')
 	@include('cms.partials.styles')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+	<link rel="icon" type="image/png" href="{{ URL().'/public/favicon.ico' }}">
 </head>
 <body>
 		@include('cms.partials.header')
