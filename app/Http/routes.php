@@ -77,15 +77,11 @@ Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemContr
 
 
 // From Allan
-Route::post('admin/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
-
-Route::post('admin/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
-
-Route::post('admin/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@deleteMenu']);
-
-Route::post('admin/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
-
-Route::resource('admin/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);
+Route::post('cms/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
+Route::post('cms/menu/addpagetomenu', ['as' => 'addpagetomenu', 'uses' => 'CMS\CmsMenuController@addPagetoMenu']);
+Route::post('cms/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@deleteMenu']);
+Route::post('cms/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
+Route::resource('cms/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);
 // end  
 
 //Authentication and Forgot Password Module: Start
@@ -127,7 +123,7 @@ Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController
 Route::delete('cms/delPage','PageController@delPage');
 Route::get('site/','PageController@index');
 Route::get('site/{slug}','PageController@preview');
-Route::get('site/page/{id}/{url}','PageController@preview');
+Route::get('site/{slug}/{slug2}/','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');

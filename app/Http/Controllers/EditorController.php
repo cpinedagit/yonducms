@@ -8,6 +8,7 @@ use App\Models\Editor;
 use File;
 use Response;
 use Input;
+use Cache;
 
 class EditorController extends Controller {
 
@@ -101,6 +102,7 @@ class EditorController extends Controller {
         $content = Input::get('content');
         unlink($file);
         if (file_put_contents($file, $content, FILE_APPEND)) {
+            Cache::flush();
             return redirect('cms/editor');
         }
     }

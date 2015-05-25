@@ -9,6 +9,7 @@
     	Temporary Password: <?php echo $temporary_password ?> <br/><br/>
  
     Please try to access your login ID and change your password immediately.<br/> 
+    Click this {!! HTML::link(URL().'/auth/login', 'link', '') !!} to log-in.<br/> 
     <br/>
     Thank you!
 </body>
