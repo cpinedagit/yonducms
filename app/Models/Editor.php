@@ -1,22 +1,24 @@
-<?php namespace App\Models;
+<?php
 
+namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 
-class Editor extends Model{
-	protected $table = 'filesuploaded';
-        public $timestamps = false;
-//	protected $fillable = ['name', 'email', 'password'];
-//	protected $hidden = ['password', 'remember_token'];
+class Editor extends Model {
 
-        
-        public static function getClickFile($id)
-        {      
-            return \DB::table('filesuploaded')->where('id', $id)->pluck('filename');
-        }
-        
-        public static function defaultFile()
-        {
-//            return \DB::table('filesuploaded')->where('filename', 'default.blade.php')->pluck('filename');
-        }
+    protected $table = 'editors';
+    public $timestamps = false;
+
+    public static function getParentFolder() {
+        return DB::table('editors')->where('parent_id','=',0)->get();
+    }
+
+    public static function getChildFolder($id){
+        return DB::table('editors')->where('parent_id','=',$id)->get();
+    }
+    
+    public static function getAllPath(){
+        return DB::table('editors')->orderBy('name', 'asc')->get();
+    }
 }

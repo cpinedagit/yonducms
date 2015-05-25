@@ -110,6 +110,7 @@ Route::resource('site/news','Site\NewsController');
 
 
 //this routes are for Code Editor Management
+Route::get('cms/editor/addFolder','EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addFile', 'EditorController@addFile');

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Models\Editor;
 use File;
 use Response;
 use Input;
+use Request;
 use Cache;
+
 
 class EditorController extends Controller {
 
@@ -25,17 +26,23 @@ class EditorController extends Controller {
         $jsFiles = File::files($jsPath);
         $cssFiles = File::files($cssPath);
         $siteFiles = File::files($sitePath);
+        $jsDir = File::directories('public/site/js');
+        $cssDir = File::directories('public/site/css');
         $directories = File::directories('resources/views/site');
+        $paths = Editor::getAllPath();
         $arData = array(
             'cssFiles' => $cssFiles,
             'jsFiles' => $jsFiles,
             'siteFiles' => $siteFiles,
-            'directories' => $directories
+            'jsDirectories' => $jsDir,
+            'cssDirectories' => $cssDir,
+            'directories' => $directories,
+            'paths' => $paths
         );
-        return View('cms/Editors.test', $arData);
+        return View('cms/Editors.index', $arData);
     }
-    
-    public function folder(){
+
+    public function folder() {
         return 'test';
     }
 
@@ -92,10 +99,6 @@ class EditorController extends Controller {
         //
     }
 
-    public function getAllfile() {
-        
-    }
-
     public function updateFile() {
         //file path
         $file = Input::get('hidden');
@@ -105,25 +108,44 @@ class EditorController extends Controller {
             Cache::flush();
             return redirect('cms/editor');
         }
+         Cache::flush();
     }
 
-    public function addFile(Request $request) {
-
-        $file = $request->file('file');
+    public function addFile() {
+        //dd(Input::hasFile('file'));
+//        
+//        $file= Input::file('file');
+//        dd($file->getClientOriginalName());
+        
+        $file = Input::file('file');
+        $path = Input::get('path');        
         if ($file) {
             $filename = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            if ($extension == 'js') {
-                $file->move('public/site/js', $filename);
-            } elseif ($extension == 'css') {
-                $file->move('public/site/css', $filename);
-            } else {
-                $file->move('resources/views/site', $filename);
-            }
+//            $extension = $file->getClientOriginalExtension();            
+//            if ($extension == 'js') {
+//                $file->move('public/site/js', $filename);
+//            } elseif ($extension == 'css') {
+//                $file->move('public/site/css', $filename);
+//            } else {
+//                $file->move('resources/views/site', $filename);
+//            }
+            $file->move($path,$filename);
         } else {
             return redirect('cms/editor');
         }
         return redirect('cms/editor');
+    }
+    
+    public function addFolder(){
+        $name = Request::get('name');
+        $path = Request::get('path');    
+        $parent = Request::get('parent');
+        $editor = new Editor;
+        $editor->name = $parent.'/'.$name;
+        $editor->path = $path.'/'.$name;
+        $editor->save();
+        $result = File::makeDirectory($path.'/'.$name);
+        return Response::json('ok');
     }
 
 }
