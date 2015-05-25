@@ -29,6 +29,11 @@ function roles()
 	return \App\Models\Role::getActiveRoles();
 }
 
+function siteIndex()
+{
+    
+}
+
 function after_last($str, $inthat) {
     if (!is_bool(strrevpos($inthat, $str)))
     return substr($inthat, strrevpos($inthat, $str)+strlen($str));

@@ -20,6 +20,7 @@
 			@include('cms.news_feeds.index')
 		@endif
 		<!-- Include News Feeds -->
+		
 		@include('cms.partials.footer')
 	
 		

@@ -1,3 +1,4 @@
+<link rel="shortcut icon" href="{!! asset('public/images/favicon.ico') !!}" type="image/x-icon" />
 {!! HTML::style('public/css/normalize.css') !!}
 {!! HTML::style('public/css/bootstrap.min.css') !!}
 {!! HTML::style('public/font-awesome/css/font-awesome.min.css') !!}

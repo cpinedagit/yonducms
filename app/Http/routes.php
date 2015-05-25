@@ -125,6 +125,7 @@ Route::resource('cms/banners','BannerController');
 //this routes are for Page Management
 Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController@addPage']);
 Route::delete('cms/delPage','PageController@delPage');
+Route::get('site/','PageController@index');
 Route::get('site/{slug}','PageController@preview');
 Route::get('site/page/{id}/{url}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');

@@ -87,6 +87,19 @@ Breadcrumbs::register('cms.role.index', function($breadcrumbs)
     $breadcrumbs->push('User Access', route('cms.role.index'));
 });
 
+Breadcrumbs::register('cms.role.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.role.index');
+    $breadcrumbs->push('Add', route('cms.role.create'));
+});
+
+//Home > Users > User Access > Modify
+Breadcrumbs::register('cms.role.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.role.index');
+    $breadcrumbs->push('Modify', route('cms.role.edit'));
+});
+
 // Home > General Settings
 Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
 {

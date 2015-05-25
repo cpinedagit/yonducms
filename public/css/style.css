@@ -247,9 +247,37 @@ a:focus{
 .modal{
     z-index: 999999;
 }
+.table--module>thead>tr>th, 
+.table--module>tbody>tr>th, 
+.table--module>tfoot>tr>th, 
+.table--module>thead>tr>td, 
+.table--module>tbody>tr>td, 
+.table--module>tfoot>tr>td{
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
 
-
-
+    background: #f2f2f2;
+    border-top: 0;
+    vertical-align: middle;
+}
+.table--module>thead>tr>th:first-child,
+.table--module>tbody>tr>td:first-child{
+    padding-left: 25px;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default, 
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default{
+    background: #666666;
+    color: #bcbcbc;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, 
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary{
+    background: #44b6ae;
+    color: #fff;
+}
+.bootstrap-switch .bootstrap-switch-label{
+    background: #cccccc;
+}
 
 /********* JQUERY DATATABLE OVERWRITE ***************/
 .dataTables_wrapper .dataTables_paginate .paginate_button,
@@ -327,7 +355,6 @@ a:focus{
     height: 100%;
     line-height: 45px;
     margin-right: 35px;
-    text-align: center;
 }
 .header__logo > img{
     max-width: 100%;
@@ -841,7 +868,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;
@@ -1540,6 +1567,108 @@ table.table--noaction tr td:first-child{
 .error-list{
     text-align: left;
 }
+.table--module>thead>tr>th{
+    background: #e4e4e4;
+    border-bottom: 0;
+}
+.module--disabled{
+    color: #acacac;
+}
+.modal-body__media--usermngt .nav-tabs--settings--usermngt{
+    border-bottom: 1px solid #ddd;
+}
+.modal-body__media--usermngt .tab-content--usermngt{
+    padding:25px 15px!important;
+    background: none;
+}
+.modal-body__media--usermngt .tab-footer{
+    border-top: 1px solid #ddd;
+    background: none;
+}
+.main-container__content__info__options--userrole{
+    padding-bottom: 15px;
+}
+.editaccesscontrol__content{
+    /*background: #f2f2f2;
+    padding: 10px 15px;*/
+    
+    
+      background: #f2f2f2;
+}
+.editaccesscontrol__title-holder{
+    background: #d7d7d7;
+}
+.editaccesscontrol__title{
+    /*padding: 10px 15px;
+    margin-bottom: 0;
+    color: #888888;*/
+    
+    
+    padding: 10px 15px;
+    margin-bottom: 0;
+    color: #888888;
+    float: left;
+    margin-top: 0;
+    width: 50%;
+}
+.editaccesscontrol__title--left{
+    border-right: 40px solid #fff;
+}
+.editaccesscontrol__content__modules-list > li{
+    /*margin: 10px 0;
+    color: #a0a0a0;
+    overflow-wrap:break-word;*/
+    
+    
+     
+  color: #a0a0a0;
+  margin-bottom: -7px;
+  position: relative;
+}
+.editaccesscontrol__content__modules-list > li > label{
+   /* width: 100%;
+    font-weight: normal;
+    text-transform: capitalize;*/
+    
+    
+   
+  width: 50%;
+  font-weight: normal;
+  text-transform: capitalize;
+  margin-bottom: 0;
+  padding: 15px 0 15px 15px;
+  border-right: 40px solid #fff;
+}
+.editaccesscontrol__content__modules-list > li > label > span{
+    float: left;
+    width: 50%;
+    overflow-wrap: break-word;
+}
+.editaccesscontrol__content__modules-list > li > label >  input[type='checkbox']{
+    float: right;
+    margin-right: 30px;
+}
+.sub-module_container{
+    position: absolute;
+    top:0;
+    right: 0;
+    width: 50%;
+}
+.sub-module_list li{
+    display: inline-block;
+    float: left;
+    padding: 15px 50px 15px 15px;
+    text-transform: capitalize;
+}
+
+.sub-module_list li > label{
+    font-weight: normal;
+    min-width: 100px;
+}
+.sub-module_list li input[type="checkbox"]{
+    margin-left: 5px;
+    float: right;
+}
 
 
 /********* FOOTER ***************/
@@ -1560,6 +1689,28 @@ table.table--noaction tr td:first-child{
 .footer > .copyright{
    padding-left: 15px;
 }
+
+
+
+
+
+
+/********* CAPTCHA ***************/
+.login-holder-form__captcha > div{
+    float: left;
+}
+.login-holder-form__captcha > #capthca-img{
+    width: 60%;
+    text-align: center;
+}
+.login-holder-form__captcha > .glyphicon-refresh{
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 
 
 
@@ -1644,63 +1795,6 @@ table.table--noaction tr td:first-child{
 }
 
 
-
-
-
-/********* CAPTCHA ***************/
-.login-holder-form__captcha > div{
-    float: left;
-}
-.login-holder-form__captcha > #capthca-img{
-    width: 60%;
-    text-align: center;
-}
-.login-holder-form__captcha > .glyphicon-refresh{
-    color: #fff;
-    margin-left: 20px;
-    margin-top: 13px;
-    font-weight: bold;
-    cursor: pointer;
-}
-/********* CAPTCHA ***************/
-
-/*General Settings*/
-#APP_LOGO_selector
-{
-    width: 100%;
-    margin-left: 33%;
-}
-
-.APP_LOGO_container
-{
-    width: 520px;
-    background-color: #293542;
-    margin-bottom: 5%;
-}
-/*General Settings*/
-
-/*Dashboard*/
-.dash-board-feeds{
-    margin-left: 16%;
-    margin-top: -7%;
-}
-
-#APP_LOGO_img{
-    height: 88px;
-    position: inherit;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-/*Dashboard*/
-
-/*APP Logo*/
-.app_logo_header
-{
-   max-height: 50px;
-}
-/*APP Logo*/
-
 /*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */
@@ -1729,5 +1823,3 @@ table.table--noaction tr td:first-child{
     @media only screen and (max-width : 320px) {
         
     }
-
-
