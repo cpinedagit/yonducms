@@ -63,7 +63,7 @@
     <div class="main-container__content__info__photo">
      <h4 class='main-container__content__info__photo__title'>Photo</h4>
      <div id="photo" class="main-container__content__info__photo__uploaded-photo-container">
-        {!! HTML::image($result->image_path,"alt",array("id"=>"blah","class"=>"show", 'required')) !!}
+        {!! HTML::image($result->image_path.$result->image_filename,"alt",array("id"=>"blah","class"=>"show", 'required')) !!}
     </div>
     <div class="main-container__content__info__photo__delete">
      <a href="#" id='deleteimage' role="button">Delete</a>

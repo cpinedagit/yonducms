@@ -48,8 +48,13 @@ class NewsController extends Controller {
   {
       $file = Input::file('file');
       $filename = $file->getClientOriginalName();
-      $file->move('uploads/news_image/', $filename);
-      $original_path = 'uploads/news_image/'.$filename;
+   //   $file->move('uploads/news_image/', $filename);
+      $imagesPath = 'uploads/news_image/';
+       Image::make($file->getRealPath())
+                ->save($imagesPath.$filename)
+                ->fit('150', '150')
+                ->save($imagesPath.'thumbnail-'.$filename)
+                ->destroy();
 
       $news = new News;
       $news->news_title = Input::get('news_title');
@@ -60,7 +65,8 @@ class NewsController extends Controller {
       $news->featured = Input::get('featured');
       $slug = str_replace(' ', '_', Input::get('news_title'));
       $news->slug = $slug;
-      $news->image_path = $original_path;
+      $news->image_path = $imagesPath;
+      $news->image_filename = $filename;
 
       $news->save();
           
@@ -79,9 +85,16 @@ class NewsController extends Controller {
       $file_count = count($file);
       if($file_count > 0) {
       $filename = $file->getClientOriginalName();
-      $file->move('uploads/news_image/', $filename);
-      $original_path = 'uploads/news_image/'.$filename;
-      $news->image_path = $original_path;
+     // $file->move('uploads/news_image/', $filename);
+     // $original_path = 'uploads/news_image/'.$filename;
+       $imagesPath = 'uploads/news_image/';
+       Image::make($file->getRealPath())
+                ->save($imagesPath.$filename)
+                ->fit('150', '150')
+                ->save($imagesPath.'thumbnail-'.$filename)
+                ->destroy();
+      $news->image_path = $imagesPath;
+      $news->image_filename = $filename;
       }
       $news->news_title = Input::get('news_title');
       $news->news_content = Input::get('news_content');
@@ -97,6 +110,14 @@ class NewsController extends Controller {
 
   public function destroy($id) {
       $news = News::find($id);
+      $filename = $news->image_path.$news->image_filename;
+      $filename2 = $news->image_path.'thumbnail-'.$news->image_filename;
+         if (file_exists($filename)) {
+         unlink($filename);
+         }
+         if (file_exists($filename2)) {
+         unlink($filename2);
+         }
       $news->delete();
       return Response::json(array($id)); 
     }
@@ -105,6 +126,15 @@ class NewsController extends Controller {
       $selected = Request::get('selected');
       foreach ($selected as $select) {
          $news = News::find($select);
+               $filename = $news->image_path.$news->image_filename;
+      $filename2 = $news->image_path.'thumbnail-'.$news->image_filename;
+         if (file_exists($filename)) {
+         unlink($filename);
+         }
+         if (file_exists($filename2)) {
+         unlink($filename2);
+         }
+
          $news->delete();
        }
       return Response::json(array($selected)); 

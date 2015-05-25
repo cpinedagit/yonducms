@@ -53,11 +53,10 @@ class MediaController extends Controller {
       $file_count = count($files);
       $uploadcount = 0;
       foreach($files as $file) {
-       
-          $imagesPath = 'uploads/image';
-          $videosPath = 'uploads/video';
           $year = date("Y");
           $month = date("m");
+          $imagesPath = 'uploads/image/'.$year.'/'.$month.'/';
+          $videosPath = 'uploads/video/'.$year.'/'.$month.'/';
           $filename = $file->getClientOriginalName();
           $extension = $file->getClientOriginalExtension();
           $filePath = realpath($file);
@@ -67,11 +66,16 @@ class MediaController extends Controller {
           if(strstr($mime, "video/")){
               $fileType= 2;
               $file->move($videosPath.'/'.$year.'/'.$month, $filename);
-              $original_path = $videosPath.'/'.$year.'/'.$month.'/'.$filename;
+              $original_path = $videosPath.$filename;
           }else if(strstr($mime, "image/")){
               $fileType = 1;
-              $file->move($imagesPath.'/'.$year.'/'.$month, $filename);
-              $original_path = $imagesPath.'/'.$year.'/'.$month.'/'.$filename;
+              $file->move($imagesPath, $filename);
+              $original_path = $imagesPath.$filename;
+            /*  Image::make($file->getRealPath())
+                ->save($imagesPath.$filename)
+                ->fit('100', '100')
+                ->save($imagesPath.'thumbnail-'.$filename)
+                ->destroy(); */
           }
           //  $image = Image::make(url($destinationPath.'/'.$year.'/'.$month.'/'.$filename))->resize(300, 400)->save(public_path($original_path));
           $media = new Media;
@@ -174,8 +178,12 @@ class MediaController extends Controller {
   public function deleteSelected() {
       $selected = Request::get('selected');
       foreach ($selected as $select) {
-         $news = Media::find($select);
-         $news->delete();
+         $media = Media::find($select);
+         $filename = $media->media_path;
+         if (file_exists($filename)) {
+         unlink($filename);
+         }
+         $media->delete();
        }
       return Response::json(array($selected)); 
   }

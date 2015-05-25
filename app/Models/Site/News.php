@@ -40,7 +40,7 @@ class News extends Model {
         $result = DB::table('content_news')
             ->leftJoin('content_media', 'content_media.media_id', '=', 'content_news.photo_id')
             ->select('content_news.*', 'content_media.media_path')
-            ->where(array('content_news.news_id'=>$id))
+            ->where(array('content_news.slug'=>$slug))
             ->get();
             return $result;
     }
