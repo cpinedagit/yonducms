@@ -148,4 +148,3 @@ Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
->>>>>>> .theirs
