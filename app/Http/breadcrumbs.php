@@ -127,9 +127,9 @@ Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
-});<<<<<<< .mine    $breadcrumbs->parent('cms.pages.index');
-    $breadcrumbs->push('Add New', route('cms.pages.addPage'));
-});=======Breadcrumbs::register('cms.user.edit', function($breadcrumbs)
+});
+
+Breadcrumbs::register('cms.user.edit', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.user.index');
     $breadcrumbs->push('Edit', route('cms.user.create'));
