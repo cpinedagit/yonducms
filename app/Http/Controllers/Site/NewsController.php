@@ -17,16 +17,18 @@ use Response;
 
 class NewsController extends Controller {
 	public function index() {
+      $imagesPath = 'uploads/news_image/';
     	$results = News::All();
   		$archive = News::archive();
-    	return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive));
+    	return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive,'imagesPath'=>$imagesPath));
   	}
 
 	public function show($id, $slug = '') {
     	$result = News::find($id);
     	$archive = News::archive();
+      $imagesPath = 'uploads/news_image/';
      // return view('site/News/show', array('result'=>$result,'archive'=>$archive));
-      	return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive));
+      	return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive,'imagesPath'=>$imagesPath));
 	}
 
 }
