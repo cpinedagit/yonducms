@@ -76,7 +76,7 @@ $(document).ready(function ()
 
                 $(htmlmenu).hide().appendTo("#list-cont").fadeIn(1000);
                 updateOutput($('#nestable').data('output', $('#nestable-output')));
-
+                // call this function for ready edit menu
                 functionReadyToEditMenu();
 
                 $(".loader-container").removeClass('show');
@@ -101,9 +101,9 @@ $(document).ready(function ()
             getval[countr] = Array(
                     $(this).attr('data-menu_id'), //PK
                     $(this).parent().parent().attr('data-menu_id'), //parent id
-                    $(this).index() + 1, //1 page order
-                    $(this).attr('data-page_id'),
-                    $(this).attr('data-label')
+                    $(this).index() + 1, //1 menu order
+                    $(this).attr('data-page_id'), // page table id
+                    $(this).attr('data-label') // label menu
                     );
             countr++;
         });

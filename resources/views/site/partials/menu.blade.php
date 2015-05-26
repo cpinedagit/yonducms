@@ -12,7 +12,6 @@
             @foreach($objMenu as $siteMenu)
 
               <li {!! parentElement($siteMenu->menu_id, 'dropdown') !!} >
-                  <base href="" />
                   <a href="{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
                 <span class="link-title">{!! $siteMenu->label !!}</span> 
                 {!! parentElement($siteMenu->menu_id, 'caret') !!}
