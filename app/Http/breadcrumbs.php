@@ -156,10 +156,7 @@ Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 Breadcrumbs::register('cms.user.edit', function($breadcrumbs)
 {
     $breadcrumbs->parent('cms.user.index');
@@ -208,7 +205,4 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
     $breadcrumbs->parent('cms.pages.index');
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
 });
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
