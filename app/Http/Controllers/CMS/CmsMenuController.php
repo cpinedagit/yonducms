@@ -12,6 +12,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
+use App\Models\MenuPosition;
 use App\Models\Page;
 use Input;
 use View;
@@ -26,8 +27,7 @@ class CmsMenuController extends Controller {
     public $html = '';
     public $arrData = [];
 
-    public function __construct()
-    {
+    public function __construct() {
         //Read the settings .env set app title and tag line
         View::share('APP_TITLE', env('APP_TITLE'));
         View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
@@ -47,6 +47,7 @@ class CmsMenuController extends Controller {
         return view('cms.menu.index', $objData);
     }
 
+    // do edit menu label and external url
     function updateLabelMenu() {
         $id = Input::get('menu_id');
         $label = Input::get('menu_label');
@@ -54,11 +55,14 @@ class CmsMenuController extends Controller {
 
         $menu_name_update = Menu::find($id);
         $menu_name_update->label = $label;
-        $menu_name_update->external_link = $menu_link;
+        // if external link, do edit for external_link field, if not page management is the origin of provided url
+        if ($menu_name_update->page_id == 0) {
+            $menu_name_update->external_link = $menu_link;
+        }
         $menu_name_update->save();
     }
 
-    // we use other than resource method to avoid ajax conflict
+    // updates the structure of menu
     function updatemenu() {
 
         $arrJson = Input::get('nestable-output');
@@ -83,8 +87,8 @@ class CmsMenuController extends Controller {
             }
         }
     }
-    
-    // data add from page table
+
+    // menu add from page table
     function addPagetoMenu(Menu $page_menu) {
         if (Request::ajax()) {
             $page_menu->label = Request::get('label');
@@ -96,8 +100,8 @@ class CmsMenuController extends Controller {
             }
         }
     }
-    
-    // adding external links
+
+    // menu add to menu management table
     function addLinktoMenu(Menu $link_menu) {
         if (Request::ajax()) {
             $link_menu->label = Request::get('label');
@@ -111,20 +115,35 @@ class CmsMenuController extends Controller {
         }
     }
 
-    // we use delete word than resource destroy method to avoid ajax conflict
+    // update selected position id
+    function setMenuPosition(MenuPosition $menuPosition) {
+        if (Request::ajax()) {
+            $newMenupositionSelecttoZero = $menuPosition->where('is_selected', '=', 1)->first();
+            $newMenupositionSelecttoZero->is_selected = 0;
+            $newMenupositionSelecttoZero->save();
+            
+            $menuPosId = Request::get('idpos');
+            $newMenupositionSelect = $menuPosition->find($menuPosId);
+            $newMenupositionSelect->is_selected = 1;
+            $newMenupositionSelect->save();
+        }
+    }
+
+    // we use "deleteMenu" word than resource destroy method to avoid ajax conflict
     function deleteMenu(Menu $menu) {
         $id = Request::get('del_id');
         $menu_parent = Menu::find($id);
         if ($menu_parent->delete()) {
-            
-           // $menu_child = Menu::where('parent_id', '=', $id);
+
+            // $menu_child = Menu::where('parent_id', '=', $id);
             $menu_child = $menu->where('parent_id', '=', $id)->get();
             foreach ($menu_child as $id_child) {
                 $this->deleteChildMenu($id_child->menu_id);
             }
         }
     }
-    
+
+    // child function for "deleteMenu" fucntion, if deleted parent has child to be deleted also
     function deleteChildMenu($id) {
         $menu_parent = Menu::find($id);
         if ($menu_parent->delete()) {
@@ -134,7 +153,5 @@ class CmsMenuController extends Controller {
             }
         }
     }
-    
-    
 
 }

@@ -5,7 +5,7 @@
         @include('site.partials.meta')
         @include('site.partials.styles')
     </head>
-    <body id="nav-right">          
+    <body id="nav-{!! menuLayout() !!}">          
         @include('site.partials.menu');
         @yield('sitecontent');
         @include('site.partials.footer');

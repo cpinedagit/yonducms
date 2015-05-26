@@ -157,7 +157,7 @@ a:hover {
     width: 100%;
     z-index: 2;
     position: fixed;
-    top:0;
+    top: 0;
     width: 235px;
     right: -235px;
     height: 100%;
@@ -226,6 +226,22 @@ a:hover {
     height: 60px;
     width: 100%;
 }
+/* #nav-right .masthead-nav{
+    right: -235px;
+
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+#nav-right .masthead-nav.open{
+    right: 0;
+
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+} */
 #nav-right .masthead-brand{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -399,7 +415,7 @@ a:hover {
     padding-left: 150px;
     padding-right: 150px;
 }
-#nav-top .masthead-nav > li ul {
+#nav-top .masthead-nav > li > ul {
     position: absolute;
     border-radius: 0;
 }
@@ -413,7 +429,10 @@ a:hover {
 #nav-top .masthead-nav > li > a {
     padding: 10px 15px;
 }
-
+#nav-top .masthead-nav > li > ul > li ul {
+    background: #172A27;
+    position: relative;
+}
 
 
 /********* MAIN CONTENT ***************/

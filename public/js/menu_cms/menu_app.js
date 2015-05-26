@@ -204,6 +204,7 @@ function saveMenuStructure() {
         },
     });
 }
+
 $('.checkbox input[type="checkbox"]').click(function (event) {
     var checkedAtLeastOne = false;
     $('.checkbox input[type="checkbox"]').each(function () {
@@ -217,6 +218,7 @@ $('.checkbox input[type="checkbox"]').click(function (event) {
         $('#addPagestonavi').attr('disabled', true);
     }
 });
+
 $('#selectUs').click(function (event) {
     if (this.checked) { // check select status
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
@@ -231,6 +233,27 @@ $('#selectUs').click(function (event) {
     }
 });
 
+// set menu layout position id
+$('#menuposition').change(function () {
+ var posi_id = $('#menuposition').val();
+    $.ajax({
+        type: 'POST',
+        url: window.location + "/setmenupos",
+        data: {'idpos': posi_id, '_token': $('[name=_token').val()},
+        success: function () {
+            $(".loader-container").removeClass('show');
+        },
+        error: function () { // if error occured
+            alert("Error: try again");
+            $(".loader-container").removeClass('show');
+
+        },
+    });
+});
+
+
+
+// button validation
 $('#external_label, #external_link').focus(function () {
     if ($('#external_label, #external_link').val() !== '') {
         $("#addExternalLink").attr('disabled', false);
@@ -243,7 +266,7 @@ $('#external_label, #external_link').focusout(function () {
         $("#addExternalLink").attr('disabled', true);
     }
 });
-
+// end button
 
 
 function autoClear() {

@@ -2,7 +2,7 @@
     <div class="inner">
         {!! HTML::image('public/site/images/sample-main-logo.png','',array('class' => 'img-responsive logo-mini')) !!}
 
-        <nav class="main-nav">
+        <nav class="main-nav nav-top-fixed">
             <div class="container">
                 <div class="home-container__navigation pull-right tcon tcon-menu--xcross" id="togglenav">
                     <span class="tcon-menu__lines" aria-hidden="true"></span>
@@ -13,10 +13,10 @@
                     @if(isset($objMenu))
                     @foreach($objMenu as $siteMenu)
 
-                    <li {!! parentElement($siteMenu->menu_id, 'dropdown') !!} >
+                    <li>
                         <a href="{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
                             <span class="link-title">{!! $siteMenu->label !!}</span> 
-                            {!! parentElement($siteMenu->menu_id, 'caret') !!}
+                            {!! parentCssElement($siteMenu->menu_id, 'caret') !!}
                         </a> 
                         {!! getSubMenuSite($siteMenu->menu_id) !!}
                     </li>

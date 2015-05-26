@@ -16,6 +16,10 @@
                                 <div class="panel-heading"><h4>Menu Structure</h4></div>
                                 <div class="panel-body">
                                     <div class="panel-body__instruction">
+                                        <strong>Menu layout position: {!! optionsMenuPosition() !!}</strong>
+                                    </div>                                        
+                                    <div class="panel-body__instruction">
+                                        
                                         Drag each item into the order you prefer, or add a new menu
                                     </div>
                                     <div class="cf nestable-lists">
@@ -51,9 +55,7 @@
 
 
                                 </div>
-                                <div class="alert alert-success" style="display: none" id="alertSaveData">
-                                    Data Save :D
-                                </div>
+                 
                             </div>
                         </div>
                         <div class="col-sm-6">
