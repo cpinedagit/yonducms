@@ -50,7 +50,7 @@ Breadcrumbs::register('cms.news.show', function($breadcrumbs)
     $breadcrumbs->push('Edit', route('cms.news.show'));
 });
 
-<<<<<<< HEAD
+
 //Home > Banner
 Breadcrumbs::register('cms.banners.index', function($breadcrumbs)
 {
@@ -78,7 +78,7 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
     $breadcrumbs->parent('cms.pages.index');
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
 });
-=======
+
 
 //Home > Modules 
 Breadcrumbs::register('modules.index', function($breadcrumbs)
@@ -122,4 +122,4 @@ Breadcrumbs::register('cms.general_settings.index', function($breadcrumbs)
     $breadcrumbs->parent('cms.index');
     $breadcrumbs->push('General Settings', route('cms.general_settings.index'));
 });
->>>>>>> origin/master
+
