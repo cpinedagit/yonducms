@@ -9,7 +9,7 @@
   		<h3>{!! HTML::linkAction('Site\NewsController@show',  $result->news_title , array($result->slug)) !!}</h3>
   		 <div class="col-md-12">
  		 	<div class="col-md-4">
-  		  		{!! HTML::image("$result->image_path"."thumbnail-"."$result->image_filename","alt",array("height"=>150,"width"=>150)) !!}
+  		  		{!! HTML::image("$imagesPath"."thumbnail-"."$result->image_filename","alt",array("height"=>150,"width"=>150)) !!}
   			</div>
   			<div class="col-md-8">
   				{!! $result->description !!}
