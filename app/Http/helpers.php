@@ -1,5 +1,4 @@
 <?php
-
 function gallery(array $arr) {
     return \App\Models\Media::gallery($arr);
 }
@@ -45,13 +44,26 @@ function strrevpos($instr, $needle) {
         return strlen($instr) - $rev_pos - strlen($needle);
 }
 
-function featured_news() {
-    return \App\Models\Site\News::featured();
+function news_archive(){
+    $slug=Request::segment(2);
+    $archive = \App\Models\Site\News::archive();
+    return View('site.news.archive_news')->with(array('slug'=>$slug,'archive'=>$archive))->render();
 }
 
-function news_slug() {
-    return \App\Models\Site\News::news_slug();
+function featured_news(){
+    $slug=Request::segment(2);
+    $featured = \App\Models\Site\News::featured();
+    return View('site.news.featured_news')->with(array('slug'=>$slug,'featured_news'=>$featured))->render();
 }
+
+function news_list(){
+    $slug=Request::segment(2);
+    $imagesPath = 'uploads/news_image/';
+    $results = \App\Models\Site\News::list_all();
+    return View('site.news.index')->with(array('slug'=>$slug,'results'=>$results,'imagesPath'=>$imagesPath))->render();
+}
+
+
 
 // start line for menu management
 // menu management (admin)

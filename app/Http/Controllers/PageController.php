@@ -108,23 +108,14 @@ class PageController extends Controller {
 
     public function preview($slug) {
         $pages = Page::preview($slug);
-        $p_id=$pages->plugin_id;
-        if($p_id == 5)
-        {
-            $imagesPath = 'uploads/news_image/';
-            $results = News::All();
-            $archive = News::archive();
-            return View::make('site.news.index')->with(array('page'=>$slug,'results'=>$results,'archive'=>$archive,'imagesPath'=>$imagesPath));
-
-        }
-        else{
+        
         $objMenu = Menu::ParentNavi();
         $arData = array(
             'pages' => $pages,
             'objMenu' => $objMenu
         );
         return view('site/Pages/index', $arData);
-        }
+        
     }
 
     /**

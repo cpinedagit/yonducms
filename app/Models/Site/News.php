@@ -9,6 +9,12 @@ class News extends Model {
 	protected $table = "content_news";
 	protected $primaryKey = "slug";
 
+    public static function list_all()
+    {
+            $results = News::All();
+            return $results;
+    }
+
     public static function archive()
     {
         $arrNews=[];
@@ -37,11 +43,6 @@ class News extends Model {
         return $arrfeatured;
     }
 
-    public static function news_slug()
-    {
-        $pages = DB::table('pages')->where(array('plugin_id'=>'5'))->first();
-        return $pages->slug;
-    }
     public static function show_news($id)
     {
         $result = DB::table('content_news')
