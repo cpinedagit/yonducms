@@ -46,11 +46,7 @@ function strrevpos($instr, $needle) {
 }
 
 function featured_news() {
-    return \App\Models\Site\News::featured();
-}
-
-function news_slug() {
-    return \App\Models\Site\News::news_slug();
+    return \App\Models\News::featured();
 }
 
 // start line for menu management
@@ -83,7 +79,7 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
         if ($menuArrObj) {
             $htmlmenu .= '<ul class="dropdown-menu">';
             foreach ($menuArrObj as $objChildMenu) {
-                $menulink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
+                $menulink = $objChildMenu->slug ? $objChildMenu->slug : 'http://'.$objChildMenu->external_link;
                 $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span>';
                 $htmlmenu .= parentCssElement($objChildMenu->menu_id, 'caret');
                 $htmlmenu .= '</a>';

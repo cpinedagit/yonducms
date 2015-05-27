@@ -29,13 +29,8 @@ class NewsController extends Controller {
 	}
 
   public function preview($slug='', $slug2 = '') {
-   
       $result = News::find($slug2);
-      $archive = News::archive();
       $imagesPath = 'uploads/news_image/';
-        return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive,'imagesPath'=>$imagesPath));
-
-
+      return View::make('site.news.show')->with(array('result'=>$result,'imagesPath'=>$imagesPath));
   }
-
 }

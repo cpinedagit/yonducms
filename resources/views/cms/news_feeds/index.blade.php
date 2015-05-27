@@ -55,6 +55,8 @@
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#news" aria-controls="home" role="tab" data-toggle="tab">News</a></li>
+                    <li role="presentation" ><a href="#pages" aria-controls="home" role="tab" data-toggle="tab">Pages</a></li>
+                    <li role="presentation" ><a href="#banners" aria-controls="home" role="tab" data-toggle="tab">Banners</a></li>
                     <li role="presentation">
                         <a href="#system" aria-controls="messages" role="tab" data-toggle="tab">System</a>
                         @if(count($data['user_requests'])>0)
@@ -72,24 +74,68 @@
 							 <?php $news = $data['news_summary']; ?>
                               <tbody>
                                   <tr class="all">
-                                      <td><strong>{{ $news['all_news'] }}</strong></td>
-                                      <td>Articles</td>
+                                      <td class="indent-right"><strong>{{ $news['all_news'] }}</strong></td>
+                                      <td class="indent-right"> Articles</td>
                                   </tr>
                                   <tr>
-                                      <td><strong>{{ $news['published'] }}</strong></td>
-                                      <td>Published</td>
+                                      <td class="indent-right"><strong>{{ $news['published'] }}</strong></td>
+                                      <td class="indent-right">Published</td>
                                   </tr>
                                   <tr>
-                                      <td><strong>{{ $news['all_news']-$news['published'] }}</strong></td>
-                                      <td>Unpublished</td>
+                                      <td class="indent-right"><strong>{{ $news['all_news']-$news['published'] }}</strong></td>
+                                      <td class="indent-right">Unpublished</td>
                                   </tr>
                                   <tr>
-                                      <td><strong>{{ $news['featured'] }}</strong></td>
-                                      <td>Featured</td>
+                                      <td class="indent-right"><strong>{{ $news['featured'] }}</strong></td>
+                                      <td class="indent-right">Featured</td>
+                                  </tr> 
+                                  <tr>
+                                      <td class="indent-right"><strong>{{ $news['all_news']-$news['featured'] }}</strong></td>
+                                      <td class="indent-right">Unfeatured</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                       </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="pages">
+                        <h4>Pages Summary</h4>
+                       <div class="main-container__content__info__photo">
+                          <table class="table table-hover table-news-summary">
+							 <?php $pages = $data['pages_summary']; ?>
+                              <tbody>
+                                  <tr class="all">
+                                      <td class="indent-right"><strong>{{ $pages['all_pages'] }}</strong></td>
+                                      <td class="indent-right"> Articles</td>
                                   </tr>
                                   <tr>
-                                      <td><strong>{{ $news['all_news']-$news['featured'] }}</strong></td>
-                                      <td>Unfeatured</td>
+                                      <td class="indent-right"><strong>{{ $pages['published'] }}</strong></td>
+                                      <td class="indent-right">Published</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="indent-right"><strong>{{ $pages['all_pages']-$pages['published'] }}</strong></td>
+                                      <td class="indent-right">Unpublished</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                       </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="banners">
+                        <h4>Banners Summary</h4>
+                       <div class="main-container__content__info__photo">
+                          <table class="table table-hover table-news-summary">
+							 <?php $banners = $data['banners_summary']; ?>
+                              <tbody>
+                                  <tr class="all">
+                                      <td class="indent-right"><strong>{{ $banners['all_banners'] }}</strong></td>
+                                      <td class="indent-right"> Banners</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="indent-right"><strong>{{ $banners['advanced'] }}</strong></td>
+                                      <td class="indent-right">Advanced</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="indent-right"><strong>{{ $banners['all_banners']-$banners['advanced'] }}</strong></td>
+                                      <td class="indent-right">Standard</td>
                                   </tr>
                               </tbody>
                           </table>
