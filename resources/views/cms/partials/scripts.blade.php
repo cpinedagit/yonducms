@@ -7,6 +7,7 @@
 	{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
 	{!! HTML::script('public/ckeditor/adapters/jquery.js'); !!}
 	{!! HTML::script('public/js/jquery-ui.min.js'); !!}
+	{!! HTML::script('public/js/bootstrap-switch.min.js'); !!}
 
 	{!! HTML::script('public/js/plugins.js') !!}
 	{!! HTML::script('public/js/parsley/parsley.js'); !!}

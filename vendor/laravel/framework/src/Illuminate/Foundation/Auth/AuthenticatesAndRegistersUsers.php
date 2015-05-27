@@ -119,6 +119,7 @@ trait AuthenticatesAndRegistersUsers {
 				//Check if password is nearly expiring
 				//Exception if Admin
 				//Add notification to user
+			
 				if(Auth::user()->user_type=='user' AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
 					
 					//Add warning message when his password will expire

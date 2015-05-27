@@ -1,18 +1,14 @@
-@extends('modules.template')
+@extends('cms.home')
 
-@section('top')
-	<div class='main-container__content__title'>
+@section('title')
 		<h2>Module Management</h2>
-    </div>
-    	    {!! Form::open(['url' => 'modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
-		<div class="form-group">
-			<input id="moduleUpload" type='button' value="Add New Module" class='btn btn-add'/>
+       	    {!! Form::open(['url' => 'modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
+				<br/><input id="moduleUpload" type='button' value="Add New Module" class='btn btn-add'/>
 			{!! Form::file('module', array('class' => 'upload-dialog', 'style' => 'visibility:hidden')) !!}
-		</div>
-		{!! Form::close() !!}
+			{!! Form::close() !!}
 @stop
 
-@section('body')
+@section('content')
 	@if( $message = Session::get('upload-message') )
 		<div>{{ $message }}</div>
 	@endif
