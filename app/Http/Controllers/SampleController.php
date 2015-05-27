@@ -2,12 +2,10 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
-use DB;
 
 class SampleController extends Controller {
-
-	CONST MODULE = 'SampleModule';
 
 	/**
 	 * Display a listing of the resource.
@@ -16,12 +14,7 @@ class SampleController extends Controller {
 	 */
 	public function index()
 	{
-		if($this->checkModule()) {
-			return view('testmodule.main');	
-		} else {
-			return $this->moduleOff();
-		}
-		
+		return view('testmodule.main');
 	}
 
 	/**
@@ -88,16 +81,9 @@ class SampleController extends Controller {
 		//
 	}
 
-	private function checkModule() {
-		$results = DB::select('SELECT * FROM modules WHERE enabled = "1" AND module_name = ?', array(self::MODULE));
-		if(count($results) == 1) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-
-	private function moduleOff() {
-		return view('errors.module-disabled');
-	}
+	/**
+	 * Summon Doctor Potato
+	 *
+	 * @return Response
+	 */
 }
