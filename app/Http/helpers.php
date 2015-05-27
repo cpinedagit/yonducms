@@ -1,4 +1,5 @@
 <?php
+
 function gallery(array $arr) {
     return \App\Models\Media::gallery($arr);
 }
@@ -152,6 +153,8 @@ function menuLayout() {
 }
 
 // end here for menu
+
+
 function banner($id) {
 
     $objBanner = \App\Models\Banner::myBanner($id);
@@ -183,7 +186,6 @@ function banner($id) {
     }
     return $banner;
 }
-
 function bellCounter()
 {
     return \App\Models\cms\User::bellCounter();

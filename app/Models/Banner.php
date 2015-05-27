@@ -107,7 +107,7 @@ class Banner extends Model {
     public static function getCode($id){
         return DB::table('banners')->where('id', '=', $id)->pluck('animation');
     }
-
+    
     // Get Page Summary output it on dashboard
     public static function getBannerSummary()
     {
