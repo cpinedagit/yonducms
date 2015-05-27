@@ -78,9 +78,9 @@ $(document).ready(function ()
                 updateOutput($('#nestable').data('output', $('#nestable-output')));
                 // call this function for ready edit menu
                 functionReadyToEditMenu();
+                autoClear();
 
                 $(".loader-container").removeClass('show');
-
             },
             error: function () { // if error occured
                 alert("Error: try again");
@@ -128,9 +128,6 @@ $(document).ready(function ()
     }
 });
 //end of document ready function
-
-
-
 
 function functionReadyToEditMenu() {
 // changes name and url textboxes if clicked
@@ -201,10 +198,10 @@ function saveMenuStructure() {
             alert("Error: try again");
             $(".loader-container").removeClass('show');
 
-        },
+        }
     });
 }
-
+// checkbox type input from page management to menu management
 $('.checkbox input[type="checkbox"]').click(function (event) {
     var checkedAtLeastOne = false;
     $('.checkbox input[type="checkbox"]').each(function () {
@@ -219,6 +216,7 @@ $('.checkbox input[type="checkbox"]').click(function (event) {
     }
 });
 
+// select all page data
 $('#selectUs').click(function (event) {
     if (this.checked) { // check select status
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
@@ -235,7 +233,7 @@ $('#selectUs').click(function (event) {
 
 // set menu layout position id
 $('#menuposition').change(function () {
- var posi_id = $('#menuposition').val();
+    var posi_id = $('#menuposition').val();
     $.ajax({
         type: 'POST',
         url: window.location + "/setmenupos",
@@ -247,19 +245,16 @@ $('#menuposition').change(function () {
             alert("Error: try again");
             $(".loader-container").removeClass('show');
 
-        },
+        }
     });
 });
 
-
-
-// button validation
-$('#external_label, #external_link').focus(function () {
+// button validation for adding external menu tab
+$('#external_label, #external_link').keyup(function () {
     if ($('#external_label, #external_link').val() !== '') {
         $("#addExternalLink").attr('disabled', false);
     }
 });
-
 
 $('#external_label, #external_link').focusout(function () {
     if ($('#external_label, #external_link').val() === '') {
@@ -267,7 +262,6 @@ $('#external_label, #external_link').focusout(function () {
     }
 });
 // end button
-
 
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);
@@ -277,7 +271,8 @@ function autoClear() {
     $('#menu_label').val('');
     $('#menu-link').val('');
     $('#menu-link').attr('readonly', true);
-
+    $('#external_label, #external_link').val(''); // for auto clear text external menu
+    $("#addExternalLink").attr('disabled', true);
 }
 
 function delThis(idMenu) {

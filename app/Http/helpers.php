@@ -79,7 +79,7 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
         if ($menuArrObj) {
             $htmlmenu .= '<ul class="dropdown-menu">';
             foreach ($menuArrObj as $objChildMenu) {
-                $menulink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
+                $menulink = $objChildMenu->slug ? $objChildMenu->slug : 'http://'.$objChildMenu->external_link;
                 $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span>';
                 $htmlmenu .= parentCssElement($objChildMenu->menu_id, 'caret');
                 $htmlmenu .= '</a>';
