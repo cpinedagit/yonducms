@@ -9,8 +9,8 @@
 		<div>{!! $result->news_content !!}</div>
 	</div>
 	<div class="col-md-5">
-	@include('site.news.news_archive_tool')
-  	@include('site.news.news_tool')
+	{!! news_archive() !!}
+  	{!! featured_news() !!}
   </div>
 </div>
 @stop

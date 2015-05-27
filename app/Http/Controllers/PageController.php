@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Page;
 use App\Models\Menu;
+use App\Models\Site\News;
 use Input;
 use DB;
 use File;
 use Request;
 use Response;
+use View;
 
 class PageController extends Controller {
 
@@ -53,7 +55,8 @@ class PageController extends Controller {
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->slug = Input::get('slug');
+        $slug = Input::get('slug');
+        $page->slug = str_replace(array("/",' '), "_", $slug);
         $page->parent_id = Input::get('parent');
         $publish = Input::get('publish');
         if (isset($publish)) {
@@ -103,14 +106,16 @@ class PageController extends Controller {
         return view('cms/Pages/edit', $arData);
     }
 
-    public function preview($slug,$slug2 = false) {
+    public function preview($slug) {
         $pages = Page::preview($slug);
+        
         $objMenu = Menu::ParentNavi();
         $arData = array(
             'pages' => $pages,
             'objMenu' => $objMenu
         );
         return view('site/Pages/index', $arData);
+        
     }
 
     /**

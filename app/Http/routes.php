@@ -109,33 +109,37 @@ Route::resource('site/news','Site\NewsController');
 //end news management
 
 
-//this routes are for Code Editor Management
+//These routes are for Code Editor Management
 Route::get('cms/editor/addFolder','EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addFile', 'EditorController@addFile');
 Route::resource('cms/editor', 'EditorController');
 
-//this route are for Banner Management
+//These route are for Banner Management
 Route::get('cms/addBanner',['as' => 'cms.Banners.add', 'uses' => 'BannerController@addBanner']);
 Route::put('cms/saveImage', ['as' => 'cms.banner.saveImage', 'uses' => 'BannerController@saveImage']);
 Route::delete('cms/delImage', 'BannerController@delImage');
 Route::delete('cms/delCurrentImage/{id}','BannerController@delCurrentImage');
-Route::resource('cms/banners','BannerController');
+Route::resource('cms/banners','BannerController', ['middleware'=>'is.allowed']);
 
-//this routes are for Page Management
+//These routes are for Page Management
 Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController@addPage']);
 Route::delete('cms/delPage','PageController@delPage');
 Route::get('site/','PageController@index');
 Route::get('site/{slug}','PageController@preview');
-Route::get('site/{slug}/{slug2}/','PageController@preview');
+Route::get('site/{slug}/{slug2}/','Site\NewsController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');
+
+//These routes are for Error Pages
+Route::get('notfound', 'ErrorController@index');
 
 //These routes are for Module Management
 Route::get('modules', 'ModuleController@index');
 Route::resource('modules', 'ModuleController');
 Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
 Route::post('modules/upload', 'ModuleController@upload');
+
 require_once(__DIR__ . '/../Modules/Module_Routes.php');

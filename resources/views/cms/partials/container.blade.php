@@ -41,11 +41,5 @@
 
       @yield('content')
       
-      @if(isset($data['message']))
-      <!-- Flash Update Your Password Message -->
-          <div class="alert alert-danger" role="alert">{{ $data['message'] }}</div>
-      <!-- Flash Update Your Password Message -->
-      @endif
-      
   </main>
 </div> 

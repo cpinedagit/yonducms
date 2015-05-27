@@ -1,7 +1,7 @@
 @extends('cms.home')
 
 @section('title')
-<h2>General Settings</h2>
+  <h2>General Settings</h2>
 @stop
 
 @section('content')

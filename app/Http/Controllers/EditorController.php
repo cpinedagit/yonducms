@@ -104,11 +104,10 @@ class EditorController extends Controller {
         $file = Input::get('hidden');
         $content = Input::get('content');
         unlink($file);
+        Cache::flush();
         if (file_put_contents($file, $content, FILE_APPEND)) {
-            Cache::flush();
             return redirect('cms/editor');
         }
-         Cache::flush();
     }
 
     public function addFile() {

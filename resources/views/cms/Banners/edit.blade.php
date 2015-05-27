@@ -1,7 +1,4 @@
 @extends('cms.home')
-@section('title')
-<h2>Edit Banner</h2>
-@stop
 @section('content')
 <div class='main-container__content__info'>
     <div role="tabpanel" class="tabpanel-custom">
@@ -28,7 +25,8 @@
                             {!! Form::label('name', 'Name:') !!} 
                             {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}
                             {!! Form::hidden('curType',$type) !!}
-                            {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}
+                            {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}  
+                            {!! Form::hidden('defaultAnimation','{$Duration:1200,x:-0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:function (t) {        return t * t * t;    },$Opacity:function (t) {        return t;    }},$Opacity:2}') !!}
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                         </div>
                         <div class="row">
@@ -106,82 +104,135 @@
                 </div>
             </div>
             @if($type == 'Advanced')
+            {!! HTML::script('public/slide/js/slideshow-transition-builder-controller.min.js') !!}
             <div role="tabpanel" class="tab-pane" id="editor">
-                {!! Form::label('editor','Editor:') !!}<br>
-                <small><i>note: please use spacing for different classes.</i></small>
-                {!! Form::text('classes',null,['class' => 'form-control Nform-control']) !!}        
-                {!! Form::textarea('editor',null,array('class' => 'codeEditor','id' => 'codeEditor')) !!}        
-                @else
-                {!! Form::hidden('classes',null,['class' => 'form-control Nform-control']) !!}
+                <!-- Slideshow Transition Controller Form Begine -->
+                <table cellpadding="0" cellspacing="0" border="0" bgcolor="#EEEEEE" align="center" style="color:#000;">
+                    <tr>
+                        <td width="10"></td>
+                        <td width="110">
+                            <b>&nbsp; Select Transition</b>
+                        </td>
+                        <td width="320" height="40">
+                            <select name="ssTransition" id="ssTransition" style="width: 300px">
+                                <option value="">
+                            </select>
+                        </td>
+                        <td width="490">
+                            <input type="button" value="Play" id="sButtonPlay" style="width: 110px" name="sButtonPlay" disabled="disabled">
+                        </td>
+                        <td width="30">
+                        </td>
+                    </tr>
+                </table>
+                <input id="stTransition" style="width: 833px; height: 25px;" type="hidden" name="stTransition">
+                <!-- Slideshow Transition Controller Form End -->
+                <table cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                        <td width="850" height="50"></td>
+                    </tr>
+                </table>
+                <table border="0" cellpadding="0" cellspacing="0" width="600" height="300" align="center" bgcolor="#EEEEEE">
+                    <tr>
+                        <td>
+                            <!-- Jssor Slider Begin -->
+                            <!-- You can move inline styles to css file or css block. -->
+                            <div style="position: relative; width: 600px; height: 300px;" id="slider1_container">
 
+                                <!-- Loading Screen -->
+                                <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                    <div style="filter: alpha(opacity=70); opacity:.7; position: absolute; display: block;
+                                         background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                    </div>
+                                    <div style="position: absolute; display: block; background: url(../public/slide/img/loading.gif) no-repeat center center;
+                                         top: 0px; left: 0px;width: 100%;height:100%;">
+                                    </div>
+                                </div>
+
+                                <div u="slides" style="cursor: move; position: absolute; width: 600px; height: 300px;top:0px;left:0px;overflow:hidden;">
+                                    <!-- Slide -->
+                                    @foreach($currentImages as $currentImage)
+                                    <div>
+                                        {!! HTML::image($currentImage->media_path, null, array('style' => 'width:600px;height:300px;')) !!}
+                                    </div>
+                                    @endforeach                                    
+                                </div>
+                            </div>
+                            </div>
+                            <!-- Jssor Slider End -->
+                        </td>
+                    </tr>
+                </table>
+                <script>
+                    slideshow_transition_controller_starter("slider1_container");
+                </script>
+                @endif
+            </div><br><br><br>
+            <div class="btn-holder pull-left">
+                <input type="submit" class="btn btn-add" value="Save">
+                {!! Form::button('Cancel',['class' => 'btn btn-reset','id' => 'cancel']) !!}
+                {!! Form::close() !!}
             </div>
-            @endif
-        </div><br><br><br>
-        <div class="btn-holder pull-left">
-            <input type="submit" class="btn btn-add" value="Save">
-            {!! Form::button('Cancel',['class' => 'btn btn-reset','id' => 'cancel']) !!}
-            {!! Form::close() !!}
         </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-//        code editor for banner effects
-        var filename = 'public/css/banner.css';
-        $.get('../../../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#codeEditor').val(data);
-        });
-        $(document).on("click", "#cancel", function () {
-            window.location = ("{!! URL::to('/') !!}" + "/cms/banners");
-        });
-        $(document).on("click", '#apply', function () {
-            var action = $('#action').val();
-            if (action === 'Delete') {
-                var selected = new Array();
-                $("input:checkbox[name=checkbox]:checked").each(function () {
-                    selected.push($(this).val());
-                    console.log(selected);
-                });
-                if (confirm('do you really want to delete the selected image(s) for this banner?')) {
+    <script>
+        $(document).ready(function () {
+            //        code editor for banner effects
+            var filename = 'public/css/banner.css';
+            $.get('../../../' + filename, function (data)//Remember, same domain
+            {
+                var _data = data;
+                $('#codeEditor').val(data);
+            });
+            $(document).on("click", "#cancel", function () {
+                window.location = ("{!! URL::to('/') !!}" + "/cms/banners");
+            });
+            $(document).on("click", '#apply', function () {
+                var action = $('#action').val();
+                if (action === 'Delete') {
+                    var selected = new Array();
+                    $("input:checkbox[name=checkbox]:checked").each(function () {
+                        selected.push($(this).val());
+                        console.log(selected);
+                    });
+                    if (confirm('do you really want to delete the selected image(s) for this banner?')) {
+                        $.ajax({
+                            type: "DELETE",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {selected: selected},
+                            url: "{!! URL::to('/') !!}" + '/cms/delImage',
+                            dataType: "json",
+                            success: (function (data) {
+                                location.reload();
+                            })
+                        });
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
+            $(document).on("click", '.delCur', function () {
+                var id = this.id;
+                if (confirm('do you really want to delete this current image for this banner?')) {
                     $.ajax({
                         type: "DELETE",
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        data: {selected: selected},
-                        url: "{!! URL::to('/') !!}" + '/cms/delImage',
+                        url: "{!! URL::to('/') !!}" + "/cms/delCurrentImage/" + id,
                         dataType: "json",
                         success: (function (data) {
                             location.reload();
                         })
                     });
-                } else {
-                    return false;
+
                 }
-            }
+
+            })
         });
-        
-        $(document).on("click", '.delCur', function () {
-            var id = this.id;       
-            if (confirm('do you really want to delete this current image for this banner?')) {
-                $.ajax({
-                    type: "DELETE",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{!! URL::to('/') !!}" + "/cms/delCurrentImage/" + id,
-                    dataType: "json",
-                    success: (function (data) {
-                        location.reload();
-                    })
-                });
-
-            }
-
-        })
-    });
-</script>
-@stop
+    </script>
+    @stop
 

@@ -26,7 +26,8 @@ class Page extends Model {
         $content = Input::get('Editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
-        $page->slug = Input::get('slug');
+        $slug = Input::get('slug');
+        $page->slug = str_replace(array("/",' '), "_", $slug);
         $page->content = $content;
         $parent = Input::get('parent');
         if ($parent === null) {
@@ -53,9 +54,20 @@ class Page extends Model {
         return DB::table('pages')->where('status', '=', 'Published')->get();
     }
 
+    // Get Page Summary output it on dashboard
+    public static function getPageSummary()
+    {
+        $data['all_pages']  = DB::table('pages')->count();
+        $data['published'] = DB::table('pages')
+                           ->select(DB::raw('count(id) as published'))
+                           ->where('status', '=', 1)
+                           ->count();
+        return $data;
+    }
+
 }
 
-class MyCollection extends \Illuminate\Database\Eloquent\Collection {
+    class MyCollection extends \Illuminate\Database\Eloquent\Collection {
 
     public function orderBy($attribute, $order = 'asc') {
         $this->sortBy(function($model) use ($attribute) {

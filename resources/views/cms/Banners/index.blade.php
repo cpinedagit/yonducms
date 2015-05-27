@@ -1,7 +1,6 @@
 @extends('cms.home')
 @section('title')
 <h2>Banner</h2>
-<input id ='addBanner' type="submit" value="Add New" class='btn btn-add'>
 @stop
 @section('content')
 <!-- Add your site or application content here -->

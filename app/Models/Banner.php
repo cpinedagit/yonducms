@@ -71,6 +71,7 @@ class Banner extends Model {
         } else {
             $banner->type = Input::get('type');
         }
+        $banner->animation = Input::get('stTransition');
         $banner->classes = Input::get('classes');
         $banner->title = Input::get('name');
         $banner->save();
@@ -102,5 +103,8 @@ class Banner extends Model {
     public static function getAllSubBanner(){
         return DB::table('banners')->where('title', '=', 'Sub Banner')->get();
     }
-
+    
+    public static function getCode($id){
+        return DB::table('banners')->where('id', '=', $id)->pluck('animation');
+    }
 }

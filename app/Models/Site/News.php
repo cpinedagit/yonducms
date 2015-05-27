@@ -2,10 +2,18 @@
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use View;
+use App\Models\Page;
 
 class News extends Model {
 	protected $table = "content_news";
 	protected $primaryKey = "slug";
+
+    public static function list_all()
+    {
+            $results = News::All();
+            return $results;
+    }
 
     public static function archive()
     {
@@ -51,6 +59,14 @@ class News extends Model {
             ->select('content_news.*', 'content_media.media_path')
             ->get();
             return $result;
+    }
+    public static function viewAll()
+    {
+        $imagesPath = 'uploads/news_image/';
+        $results = News::All();
+        $archive = News::archive();
+        return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive,'imagesPath'=>$imagesPath));
+
     }
 }
 
