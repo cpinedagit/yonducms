@@ -16,5 +16,7 @@
 	
 		
 	@include('cms.partials.scripts')
+	
+	@yield('scripts')
 </body>
 </html>

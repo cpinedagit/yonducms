@@ -37,6 +37,7 @@ class CmsMenuController extends Controller {
     }
 
     function index() {
+        $this->regenerateMenuSession('cms.menu.index', 'cms.menu.index');
         $objMenu = Menu::ParentNavi();
         $objPage = Page::all();
         $objData = [

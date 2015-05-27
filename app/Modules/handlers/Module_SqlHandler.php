@@ -215,7 +215,7 @@ class Module_SqlHandler
       //TODO: Use Laravel DB Connection.
       $host = 'localhost';
       $user = 'root';
-      $pass = 'root';
+      $pass = '';
       $db = 'yws_dev';
       
       $mysqli = new mysqli($host, $user, $pass, $db) or die('Error in connection.');
