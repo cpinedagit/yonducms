@@ -45,9 +45,26 @@ function strrevpos($instr, $needle) {
         return strlen($instr) - $rev_pos - strlen($needle);
 }
 
-function featured_news() {
-    return \App\Models\News::featured();
+function news_archive(){
+    $slug=Request::segment(2);
+    $archive = \App\Models\Site\News::archive();
+    return View('site.news.archive_news')->with(array('slug'=>$slug,'archive'=>$archive))->render();
 }
+
+function featured_news(){
+    $slug=Request::segment(2);
+    $featured = \App\Models\Site\News::featured();
+    return View('site.news.featured_news')->with(array('slug'=>$slug,'featured_news'=>$featured))->render();
+}
+
+function news_list(){
+    $slug=Request::segment(2);
+    $imagesPath = 'uploads/news_image/';
+    $results = \App\Models\Site\News::list_all();
+    return View('site.news.index')->with(array('slug'=>$slug,'results'=>$results,'imagesPath'=>$imagesPath))->render();
+}
+
+
 
 // start line for menu management
 // menu management (admin)
@@ -79,7 +96,7 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
         if ($menuArrObj) {
             $htmlmenu .= '<ul class="dropdown-menu">';
             foreach ($menuArrObj as $objChildMenu) {
-                $menulink = $objChildMenu->slug ? $objChildMenu->slug : 'http://'.$objChildMenu->external_link;
+                $menulink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
                 $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span>';
                 $htmlmenu .= parentCssElement($objChildMenu->menu_id, 'caret');
                 $htmlmenu .= '</a>';
@@ -141,43 +158,35 @@ function menuLayout() {
 function banner($id) {
 
     $objBanner = \App\Models\Banner::myBanner($id);
-    $class = \App\Models\Banner::getClass($id);
+    $code = \App\Models\Banner::getCode($id);
+    $json = json_encode($code);
     $banner = "";
-    if (!$objBanner == null) {
+    if ($objBanner !== null) {
+        $banner .= HTML::script('public/slide/js/slideshow-transition-builder-controller.min.js');
+        $banner .= "<div style='position: relative; width: 800px; height: 500px;margin-left:100px;' id='slider1_container'>
+                    <div u = 'loading' style = 'position: absolute; top: 0px; left: 0px;'>
+                    <div style='filter: alpha(opacity=70); opacity:.7; position: absolute; display: block; background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;'></div>
+                    <div style = 'position: absolute; display: block; background: url(../public/slide/img/loading.gif) no-repeat center center;top: 0px; left: 0px;width: 100%;height:100%;'></div>
+                    </div>
+                    <div u = 'slides' style = 'cursor: move; position: absolute; width: 900px; height: 400px;top:0px;left:0px;overflow:hidden;'>";
 
-        $banner = "<div id='" . $id . "' class='" . $class . "' data-ride='carousel'>
-                <ol class='carousel-indicators'>                
-                    <li data-target='#carousel-example-generic' data-slide-to='0' class='active'></li>";
-        foreach ($objBanner as $slide) {
-            $banner .="<li data-target = '#carousel-example-generic' data-slide-to = '" . $slide->media_id . "'></li>";
+        foreach ($objBanner as $obj) {
+            $banner .= "<div>";
+            $banner .= HTML::image($obj->media_path, null, ['style' => 'width:900px;height:400px;']);
+            $banner .= "</div>";
         }
-        $banner .= "</ol>
-                <div class='carousel-inner' role='listbox'>
-                <div class='item active'>
-                " . HTML::image('public/images/home_1.png', null, array('class' => 'bannerImage')) . "
-                </div>";
-        foreach ($objBanner as $image) {
-            $banner.= "
-                <div class='item'>" . HTML::image($image->media_path, null, array('class' => 'bannerImage')) . "
-                
-                </div>
-                ";
-        }
-        $banner.= "
-
-    </div>
-    <a class='left carousel-control' href='#" . $id . "' role='button' data-slide='prev'>
-        <span class='glyphicon glyphicon-chevron-left' aria-hidden='true'></span>
-        <span class='sr-only'>Previous</span>
-    </a>
-    <a class='right carousel-control' href='#" . $id . "' role='button' data-slide='next'>
-        <span class='glyphicon glyphicon-chevron-right' aria-hidden='true'></span>
-        <span class='sr-only'>Next</span>
-    </a>
-</div>";
+        $banner .= "</div>";
+        $banner .= "</div>";
+        $banner .= "<select id = 'ssTransition' style = 'width: 833px; height: 25px;visibility:hidden' name = 'ssTransition'></select>";
+        $banner .= "<button id = 'sButtonPlay' style = 'width: 833px; height: 25px;visibility:hidden' name = 'sButtonPlay'></button>";
+        $banner .= "<input id = 'stTransition' type = 'hidden' style = 'width: 833px; height: 25px;' name = 'stTransition'>";
+        $banner .= "<script>code = $json; ";
+        $banner .= " </script>";
+        $banner .= HTML::script('public/slide/mySlide.js');
     }
-
     return $banner;
 }
-
-?>
+function bellCounter()
+{
+    return \App\Models\cms\User::bellCounter();
+}

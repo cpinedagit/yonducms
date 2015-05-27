@@ -10,6 +10,7 @@ use App\Models\Page;
 use App\Models\Banner;
 use View;
 use Feeds;
+use Session;
 
 class CMSController extends Controller {
 
