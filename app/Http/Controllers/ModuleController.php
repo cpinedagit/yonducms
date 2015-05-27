@@ -8,6 +8,8 @@ use DB;
 use Input;
 use Request;
 use Response;
+use Redirect;
+use Session;
 
 class ModuleController extends Controller {
 
@@ -16,14 +18,13 @@ class ModuleController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index($message = NULL)
+	public function index()
 	{
 		$moduleScript = 'SELECT modules.id, modules.module_name, modules.module_description, modules.enabled FROM `modules` WHERE ?';
 		$moduleList = DB::select($moduleScript, array(1));
 		return view('modules.manager')->with([
 				'modules' => count($moduleList),
-				'data' => (array) $moduleList,
-				'message'	=> $message
+				'data' => (array) $moduleList
 			]);
 	}
 
@@ -121,7 +122,6 @@ class ModuleController extends Controller {
 
 	public function upload()
 	{
-		//Get input.
 		$input = Request::all();
 		if( Input::hasFile('module') ) {
 			$file = Input::file('module');
@@ -141,7 +141,8 @@ class ModuleController extends Controller {
 		} else {
 			$message = "No file selected for upload.";
 		}
-		return $this->index($message);
+		Session::flash("upload-message", $message);
+		return Redirect::to('modules');
 	}
 
 }
