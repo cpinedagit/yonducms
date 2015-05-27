@@ -76,96 +76,6 @@
                 <div class="col-sm-12">
 
 
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel panel-default">
-                        <div class="panel-heading" style="cursor:pointer" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">
-                             Banner
-                         </h4>
-                     </div>
-                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body">
-                        <table id="example" class="table table-striped table--banner">
-                            <thead>
-                                <tr>
-                                    <th>Banner</th>
-                                    <th>ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($banners as $banner)
-                                <tr>
-                                    <td>{{ $banner->title}}</td>
-                                    <td>{{ $banner->id}}</td>
-                                </tr>
-                                @endforeach
-                                <tr>
-                                    <td><em>Sample format:</em></td>
-                                    <td>
-                                        <em>
-                                            <?php
-                                            $str = "" . "?php " . "echo banner(n)" . " ?" . "";
-                                            ?>
-                                            {{ '<'.$str.'>' }}
-                                        </em>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  <h4 class="panel-title">
-                      News
-                  </h4>
-              </div>
-              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
-                    <table class="table table-striped table--banner">
-                        <thead>
-                            <tr>
-                                <th>News List</th>
-                                <th>Archive News</th>
-                                <th>Featured News</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <em>
-                                        <?php
-                                        $str = "" . "?php " . "echo news_list()" . " ?" . "";
-                                        ?>
-                                        {{ '<'.$str.'>' }}
-                                    </em>
-                                </td>
-
-                                <td>
-                                    <em>
-                                        <?php
-                                        $str = "" . "?php " . "echo news_archive()" . " ?" . "";
-                                        ?>
-                                        {{ '<'.$str.'>' }}
-                                    </em>
-                                </td>
-
-                                <td>
-                                    <em>
-                                        <?php
-                                        $str = "" . "?php " . "echo featured_news()" . " ?" . "";
-                                        ?>
-                                        {{ '<'.$str.'>' }}
-                                    </em>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div> 
 
 </div>
 <div class="col-sm-12">
@@ -193,7 +103,67 @@
                                     <input type="submit" class="btn btn-add" value="Save">
                                 </div>
                             </div>
-                        </div>
+
+
+<h3>Plugin</h3>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                      <div class="panel panel-default">
+                        <div class="panel-heading" style="cursor:pointer" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">
+                             Banner
+                         </h4>
+                     </div>
+                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <table class="table table--banner">
+                            <tbody>
+                                @foreach($banners as $banner)
+                                <tr>
+                                    <td>{{ $banner->title}}</td>
+                                    <td><button type="button" class="btn btn-add addOnCk" var="[banner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h4 class="panel-title">
+                      News
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    <table class="table table--banner">
+                        <tbody>
+                            <tr>
+                                <td> News List </td>
+                                <td>
+                                    <button class="btn btn-add addOnCk" type="button" var="[news_list()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                </td>
+                                </tr>
+                                    <tr>
+                                <td> News Archive</td>
+                                <td>
+                                    <button type="button" class="btn btn-add addOnCk" var="[news_archive()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                </td>
+                                </tr>
+                                    <tr>
+                                <td> Featured News</td>
+                                <td>
+                                    <button type="button" class="btn btn-add addOnCk" var="[featured_news()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+</div>
 
                     </div>
                 </div>
@@ -232,4 +202,12 @@
                 }
                 </script>
                 @include('cms.media.media_tool')
+                <script>
+
+                $('.addOnCk').on('click',function(){
+                    text=$(this).attr('var');
+                    editor.insertHtml( text );
+                })
+                </script>
+
                 @stop
