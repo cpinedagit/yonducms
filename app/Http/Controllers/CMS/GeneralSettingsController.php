@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use App\Models\cms\User;
 use Storage;
 use Session;
 use Input;
@@ -24,6 +25,9 @@ class GeneralSettingsController extends Controller {
 		//Read the settings .env set app title and tag line
 		View::share('APP_TITLE', env('APP_TITLE'));
 		View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
+
+		//Bell notifications
+		View::share('bell_counter', User::bellCounter());
 
 		//$this->middleware('guest'); 	 //Doesn't require active user
 		$this->middleware('is.allowed'); //Require require active user

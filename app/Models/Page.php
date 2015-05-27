@@ -54,9 +54,20 @@ class Page extends Model {
         return DB::table('pages')->where('status', '=', 'Published')->get();
     }
 
+    // Get Page Summary output it on dashboard
+    public static function getPageSummary()
+    {
+        $data['all_pages']  = DB::table('pages')->count();
+        $data['published'] = DB::table('pages')
+                           ->select(DB::raw('count(id) as published'))
+                           ->where('status', '=', 1)
+                           ->count();
+        return $data;
+    }
+
 }
 
-class MyCollection extends \Illuminate\Database\Eloquent\Collection {
+    class MyCollection extends \Illuminate\Database\Eloquent\Collection {
 
     public function orderBy($attribute, $order = 'asc') {
         $this->sortBy(function($model) use ($attribute) {

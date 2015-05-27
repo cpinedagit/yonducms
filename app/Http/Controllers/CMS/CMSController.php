@@ -6,6 +6,8 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\cms\User;
 use App\Models\News;
+use App\Models\Page;
+use App\Models\Banner;
 use View;
 use Feeds;
 
@@ -28,11 +30,15 @@ class CMSController extends Controller {
 	{
 		$this->regenerateMenuSession('cms.index', 'cms.index');
 		//Get News Feeds When requesting for dashboard
-		$data['news_feeds'] = $this->getNewsFeedsFromVendor();
+		$data['news_feeds']      = $this->getNewsFeedsFromVendor();
 		//Get all users that request for password reset
-		$data['user_requests'] = User::usersThatRequestForPasswordReset();
+		$data['user_requests']   = User::usersThatRequestForPasswordReset();
 		//Get News Summary
-		$data['news_summary'] = News::getNewsSummary();
+		$data['news_summary']    = News::getNewsSummary();
+		//Get Page Summary
+		$data['pages_summary']   = Page::getPageSummary();
+		//Get Banner Summary
+		$data['banners_summary'] = Banner::getBannerSummary();
 
 		return view('cms.news_feeds.index')->withData($data);
 	}

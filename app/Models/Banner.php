@@ -63,6 +63,17 @@ class Banner extends Model {
         }
     }
 
+    // Get Page Summary output it on dashboard
+    public static function getBannerSummary()
+    {
+        $data['all_banners']  = DB::table('banners')->count();
+        $data['advanced'] = DB::table('banners')
+                           ->select(DB::raw('count(id) as advanced'))
+                           ->where('type', '=', 'Advanced')
+                           ->count();
+        return $data;
+    }
+
     public static function updateBanner($id) {
         $type = Input::get('type');
         $banner = Banner::find($id);
