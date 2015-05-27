@@ -17,6 +17,9 @@ class CMSController extends Controller {
 		View::share('APP_TITLE', env('APP_TITLE'));
 		View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
 
+		//Bell notifications
+        View::share('bell_counter', User::bellCounter());
+
 		//$this->middleware('guest'); 	 //Doesn't require active user
 		$this->middleware('is.allowed'); //Require require active user
 	}
