@@ -41,12 +41,13 @@
         <tr>
             <td> {{ $module->module_name }} </td>
 			<td class="module-switch-container">
-				<input type="checkbox" class="moduleToggle" 
+				
 			@if($module->enabled)
-				checked >
+				<input type="checkbox" class="moduleToggle" checked >
 			@elseif(!$module->enabled)
-				 >										
+				<input type="checkbox" class="moduleToggle" >										
 			@endif
+
 			</td>
 			<td>
 				<button type="button" data-switch-toggle="state" class="btn btn-default togglebutton">Toggle</button>
@@ -103,7 +104,7 @@
 			$(this).attr("disabled", "disabled");
 			//Get module ID.
 			var moduleID = $(this).parent().parent().find(".moduleToggle").val();
-			var status = $(this).parent().parent().find(".moduleToggle").attr("checked");
+			var status = $(this).parent().parent().find(".moduleToggle").bootstrapSwitch("state");
 			var data = {'_token':$('[name=_token]').val(),'id':moduleID};
 			var url = 	"{{ URL::route('togglemodule') }}";
 			var proxiedCallback = jQuery.proxy(callback, this);
@@ -115,17 +116,20 @@
 	            success: proxiedCallback
             });
 		}
-		// $(".moduleToggle").click(updateModuleStatus);
-		// $(".bootstrap-switch").change( function a() {$(".toggle-module").bootstrapSwitch("toggleDisabled", "TRUE", "TRUE");});
+		//$(".moduleToggle").click(updateModuleStatus);
+
+		$(".togglebutton").click(function a(){
+			var x = $(this).parent().parent().find(".moduleToggle").bootstrapSwitch("toggleState");
+			alert(x);
+		});
+
+		/*
+		 *	Module Uploads
+		 */
+		//Open a hidden dialog box element on button click.
         $("#moduleUpload").click(function a() {
           $(".upload-dialog").click();
         });
-        $(".togglebutton").click( function a(){
-        	var x = $(this).parent().parent().find(".moduleToggle");
-        	x.bootstrapSwitch("toggleState");
-        });
-
-
         //Autosubmit upload when adding a new module:
         var submitUpload = function() {
         	// alert("Submitting");
