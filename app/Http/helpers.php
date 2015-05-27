@@ -1,5 +1,4 @@
 <?php
-
 function gallery(array $arr) {
     return \App\Models\Media::gallery($arr);
 }
@@ -45,10 +44,28 @@ function strrevpos($instr, $needle) {
         return strlen($instr) - $rev_pos - strlen($needle);
 }
 
-function featured_news() {
-    return \App\Models\News::featured();
+function news_archive(){
+    $slug=Request::segment(2);
+    $archive = \App\Models\Site\News::archive();
+    return View('site.news.archive_news')->with(array('slug'=>$slug,'archive'=>$archive))->render();
 }
 
+function featured_news(){
+    $slug=Request::segment(2);
+    $featured = \App\Models\Site\News::featured();
+    return View('site.news.featured_news')->with(array('slug'=>$slug,'featured_news'=>$featured))->render();
+}
+
+function news_list(){
+    $slug=Request::segment(2);
+    $imagesPath = 'uploads/news_image/';
+    $results = \App\Models\Site\News::list_all();
+    return View('site.news.index')->with(array('slug'=>$slug,'results'=>$results,'imagesPath'=>$imagesPath))->render();
+}
+
+
+
+// start line for menu management
 // menu management (admin)
 function getSubMenu($arrVal, $htmlmenu = '') {
     if (count($arrVal) > 0) {
@@ -79,7 +96,9 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
             $htmlmenu .= '<ul class="dropdown-menu">';
             foreach ($menuArrObj as $objChildMenu) {
                 $menulink = $objChildMenu->slug ? $objChildMenu->slug : $objChildMenu->external_link;
-                $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span></a>';
+                $htmlmenu .= '<li><a href = "' . $menulink . '"><span class = "link-title">' . $objChildMenu->label . '</span>';
+                $htmlmenu .= parentCssElement($objChildMenu->menu_id, 'caret');
+                $htmlmenu .= '</a>';
 
                 $htmlmenu .= getSubMenuSite($objChildMenu->menu_id);
                 $htmlmenu .= '</li>';
@@ -90,8 +109,8 @@ function getSubMenuSite($arrVal, $htmlmenu = '') {
     }
 }
 
-// parent css for hierarchy menu in website
-function parentElement($arrVal, $element) {
+// call css design for parent
+function parentCssElement($arrVal, $element) {
     $menuArrObj = \App\Models\Menu::hasChild($arrVal);
     if ($menuArrObj) {
         switch ($element) {
@@ -102,6 +121,33 @@ function parentElement($arrVal, $element) {
                 return 'class= "dropdown"';
                 break;
         }
+    }
+}
+
+function optionsMenuPosition() {
+    $menuPositionObj = \App\Models\MenuPosition::menuPositions();
+    $htmlmenuposition = "";
+
+    if ($menuPositionObj) {
+        $htmlmenuposition .= '<select name="menuposition" id="menuposition">';
+        foreach ($menuPositionObj as $menuPosition) {
+            $isSelected = ($menuPosition->is_selected == 1) ? 'selected' : '';
+            $htmlmenuposition .= '<option value="'.$menuPosition->id.'" ' . $isSelected . '>'.$menuPosition->position.'</option>';
+        }
+        $htmlmenuposition .= '</select>';
+        return $htmlmenuposition;
+    }
+}
+
+function menuLayout() {
+    $menuPositionCurrentSelect = \App\Models\MenuPosition::menuSelectedPosition();
+
+    if ($menuPositionCurrentSelect) {
+        foreach ($menuPositionCurrentSelect as $key) {
+            return $key->position;
+        }
+    }else{
+        return 'top';
     }
 }
 

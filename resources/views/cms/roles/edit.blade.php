@@ -3,13 +3,7 @@
 <h2>User Management</h2>
 @stop
 @section('content')
-<style>
-.upload-access {
-    margin-top: -50px;
-}
-</style>
-
- <div class='main-container__content__info upload-access'>
+<div class='main-container__content__info upload-access'>
    <div action="" id="upload" files="true">
        <div class="row">
             <div class="col-sm-12">

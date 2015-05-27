@@ -128,4 +128,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 							->get();
 	}
 
+	//Return list of user that
+	//request for password reset
+	public static function bellCounter()
+	{
+		return DB::table('users')
+							->select(DB::raw('count(id)'))
+							->where('forgot_password', 1)
+							->count();
+	}
+
 }

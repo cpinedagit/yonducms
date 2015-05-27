@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Site\News;
+use App\Models\Page;
 use Request;
 use DB;
 use View;
@@ -14,19 +15,22 @@ use File;
 use HTML; 
 use Image;
 use Response;
+use App\Models\Menu;
 
 class NewsController extends Controller {
 	public function index() {
-    	$results = News::All();
-  		$archive = News::archive();
-    	return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive));
-  	}
+     }
 
 	public function show($id, $slug = '') {
     	$result = News::find($id);
     	$archive = News::archive();
-     // return view('site/News/show', array('result'=>$result,'archive'=>$archive));
-      	return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive));
+      $imagesPath = 'uploads/news_image/';
+    	return View::make('site.news.show')->with(array('result'=>$result,'archive'=>$archive,'imagesPath'=>$imagesPath));
 	}
 
+  public function preview($slug='', $slug2 = '') {
+      $result = News::find($slug2);
+      $imagesPath = 'uploads/news_image/';
+      return View::make('site.news.show')->with(array('result'=>$result,'imagesPath'=>$imagesPath));
+  }
 }

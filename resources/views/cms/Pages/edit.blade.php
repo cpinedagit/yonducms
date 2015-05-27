@@ -23,7 +23,7 @@
      4. alert-danger
 
      then use "open" class to show the alert
--->
+ -->
 
 <!--<div class="alert alert-danger alert-danger--login show" role="alert">
     Invalid Username/Password
@@ -74,7 +74,17 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="form-group">
+
+
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                      <div class="panel panel-default">
+                        <div class="panel-heading" style="cursor:pointer" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <h4 class="panel-title">
+                             Banner
+                         </h4>
+                     </div>
+                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
                         <table id="example" class="table table-striped table--banner">
                             <thead>
                                 <tr>
@@ -104,68 +114,122 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="editor1" class='form-title'>Content *</label>
-                        {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
-                    </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <h4 class="panel-title">
+                      News
+                  </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    <table class="table table-striped table--banner">
+                        <thead>
+                            <tr>
+                                <th>News List</th>
+                                <th>Archive News</th>
+                                <th>Featured News</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <em>
+                                        <?php
+                                        $str = "" . "?php " . "echo news_list()" . " ?" . "";
+                                        ?>
+                                        {{ '<'.$str.'>' }}
+                                    </em>
+                                </td>
+
+                                <td>
+                                    <em>
+                                        <?php
+                                        $str = "" . "?php " . "echo news_archive()" . " ?" . "";
+                                        ?>
+                                        {{ '<'.$str.'>' }}
+                                    </em>
+                                </td>
+
+                                <td>
+                                    <em>
+                                        <?php
+                                        $str = "" . "?php " . "echo featured_news()" . " ?" . "";
+                                        ?>
+                                        {{ '<'.$str.'>' }}
+                                    </em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="main-container__content__info__options">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" checked> Publish Page
-                    </label>
-                </div>
+    </div> 
+
+</div>
+<div class="col-sm-12">
+    <div class="form-group">
+        <label for="editor1" class='form-title'>Content *</label>
+        {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
+    </div>
+</div>
+</div>
+</div>
+<div class="col-sm-3">
+    <div class="main-container__content__info__options">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" checked> Publish Page
+            </label>
+        </div>
                 <!--                <div class="checkbox">
                                     <label>
                                         <input type="checkbox" checked> Include Widget
                                     </label>
                                 </div>-->
-                <div class="main-container__content__info__options__action-holder btn-holder">
-                    <button class="btn btn-reset" onclick = "cancel()">Cancel</button>
-                    <input type="submit" class="btn btn-add" value="Save">
+                                <div class="main-container__content__info__options__action-holder btn-holder">
+                                    <button class="btn btn-reset" onclick = "cancel()">Cancel</button>
+                                    <input type="submit" class="btn btn-add" value="Save">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </div>
+                {!! Form::close() !!}
+                <script>
+                $('#editableUrl').hide();
+                $(document).on("click", "#edit", function (e) {
 
-    </div>
-</div>
-{!! Form::close() !!}
-<script>
-    $('#editableUrl').hide();
-    $(document).on("click", "#edit", function (e) {
+                    $('#editableUrl').show();
+                    $('#nonEditableUrl').hide();
+                    $('#slug').focus();
+                    $('#slug').focusTextToEnd();
+                    e.stopPropagation();
+                });
 
-        $('#editableUrl').show();
-        $('#nonEditableUrl').hide();
-        $('#slug').focus();
-        $('#slug').focusTextToEnd();
-        e.stopPropagation();
-    });
+                $(document).on("dblclick", "#nonEditableUrl", function () {
+                    $('#editableUrl').show();
+                    $('#nonEditableUrl').hide();
+                    $('#slug').focus();
+                });
 
-    $(document).on("dblclick", "#nonEditableUrl", function () {
-        $('#editableUrl').show();
-        $('#nonEditableUrl').hide();
-        $('#slug').focus();
-    });
+                $(document).on("click", "#cancel", function () {
+                    $('#editableUrl').hide();
+                    $('#nonEditableUrl').show();
+                });
 
-    $(document).on("click", "#cancel", function () {
-        $('#editableUrl').hide();
-        $('#nonEditableUrl').show();
-    });
+                function cancel() {
+                    window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
+                }
 
-    function cancel() {
-        window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
-    }
-
-    function focusTextToEnd() {
-        this.focus();
-        var $thisVal = this.val();
-        this.val('').val($thisVal);
-        return this;
-    }
-</script>
-@include('cms.media.media_tool')
-@stop
+                function focusTextToEnd() {
+                    this.focus();
+                    var $thisVal = this.val();
+                    this.val('').val($thisVal);
+                    return this;
+                }
+                </script>
+                @include('cms.media.media_tool')
+                @stop
