@@ -34,6 +34,7 @@ class NewsController extends Controller {
     return View::make('cms.news.index')->with(array('results'=>$results,'all'=>$all,'published'=>$published,'featured'=>$featured));
   }
 
+
   public function create() {
      return View::make('cms.news.add');
   }
@@ -64,7 +65,7 @@ class NewsController extends Controller {
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
-      $slug = str_replace(' ', '_', Input::get('news_title'));
+      $slug = str_replace(array(' ','/'), '_', Input::get('news_title'));
       $news->slug = $slug;
       $news->image_filename = $filename;
 
@@ -101,7 +102,7 @@ class NewsController extends Controller {
       $news->description = Input::get('description');
       $news->published = Input::get('published');
       $news->featured = Input::get('featured');
-      $slug = str_replace(' ', '_', Input::get('slug'));
+      $slug = str_replace(array(' ','/'), '_', Input::get('slug'));
       $news->slug = $slug;
       $news->save();
       return Redirect::to('cms/news');

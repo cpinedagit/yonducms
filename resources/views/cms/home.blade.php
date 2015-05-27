@@ -9,16 +9,8 @@
 </head>
 <body>
 		@include('cms.partials.header')
-		@section('title')
-			<h2>Dashboard</h2>
-		@stop
+		
 		@include('cms.partials.container')
-
-		<!-- Include News Feeds -->
-		@if(isset($data['news_feeds']))
-			@include('cms.news_feeds.index')
-		@endif
-		<!-- Include News Feeds -->
 		
 		@include('cms.partials.footer')
 	

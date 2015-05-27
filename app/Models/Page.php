@@ -26,7 +26,8 @@ class Page extends Model {
         $content = Input::get('Editor1');
         $page = Page::find($id);
         $page->title = Input::get('title');
-        $page->slug = Input::get('slug');
+        $slug = Input::get('slug');
+        $page->slug = str_replace(array("/",' '), "_", $slug);
         $page->content = $content;
         $parent = Input::get('parent');
         if ($parent === null) {

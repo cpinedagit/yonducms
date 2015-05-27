@@ -55,7 +55,8 @@ class PageController extends Controller {
         $page = new Page;
         $page->content = $content;
         $page->title = Input::get('title');
-        $page->slug = Input::get('slug');
+        $slug = Input::get('slug');
+        $page->slug = str_replace(array("/",' '), "_", $slug);
         $page->parent_id = Input::get('parent');
         $publish = Input::get('publish');
         if (isset($publish)) {

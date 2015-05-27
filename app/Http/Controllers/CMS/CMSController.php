@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use App\Models\cms\User;
+use App\Models\News;
 use View;
 use Feeds;
 
@@ -27,8 +28,10 @@ class CMSController extends Controller {
 		$data['news_feeds'] = $this->getNewsFeedsFromVendor();
 		//Get all users that request for password reset
 		$data['user_requests'] = User::usersThatRequestForPasswordReset();
+		//Get News Summary
+		$data['news_summary'] = News::getNewsSummary();
 
-		return view('cms.home')->withData($data);
+		return view('cms.news_feeds.index')->withData($data);
 	}
 
 
