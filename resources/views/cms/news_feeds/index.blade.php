@@ -36,7 +36,7 @@
                           <div class="media-details">
                               <span>Date:{{ $item->get_date('m/d/y') }}</span>
                               <span></span>
-                              <span class="text-right"><a href="{{ $item->get_permalink() }}">View More</a></span>
+                              <span class="text-right"><a href="{{ $item->get_permalink() }}" target="_blank">View More</a></span>
                           </div>
                         </div>
                       </li>
