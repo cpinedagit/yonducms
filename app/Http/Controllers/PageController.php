@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Page;
 use App\Models\Menu;
+use App\Models\Site\News;
 use Input;
 use DB;
 use File;
 use Request;
 use Response;
+use View;
 
 class PageController extends Controller {
 
@@ -103,14 +105,25 @@ class PageController extends Controller {
         return view('cms/Pages/edit', $arData);
     }
 
-    public function preview($slug,$slug2 = false) {
+    public function preview($slug) {
         $pages = Page::preview($slug);
+        $p_id=$pages->plugin_id;
+        if($p_id == 5)
+        {
+            $imagesPath = 'uploads/news_image/';
+            $results = News::All();
+            $archive = News::archive();
+            return View::make('site.news.index')->with(array('page'=>$slug,'results'=>$results,'archive'=>$archive,'imagesPath'=>$imagesPath));
+
+        }
+        else{
         $objMenu = Menu::ParentNavi();
         $arData = array(
             'pages' => $pages,
             'objMenu' => $objMenu
         );
         return view('site/Pages/index', $arData);
+        }
     }
 
     /**

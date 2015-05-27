@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use View;
+use App\Models\Page;
 
 class News extends Model {
 	protected $table = "content_news";
@@ -35,6 +37,11 @@ class News extends Model {
         return $arrfeatured;
     }
 
+    public static function news_slug()
+    {
+        $pages = DB::table('pages')->where(array('plugin_id'=>'5'))->first();
+        return $pages->slug;
+    }
     public static function show_news($id)
     {
         $result = DB::table('content_news')
@@ -51,6 +58,14 @@ class News extends Model {
             ->select('content_news.*', 'content_media.media_path')
             ->get();
             return $result;
+    }
+    public static function viewAll()
+    {
+        $imagesPath = 'uploads/news_image/';
+        $results = News::All();
+        $archive = News::archive();
+        return View::make('site.news.index')->with(array('results'=>$results,'archive'=>$archive,'imagesPath'=>$imagesPath));
+
     }
 }
 

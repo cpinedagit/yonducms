@@ -128,7 +128,7 @@ Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController
 Route::delete('cms/delPage','PageController@delPage');
 Route::get('site/','PageController@index');
 Route::get('site/{slug}','PageController@preview');
-Route::get('site/{slug}/{slug2}/','PageController@preview');
+Route::get('site/{slug}/{slug2}/','Site\NewsController@preview');
 Route::get('site/page/{id}/{url}/{url2}','PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}','PageController@preview');
 Route::resource('cms/pages','PageController');

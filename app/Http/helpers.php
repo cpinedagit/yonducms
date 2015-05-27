@@ -46,7 +46,11 @@ function strrevpos($instr, $needle) {
 }
 
 function featured_news() {
-    return \App\Models\News::featured();
+    return \App\Models\Site\News::featured();
+}
+
+function news_slug() {
+    return \App\Models\Site\News::news_slug();
 }
 
 // start line for menu management

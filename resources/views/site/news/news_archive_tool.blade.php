@@ -9,7 +9,7 @@ Archives
   				<li>
   					<ul>
   						@foreach ($valueMonth as $news)
-  						<li>{!! HTML::linkAction('Site\NewsController@show',  $news->news_title , array($news->slug)) !!}</li>
+  						<li>{!! HTML::linkAction('Site\NewsController@preview',  $news->news_title , array(news_slug(),$news->slug)) !!}</li>
   						@endforeach
   					</ul>
   				</li>
