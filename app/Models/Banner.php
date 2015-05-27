@@ -63,17 +63,6 @@ class Banner extends Model {
         }
     }
 
-    // Get Page Summary output it on dashboard
-    public static function getBannerSummary()
-    {
-        $data['all_banners']  = DB::table('banners')->count();
-        $data['advanced'] = DB::table('banners')
-                           ->select(DB::raw('count(id) as advanced'))
-                           ->where('type', '=', 'Advanced')
-                           ->count();
-        return $data;
-    }
-
     public static function updateBanner($id) {
         $type = Input::get('type');
         $banner = Banner::find($id);
@@ -82,6 +71,7 @@ class Banner extends Model {
         } else {
             $banner->type = Input::get('type');
         }
+        $banner->animation = Input::get('stTransition');
         $banner->classes = Input::get('classes');
         $banner->title = Input::get('name');
         $banner->save();
@@ -113,5 +103,8 @@ class Banner extends Model {
     public static function getAllSubBanner(){
         return DB::table('banners')->where('title', '=', 'Sub Banner')->get();
     }
-
+    
+    public static function getCode($id){
+        return DB::table('banners')->where('id', '=', $id)->pluck('animation');
+    }
 }
