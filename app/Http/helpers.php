@@ -152,8 +152,6 @@ function menuLayout() {
 }
 
 // end here for menu
-
-
 function banner($id) {
 
     $objBanner = \App\Models\Banner::myBanner($id);
@@ -184,4 +182,9 @@ function banner($id) {
         $banner .= HTML::script('public/slide/mySlide.js');
     }
     return $banner;
+}
+
+function bellCounter()
+{
+    return \App\Models\cms\User::bellCounter();
 }

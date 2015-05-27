@@ -13,8 +13,8 @@
     </div>
     <ul class="pull-right list-unstyled header__menu-list">
         <li class="header__menu-list__notification">
-          @if(isset($bell_counter))
-            <span class="badge badge--right">{{ $bell_counter }}</span>
+          @if((bellCounter())>0)
+            <span class="badge badge--right">{{ bellCounter() }}</span>
           @endif
         </li>
          <li class="header__menu-list__account">
