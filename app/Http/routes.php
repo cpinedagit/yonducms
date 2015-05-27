@@ -120,7 +120,7 @@ Route::get('cms/addBanner',['as' => 'cms.Banners.add', 'uses' => 'BannerControll
 Route::put('cms/saveImage', ['as' => 'cms.banner.saveImage', 'uses' => 'BannerController@saveImage']);
 Route::delete('cms/delImage', 'BannerController@delImage');
 Route::delete('cms/delCurrentImage/{id}','BannerController@delCurrentImage');
-Route::resource('cms/banners','BannerController');
+Route::resource('cms/banners','BannerController', ['middleware'=>'is.allowed']);
 
 //this routes are for Page Management
 Route::get('cms/addPage',['as' => 'cms.pages.addPage', 'uses' => 'PageController@addPage']);

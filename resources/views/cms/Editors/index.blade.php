@@ -7,7 +7,6 @@
     <div class="col-sm-9">
         <div class="form-group">
             {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
-            <label for="edit-themes" class='form-title'><h4>Edit Themes</h4></label>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <textarea id='textarea' class="form-control editor-textarea" name="content" cols="100" rows="30"></textarea>
             <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
@@ -70,7 +69,7 @@
                 </ul>
             </div>
             <div class="main-container__content__info__photo--css">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER <a style='cursor:pointer;' data-parent='SITE Folder' data-path ='resources/views/site' id ='site' title='add new folder' class="glyphicon glyphicon-plus"></a></h5>
+                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER <a style='cursor:pointer;' data-parent='Site Folder' data-path ='resources/views/site' id ='site' title='add new folder' class="glyphicon glyphicon-plus"></a></h5>
                 @foreach($directories as $directory)
                 @if(File::isDirectory($directory))                
                 <h6 class='main-container__content__info__photo__title' style='margin-left: 10px;'><i class="fa fa-folder-open-o"></i>{{ basename($directory)}}</h6>
@@ -147,22 +146,21 @@
     });
     
     $(document).on('click', '#site', function () {
-        alert(1);
-//        var name = prompt('Please enter the folder name:');
-//        var path = $(this).attr('data-path');
-//        var parent = $(this).attr('data-parent');
-//        if (name !== null) {
-//            $.ajax({
-//                type: 'get',
-//                url: 'editor/addFolder',
-//                data: {name: name, path: path, parent: parent},
-//                dataType: 'json',
-//                success: (function (data) {
-//                    location.reload();
-//                })
-//
-//            });
-//        }
+        var name = prompt('Please enter the folder name:');
+        var path = $(this).attr('data-path');
+        var parent = $(this).attr('data-parent');
+        if (name !== null) {
+            $.ajax({
+                type: 'get',
+                url: 'editor/addFolder',
+                data: {name: name, path: path, parent: parent},
+                dataType: 'json',
+                success: (function (data) {
+                    location.reload();
+                })
+
+            });
+        }
     });
 
 
