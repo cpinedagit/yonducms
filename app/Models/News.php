@@ -24,5 +24,21 @@ class News extends Model {
             ->get();
             return $result;
     }
+
+    // Get News Summary output it on dashboard
+    public static function getNewsSummary()
+    {
+        $data['all_news']  = DB::table('content_news')->count();
+        $data['published'] = DB::table('content_news')
+                           ->select(DB::raw('count(published) as published'))
+                           ->where('published', '=', 1)
+                           ->count();
+   
+        $data['featured']  = DB::table('content_news')
+                           ->select(DB::raw('count(`featured`) as featured'))
+                           ->where('featured', '=', 1)
+                           ->count();
+        return $data;
+    }
 }
 

@@ -34,6 +34,7 @@ class NewsController extends Controller {
     return View::make('cms.news.index')->with(array('results'=>$results,'all'=>$all,'published'=>$published,'featured'=>$featured));
   }
 
+
   public function create() {
      return View::make('cms.news.add');
   }
