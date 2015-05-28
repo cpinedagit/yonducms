@@ -185,7 +185,20 @@ function banner($id) {
     }
     return $banner;
 }
+
+/*Get Bell Notification*/
 function bellCounter()
 {
     return \App\Models\cms\User::bellCounter();
 }
+/*Get Bell Notification*/
+
+/*Check if user can access the module*/
+function checkAccess($module_id)
+{
+    //Get user role
+    $role_id = \Auth()->user()->role_id;
+    //Check if user has an access
+    return \App\Models\Access::checkAccess($role_id, $module_id);   
+}
+/*Check if user can access the module*/
