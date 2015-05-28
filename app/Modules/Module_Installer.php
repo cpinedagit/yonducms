@@ -12,20 +12,17 @@
  * Type      : yws_modules core
  */
 
+require_once('../../config.php');
+
 class Module_Installer
 {
-	const MODULE_TARGET = '../../storage/modules/module.tar.gz';
-	// const MODULE_ROUTES = 'Module_Routes.php';
-	
-	const EXTRACT_DIRECTORY = '../../storage/modules/ext/';
-	//This is the root path. You need this.
-
-	const SQL_DIRECTORY = '../../storage/modules/ext/SQL/';
-	const FILE_DIRECTORY = '../../storage/modules/ext/files/';
-
-
-	const ROOT_PATH = '../../';
-	const MODULE_JSON_SOURCE = 'module.json';
+	const EXTRACT_DIRECTORY 	= MODULES_REPOSITORY . 'ext/';
+	const SQL_DIRECTORY 		= MODULES_REPOSITORY . 'ext/SQL';
+	const FILE_DIRECTORY 		= MODULES_REPOSITORY . 'ext/files';
+	const MODULE_FILENAME 		= 'module.tar.gz';
+	const MODULE_JSON_FILENAME 	= 'module.json';
+	const MODULE_TARGET 		= MODULES_REPOSITORY . self::MODULE_FILENAME;
+	const MODULE_JSON_TARGET 	= self::EXTRACT_DIRECTORY . self::MODULE_JSON_FILENAME; 
 
 	function __construct() {
 		require_once('handlers/Module_Archiver.php');
@@ -40,10 +37,6 @@ class Module_Installer
 		$librarian 	= new Module_FileHandler();
 		$editor 	= new Module_CodeHandler();
 
-		if(file_exists(self::MODULE_TARGET)) {
-			echo "Exists!";
-		}
-
 		try {
 			// echo "\nExtracting package...\n";
 			$extract = $archivist->unpack(self::MODULE_TARGET, self::EXTRACT_DIRECTORY);
@@ -52,10 +45,10 @@ class Module_Installer
 			$queries = $scribe->executeScripts(self::SQL_DIRECTORY);
 			// echo "\nDONE!\n";
 			// echo "\nCopying file structure...\n";
-			$files 		= $librarian->copyDirectoryStructure(self::FILE_DIRECTORY, self::ROOT_PATH);
+			$files 		= $librarian->copyDirectoryStructure(self::FILE_DIRECTORY, BASE_PATH);
 			// echo "\nDONE!\n";
 			// echo "\nInjecting code...\n!";
-			$editor->writeCode(self::EXTRACT_DIRECTORY . self::MODULE_JSON_SOURCE);
+			$editor->writeCode(self::MODULE_JSON_TARGET);
 			// echo "\nDONE!\n";
 			return TRUE;
 		} catch (Exception $e) {

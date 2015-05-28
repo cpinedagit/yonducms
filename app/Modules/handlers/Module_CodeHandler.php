@@ -2,15 +2,13 @@
 
 //Module_Code appends code in String form to selected files in the framework.
 
+require_once('../../../config.php');
 
 class Module_CodeHandler
 {
-	CONST MODULE_ROUTES = "../../app/Modules/Module_Routes.php";
-	// CONST MODULE_CONTROLLERS = "Controllers/";
+	CONST MODULE_ROUTES = MODULES_HANDLER . 'Module_Routes.php';
 	CONST CUSTOM_CODE_INDEX = 'custom-appends';
 	CONST NEW_ROUTE_INDEX = 'routes-appends';
-	//
-	CONST ROOT_PATH = '';
 
 	function writeCode($jsonPath) {
 		//Check if the input file is a JSON file.
@@ -24,7 +22,7 @@ class Module_CodeHandler
 				if(is_array($jsonArray[self::CUSTOM_CODE_INDEX])) {
 					$codeArray = $jsonArray[self::CUSTOM_CODE_INDEX];
 					foreach($codeArray as $filepath => $code) {
-						$this->appendString(self::ROOT_PATH . $filepath, $code);
+						$this->appendString(BASE_PATH . $filepath, $code);
 					}
 				} else { //WARNING: No custom code index in JSON file.
 				}
