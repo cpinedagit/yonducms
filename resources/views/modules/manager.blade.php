@@ -1,18 +1,14 @@
-@extends('modules.template')
+@extends('cms.home')
 
-@section('top')
-	<div class='main-container__content__title'>
+@section('title')
 		<h2>Module Management</h2>
-    </div>
-    	    {!! Form::open(['url' => 'modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
-		<div class="form-group">
-			<input id="moduleUpload" type='button' value="Add New Module" class='btn btn-add'/>
+       	    {!! Form::open(['url' => 'modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
+				<br/><input id="moduleUpload" type='button' value="Add New Module" class='btn btn-add'/>
 			{!! Form::file('module', array('class' => 'upload-dialog', 'style' => 'visibility:hidden')) !!}
-		</div>
-		{!! Form::close() !!}
+			{!! Form::close() !!}
 @stop
 
-@section('body')
+@section('content')
 	@if( $message = Session::get('upload-message') )
 		<div>{{ $message }}</div>
 	@endif
@@ -41,13 +37,12 @@
         <tr>
             <td> {{ $module->module_name }} </td>
 			<td class="module-switch-container">
-				
+				<input type="checkbox" class="moduleToggle" value="{!! $module->id !!}" 
 			@if($module->enabled)
-				<input type="checkbox" class="moduleToggle" checked >
+				checked >
 			@elseif(!$module->enabled)
-				<input type="checkbox" class="moduleToggle" >										
+				 >										
 			@endif
-
 			</td>
 			<td>
 				<button type="button" data-switch-toggle="state" class="btn btn-default togglebutton">Toggle</button>
@@ -63,12 +58,23 @@
 @stop
 
 @section('scripts')
-	<script>
+	<script>	
+
         $(document).ready(function(){
         	//Initiate bootstrap-switch.js
+        
     		$(".moduleToggle").bootstrapSwitch();
-			$(".moduleToggle").bootstrapSwitch('wrapperClass', 'toggle-module');
-			$(".module-switch-container").attr("style", "pointer-events:none");
+
+    		$('.moduleToggle').on('switchChange.bootstrapSwitch', function(event, state) {
+			  console.log(this); // DOM element
+			  console.log(event); // jQuery event
+			  console.log(state); // true | false
+
+			  updateModuleStatus(this);	
+			});
+
+			// $(".moduleToggle").bootstrapSwitch('wrapperClass', 'toggle-module');
+			// $(".module-switch-container").attr("style", "pointer-events:none");
         });
 
 		// Event handler for toggle buttons in each row of the table.
@@ -99,12 +105,12 @@
 					alert("An error has occurred. Please try again.");
 				}
 			};
-		var updateModuleStatus = function() {
+		var updateModuleStatus = function(obj) {
 			//Disable button.
 			$(this).attr("disabled", "disabled");
 			//Get module ID.
-			var moduleID = $(this).parent().parent().find(".moduleToggle").val();
-			var status = $(this).parent().parent().find(".moduleToggle").bootstrapSwitch("state");
+			var moduleID =  obj.value; //$(this).parent().parent().find(".moduleToggle").val();
+			var status = obj.checked; //$(this).parent().parent().find(".moduleToggle").attr("checked");
 			var data = {'_token':$('[name=_token]').val(),'id':moduleID};
 			var url = 	"{{ URL::route('togglemodule') }}";
 			var proxiedCallback = jQuery.proxy(callback, this);
@@ -116,20 +122,12 @@
 	            success: proxiedCallback
             });
 		}
-		//$(".moduleToggle").click(updateModuleStatus);
-
-		$(".togglebutton").click(function a(){
-			var x = $(this).parent().parent().find(".moduleToggle").bootstrapSwitch("toggleState");
-			alert(x);
-		});
-
-		/*
-		 *	Module Uploads
-		 */
-		//Open a hidden dialog box element on button click.
+		// $(".moduleToggle").click(updateModuleStatus);
+		// $(".bootstrap-switch").change( function a() {$(".toggle-module").bootstrapSwitch("toggleDisabled", "TRUE", "TRUE");});
         $("#moduleUpload").click(function a() {
           $(".upload-dialog").click();
         });
+
         //Autosubmit upload when adding a new module:
         var submitUpload = function() {
         	// alert("Submitting");

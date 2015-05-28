@@ -129,13 +129,18 @@ class ModuleController extends Controller {
 	public function upload()
 	{
 		$input = Request::all();
+
 		if( Input::hasFile('module') ) {
 			$file = Input::file('module');
 			$filename = "module.tar.gz";
-			$destinationPath = '../storage/modules/';
+			$destinationPath = 'storage/modules/';
 			$upload_success = $file->move($destinationPath, $filename);
+
 			if($upload_success) {
-				$response = require_once('../app/Modules/Install_Module.php');
+				
+				$response = include_once('app/Modules/Install_Module.php');
+
+				
 				if($response) {
 					$message = "Module installed successfully.";
 				} else {
@@ -147,6 +152,7 @@ class ModuleController extends Controller {
 		} else {
 			$message = "No file selected for upload.";
 		}
+		echo $message;
 		Session::flash("upload-message", $message);
 		return Redirect::to('modules');
 	}

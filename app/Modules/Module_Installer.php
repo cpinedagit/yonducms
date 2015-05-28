@@ -14,19 +14,17 @@
 
 class Module_Installer
 {
-	const MODULE_TARGET = '../storage/modules/module.tar.gz';
+	const MODULE_TARGET = '../../storage/modules/module.tar.gz';
 	// const MODULE_ROUTES = 'Module_Routes.php';
 	
-	const EXTRACT_DIRECTORY = '../storage/modules/ext/';
+	const EXTRACT_DIRECTORY = '../../storage/modules/ext/';
 	//This is the root path. You need this.
 
-	const SQL_DIRECTORY = self::EXTRACT_DIRECTORY . 'SQL/';
-	const FILE_DIRECTORY = self::EXTRACT_DIRECTORY . 'files/';
+	const SQL_DIRECTORY = '../../storage/modules/ext/SQL/';
+	const FILE_DIRECTORY = '../../storage/modules/ext/files/';
 
 
-	const ROOT_PATH = '../';
-	const MODULE_SQL_PATH = 'SQL/';
-	const MODULE_FILES_PATH = 'files/';
+	const ROOT_PATH = '../../';
 	const MODULE_JSON_SOURCE = 'module.json';
 
 	function __construct() {
@@ -41,6 +39,10 @@ class Module_Installer
 		$scribe 	= new Module_SqlHandler();
 		$librarian 	= new Module_FileHandler();
 		$editor 	= new Module_CodeHandler();
+
+		if(file_exists(self::MODULE_TARGET)) {
+			echo "Exists!";
+		}
 
 		try {
 			// echo "\nExtracting package...\n";
@@ -57,6 +59,7 @@ class Module_Installer
 			// echo "\nDONE!\n";
 			return TRUE;
 		} catch (Exception $e) {
+			echo $e->getMessage();
 			return FALSE;
 		}
 	}

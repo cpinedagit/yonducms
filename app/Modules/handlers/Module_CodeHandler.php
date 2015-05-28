@@ -5,12 +5,12 @@
 
 class Module_CodeHandler
 {
-	CONST MODULE_ROUTES = "../app/Modules/Module_Routes.php";
+	CONST MODULE_ROUTES = "../../app/Modules/Module_Routes.php";
 	// CONST MODULE_CONTROLLERS = "Controllers/";
 	CONST CUSTOM_CODE_INDEX = 'custom-appends';
 	CONST NEW_ROUTE_INDEX = 'routes-appends';
 	//
-	CONST ROOT_PATH = '../../';
+	CONST ROOT_PATH = '';
 
 	function writeCode($jsonPath) {
 		//Check if the input file is a JSON file.
