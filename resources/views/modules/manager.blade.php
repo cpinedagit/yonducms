@@ -17,7 +17,6 @@
 	<div>
 		Modules Installed: {{ $modules }}
 	</div>
-
 	<!-- Display all installed modules in a table. -->
 	<div>
 	@if($modules > 0)

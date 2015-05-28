@@ -2,7 +2,7 @@
 
 //Module_Code appends code in String form to selected files in the framework.
 
-require_once('../../../config.php');
+require_once('config.php');
 
 class Module_Editor
 {

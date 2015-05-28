@@ -1,15 +1,8 @@
 <?php
 
 require_once('Module_Installer.php');
+$program = new Module_Installer();
+return $program->installModule();
+//New module added: 2015-05-13 02:29:15pm
 
-function install() {
-	$program = new Module_Installer();
-	try {
-		$program->installModule();
-		return TRUE;
-	} catch (Exception $e) {
-		return FALSE;
-	}	
-}
-
-install();
+//New module added: 2015-05-13 02:29:15pm
