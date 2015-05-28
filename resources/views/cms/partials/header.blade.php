@@ -12,11 +12,12 @@
         </div>
     </div>
     <ul class="pull-right list-unstyled header__menu-list">
-        <li class="header__menu-list__notification">
-          @if((bellCounter())>0)
-            <span class="badge badge--right">{{ bellCounter() }}</span>
-          @endif
-        </li>
+        @if(checkAccess(8)>0)
+          <li class="header__menu-list__notification">
+            @if((bellCounter())>0)
+              <span class="badge badge--right">{{ bellCounter() }}</span>
+            @endif
+        @endif
          <li class="header__menu-list__account">
             <div class="dropdown header__menu-list__account__dropdown">
               <a id="dLabel" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">

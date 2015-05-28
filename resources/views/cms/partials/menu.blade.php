@@ -1,7 +1,7 @@
 
 <nav class='main-container__navigation-container__navigation'>
     <ul class="list-unstyled main-container__navigation-container__navigation__nav-list">
-
+    
     @foreach(modules() as $module)
     
       @if(!empty($module->module_path))
