@@ -141,6 +141,7 @@ class BannerController extends Controller {
     }
 
     public function addBanner() {
+        $this->regenerateMenuSession('cms.banners.index', 'cms.Banners.add');
         return View('cms/Banners.add');
     }
 

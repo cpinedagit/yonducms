@@ -36,6 +36,7 @@ class NewsController extends Controller {
 
 
   public function create() {
+    $this->regenerateMenuSession('cms.news.index', 'cms.news.create');
      return View::make('cms.news.add');
   }
 

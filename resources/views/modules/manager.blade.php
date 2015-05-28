@@ -37,7 +37,7 @@
         <tr>
             <td> {{ $module->module_name }} </td>
 			<td class="module-switch-container">
-				<input type="checkbox" class="moduleToggle" 
+				<input type="checkbox" class="moduleToggle" value="{!! $module->id !!}" 
 			@if($module->enabled)
 				checked >
 			@elseif(!$module->enabled)
@@ -58,12 +58,23 @@
 @stop
 
 @section('scripts')
-	<script>
+	<script>	
+
         $(document).ready(function(){
         	//Initiate bootstrap-switch.js
+        
     		$(".moduleToggle").bootstrapSwitch();
-			$(".moduleToggle").bootstrapSwitch('wrapperClass', 'toggle-module');
-			$(".module-switch-container").attr("style", "pointer-events:none");
+
+    		$('.moduleToggle').on('switchChange.bootstrapSwitch', function(event, state) {
+			  console.log(this); // DOM element
+			  console.log(event); // jQuery event
+			  console.log(state); // true | false
+
+			  updateModuleStatus(this);	
+			});
+
+			// $(".moduleToggle").bootstrapSwitch('wrapperClass', 'toggle-module');
+			// $(".module-switch-container").attr("style", "pointer-events:none");
         });
 
 		// Event handler for toggle buttons in each row of the table.
@@ -94,12 +105,12 @@
 					alert("An error has occurred. Please try again.");
 				}
 			};
-		var updateModuleStatus = function() {
+		var updateModuleStatus = function(obj) {
 			//Disable button.
 			$(this).attr("disabled", "disabled");
 			//Get module ID.
-			var moduleID = $(this).parent().parent().find(".moduleToggle").val();
-			var status = $(this).parent().parent().find(".moduleToggle").attr("checked");
+			var moduleID =  obj.value; //$(this).parent().parent().find(".moduleToggle").val();
+			var status = obj.checked; //$(this).parent().parent().find(".moduleToggle").attr("checked");
 			var data = {'_token':$('[name=_token]').val(),'id':moduleID};
 			var url = 	"{{ URL::route('togglemodule') }}";
 			var proxiedCallback = jQuery.proxy(callback, this);
@@ -116,11 +127,6 @@
         $("#moduleUpload").click(function a() {
           $(".upload-dialog").click();
         });
-        $(".togglebutton").click( function a(){
-        	var x = $(this).parent().parent().find(".moduleToggle");
-        	x.bootstrapSwitch("toggleState");
-        });
-
 
         //Autosubmit upload when adding a new module:
         var submitUpload = function() {

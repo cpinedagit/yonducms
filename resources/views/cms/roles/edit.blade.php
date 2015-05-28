@@ -60,7 +60,7 @@
                                           {!! Form::radio('role_active', 0, true) !!} Inactive
                                         </label>
                                     </div>
-                                    @endif;
+                                    @endif
                                </div>
                             </div>
                        </div>                           
