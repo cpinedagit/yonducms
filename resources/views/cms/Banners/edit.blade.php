@@ -8,7 +8,7 @@
             <li role="presentation"><a href="#content" aria-controls="profile" role="tab" data-toggle="tab">Current Images</a></li>
             <li role="presentation"><a href="#upload" aria-controls="messages" role="tab" data-toggle="tab">Upload</a></li>
             @if($type == 'Advanced')
-            <li role="presentation"><a href="#editor" aria-controls="messages" role="tab" data-toggle="tab">Editor</a></li>
+            <li role="presentation"><a href="#editor" aria-controls="messages" role="tab" data-toggle="tab">Animation</a></li>
             @endif
         </ul>
         <!-- Tab panes --> 
@@ -26,7 +26,8 @@
                             {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}
                             {!! Form::hidden('curType',$type) !!}
                             {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}  
-                            {!! Form::hidden('defaultAnimation','{$Duration:1200,x:-0.3,$During:{$Left:[0.3,0.7]},$Easing:{$Left:function (t) {        return t * t * t;    },$Opacity:function (t) {        return t;    }},$Opacity:2}') !!}
+                            {!! Form::hidden('defaultAnimation','{$Duration:700,$Opacity:2,$Brother:{$Duration:1000,$Opacity:2}}') !!}
+                            {!! Form::hidden('animationTitle',null,['id' => 'animationTitle']) !!}                                                 {!! Form::hidden('CurrentCode',$bannerCurrentAnimation,['id' => 'currentCode']) !!}
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                         </div>
                         <div class="row">
@@ -115,8 +116,7 @@
                         </td>
                         <td width="320" height="40">
                             <select name="ssTransition" id="ssTransition" style="width: 300px">
-                                <option value="">
-                            </select>
+                             </select>
                         </td>
                         <td width="490">
                             <input type="button" value="Play" id="sButtonPlay" style="width: 110px" name="sButtonPlay" disabled="disabled">
@@ -163,8 +163,12 @@
                         </td>
                     </tr>
                 </table>
-                <script>
+                <script>                    
                     slideshow_transition_controller_starter("slider1_container");
+                    var code = $('#currentCode').val();
+                    $('#ssTransition').val(code);
+                    $('#stTransition').val(code);
+                    $('#sButtonPlay').click();                    
                 </script>
                 @endif
             </div><br><br><br>
@@ -228,10 +232,15 @@
                             location.reload();
                         })
                     });
-
                 }
+            });
 
-            })
+            $('#ssTransition').on('change', function () {
+                var e = document.getElementById("ssTransition");
+                var strUser = e.options[e.selectedIndex].text;
+                $('#animationTitle').val(strUser);
+            });
+
         });
     </script>
     @stop
