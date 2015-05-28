@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\MenuPosition;
 use App\Models\Page;
+use App\Models\CMS\User;
 use Input;
 use View;
 use DB;
@@ -31,19 +32,19 @@ class CmsMenuController extends Controller {
         //Read the settings .env set app title and tag line
         View::share('APP_TITLE', env('APP_TITLE'));
         View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
-        
+        View::share('bell_counter', User::bellCounter());
         //$this->middleware('guest');    //Doesn't require active user
         $this->middleware('is.allowed'); //Require require active user
     }
 
     function index() {
+        $this->regenerateMenuSession('cms.menu.index', 'cms.menu.index');
         $objMenu = Menu::ParentNavi();
         $objPage = Page::all();
         $objData = [
             'objMenu' => $objMenu,
             'objPage' => $objPage,
         ];
-//        return view('cms.menu.index', compact('objMenu'));
         return view('cms.menu.index', $objData);
     }
 
@@ -75,11 +76,13 @@ class CmsMenuController extends Controller {
                     } else {
                         $parent_id = $value[1];
                     }
+                    // for setting parent
                     $menusave = Menu::find($value[0]);
                     $menusave->parent_id = $parent_id;
                     $menusave->save();
                 }
                 if (($key1 == 2)) {
+                    // for order id
                     $menusave = Menu::find($value[0]);
                     $menusave->order_id = $value[2];
                     $menusave->save();
@@ -121,7 +124,7 @@ class CmsMenuController extends Controller {
             $newMenupositionSelecttoZero = $menuPosition->where('is_selected', '=', 1)->first();
             $newMenupositionSelecttoZero->is_selected = 0;
             $newMenupositionSelecttoZero->save();
-            
+
             $menuPosId = Request::get('idpos');
             $newMenupositionSelect = $menuPosition->find($menuPosId);
             $newMenupositionSelect->is_selected = 1;

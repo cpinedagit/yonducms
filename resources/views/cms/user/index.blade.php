@@ -41,18 +41,18 @@
 
 		 <div class="main-container__content__info__search main-container__content__info__search--no-action">
            <div class="form-inline">
-                <select name="" id="" class="form-control pull-left">
+                <select name="" id="selectRole" class="form-control pull-left">
                    <option value="" disabled selected>Select</option>
                    
                    @foreach($roles as $role)
 
-                   	<option value="{!! $role->id !!}">{!! ucwords(strtolower($role->role_name)) !!}</option>
+                   	<option value="{!! ucwords(strtolower($role->role_name)) !!}">{!! ucwords(strtolower($role->role_name)) !!}</option>
 
                    @endforeach
 
                 </select>
                 <span class="pull-right">
-                    <input type="text" class="form-control  main-container__content__info__search__option" placeholder="Search">
+                    <input type="text" class="form-control  main-container__content__info__search__option" placeholder="Search" id="searchText">
                     <input type="submit" class='btn btn-filter' value="Search">
                 </span>
              </div>
@@ -116,7 +116,7 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             aaSorting: [0],
             bInfo: false,
             columnDefs: [
@@ -132,6 +132,18 @@
                 
             }
         });
+
+        $('#searchText').on('keyup change', function () {                
+                table.search(this.value)
+                    .draw();
+            });
+
+        $('#selectRole').change(function(){
+                var role = this.value;
+                table.column(4).search(role)
+                    .draw();
+            });
+
         $( ".datepicker" ).datepicker();
     } );
 </script>

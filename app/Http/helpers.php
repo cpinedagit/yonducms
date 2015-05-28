@@ -185,3 +185,7 @@ function banner($id) {
     }
     return $banner;
 }
+function bellCounter()
+{
+    return \App\Models\cms\User::bellCounter();
+}

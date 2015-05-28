@@ -30,7 +30,7 @@
 
                    @endforeach
                 <span class="pull-right">
-                    <input type="text" class="form-control  main-container__content__info__search__option" placeholder="Search">
+                    <input type="text" class="form-control  main-container__content__info__search__option" placeholder="Search" id="searchText">
                     <input type="submit" class='btn btn-filter' value="Search">
                 </span>
              </div>
@@ -81,7 +81,7 @@
 </div>
  <script>
     $(document).ready(function() {
-        $('#example').DataTable({
+        var table = $('#example').DataTable({
             aaSorting: [0],
             bInfo: false,
             columnDefs: [
@@ -97,6 +97,12 @@
                 
             }
         });
+
+        $('#searchText').on('keyup change', function () {                
+                table.search(this.value)
+                    .draw();
+            });
+
         $( ".datepicker" ).datepicker();
     } );
 </script>

@@ -110,7 +110,10 @@ class PageController extends Controller {
         $pages = Page::preview($slug);
         
         $objMenu = Menu::ParentNavi();
+        $content= str_replace("[", "<?php echo ", $pages->content);
+        $content= str_replace("]", "?>", $content);
         $arData = array(
+            'content'=>$content,
             'pages' => $pages,
             'objMenu' => $objMenu
         );
