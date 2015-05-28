@@ -2,11 +2,11 @@
 
 //Module_Code appends code in String form to selected files in the framework.
 
+require_once('../../../config.php');
 
 class Module_Editor
 {
-	CONST MODULE_ROUTES = "Module_Routes.php";
-	CONST MODULE_CONTROLLERS = "Controllers/";
+	CONST MODULE_ROUTES = MODULES_HANDLER . "Module_Routes.php";
 
 	//Adds a route.
 	function addRoute($url, $controller, $method) {

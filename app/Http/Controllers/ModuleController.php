@@ -11,6 +11,8 @@ use Response;
 use Redirect;
 use Session;
 
+require_once('../../../config.php');
+
 class ModuleController extends Controller {
 
 	/**
@@ -138,7 +140,7 @@ class ModuleController extends Controller {
 
 			if($upload_success) {
 				
-				$response = include_once('app/Modules/Install_Module.php');
+				$response = include_once(MODULES_HANDLER . 'Install_Module.php');
 
 				
 				if($response) {
