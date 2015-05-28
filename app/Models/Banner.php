@@ -66,13 +66,18 @@ class Banner extends Model {
     public static function updateBanner($id) {
         $type = Input::get('type');
         $banner = Banner::find($id);
+        $curType = Input::get('curType');
         if ($type === null) {
             $banner->type = Input::get('curType');
         } else {
             $banner->type = Input::get('type');
         }
-        $banner->animation = Input::get('stTransition');
-        $banner->classes = Input::get('classes');
+        if ($type === 'Standard' || $curType === 'Standard') {
+            $banner->animation = Input::get('defaultAnimation');
+        } else {
+            $banner->animation = Input::get('stTransition');
+        }
+        $banner->animationTitle = Input::get('animationTitle');
         $banner->title = Input::get('name');
         $banner->save();
     }
@@ -99,12 +104,17 @@ class Banner extends Model {
     public static function getAllMainBanner() {
         return DB::table('banners')->where('title', '=', 'Main Banner')->get();
     }
-    
-    public static function getAllSubBanner(){
+
+    public static function getAllSubBanner() {
         return DB::table('banners')->where('title', '=', 'Sub Banner')->get();
     }
-    
-    public static function getCode($id){
+
+    public static function getCode($id) {
         return DB::table('banners')->where('id', '=', $id)->pluck('animation');
     }
+
+    public static function getAnimationTitle($id) {
+        return DB::table('banners')->where('id', '=', $id)->pluck('animationTitle');
+    }
+
 }

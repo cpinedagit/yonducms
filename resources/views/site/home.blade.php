@@ -4,6 +4,7 @@
         <title>{{ $APP_TITLE }}</title>
         @include('site.partials.meta')
         @include('site.partials.styles')
+        @include('site.partials.upperScripts')
     </head>
     <body id="nav-{!! menuLayout() !!}">          
         @include('site.partials.menu');

@@ -75,16 +75,19 @@ class BannerController extends Controller {
      * @return Response
      */
     public function edit($id) {
+     
         $this->regenerateMenuSession('cms.banners.index', 'cms.banners.index');
         $banners = Banner::edit($id);
         $currentImages = Banner::getImages($id);
         $bannerType = Banner::getBannerType($id);
         $bannerCurrentAnimation = Banner::getCode($id);
+        $AnimationTitle = Banner::getAnimationTitle($id);
         $arData = array(
             'banners' => $banners,
             'currentImages' => $currentImages,
             'type' => $bannerType,
-            'bannerCurrentAnimation' => $bannerCurrentAnimation
+            'bannerCurrentAnimation' => $bannerCurrentAnimation,
+            'AnimationTitle' => $AnimationTitle
         );
         return view('cms/Banners/edit', $arData);
     }
