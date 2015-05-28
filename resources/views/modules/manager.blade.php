@@ -28,10 +28,7 @@
 			</div></td>
 			<td><div>
 				Status				
-			</div></td>
-			<td><div>
-				BUTTON				
-			</div></td>
+			</div></td>			
 		</tr>
 		@foreach($data as $module)
         <tr>
@@ -43,9 +40,6 @@
 			@elseif(!$module->enabled)
 				 >										
 			@endif
-			</td>
-			<td>
-				<button type="button" data-switch-toggle="state" class="btn btn-default togglebutton">Toggle</button>
 			</td>
         </tr>
 		@endforeach
