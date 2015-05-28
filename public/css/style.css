@@ -1989,9 +1989,10 @@ table.table--noaction tr td:first-child{
 /*Dashboard*/
 
 /*APP Logo*/
-.app_logo_header
+img.app_logo_header
 {
-   max-height: 50px;
+   max-height: 34px;
+   vertical-align: bottom;
 }
 /*APP Logo*/
 

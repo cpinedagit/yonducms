@@ -198,6 +198,9 @@
     //Add active class 
     $('.nav-tabs').find('li').first().addClass('active');
     $('.tab-pane').first().addClass('active');
+
+    //Add dashboard to home
+    $('.breadcrumb').first().append("<li class='active'>Dashboard</li>");
   });
 </script>
 @endsection
