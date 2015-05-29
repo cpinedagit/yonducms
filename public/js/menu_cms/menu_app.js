@@ -7,7 +7,10 @@
 
 $(document).ready(function ()
 {
+    //run js script for editing menu
     functionReadyToEditMenu();
+    //run for checkbox activate button function
+    activateExtPageBtn();
 // add menu from pages
     $('#addPagestonavi').click(function () {
         var tagitem = document.getElementsByClassName('dd-item');
@@ -201,20 +204,22 @@ function saveMenuStructure() {
         }
     });
 }
-// checkbox type input from page management to menu management
-$('.checkbox input[type="checkbox"]').click(function (event) {
-    var checkedAtLeastOne = false;
-    $('.checkbox input[type="checkbox"]').each(function () {
-        if ($(this).is(":checked")) {
-            checkedAtLeastOne = true;
+// activate add external button if atleast 1 is checked
+function activateExtPageBtn() {
+    $('.checkbox input[type="checkbox"]').click(function (event) {
+        var checkedAtLeastOne = false;
+        $('.checkbox input[type="checkbox"]').each(function () {
+            if ($(this).is(":checked")) {
+                checkedAtLeastOne = true;
+            }
+        });
+        if (checkedAtLeastOne === true) {
+            $('#addPagestonavi').attr('disabled', false);
+        } else {
+            $('#addPagestonavi').attr('disabled', true);
         }
     });
-    if (checkedAtLeastOne === true) {
-        $('#addPagestonavi').attr('disabled', false);
-    } else {
-        $('#addPagestonavi').attr('disabled', true);
-    }
-});
+}
 
 // select all page data
 $('#selectUs').click(function (event) {
@@ -269,7 +274,7 @@ $("#livesearch-input").keyup(function () {
     var dataString = {'keyword': search_input, '_token': $('[name=_token').val()};
     var dataStringEmpty = {'keyword': '', '_token': $('[name=_token').val()};
     if (search_input.length === 0) {
-                //AJAX POST
+        //AJAX POST
         $.ajax({
             type: "POST",
             url: window.location + "/pagelivesearch",
@@ -284,6 +289,7 @@ $("#livesearch-input").keyup(function () {
 
                     $("#livesearch_result").append(pagehtml);
                 });
+                activateExtPageBtn();
             }
         });
     } else {
@@ -303,6 +309,7 @@ $("#livesearch-input").keyup(function () {
 
                     $("#livesearch_result").append(pagehtml);
                 });
+                activateExtPageBtn();
             }
         });
     }
