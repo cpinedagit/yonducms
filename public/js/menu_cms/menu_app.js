@@ -263,6 +263,38 @@ $('#external_label, #external_link').focusout(function () {
 });
 // end button
 
+// for real time search page list
+$("#livesearch-input").keyup(function () {
+    var search_input = $(this).val();
+    var dataString = {'keyword': search_input, '_token': $('[name=_token').val()};
+    if (search_input.length == 0) {
+        $("#livesearch_result").remove();
+    } else {
+        if ($("#livesearch_result").length === 0) {
+            $('<div class="checkbox" id="livesearch_result"></div>').appendTo('#page-table');
+        }
+
+    //AJAX POST
+    $.ajax({
+        type: "POST",
+        url: window.location + "/pagelivesearch",
+        data: dataString,
+        beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+        },
+        success: function (response) {
+            $("#livesearch_result").empty();
+            var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + response['title'] + "' data-page_id='" + response['id'] + "' data-label='" + response['title'] + "' data-url='" + response['slug'] + "'> " + response.title + "</label></li>";
+            
+            $("#livesearch_result").append(pagehtml);
+        }
+    });
+    }
+});
+// end search page list
+
+
+
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);
     $('#menu_label').attr('readonly', true);
