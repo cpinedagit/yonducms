@@ -138,9 +138,13 @@ class CmsMenuController extends Controller {
     function listPageSearch(Page $pages) {
         if (Request::ajax()) {
             $key = Request::get('keyword');
-            $objPage = $pages::where('title', 'like', '%'.$key.'%')->get();
-    
-            return Response::json(array('id' => $objPage[0]->id, 'title' => $objPage[0]->title, 'slug' => $objPage[0]->slug));
+            $conKey = ($key === '') ? '%%' : '%'. $key . '%';  
+            $objPage = $pages::where('title', 'like', $conKey)->get();
+            
+            foreach ($objPage as $valPage) {
+                $objArr[] = array('id' => $valPage->id, 'title' => $valPage->title, 'slug' => $valPage->slug);
+            }
+            return Response::json($objArr);
         }
     }
 
