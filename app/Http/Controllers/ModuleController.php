@@ -11,6 +11,9 @@ use Response;
 use Redirect;
 use Session;
 
+include_once('config.php');
+
+
 class ModuleController extends Controller {
 
 	/**
@@ -27,7 +30,6 @@ class ModuleController extends Controller {
 					->where('module_type', '=', '1')
 					->select('id', 'module_name', 'module_description', 'enabled', 'module_type')
 					->get();
-
 		return view('modules.manager')->with([
 				'modules' => count($moduleList),
 				'data' => (array) $moduleList
@@ -128,25 +130,29 @@ class ModuleController extends Controller {
 
 	public function upload()
 	{
+
 		$input = Request::all();
+
 		if( Input::hasFile('module') ) {
 			$file = Input::file('module');
 			$filename = "module.tar.gz";
-			$destinationPath = '../storage/modules/';
+			$destinationPath = 'storage/modules/';
+			
 			$upload_success = $file->move($destinationPath, $filename);
 			if($upload_success) {
-				$response = require_once('../app/Modules/Install_Module.php');
-				if($response) {
-					$message = "Module installed successfully.";
-				} else {
-					$message = "There was an error with your installation.";
+				try{
+					$response = require_once(app_path() . '/Modules/Install_Module.php');
+					$message = "Module installed.";
+				} catch (Exception $e) {
+					$message = $e->getMessage();
 				}
 			} else {
-				$message = "There was a problem with the file upload.";
+				$message = 'There was a problem uploading your file. Please try again or contact your System Administrator for assistance.';
 			}
 		} else {
 			$message = "No file selected for upload.";
 		}
+		//echo $message;
 		Session::flash("upload-message", $message);
 		return Redirect::to('modules');
 	}

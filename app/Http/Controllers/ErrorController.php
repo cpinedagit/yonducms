@@ -2,10 +2,12 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use DB;
 
-class ErrorController extends Controller {
+class SampleController extends Controller {
+
+	CONST MODULE = 'SampleModule';
 
 	/**
 	 * Display a listing of the resource.
@@ -14,7 +16,12 @@ class ErrorController extends Controller {
 	 */
 	public function index()
 	{
-		return view('errors.module-disabled');
+		if($this->checkModule()) {
+			return view('testmodule.main');	
+		} else {
+			return $this->moduleOff();
+		}
+		
 	}
 
 	/**
@@ -81,4 +88,16 @@ class ErrorController extends Controller {
 		//
 	}
 
+	private function checkModule() {
+		$results = DB::select('SELECT * FROM modules WHERE enabled = "1" AND module_name = ?', array(self::MODULE));
+		if(count($results) == 1) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	private function moduleOff() {
+		return view('errors.module-disabled');
+	}
 }

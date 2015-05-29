@@ -45,26 +45,24 @@ function strrevpos($instr, $needle) {
         return strlen($instr) - $rev_pos - strlen($needle);
 }
 
-function news_archive(){
-    $slug=Request::segment(2);
+function news_archive() {
+    $slug = Request::segment(2);
     $archive = \App\Models\Site\News::archive();
-    return View('site.news.archive_news')->with(array('slug'=>$slug,'archive'=>$archive))->render();
+    return View('site.news.archive_news')->with(array('slug' => $slug, 'archive' => $archive))->render();
 }
 
-function featured_news(){
-    $slug=Request::segment(2);
+function featured_news() {
+    $slug = Request::segment(2);
     $featured = \App\Models\Site\News::featured();
-    return View('site.news.featured_news')->with(array('slug'=>$slug,'featured_news'=>$featured))->render();
+    return View('site.news.featured_news')->with(array('slug' => $slug, 'featured_news' => $featured))->render();
 }
 
-function news_list(){
-    $slug=Request::segment(2);
+function news_list() {
+    $slug = Request::segment(2);
     $imagesPath = 'uploads/news_image/';
     $results = \App\Models\Site\News::list_all();
-    return View('site.news.index')->with(array('slug'=>$slug,'results'=>$results,'imagesPath'=>$imagesPath))->render();
+    return View('site.news.index')->with(array('slug' => $slug, 'results' => $results, 'imagesPath' => $imagesPath))->render();
 }
-
-
 
 // start line for menu management
 // menu management (admin)
@@ -132,7 +130,7 @@ function menuLayout() {
         foreach ($menuPositionCurrentSelect as $key) {
             return $key->position;
         }
-    }else{
+    } else {
         return 'top';
     }
 }
@@ -147,6 +145,7 @@ function banner($id) {
     $json = json_encode($code);
     $banner = "";
     if ($objBanner !== null) {
+        $banner .= HTML::style('public/slide/css/arrow.css');
         $banner .= HTML::script('public/slide/js/slideshow-transition-builder-controller.min.js');
         $banner .= "<div style='position: relative; width: 800px; height: 500px;margin-left:100px;' id='slider1_container'>
                     <div u = 'loading' style = 'position: absolute; top: 0px; left: 0px;'>
@@ -171,7 +170,20 @@ function banner($id) {
     }
     return $banner;
 }
+
+/*Get Bell Notification*/
 function bellCounter()
 {
     return \App\Models\cms\User::bellCounter();
 }
+/*Get Bell Notification*/
+
+/*Check if user can access the module*/
+function checkAccess($module_id)
+{
+    //Get user role
+    $role_id = \Auth()->user()->role_id;
+    //Check if user has an access
+    return \App\Models\Access::checkAccess($role_id, $module_id);   
+}
+/*Check if user can access the module*/

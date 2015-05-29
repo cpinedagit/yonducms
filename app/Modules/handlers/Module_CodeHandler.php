@@ -2,15 +2,12 @@
 
 //Module_Code appends code in String form to selected files in the framework.
 
-
+require_once('config.php');
+// define('MDLRTS', 'app/Modules/Module_Routes.php');
 class Module_CodeHandler
 {
-	CONST MODULE_ROUTES = "../app/Modules/Module_Routes.php";
-	// CONST MODULE_CONTROLLERS = "Controllers/";
 	CONST CUSTOM_CODE_INDEX = 'custom-appends';
 	CONST NEW_ROUTE_INDEX = 'routes-appends';
-	//
-	CONST ROOT_PATH = '../../';
 
 	function writeCode($jsonPath) {
 		//Check if the input file is a JSON file.
@@ -24,7 +21,7 @@ class Module_CodeHandler
 				if(is_array($jsonArray[self::CUSTOM_CODE_INDEX])) {
 					$codeArray = $jsonArray[self::CUSTOM_CODE_INDEX];
 					foreach($codeArray as $filepath => $code) {
-						$this->appendString(self::ROOT_PATH . $filepath, $code);
+						$this->appendString(base_path() . '/' . $filepath, $code);
 					}
 				} else { //WARNING: No custom code index in JSON file.
 				}
@@ -47,11 +44,13 @@ class Module_CodeHandler
 
 	//Adds a route.
 	private function addRoute($url, $controller, $method) {
+		$module_routes = app_path() . '/Modules/Module_Routes.php';
 		$routeString = "Route::get('" . $url . "', '" . $controller . "@" . $method . "');";
-		$this->appendString(self::MODULE_ROUTES, $routeString);
+		$this->appendString($module_routes, $routeString);
 	}
 
 	private function appendString($file, $string) {
+
 		$string = "\n" . $string . "\n";
 		try {
 			file_put_contents($file, $string, FILE_APPEND | LOCK_EX);

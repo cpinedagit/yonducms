@@ -3,6 +3,7 @@
 class Module_FileHandler 
 {
 	function copyDirectoryStructure($src, $dst) { 
+		// echo 'triggered';
 	    $dir = opendir($src);
 	    if(!file_exists($dst)) { mkdir($dst); }
 	    while(false !== ( $file = readdir($dir)) ) { 
@@ -21,4 +22,4 @@ class Module_FileHandler
 }
 
 //Diagnostic message:
-// echo "File transfer framework loaded.\n";
+//echo "File transfer framework loaded.\n";

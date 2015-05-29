@@ -22,6 +22,6 @@ abstract class Controller extends BaseController {
 	public function regenerateMenuSession($module, $submenu)
 	{
 		Session::put('module', $module);
-		Session::put('menu', $submenu);
+		Session::put('submenu', $submenu);
 	}
 }

@@ -45,11 +45,7 @@
         </table>
     </div>
 </div>
-<footer class='footer footer--fixed'>
-    <small class='copyright'>&copy; 2015 Yondu Website Service</small>
-</footer>
 </form>
-
 <script>
             function del(id){
 //            console.log($('meta[name="csrf-token"]').attr('content'));
