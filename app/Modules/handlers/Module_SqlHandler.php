@@ -41,8 +41,6 @@
 *
 \***************************************************************************/
 
-use DB;
-
 class Module_SqlHandler
 {
    //
@@ -239,7 +237,6 @@ class Module_SqlHandler
       set_time_limit ( 0 );
       //Open directory.
       $scriptlist = opendir($filepath);
-      echo $filepath;
       //Check each file in the directory...
       while( ( $file = readdir( $scriptlist ) ) !== FALSE ) {
          $fullpath = $filepath . '/' . $file;

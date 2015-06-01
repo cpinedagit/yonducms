@@ -16,6 +16,7 @@ class LoadConfiguration {
 	 */
 	public function bootstrap(Application $app)
 	{
+		error_reporting(0);
 		$items = [];
 
 		// First we will see if we have a cache configuration file. If we do, we'll load
@@ -38,7 +39,7 @@ class LoadConfiguration {
 			$this->loadConfigurationFiles($app, $config);
 		}
 
-		date_default_timezone_set($config['app.timezone']);
+	    date_default_timezone_set($config['app.timezone']);
 
 		mb_internal_encoding('UTF-8');
 	}
@@ -87,8 +88,7 @@ class LoadConfiguration {
 	private function getConfigurationNesting(SplFileInfo $file)
 	{
 		$directory = dirname($file->getRealPath());
-
-		if ($tree = trim(str_replace(config_path(), '', $directory), DIRECTORY_SEPARATOR))
+		if ($tree = trim(str_replace(str_replace('\\', '/', config_path()), '', str_replace('\\', '/', $directory)), DIRECTORY_SEPARATOR))
 		{
 			$tree = str_replace(DIRECTORY_SEPARATOR, '.', $tree).'.';
 		}

@@ -22,4 +22,7 @@ class Editor extends Model {
         return DB::table('editors')->where('parent_id','=','0')->get();
     }
 
+      public static function getAllParent(){
+        return DB::table('editors')->where('parent_id','=','0')->get();
+    }
 }

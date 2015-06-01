@@ -13,3 +13,10 @@
 
 <!-- for loading page display if ajax -->
 {!! HTML::style('public/css/loader.css') !!} 
+
+<!-- CodeMirror -->
+{!! HTML::style('public/css/codemirror/codemirror.css') !!} 
+{!! HTML::style('public/js/codemirror/addon/fold/foldgutter.css') !!} 
+{!! HTML::style('public/js/codemirror/addon/dialog/dialog.css') !!} 
+{!! HTML::style('public/css/codemirror/monokai.css') !!} 
+<!-- CodeMirror -->

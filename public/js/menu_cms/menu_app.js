@@ -7,7 +7,10 @@
 
 $(document).ready(function ()
 {
+    //run js script for editing menu
     functionReadyToEditMenu();
+    //run for checkbox activate button function
+    activateExtPageBtn();
 // add menu from pages
     $('#addPagestonavi').click(function () {
         var tagitem = document.getElementsByClassName('dd-item');
@@ -201,20 +204,22 @@ function saveMenuStructure() {
         }
     });
 }
-// checkbox type input from page management to menu management
-$('.checkbox input[type="checkbox"]').click(function (event) {
-    var checkedAtLeastOne = false;
-    $('.checkbox input[type="checkbox"]').each(function () {
-        if ($(this).is(":checked")) {
-            checkedAtLeastOne = true;
+// activate add external button if atleast 1 is checked
+function activateExtPageBtn() {
+    $('.checkbox input[type="checkbox"]').click(function (event) {
+        var checkedAtLeastOne = false;
+        $('.checkbox input[type="checkbox"]').each(function () {
+            if ($(this).is(":checked")) {
+                checkedAtLeastOne = true;
+            }
+        });
+        if (checkedAtLeastOne === true) {
+            $('#addPagestonavi').attr('disabled', false);
+        } else {
+            $('#addPagestonavi').attr('disabled', true);
         }
     });
-    if (checkedAtLeastOne === true) {
-        $('#addPagestonavi').attr('disabled', false);
-    } else {
-        $('#addPagestonavi').attr('disabled', true);
-    }
-});
+}
 
 // select all page data
 $('#selectUs').click(function (event) {
@@ -240,10 +245,14 @@ $('#menuposition').change(function () {
         data: {'idpos': posi_id, '_token': $('[name=_token').val()},
         success: function () {
             $(".loader-container").removeClass('show');
+            $(".alert-success").html('menu position is set to ' + $('#menuposition option:selected').text());
+            $(".alert-success").show();
+            $(".alert-success").delay(1500).fadeOut(400);
         },
         error: function () { // if error occured
             alert("Error: try again");
             $(".loader-container").removeClass('show');
+
 
         }
     });
@@ -262,6 +271,56 @@ $('#external_label, #external_link').focusout(function () {
     }
 });
 // end button
+
+// for real time search page list
+$("#livesearch-input").keyup(function () {
+    var search_input = $(this).val();
+    var dataString = {'keyword': search_input, '_token': $('[name=_token').val()};
+    var dataStringEmpty = {'keyword': '', '_token': $('[name=_token').val()};
+    if (search_input.length === 0) {
+        //AJAX POST
+        $.ajax({
+            type: "POST",
+            url: window.location + "/pagelivesearch",
+            data: dataStringEmpty,
+            beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+            },
+            success: function (response) {
+                $("#livesearch_result").empty();
+                $.each(response, function () {
+                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
+
+                    $("#livesearch_result").append(pagehtml);
+                });
+                activateExtPageBtn();
+            }
+        });
+    } else {
+
+        //AJAX POST
+        $.ajax({
+            type: "POST",
+            url: window.location + "/pagelivesearch",
+            data: dataString,
+            beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+            },
+            success: function (response) {
+                $("#livesearch_result").empty();
+                $.each(response, function () {
+                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
+
+                    $("#livesearch_result").append(pagehtml);
+                });
+                activateExtPageBtn();
+            }
+        });
+    }
+});
+// end search page list
+
+
 
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);

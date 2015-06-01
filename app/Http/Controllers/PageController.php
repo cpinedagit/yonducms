@@ -146,6 +146,7 @@ class PageController extends Controller {
 
     public function addPage() {
 //        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
+        $this->regenerateMenuSession('cms.pages.index', 'cms.pages.addPage');
         $Pages = Page::all();
         $arData = array(
             'pages' => $Pages

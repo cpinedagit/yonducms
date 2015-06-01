@@ -17,6 +17,7 @@
 		
 	@include('cms.partials.scripts')
 	
-	@yield('scripts')
+	@yield('scripts')	<!-- Scripts used for module management -->
+
 </body>
 </html>

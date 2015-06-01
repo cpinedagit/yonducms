@@ -142,7 +142,7 @@ return [
 		//News Feeds https://github.com/willvincent/feeds
 		'willvincent\Feeds\FeedsServiceProvider',
 		//Captcha Provider
-		 'Mews\Captcha\CaptchaServiceProvider',
+		'Mews\Captcha\CaptchaServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -207,13 +207,13 @@ return [
 		'Form'		=> 'Illuminate\Html\FormFacade',
 		'Html'		=> 'Illuminate\Html\HtmlFacade',
 		// Laravel Debugbar
-		'Debugbar' => 'Barryvdh\Debugbar\Facade',
+		'Debugbar'    => 'Barryvdh\Debugbar\Facade',
 		//News Feeds https://github.com/willvincent/feeds
-		'Feeds'    => 'willvincent\Feeds\Facades\Feeds',
+		'Feeds'       => 'willvincent\Feeds\Facades\Feeds',
 		//Captcha Provider
-		'Captcha' => 'Mews\Captcha\Facades\Captcha',
-		'Image' => 'Intervention\Image\Facades\Image',
-		'Helpers'   => 'App\Libraries\Helpers',
+		'Captcha'     => 'Mews\Captcha\Facades\Captcha',
+		'Image'       => 'Intervention\Image\Facades\Image',
+		'Helpers'     => 'App\Libraries\Helpers',
 		'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
 	],
 

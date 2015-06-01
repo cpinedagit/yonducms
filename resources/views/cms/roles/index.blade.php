@@ -60,6 +60,7 @@
                     		Inactive
                     	@endif
                     </td>
+                    @if(\Auth()->user()->role_id != $role->id)
                     <td class='action'>
                         <i class="fa fa-chevron-left"></i>
                         <ul class="list-unstyled action-list">
@@ -73,6 +74,11 @@
                             </li>
                         </ul>
                     </td>
+                    @else
+                    <td class='action'>
+                        Not allowed
+                    </td>
+                    @endif
                 </tr>
                 @endforeach                
             </tbody>

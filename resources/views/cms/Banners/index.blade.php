@@ -1,6 +1,7 @@
 @extends('cms.home')
 @section('title')
 <h2>Banner</h2>
+<a href="{!! URL::route('cms.Banners.add') !!}" class="btn btn-add">Add New</a>
 @stop
 @section('content')
 <!-- Add your site or application content here -->

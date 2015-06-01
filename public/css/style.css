@@ -2108,6 +2108,9 @@ ul.mtree.bubba li li li li li > a {
 
 
 
+.app_logo_header
+   max-height: 50px;
+   vertical-align: bottom;
 /*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */

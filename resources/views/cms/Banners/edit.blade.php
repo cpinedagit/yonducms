@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-sm-9">
                         <div class="form-group">
-                            {!! Form::label('name', 'Name:') !!} 
+                            {!! Form::label('name', 'Name *') !!} 
                             {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}
                             {!! Form::hidden('curType',$type) !!}
                             {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}  
@@ -33,11 +33,11 @@
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    {!! Form::label('type','Type:') !!}
+                                    {!! Form::label('type','Type *') !!}
                                     <select name ='type' class ='form-control Nform-control'>
                                         <option value="{{ $banners['type']}}" selected disabled>{{ $banners['type']}}</option>                                 
-                                        <option value="Standard">Standard</option>
-                                        <option value="Advanced">Advanced</option>
+                                        {!! $listtypebanner = ($banners['type'] == 'Standard')? 'Advanced' : 'Standard'; !!}
+                                        <option value="{{ $listtypebanner }}">{{$listtypebanner}}</option>
                                     </select>  
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                     <i class="fa fa-exclamation-circle"></i>
                     <small>File Type: JPG, GIF, PNG <br>
                         Maximum File Size: 2MB <br>
-                        Recommended dimension: 1140 x 442
+                        Recommended size: 1140 x 442
                     </small>
                 </div>
                 <div class="upload-image-container">

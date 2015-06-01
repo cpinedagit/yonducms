@@ -123,21 +123,6 @@ function parentCssElement($arrVal, $element) {
     }
 }
 
-function optionsMenuPosition() {
-    $menuPositionObj = \App\Models\MenuPosition::menuPositions();
-    $htmlmenuposition = "";
-
-    if ($menuPositionObj) {
-        $htmlmenuposition .= '<select name="menuposition" id="menuposition">';
-        foreach ($menuPositionObj as $menuPosition) {
-            $isSelected = ($menuPosition->is_selected == 1) ? 'selected' : '';
-            $htmlmenuposition .= '<option value="' . $menuPosition->id . '" ' . $isSelected . '>' . $menuPosition->position . '</option>';
-        }
-        $htmlmenuposition .= '</select>';
-        return $htmlmenuposition;
-    }
-}
-
 function menuLayout() {
     $menuPositionCurrentSelect = \App\Models\MenuPosition::menuSelectedPosition();
 
@@ -191,6 +176,7 @@ function banner($id) {
     return $banner;
 }
 
+/*Get Bell Notification*/
 function bellCounter() {
     return \App\Models\cms\User::bellCounter();
 }
@@ -199,3 +185,14 @@ function children($id)
 {
     return \App\Models\Editor::getChildFolder($id);
 }
+/*Get Bell Notification*/
+
+/*Check if user can access the module*/
+function checkAccess($module_id)
+{
+    //Get user role
+    $role_id = \Auth()->user()->role_id;
+    //Check if user has an access
+    return \App\Models\Access::checkAccess($role_id, $module_id);   
+}
+/*Check if user can access the module*/
