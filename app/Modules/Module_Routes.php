@@ -9,3 +9,5 @@
 Route::get('samplemodule', 'SampleController@index');
 
 Route::get('samplemodule', 'SampleController@index');
+
+Route::get('samplemodule', 'SampleController@index');

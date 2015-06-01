@@ -36,6 +36,9 @@
                         <li role="presentation">
                             <a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a>
                         </li>
+                        <li role="presentation">
+                            <a href="#cleanup" aria-controls="cleanup" role="tab" data-toggle="tab">Clean Up</a>
+                        </li>                        
                       </ul>
                       <!-- Tab panes -->
                       <div class="tab-content tab-content--settings">
@@ -93,7 +96,7 @@
                                       {!! Form::text('MAIL_PORT', str_replace('MAIL_PORT=', '', $env[17]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Enter Mail Port', 'data-parsley-type'=>'integer'] ) !!}
                                     </div>
                                 </div>
-								      <div class="form-group">
+								                <div class="form-group">
                                     <label for="mail-port" class="col-sm-2 control-label">Mail Username</label>
                                     <div class="col-sm-10">
                                      {!! Form::text('MAIL_USERNAME', str_replace('MAIL_USERNAME=', '', $env[18]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'placeholder'=>'Mail Username', 'data-parsley-type'=>'email'] ) !!}
@@ -165,6 +168,13 @@
                                 </div>
 
                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="cleanup">
+                          <div class="form-horizontal form-horizontal--settings">
+                                <div class="form-group">
+                                  <h3>Clear all data from database?</h3>
+                                </div>
+                          </div>
                         </div>
                       </div>
                                   
