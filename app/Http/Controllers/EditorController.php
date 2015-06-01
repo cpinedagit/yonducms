@@ -10,7 +10,6 @@ use Input;
 use Request;
 use Cache;
 
-
 class EditorController extends Controller {
 
     /**
@@ -20,26 +19,12 @@ class EditorController extends Controller {
      */
     public function index() {
         $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
-        $jsPath = 'public/site/js';
-        $cssPath = 'public/site/css';
-        $sitePath = 'resources/views/site';
-        $jsFiles = File::files($jsPath);
-        $cssFiles = File::files($cssPath);
-        $siteFiles = File::files($sitePath);
-        $jsDir = File::directories('public/site/js');
-        $cssDir = File::directories('public/site/css');
-        $directories = File::directories('resources/views/site');
-        $paths = Editor::getAllPath();
+        $parents = Editor::getAllParent();
+
         $arData = array(
-            'cssFiles' => $cssFiles,
-            'jsFiles' => $jsFiles,
-            'siteFiles' => $siteFiles,
-            'jsDirectories' => $jsDir,
-            'cssDirectories' => $cssDir,
-            'directories' => $directories,
-            'paths' => $paths
+            'parents' => $parents
         );
-        return View('cms/Editors.index', $arData);
+        return view('cms.Editors.index', $arData);
     }
 
     public function folder() {
@@ -106,8 +91,10 @@ class EditorController extends Controller {
         unlink($file);
         Cache::flush();
         if (file_put_contents($file, $content, FILE_APPEND)) {
+            Cache::flush();
             return redirect('cms/editor');
         }
+        Cache::flush();
     }
 
     public function addFile() {
@@ -115,9 +102,10 @@ class EditorController extends Controller {
 //        
 //        $file= Input::file('file');
 //        dd($file->getClientOriginalName());
-        
+
         $file = Input::file('file');
-        $path = Input::get('path');        
+        $path = Input::get('path');
+        dd(Input::all());
         if ($file) {
             $filename = $file->getClientOriginalName();
 //            $extension = $file->getClientOriginalExtension();            
@@ -128,22 +116,23 @@ class EditorController extends Controller {
 //            } else {
 //                $file->move('resources/views/site', $filename);
 //            }
-            $file->move($path,$filename);
+            $file->move($path, $filename);
+            return Response::json('ok');
         } else {
-            return redirect('cms/editor');
+            return false;
         }
-        return redirect('cms/editor');
     }
-    
-    public function addFolder(){
-        $name = Request::get('name');
-        $path = Request::get('path');    
-        $parent = Request::get('parent');
+
+    public function addFolder() {
+        $name = Input::get('foldername');
+        $path = Input::get('path');
+        $parent = Input::get('parent');
         $editor = new Editor;
-        $editor->name = $parent.'/'.$name;
-        $editor->path = $path.'/'.$name;
+        $editor->name = $name;
+        $editor->path = $path . '/' . $name;
+        $editor->parent_id = $parent;
         $editor->save();
-        $result = File::makeDirectory($path.'/'.$name);
+        $result = File::makeDirectory($path . '/' . $name);
         return Response::json('ok');
     }
 

@@ -13,6 +13,7 @@
 @endif
 <div class='main-container__content__info'>
     <div class="row">
+    
         <div class="col-sm-8">
             <div class="panel panel-default panel--dashboard panel--dashboard--newsfeeds">
               <div class="panel-heading"><h4>News Feeds</h4></div>

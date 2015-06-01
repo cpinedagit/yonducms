@@ -23,8 +23,25 @@
 	{!! HTML::script('public/js/main.js') !!}
 	{!! HTML::script('public/js/menu_cms/jquery.nestable.js') !!}
 	{!! HTML::script('public/js/menu_cms/menu_app.js') !!}
+	
+	<!-- CodeMirror -->
+	{!! HTML::script('public/js/codemirror/lib/codemirror.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/search/searchcursor.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/search/search.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/dialog/dialog.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/edit/matchbrackets.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/edit/closebrackets.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/comment/comment.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/wrap/hardwrap.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/fold/foldcode.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/fold/brace-fold.js'); !!}
+	{!! HTML::script('public/js/codemirror/addon/fold/foldcode.js'); !!}
+	{!! HTML::script('public/js/codemirror/mode/javascript/javascript.js'); !!}
+	{!! HTML::script('public/js/codemirror/keymap/sublime.js'); !!}
+	<!-- CodeMirror -->
 
 <script>
+
 	$(document).ready(function() {
 		$('.datepicker').datepicker();
 	})
