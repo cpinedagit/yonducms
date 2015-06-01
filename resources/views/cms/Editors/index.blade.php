@@ -27,8 +27,6 @@
                         <option value ="{{ $parent->id }}">{!! $parent->name !!}</option>
                         @endforeach
                     </select>
-
-
                     @foreach($parents as $parent)
                     <select name="path_{{$parent->id}}" id="{{ $parent->id }}" class="form-control folder-drop">
                         <option value="{{ $parent->path }}">root/</option>
@@ -43,7 +41,8 @@
                     <input type="submit" class="btn btn-add center-block folder-drop" id="add-file" value="Upload File">
                 </div>
                 {!! Form::close() !!}
-                @foreach($parents as $parent)                <ul class=mtree>
+                @foreach($parents as $parent)
+                <ul class=mtree>
                     <li class="has-submenu" data-folder='js'>
                         <a href="#">{{ $parent->name}} </a>
                         <button type="button" class="btn fa fa-plus pull-right btn-add-folder" data-path ='{{ $parent->path }}' data-parent='{{$parent->id}}' data-toggle="modal" data-target="#add-folder"></button>
@@ -76,10 +75,10 @@
                 </ul>
                 @endforeach
             </div>
-                @endforeach
+        </div>   
     </div>
-                        <a href='#' class="b" id ='{!! $siteFiles !!}'>{!! File::name($siteFiles) !!}.{!! File::extension($siteFiles) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
+    <!-- MODAL -->
+    {!! Form::open(array('id' => 'addFolderForm')) !!}
     <div class="modal fade" id="add-folder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content modal-content--changepassword">
@@ -87,31 +86,33 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
                 </div>
-                    @endforeach
-        <div class="modal-dialog">
-            <div class="modal-content modal-content--changepassword">
-                <div class="modal-header modal-header--changepassword">
-                    <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
-                </div>
+                <div class="modal-body modal-body--changepassword">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#addFolder" aria-controls="addFolder" role="tab" data-toggle="tab">Add Folder</a></li>
+                        <li role="presentation"><a href="#addFile" aria-controls="profile" role="tab" data-toggle="tab">Upload file</a></li>
+                    </ul>
                     <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="addFolder">
                             <div class="form-group">
                                 <label for="folder-name" class='form-title'>Folder Name</label>
                                 <input name ='foldername' type="text" class="form-control" id="folder-name" placeholder="Enter folder name">
                                 {!! Form::hidden('path',null,['id' => 'dataPath']) !!}
                                 {!! Form::hidden('parent',null,['id' => 'dataParent']) !!}
                                 <button type="button" class="btn btn-add center-block" id='add-folder-action'>Add</button>
-            </div>
-        </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="addFile">
                             <div class="form-group">
                                 {!! Form::file('') !!}
                                 {!! Form::text('path') !!}
-    </div>   
+                                <button type="button" class="btn btn-add center-block" id='add-folder-action'>Upload File</button>
+                            </div>
                         </div>
-</div>
-{!! Form::open(array('action' => 'EditorController@addFile','files' => 'true', 'method' => 'post')) !!}
-<select name ="path" style ="margin-left:700px;margin-top:20px;width:300px;" class="form-control">
+                    </div>
+                </div>                   
+            </div>
         </div>
-</select>
+    </div>
     {!! Form::close() !!} 
 </div>
 <script>
