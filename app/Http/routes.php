@@ -85,6 +85,7 @@ Route::post('cms/menu/addexternallink', ['as' => 'addexternallink', 'uses' => 'C
 Route::post('cms/menu/deletemenu', ['as' => 'deletemenu', 'uses' => 'CMS\CmsMenuController@deleteMenu']);
 Route::post('cms/menu/updatemenu', ['as' => 'updatemenu', 'uses' => 'CMS\CmsMenuController@updatemenu']);
 Route::post('cms/menu/setmenupos', ['as' => 'setmenupos', 'uses' => 'CMS\CmsMenuController@setMenuPosition']);
+Route::post('cms/menu/pagelivesearch', ['as' => 'pagelivesearch', 'uses' => 'CMS\CmsMenuController@listPageSearch']);
 Route::resource('cms/menu', 'CMS\CmsMenuController',  ['middleware'=>'is.allowed']);
 // end  
 

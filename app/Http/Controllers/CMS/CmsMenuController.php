@@ -41,9 +41,11 @@ class CmsMenuController extends Controller {
         $this->regenerateMenuSession('cms.menu.index', 'cms.menu.index');
         $objMenu = Menu::ParentNavi();
         $objPage = Page::all();
+        $objMenuPosition = MenuPosition::menuPositions();
         $objData = [
             'objMenu' => $objMenu,
             'objPage' => $objPage,
+            'objMenuPosition' => $objMenuPosition,
         ];
         return view('cms.menu.index', $objData);
     }
@@ -56,7 +58,7 @@ class CmsMenuController extends Controller {
 
         $menu_name_update = Menu::find($id);
         $menu_name_update->label = $label;
-        // if external link, do edit for external_link field, if not page management is the origin of provided url
+        // if external link, do edit for external_link field. if not, do edit in page management
         if ($menu_name_update->page_id == 0) {
             $menu_name_update->external_link = $menu_link;
         }
@@ -104,7 +106,7 @@ class CmsMenuController extends Controller {
         }
     }
 
-    // menu add to menu management table
+    // external link add to menu management table
     function addLinktoMenu(Menu $link_menu) {
         if (Request::ajax()) {
             $link_menu->label = Request::get('label');
@@ -129,6 +131,20 @@ class CmsMenuController extends Controller {
             $newMenupositionSelect = $menuPosition->find($menuPosId);
             $newMenupositionSelect->is_selected = 1;
             $newMenupositionSelect->save();
+        }
+    }
+
+    // search function for page table
+    function listPageSearch(Page $pages) {
+        if (Request::ajax()) {
+            $key = Request::get('keyword');
+            $conKey = ($key === '') ? '%%' : '%'. $key . '%';  
+            $objPage = $pages::where('title', 'like', $conKey)->get();
+            
+            foreach ($objPage as $valPage) {
+                $objArr[] = array('id' => $valPage->id, 'title' => $valPage->title, 'slug' => $valPage->slug);
+            }
+            return Response::json($objArr);
         }
     }
 

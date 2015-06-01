@@ -123,21 +123,6 @@ function parentCssElement($arrVal, $element) {
     }
 }
 
-function optionsMenuPosition() {
-    $menuPositionObj = \App\Models\MenuPosition::menuPositions();
-    $htmlmenuposition = "";
-
-    if ($menuPositionObj) {
-        $htmlmenuposition .= '<select name="menuposition" id="menuposition">';
-        foreach ($menuPositionObj as $menuPosition) {
-            $isSelected = ($menuPosition->is_selected == 1) ? 'selected' : '';
-            $htmlmenuposition .= '<option value="' . $menuPosition->id . '" ' . $isSelected . '>' . $menuPosition->position . '</option>';
-        }
-        $htmlmenuposition .= '</select>';
-        return $htmlmenuposition;
-    }
-}
-
 function menuLayout() {
     $menuPositionCurrentSelect = \App\Models\MenuPosition::menuSelectedPosition();
 
