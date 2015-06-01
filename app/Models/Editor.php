@@ -18,7 +18,8 @@ class Editor extends Model {
         return DB::table('editors')->where('parent_id','=',$id)->get();
     }
     
-    public static function getAllPath(){
-        return DB::table('editors')->orderBy('name', 'asc')->get();
+    public static function getAllParent(){
+        return DB::table('editors')->where('parent_id','=','0')->get();
     }
+
 }

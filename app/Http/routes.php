@@ -113,7 +113,7 @@ Route::resource('site/news','Site\NewsController');
 Route::get('cms/editor/addFolder','EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
-Route::post('cms/editor/addFile', 'EditorController@addFile');
+Route::post('cms/editor/addEditorFile', ['as' => 'addEditorFile', 'uses' => 'EditorController@addFile']);
 Route::resource('cms/editor', 'EditorController');
 
 //These route are for Banner Management

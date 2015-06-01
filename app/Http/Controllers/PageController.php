@@ -56,7 +56,7 @@ class PageController extends Controller {
         $page->content = $content;
         $page->title = Input::get('title');
         $slug = Input::get('slug');
-        $page->slug = str_replace(array("/",' '), "_", $slug);
+        $page->slug = str_replace(array("/", ' '), "_", $slug);
         $page->parent_id = Input::get('parent');
         $publish = Input::get('publish');
         if (isset($publish)) {
@@ -91,9 +91,9 @@ class PageController extends Controller {
 //            $arrays[] = (array) $banner;
 //        }
         $pages = Page::edit($id);
-        $banners = Page::getAllBanners();        
+        $banners = Page::getAllBanners();
         $getParentId = Page::where('id', '=', $id)->pluck('parent_id');
-        $getAllPages = DB::table('pages')->whereNotIn('id',array($getParentId,$id))->get();
+        $getAllPages = DB::table('pages')->whereNotIn('id', array($getParentId, $id))->get();
         $getParent = Page::where('id', '=', $getParentId)
                 ->pluck('title');
         $arData = array(
@@ -108,17 +108,19 @@ class PageController extends Controller {
 
     public function preview($slug) {
         $pages = Page::preview($slug);
-        
-        $objMenu = Menu::ParentNavi();
-        $content= str_replace("[", "<?php echo ", $pages->content);
-        $content= str_replace("]", "?>", $content);
-        $arData = array(
-            'content'=>$content,
-            'pages' => $pages,
-            'objMenu' => $objMenu
-        );
-        return view('site/Pages/index', $arData);
-        
+        if (count($pages) > 0) {
+            $objMenu = Menu::ParentNavi();
+            $content = str_replace("[", "<?php echo ", $pages->content);
+            $content = str_replace("]", "?>", $content);
+            $arData = array(
+                'content' => $content,
+                'pages' => $pages,
+                'objMenu' => $objMenu
+            );
+            return view('site/Pages/index', $arData);
+        } else {
+            return view('site/Pages/404');
+        }
     }
 
     /**
