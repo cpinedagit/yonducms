@@ -134,7 +134,7 @@ class CmsMenuController extends Controller {
         }
     }
 
-    // update selected position id
+    // search function for page table
     function listPageSearch(Page $pages) {
         if (Request::ajax()) {
             $key = Request::get('keyword');

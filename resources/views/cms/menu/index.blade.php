@@ -10,8 +10,13 @@
 
 <div class='main-container__content__info'>
 
-    <div class="row">
+    <div class="row">            
+
         <div class="col-sm-6">
+            <div class="alert alert-success" role="alert"  style="display: none"></div>
+            <div class="alert alert-info" role="alert" style="display: none"></div>
+            <div class="alert alert-warning" role="alert" style="display: none"></div>
+            <div class="alert alert-danger" role="alert" style="display: none"></div>
             <div class="panel panel-default panel--custom">
                 <div class="panel-heading"><h4>Menu Structure</h4></div>
                 <div class="panel-body">
@@ -22,11 +27,11 @@
                         <div class="form-group">
                             <label for="position-nav">Select Position of Navigaiton</label>
                             <select class="form-control"  name="menuposition" id="menuposition">
-                               @if(isset($objMenuPosition))
-                               @foreach($objMenuPosition as $objmenupos)
-                                    <option value="{{ $objmenupos->id}}" {{ ($objmenupos->is_selected == 1) ? 'selected' : '' }}>{{ $objmenupos->position }}</option>
-                               @endforeach
-                               @endif
+                                @if(isset($objMenuPosition))
+                                @foreach($objMenuPosition as $objmenupos)
+                                <option value="{{ $objmenupos->id}}" {{ ($objmenupos->is_selected == 1) ? 'selected' : '' }}>{{ $objmenupos->position }}</option>
+                                @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>

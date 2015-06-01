@@ -245,10 +245,14 @@ $('#menuposition').change(function () {
         data: {'idpos': posi_id, '_token': $('[name=_token').val()},
         success: function () {
             $(".loader-container").removeClass('show');
+            $(".alert-success").html('menu position is set to ' + $('#menuposition option:selected').text());
+            $(".alert-success").show();
+            $(".alert-success").delay(1500).fadeOut(400);
         },
         error: function () { // if error occured
             alert("Error: try again");
             $(".loader-container").removeClass('show');
+
 
         }
     });
