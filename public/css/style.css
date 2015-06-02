@@ -899,7 +899,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;
@@ -1617,6 +1617,11 @@ table.table--noaction tr td:first-child{
     padding:25px 15px!important;
     background: none;
 }
+
+.media-details-intro{
+    font-weight: 100;
+}
+
 .modal-body__media--usermngt .tab-footer{
     border-top: 1px solid #ddd;
     background: none;
@@ -1724,7 +1729,7 @@ table.table--noaction tr td:first-child{
     border-left: 10px solid #e45c5b;
 }
 .media-list-dashboard > li .media-object{
-    width: 170px;
+    /*width: 170px;*/
 }
 .media-list-dashboard  .media-body .media-heading{
     color: #333333;
@@ -2172,6 +2177,10 @@ ul.mtree.bubba li li li li li > a {
 .dash-board-feeds{
     margin-left: 16%;
     margin-top: -7%;
+}
+
+.rss-feeds-body{
+    width: 100%;
 }
 
 #APP_LOGO_img{

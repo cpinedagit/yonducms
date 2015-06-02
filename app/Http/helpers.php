@@ -187,6 +187,14 @@ function children($id)
 }
 /*Get Bell Notification*/
 
+
+// List of users that request for password reset
+function notification_lists()
+{
+    return $users = \App\Models\cms\User::usersThatRequestForPasswordReset();
+}
+// List of users that request for password reset
+
 /*Check if user can access the module*/
 function checkAccess($module_id)
 {
