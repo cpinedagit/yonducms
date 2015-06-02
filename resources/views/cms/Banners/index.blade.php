@@ -18,10 +18,19 @@
                 <strong>Sub Banner</strong> ({{ $getAllSubBannerCount }})
             </span>
         </div>
-        <table id="example" class="table table-striped table--data table--lastaction">
+        
+        <div class="main-container__content__info__filter">
+            <select name="" id="" class="form-control">
+                <option value="" disabled selected>Choose Action</option>
+                <option value="">Delete</option>
+            </select>
+            <input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
+        </div>
+
+        <table id="example" class="superTable table table-striped table--data table--lastaction ">
             <thead>
                 <tr>
-                    <th> ID</th>
+                    <th><input type="checkbox" id='selecctall'></th>
                     <th> Title</th>
                     <th> Type</th>
                     <th>Action</th>
@@ -30,14 +39,14 @@
             <tbody>
                 @foreach($banners as $banner)
                 <tr>
-                    <td>{!! $banner->id !!}</td>
+                    <td><input type="checkbox" name="cbox" id="{!! $banner->id !!}"></td>
                     <td> {!! $banner->title !!}</td>
                     <td> {!! $banner->type !!}</td>
                     <td class='action'>
                         <i class="fa fa-chevron-left"></i>
                         <ul class="list-unstyled action-list">
                             <li><a href="banners/{{ $banner->id }}/edit" class="edit" id = "">edit</a></li>
-                            <li><a href ="#" onclick ="del({{ $banner->id }})">del</a></li>
+                            <li><a href ="#" onclick ="del({{ $banner->id }})">delete</a></li>
                         </ul>
                     </td>
                 </tr>

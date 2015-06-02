@@ -382,9 +382,10 @@ $('#add-folder-action').click(function(){
     
     var list = $("<li>", { class: "has-submenu mtree-node mtree-closed","data-folder":folder_name});
     var anchor=$('<a>',{href:"#"}).html(folder_name);
+    var button = $('<button>',{type:'button',class:'btn fa fa-plus pull-right btn-add-folder',"data-toggle":'modal',"data-target":'#add-folder'})
     var option=$('<option>',{value:folder_name}).html(folder_name);
     
-    $(list).append($(anchor));
+    $(list).append($(anchor),$(button));
     $(parentbutton).siblings('ul').append($(list));
     $('select#'+parent_folder).append($(option));
     $('#add-folder').modal('hide');
