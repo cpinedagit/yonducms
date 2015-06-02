@@ -105,7 +105,6 @@ class EditorController extends Controller {
 
         $file = Input::file('file');
         $path = Input::get('path');
-        dd(Input::all());
         if ($file) {
             $filename = $file->getClientOriginalName();
 //            $extension = $file->getClientOriginalExtension();            
@@ -117,9 +116,9 @@ class EditorController extends Controller {
 //                $file->move('resources/views/site', $filename);
 //            }
             $file->move($path, $filename);
-            return Response::json('ok');
+            return redirect('cms/editor');
         } else {
-            return false;
+            return redirect('cms/editor');
         }
     }
 

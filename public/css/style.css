@@ -389,6 +389,7 @@ a:focus{
     height: 100%;
     line-height: 45px;
     margin-right: 35px;
+    text-align: center;
 }
 .header__logo > img{
     max-width: 100%;
@@ -1635,12 +1636,21 @@ table.table--noaction tr td:first-child{
     padding-bottom: 15px;
 }
 .editaccesscontrol__content{
-    background: #f2f2f2;
+    /*background: #f2f2f2;
+    padding: 10px 15px;*/
+    
+    
+      background: #f2f2f2;
 }
 .editaccesscontrol__title-holder{
     background: #d7d7d7;
 }
 .editaccesscontrol__title{
+    /*padding: 10px 15px;
+    margin-bottom: 0;
+    color: #888888;*/
+    
+    
     padding: 10px 15px;
     margin-bottom: 0;
     color: #888888;
@@ -1652,17 +1662,29 @@ table.table--noaction tr td:first-child{
     border-right: 40px solid #fff;
 }
 .editaccesscontrol__content__modules-list > li{
+    /*margin: 10px 0;
     color: #a0a0a0;
-    margin-bottom: -7px;
-    position: relative;
+    overflow-wrap:break-word;*/
+    
+    
+     
+  color: #a0a0a0;
+  margin-bottom: -7px;
+  position: relative;
 }
 .editaccesscontrol__content__modules-list > li > label{
-    width: 50%;
+   /* width: 100%;
     font-weight: normal;
-    text-transform: capitalize;
-    margin-bottom: 0;
-    padding: 15px 0 15px 15px;
-    border-right: 40px solid #fff;
+    text-transform: capitalize;*/
+    
+    
+   
+  width: 50%;
+  font-weight: normal;
+  text-transform: capitalize;
+  margin-bottom: 0;
+  padding: 15px 0 15px 15px;
+  border-right: 40px solid #fff;
 }
 .editaccesscontrol__content__modules-list > li > label > span{
     float: left;
@@ -1810,6 +1832,7 @@ ul.mtree ul {
   margin-left: 1em;
 }
 ul.mtree li {
+  position: relative;
   list-style: none;
 }
 ul.mtree li a:before{
@@ -2108,9 +2131,76 @@ ul.mtree.bubba li li li li li > a {
 
 
 
+/********* CAPTCHA ***************/
+.login-holder-form__captcha > div{
+    float: left;
+}
+.login-holder-form__captcha > #capthca-img{
+    width: 60%;
+    text-align: center;
+}
+.login-holder-form__captcha > .glyphicon-refresh{
+    color: #fff;
+    margin-left: 20px;
+    margin-top: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/********* CAPTCHA ***************/
+
+/*General Settings*/
+#APP_LOGO_selector
+{
+    width: 100%;
+}
+
+#APP_FAVICON_selector
+{
+    width: 100%;
+    margin-left: 19%;
+}
+
+.APP_FavIconDiv
+{
+  width: 100%;
+  margin-left: 24%;
+}
+
+#APP_Favicon
+{
+    max-height: 21px;
+}
+
+.APP_LOGO_container
+{
+    width: 520px;
+    background-color: #293542;
+    margin-bottom: 5%;
+}
+/*General Settings*/
+
+/*Dashboard*/
+.dash-board-feeds{
+    margin-left: 16%;
+    margin-top: -7%;
+}
+
+#APP_LOGO_img{
+    height: 88px;
+    position: inherit;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*Dashboard*/
+
+/*APP Logo*/
 .app_logo_header
+{
    max-height: 50px;
-   vertical-align: bottom;
+}
+/*APP Logo*/
+
 /*==========  Non-Mobile First Method  ==========*/
 
     /* Large Devices, Wide Screens */
