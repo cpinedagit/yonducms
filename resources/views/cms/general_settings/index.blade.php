@@ -7,7 +7,7 @@
 @section('content')
 @if((Session::has('message')))
   <!-- Flash Update Your Password Message -->
-      <div class="alert alert-danger" role="alert">{{ Session::get('message') }}</div>
+      <div class="alert alert-success" role="alert">{{ Session::get('message') }} <div class="glyphicon glyphicon-remove" id="close-symbol"> </div> </div>
   <!-- Flash Update Your Password Message -->
 @endif
 
@@ -198,6 +198,11 @@
 			$('#GeneralSettingsForm').submit();
 		}
 	});
+
+  //Close message alert when click close
+  $('#close-symbol').on('click', function(){
+    $('.alert-success').toggle();
+  });
 
 </script>
 @endsection

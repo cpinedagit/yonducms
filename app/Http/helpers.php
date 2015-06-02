@@ -145,6 +145,8 @@ function banner($id) {
     $json = json_encode($code);
     $banner = "";
     if ($objBanner !== null) {
+        $banner .= HTML::script('public/slide/js/jssor.slider.min.js');
+        $banner .= HTML::script('public/slide/js/jssor.js');
         $banner .= HTML::style('public/slide/css/arrow.css');
         $banner .= HTML::script('public/slide/js/slideshow-transition-builder-controller.min.js');
         $banner .= "<div style='position: relative; width: 800px; height: 500px;margin-left:100px;' id='slider1_container'>
@@ -152,7 +154,11 @@ function banner($id) {
                     <div style='filter: alpha(opacity=70); opacity:.7; position: absolute; display: block; background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;'></div>
                     <div style = 'position: absolute; display: block; background: url(../public/slide/img/loading.gif) no-repeat center center;top: 0px; left: 0px;width: 100%;height:100%;'></div>
                     </div>
-                    <div u = 'slides' style = 'cursor: move; position: absolute; width: 900px; height: 400px;top:0px;left:0px;overflow:hidden;'>";
+                    <div u = 'slides' style = 'cursor: move; position: absolute; width: 900px; height: 400px;top:0px;left:0px;overflow:hidden;'>
+                    
+
+
+";
 
         foreach ($objBanner as $obj) {
             $banner .= "<div>";
@@ -164,17 +170,20 @@ function banner($id) {
         $banner .= "<select id = 'ssTransition' style = 'width: 833px; height: 25px;visibility:hidden' name = 'ssTransition'></select>";
         $banner .= "<button id = 'sButtonPlay' style = 'width: 833px; height: 25px;visibility:hidden' name = 'sButtonPlay'></button>";
         $banner .= "<input id = 'stTransition' type = 'hidden' style = 'width: 833px; height: 25px;' name = 'stTransition'>";
-        $banner .= "<script>code = $json; ";
-        $banner .= " </script>";
+        $banner .= "<script>code = $json; </script> ";
         $banner .= HTML::script('public/slide/mySlide.js');
     }
     return $banner;
 }
 
 /*Get Bell Notification*/
-function bellCounter()
-{
+function bellCounter() {
     return \App\Models\cms\User::bellCounter();
+}
+
+function children($id)
+{
+    return \App\Models\Editor::getChildFolder($id);
 }
 /*Get Bell Notification*/
 

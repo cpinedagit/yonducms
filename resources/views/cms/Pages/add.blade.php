@@ -18,9 +18,9 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="page-title" class='form-title'>Mother Page *</label>
+                        <label for="page-title" class='form-title'>Parent Page</label>
                         <select name="parent" id="" class="form-control">
-                            <option value="" disabled selected>Choose</option>
+                            <option value="0" selected>Choose</option>
                             @foreach($pages as $page)
                             <option value="{!! $page->id !!}">{!! $page->title !!}</option>
                             @endforeach

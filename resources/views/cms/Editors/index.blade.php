@@ -3,198 +3,221 @@
 <h2>Editor</h2>
 @stop
 @section('content')
-<div class="row">
-    <div class="col-sm-9">
-        <div class="form-group">
-            {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <textarea id='textarea' class="form-control editor-textarea" name="content" cols="100" rows="30"></textarea>
-            <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
-            <input id ='update' class="btn btn-add" type ="submit" value = "update file" class = "btn btn-success">
-            {!! Form::close() !!}
+ <div class="alert alert-success hidden" role="alert">File has been saved. <div class="glyphicon glyphicon-remove" id="close-symbol"> </div> </div>
+
+<div class='main-container__content__info'>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="form-group">
+                <label for="edit-themes" class='form-title'>Edit Themes</label>
+                {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <article></article>
+                <input name ='content' type='hidden' value=''>
+                <input id ='hidden' name ='hidden' type='hidden' value=''> <br/>
+                <input id ='update' class="btn btn-add" type="button" value="Update File" class="btn btn-success">
+                {!! Form::close() !!}
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="main-container__content__info__photo main-container__content__info__photo--editor">
+                @foreach($parents as $parent)
+                <ul class=mtree>
+                    <li class="has-submenu" data-folder='js'>
+                        <a href="#">{{ $parent->name}} </a>
+                        <button type="button" class="btn fa fa-plus pull-right btn-add-folder" data-path ='{{ $parent->path }}' data-parent='{{$parent->id}}' data-toggle="modal" data-target="#add-folder" title="add file or folder?"></button>
+                        <ul>
+                            <?php $folderFiles = File::files($parent->path) ?> 
+                            @foreach($folderFiles as $files)
+                            <li>                           
+                                <a class="linkFile" data-ext ='{!! File::name($files) !!}' id ='{!! $files !!}' style="cursor: pointer;">{!! File::name($files) !!}.{!! File::extension($files) !!}</a>
+                                <input id ="ext" type='hidden' value ="{!! File::extension($files) !!}">
+                            </li>
+                            @endforeach
+                            <?php $directories = File::directories($parent->path); ?>
+                            @foreach($directories as $dir)
+                            @if(File::isDirectory($dir))
+                            <li class="has-submenu" data-folder='plugins'>
+                                <a href="#">{!! basename($dir) !!} </a>
+                                <button id ="addFileToSubButton" type="button" class="btn fa fa-plus pull-right btn-add-folder" data-path ='{{ $parent->path.'/'. basename($dir) }}' data-toggle="modal" data-target="#addFileInSubFolder" title ="add file?"></button>
+                                <?php $files = File::files($parent->path . '/' . basename($dir)); ?>
+                                <ul>
+                                    @foreach($files as $file)
+                                    <li style="margin-left:10px;">                           
+                                        <a class="linkFile" id ='{!! $file !!}' style='cursor: pointer;'>{!! File::name($file) !!}.{!! File::extension($file) !!}</a>
+                                        <input id ="ext2" type='hidden' value ="{!! File::extension($file) !!}">
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+                @endforeach
+            </div>
+        </div>   
+    </div>
+    <!-- MODAL -->
+    {!! Form::open(array('id' => 'addFolderForm')) !!}
+    <div class="modal fade" id="add-folder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content--changepassword">
+                <div class="modal-header modal-header--changepassword">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+                </div>
+                <div class="modal-body modal-body--changepassword">
+                    <div role="tabpanel" class="tabpanel-custom">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#addFolder" aria-controls="addFolder" role="tab" data-toggle="tab">Add Folder</a></li>
+                            <li role="presentation"><a href="#addFile" aria-controls="profile" role="tab" data-toggle="tab">Upload file</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="addFolder">
+                                <div class="form-group">
+                                    <label for="folder-name" class='form-title'>Folder Name</label>
+                                    <input name ='foldername' type="text" class="form-control" id="folder-name" placeholder="Enter folder name">
+                                    {!! Form::hidden('path',null,['id' => 'dataPath']) !!}
+                                    {!! Form::hidden('parent',null,['id' => 'dataParent']) !!}
+
+                                </div>
+                                <button type="button" class="btn btn-add center-block" id='add-folder-action'>Add</button>
+                            </div>
+                            {!! Form::close() !!} 
+                            <div role="tabpanel" class="tab-pane" id="addFile">
+                                <div class="form-group">
+                                    {!! Form::open(array('files' => 'true', 'method' => 'POST', 'url' => 'cms/editor/addEditorFile')) !!}
+                                    {!! Form::file('file') !!}
+                                    {!! Form::hidden('path',null,['id' => 'editorFilePath']) !!}
+                                </div>
+                                {!! Form::submit('Upload File',['class' => 'btn btn-add center-block']) !!}
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>                   
+            </div>
         </div>
     </div>
-    <div class="col-sm-3">
-        <div class="main-container__content__info__photo">
-            <div class="main-container__content__info__photo--js">       
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>JS FOLDER <a style='cursor:pointer;' data-parent='JS Folder' data-path ='public/site/js' id ='js' title='add new folder' class="glyphicon glyphicon-plus"></a></h5>
-                @foreach($jsDirectories as $jsDir)
-                @if(File::isDirectory($jsDir))                
-                <h6 class='main-container__content__info__photo__title' style='margin-left: 10px;'><i class="fa fa-folder-open-o"></i>{{ basename($jsDir)}}</h6>
-                <?php $files = File::files('public/site/js/' . basename($jsDir)); ?>                        
-                @foreach($files as $file)
-                <ul class='file-list' margin-left:10px;>
-                    <li style="margin-left:10px;">                           
-                        <a href='#' class="c" id ='{!! $file !!}' style='margin-left: 10px;'>{!! File::name($file) !!}.{!! File::extension($file) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($file) !!}">
-                    </li>
-                </ul>
-                @endforeach
-                @endif    
-                @endforeach
-                <ul class='file-lis'>
-                    @foreach($jsFiles as $jsFiles)
-                    <li>                           
-                        <a href="#" class="a" data-ext ='{!! File::name($jsFiles) !!}' id ='{!! $jsFiles !!}'>{!! File::name($jsFiles) !!}.{!! File::extension($jsFiles) !!}</a>                                
-                        <input id ="ext" type='hidden' value ="{!! File::extension($jsFiles) !!}">
-                    </li>
-                    @endforeach                    
-                </ul>
-            </div>
-            <div class="main-container__content__info__photo--css">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>CSS FOLDER <a style='cursor:pointer;' data-parent='CSS Folder' data-path ='public/site/css' id ='css' title='add new folder' class="glyphicon glyphicon-plus"></a></h5>
-                @foreach($cssDirectories as $cssDir)
-                    @if(File::isDirectory($cssDir))
-                        @if(basename($cssDir) !== 'images')
-                            <h6 class='main-container__content__info__photo__title' style='margin-left: 10px;'><i class="fa fa-folder-open-o"></i>{{ basename($cssDir)}}</h6>
-                            <?php $files = File::files('public/site/css/' . basename($cssDir)); ?>                        
-                            @foreach($files as $file)
-                            <ul class='file-list' margin-left:10px;>
-                                <li style="margin-left:10px;">                           
-                                    <a href='#' class="c" id ='{!! $file !!}' style='margin-left: 10px;'>{!! File::name($file) !!}.{!! File::extension($file) !!}</a>
-                                    <input id ="ext2" type='hidden' value ="{!! File::extension($file) !!}">
-                                </li>
-                            </ul>
-                            @endforeach
-                        @endif
-                    @endif    
-                @endforeach
-                <ul class='file-lis'>
-                    @foreach($cssFiles as $cssFiles)
-                    <li>                           
-                        <a href='#' class="b" id ='{!! $cssFiles !!}'>{!! File::name($cssFiles) !!}.{!! File::extension($cssFiles) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="main-container__content__info__photo--css">
-                <h5 class='main-container__content__info__photo__title'><i class="fa fa-folder-open-o"></i>SITE FOLDER <a style='cursor:pointer;' data-parent='Site Folder' data-path ='resources/views/site' id ='site' title='add new folder' class="glyphicon glyphicon-plus"></a></h5>
-                @foreach($directories as $directory)
-                @if(File::isDirectory($directory))                
-                <h6 class='main-container__content__info__photo__title' style='margin-left: 10px;'><i class="fa fa-folder-open-o"></i>{{ basename($directory)}}</h6>
-                <?php $files = File::files('resources/views/site/' . basename($directory)); ?>                        
-                @foreach($files as $file)
-                <ul class='file-list' margin-left:10px;>
-                    <li style="margin-left:10px;">                           
-                        <a href='#' class="c" id ='{!! $file !!}' style='margin-left: 10px;'>{!! File::name($file) !!}.{!! File::extension($file) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
-                    </li>
-                </ul>
-                @endforeach
-                @endif    
-                @endforeach
-                <ul class='file-lis'>
-                    @foreach($siteFiles as $siteFiles)
-                    <li>                           
-                        <a href='#' class="b" id ='{!! $siteFiles !!}'>{!! File::name($siteFiles) !!}.{!! File::extension($siteFiles) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
-                    </li>
-                    @endforeach
-                </ul>
+    <!--        MODAL FOR ADD FILE IN SUBFOLDER -->
+    <div class="modal fade" id="addFileInSubFolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content--changepassword">
+                <div class="modal-header modal-header--changepassword">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add File</h4>
+                </div>
+                <div class="modal-body modal-body--changepassword">
+                    <div class="form-group">
+                        {!! Form::open(array('files' => 'true', 'method' => 'POST', 'url' => 'cms/editor/addEditorFile')) !!}
+                        {!! Form::file('file') !!}
+                        {!! Form::hidden('path',null,['id' => 'editorFilePathSub']) !!}
+                    </div>                    
+                </div>
+                <div class="modal-footer modal-footer--changepassword">
+                    {!! Form::submit('Upload File',['class' => 'btn btn-add center-block']) !!}
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
-    </div>   
-
+    </div> 
 </div>
-{!! Form::open(array('action' => 'EditorController@addFile','files' => 'true', 'method' => 'post')) !!}
-<select name ="path" style ="margin-left:700px;margin-top:20px;width:300px;" class="form-control">
-    @foreach($paths as $path)
-    <option value ="{!! $path->path !!}">{!! $path->name !!}</option>
-
-    @endforeach
-</select>
-<input style="float:right;"  type ="file" name ="file" title="upload file?"> 
-<input type ='submit' value ='upload file' class="btn btn-add center-block" style="float:right;margin-right: 10px">
-{!! Form::close() !!}
 <script>
-
-    $(document).on('click', '#js', function () {
-        var name = prompt('Please enter the folder name:');
-        var path = $(this).attr('data-path');
+    $(document).on("click", '.btn-add-folder', function () {
         var parent = $(this).attr('data-parent');
-        if (name !== null) {
-            $.ajax({
-                type: 'get',
-                url: 'editor/addFolder',
-                data: {name: name, path: path, parent: parent},
-                dataType: 'json',
-                success: (function (data) {
-                    location.reload();
-                })
-
-            });
-        }
-    });
-
-    $(document).on('click', '#css', function () {
-        var name = prompt('Please enter the folder name:');
         var path = $(this).attr('data-path');
-        var parent = $(this).attr('data-parent');
-        if (name !== null) {
-            $.ajax({
-                type: 'get',
-                url: 'editor/addFolder',
-                data: {name: name, path: path, parent: parent},
-                dataType: 'json',
-                success: (function (data) {
-                    location.reload();
-                })
-
-            });
-        }
+        $('#dataParent').val(parent);
+        $('#dataPath').val(path);
+        $('#editorFilePath').val(path);
     });
-    
-    $(document).on('click', '#site', function () {
-        var name = prompt('Please enter the folder name:');
+
+    $(document).on("click", '#addFileToSubButton', function () {
         var path = $(this).attr('data-path');
-        var parent = $(this).attr('data-parent');
-        if (name !== null) {
-            $.ajax({
-                type: 'get',
-                url: 'editor/addFolder',
-                data: {name: name, path: path, parent: parent},
-                dataType: 'json',
-                success: (function (data) {
-                    location.reload();
-                })
-
-            });
-        }
+        $('#editorFilePathSub').val(path);
     });
 
+    $(document).on('click', '#add-folder-action', function () {
+        var form = $('form#addFolderForm').serialize();
+        $.ajax({
+            type: 'get',
+            url: 'editor/addFolder',
+            data: form,
+            dataType: 'json',
+            success: (function (data) {
+                location.reload();
+            })
 
-    $(document).on('click', '.a', function (e) {
-        var filename = this.id;
-//        alert(filename);
-        $.get('../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#textarea').val(data);
-            $('#hidden').val(filename);
-        });
-
-    });
-
-    $(document).on('click', '.b', function () {
-        var filename = this.id;
-
-        $.get('../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#textarea').val(data);
-            $('#hidden').val(filename);
         });
     });
-    $(document).on('click', '.c', function () {
-        var filename = this.id;
-        $.get('../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#textarea').val(data);
-            $('#hidden').val(filename);
+
+    //Intialize the CodeMirror
+    $('document').ready(function(){
+
+        var code_mirror = CodeMirror(document.body.getElementsByTagName("article")[0], {
+                  value: "Welcome to {{ env('APP_TITLE') }} editor!",
+                  lineNumbers: true,
+                  mode: "javascript",
+                  keyMap: "sublime",
+                  autoCloseBrackets: true,
+                  matchBrackets: true,
+                  showCursorWhenSelecting: true,
+                  theme: "monokai"
         });
+
+
+        $('.linkFile').on('click', '', function (e) {
+            $('.alert-success').addClass('hidden');
+            var filename = this.id;
+            
+            $.ajax({
+                    type:'POST',
+                    url: "{{ URL().'/cms/editor/readFile' }}",
+                    data: {
+                        '_token':   $('[name=_token]').val(),
+                        'file_dir': filename 
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var value='';
+                        for(x in data)
+                            value += data[x]; 
+
+                        code_mirror.setValue(value); //Set code_mirror value
+                        $('#hidden').val(filename); //Set file name to form
+                        $('.form-title').html("Edit Themes: "+filename); //Set file name in the editor header
+                    },error: function () { 
+                        // if error occured
+                        alert("Error: try again");
+                    }
+            });
+        });
+
+        //Update file using AJAX
+        $('#update').on('click', function(){
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ URL().'/cms/editor/updateFile' }}",
+                    data: {
+                            'hidden': $('#hidden').val(), 
+                            '_token': $('[name=_token]').val(),
+                            'content': code_mirror.getValue()
+                    },
+                    success: function () {
+                         $('.alert-success').removeClass('hidden');
+                    },error: function () { 
+                        // if error occured
+                        alert("Error: try again");
+                    }
+            });
+        }); 
+    });   
+
+    //Close message alert when click close
+    $('#close-symbol').on('click', function(){
+        $('.alert-success').addClass('hidden');
     });
+
 </script>
-
 @stop

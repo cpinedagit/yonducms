@@ -8,6 +8,9 @@
 {!! HTML::style('public/site/css/bootstrap.min.css') !!}
 {!! HTML::style('public/site/css/transformicon.css') !!}
 {!! HTML::style('public/site/css/style.css') !!}
+{!! HTML::style('public/site/css/jquery-ui.css') !!}
+{!! HTML::style('public/site/css/default/style.css') !!}
+{!! HTML::style('public/site/font-awesome/css/font-awesome.min.css') !!}
 {!! HTML::style('public/css/banner.css') !!}
 {!! HTML::style('public/css/mystyle.css') !!}
 <!-- Favicon image -->
