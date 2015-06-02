@@ -173,6 +173,7 @@
                           <div class="form-horizontal form-horizontal--settings">
                                 <div class="form-group">
                                   <h3>Clear all data from database?</h3>
+                                    {!! HTML::linkAction('CMS\GeneralSettingsController@truncateData', 'Clear Data', array(), ['class' => 'btn btn-all pull-left']) !!}
                                 </div>
                           </div>
                         </div>

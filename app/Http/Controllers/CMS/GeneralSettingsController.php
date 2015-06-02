@@ -10,6 +10,14 @@ use Input;
 use View;
 use File;
 use DateTimeZone;
+use Redirect;
+
+use App\Models\Banner;
+use App\Models\Media;
+use App\Models\Menu;
+use App\Models\News;
+use App\Models\Page;
+
 
 class GeneralSettingsController extends Controller {
 
@@ -155,5 +163,16 @@ class GeneralSettingsController extends Controller {
 		    	}
 		    }
 		}
+	}
+
+	public function truncateData()
+	{
+		Banner::truncate();
+		Media::truncate();
+		Menu::truncate();
+		News::truncate();
+		Page::truncate();
+
+		return Redirect::route('cms.general_settings.index');
 	}
 }

@@ -50,11 +50,13 @@ Route::resource('cms/roleaccess',
 				['except' => ['show']]);
 
 Route::resource('cms/general_settings', 
-				'CMS\GeneralSettingsController');
+				'CMS\GeneralSettingsController',
+				['only' => ['index', 'update']]);
 
 Route::resource('news_feeds', 
 				'CMS\NewsFeedsController');
 
+Route::get('cms/general_settings/truncateData', array('as' => 'cms.general_settings.truncateData', 'uses' => 'CMS\GeneralSettingsController@truncateData'));
 
 //Start: Middleware Exmaple
 Route::get('test', 'TestController@index', ['middleware'=>'is.allowed']);

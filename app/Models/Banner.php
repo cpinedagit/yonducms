@@ -127,4 +127,12 @@ class Banner extends Model {
         public static function getAnimationTitle($id) {
         return DB::table('banners')->where('id', '=', $id)->pluck('animationTitle');
     }
+
+    public static function truncate()
+    {
+        $deleted = DB::table('fk_banners')->truncate();
+        if($deleted) {
+            return DB::table('banners')->truncate();
+        }
+    }
 }
