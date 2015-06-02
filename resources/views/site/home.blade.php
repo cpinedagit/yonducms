@@ -4,14 +4,12 @@
         <title>{{ $APP_TITLE }}</title>
         @include('site.partials.meta')
         @include('site.partials.styles')
-        @include('site.partials.upperScripts')
+        @include('site.partials.scripts')
     </head>
-    <body id="nav-{!! menuLayout() !!}">          
+    <body>          
         @include('site.partials.menu');
         @yield('sitecontent');
         @include('site.partials.footer');
         <!--test-->
     </body>
-    @include('site.partials.scripts')
-
 </html>

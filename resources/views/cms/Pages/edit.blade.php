@@ -23,7 +23,7 @@
      4. alert-danger
 
      then use "open" class to show the alert
- -->
+-->
 
 <!--<div class="alert alert-danger alert-danger--login show" role="alert">
     Invalid Username/Password
@@ -77,137 +77,141 @@
 
 
 
-</div>
-<div class="col-sm-12">
-    <div class="form-group">
-        <label for="editor1" class='form-title'>Content *</label>
-        {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
-    </div>
-</div>
-</div>
-</div>
-<div class="col-sm-3">
-    <div class="main-container__content__info__options">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" checked> Publish Page
-            </label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="editor1" class='form-title'>Content *</label>
+                        {!! Form::textarea('Editor1',$pages['content'],['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-sm-3">
+            <div class="main-container__content__info__options">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" checked> Publish Page
+                    </label>
+                </div>
                 <!--                <div class="checkbox">
                                     <label>
                                         <input type="checkbox" checked> Include Widget
                                     </label>
                                 </div>-->
-                                <div class="main-container__content__info__options__action-holder btn-holder">
-                                    <button class="btn btn-reset" onclick = "cancel()">Cancel</button>
-                                    <input type="submit" class="btn btn-add" value="Save">
-                                </div>
-                            </div>
+                <div class="main-container__content__info__options__action-holder btn-holder">
+                    <button class="btn btn-reset" onclick = "cancel()">Cancel</button>
+                    <input type="submit" class="btn btn-add" value="Save">
+                </div>
+            </div>
 
 
-<h3>Plugin</h3>
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel panel-default">
-                        <div class="panel-heading" style="cursor:pointer" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <h4 class="panel-title">
-                             Banner
-                         </h4>
-                     </div>
-                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body">
-                        <table class="table table--banner">
-                            <tbody>
-                                @foreach($banners as $banner)
-                                <tr>
-                                    <td>{{ $banner->title}}</td>
-                                    <td><button type="button" class="btn btn-add addOnCk" var="[banner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+            <h3>Plugin</h3>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="cursor:pointer" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h4 class="panel-title">
+                            Banner
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <table class="table table--banner">
+                                <tbody>
+                                    @foreach($banners as $banner)
+                                    <tr>
+                                        <td>{{ $banner->title}}</td>
+                                        @if($banner->type === 'Standard')
+                                        <td><button type="button" class="btn btn-add addOnCk" var="[StandardBanner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                        @else
+                                        <td><button type="button" class="btn btn-add addOnCk" var="[AdvancedBanner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                        @endif
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  <h4 class="panel-title">
-                      News
-                  </h4>
-              </div>
-              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
-                    <table class="table table--banner">
-                        <tbody>
-                            <tr>
-                                <td> News List </td>
-                                <td>
-                                    <button class="btn btn-add addOnCk" type="button" var="[news_list()]"><span  class="glyphicon glyphicon-plus"></span></button>
-                                </td>
-                                </tr>
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <h4 class="panel-title">
+                            News
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <table class="table table--banner">
+                                <tbody>
                                     <tr>
-                                <td> News Archive</td>
-                                <td>
-                                    <button type="button" class="btn btn-add addOnCk" var="[news_archive()]"><span  class="glyphicon glyphicon-plus"></span></button>
-                                </td>
-                                </tr>
+                                        <td> News List </td>
+                                        <td>
+                                            <button class="btn btn-add addOnCk" type="button" var="[news_list()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                        </td>
+                                    </tr>
                                     <tr>
-                                <td> Featured News</td>
-                                <td>
-                                    <button type="button" class="btn btn-add addOnCk" var="[featured_news()]"><span  class="glyphicon glyphicon-plus"></span></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        <td> News Archive</td>
+                                        <td>
+                                            <button type="button" class="btn btn-add addOnCk" var="[news_archive()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Featured News</td>
+                                        <td>
+                                            <button type="button" class="btn btn-add addOnCk" var="[featured_news()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> 
+
         </div>
-    </div> 
 
+    </div>
 </div>
+{!! Form::close() !!}
+<script>
+    $('#editableUrl').hide();
+    $(document).on("click", "#edit", function (e) {
 
-                    </div>
-                </div>
-                {!! Form::close() !!}
-                <script>
-                $('#editableUrl').hide();
-                $(document).on("click", "#edit", function (e) {
+        $('#editableUrl').show();
+        $('#nonEditableUrl').hide();
+        $('#slug').focus();
+        $('#slug').focusTextToEnd();
+        e.stopPropagation();
+    });
 
-                    $('#editableUrl').show();
-                    $('#nonEditableUrl').hide();
-                    $('#slug').focus();
-                    $('#slug').focusTextToEnd();
-                    e.stopPropagation();
-                });
+    $(document).on("dblclick", "#nonEditableUrl", function () {
+        $('#editableUrl').show();
+        $('#nonEditableUrl').hide();
+        $('#slug').focus();
+    });
 
-                $(document).on("dblclick", "#nonEditableUrl", function () {
-                    $('#editableUrl').show();
-                    $('#nonEditableUrl').hide();
-                    $('#slug').focus();
-                });
+    $(document).on("click", "#cancel", function () {
+        $('#editableUrl').hide();
+        $('#nonEditableUrl').show();
+    });
 
-                $(document).on("click", "#cancel", function () {
-                    $('#editableUrl').hide();
-                    $('#nonEditableUrl').show();
-                });
+    function cancel() {
+        window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
+    }
 
-                function cancel() {
-                    window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
-                }
+    function focusTextToEnd() {
+        this.focus();
+        var $thisVal = this.val();
+        this.val('').val($thisVal);
+        return this;
+    }
+</script>
+@include('cms.media.media_tool')
+<script>
 
-                function focusTextToEnd() {
-                    this.focus();
-                    var $thisVal = this.val();
-                    this.val('').val($thisVal);
-                    return this;
-                }
-                </script>
-                @include('cms.media.media_tool')
-                <script>
+    $('.addOnCk').on('click', function () {
+        text = $(this).attr('var');
+        editor.insertHtml(text);
+    })
+</script>
 
-                $('.addOnCk').on('click',function(){
-                    text=$(this).attr('var');
-                    editor.insertHtml( text );
-                })
-                </script>
-
-                @stop
+@stop

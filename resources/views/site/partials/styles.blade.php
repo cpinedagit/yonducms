@@ -1,18 +1,15 @@
-{!! HTML::style('public/site/css/bootstrap.min.css') !!}
-{!! HTML::style('public/site/css/main.css') !!}
+{!! HTML::style('public/css/bootstrap.min.css') !!}
+{!! HTML::style('public/font-awesome/css/font-awesome.min.css') !!}
+{!! HTML::style('public/css/app.css') !!}
+{!! HTML::style('public/css/bootstrap.min.css') !!}
+{!! HTML::style('public/js/DataTables-1.10.3/media/css/jquery.dataTables.css') !!}
+{!! HTML::style('public/css/mystyle.css') !!}
 
 <!--this links are used for page management--> 
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <!-- Place favicon.ico in the root directory -->
 {!! HTML::style('public/site/css/normalize.css') !!}
 {!! HTML::style('public/site/css/bootstrap.min.css') !!}
+{!! HTML::style('public/site/font-awesome/css/font-awesome.min.css') !!}
 {!! HTML::style('public/site/css/transformicon.css') !!}
 {!! HTML::style('public/site/css/style.css') !!}
-{!! HTML::style('public/site/css/jquery-ui.css') !!}
-{!! HTML::style('public/site/css/default/style.css') !!}
-{!! HTML::style('public/site/font-awesome/css/font-awesome.min.css') !!}
-{!! HTML::style('public/css/banner.css') !!}
-{!! HTML::style('public/css/mystyle.css') !!}
-<!-- Favicon image -->
-<link rel="shortcut icon" href="{!! asset('public/images/'.env('APP_FAVICON')) !!}" type="image/x-icon" />
-<!-- Favicon image -->

@@ -109,9 +109,12 @@ class PageController extends Controller {
     public function preview($slug) {
         $pages = Page::preview($slug);
         if (count($pages) > 0) {
+            
+            
             $objMenu = Menu::ParentNavi();
             $content = str_replace("[", "<?php echo ", $pages->content);
             $content = str_replace("]", "?>", $content);
+//            dd($content );
             $arData = array(
                 'content' => $content,
                 'pages' => $pages,

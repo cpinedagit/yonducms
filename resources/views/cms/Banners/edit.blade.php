@@ -116,7 +116,7 @@
                         </td>
                         <td width="320" height="40">
                             <select name="ssTransition" id="ssTransition" style="width: 300px">
-                             </select>
+                            </select>
                         </td>
                         <td width="490">
                             <input type="button" value="Play" id="sButtonPlay" style="width: 110px" name="sButtonPlay" disabled="disabled">
@@ -163,12 +163,12 @@
                         </td>
                     </tr>
                 </table>
-                <script>                    
+                <script>
                     slideshow_transition_controller_starter("slider1_container");
                     var code = $('#currentCode').val();
                     $('#ssTransition').val(code);
                     $('#stTransition').val(code);
-                    $('#sButtonPlay').click();                    
+                    $('#sButtonPlay').click();
                 </script>
                 @endif
             </div><br><br><br>

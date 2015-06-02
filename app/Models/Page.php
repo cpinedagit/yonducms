@@ -47,7 +47,7 @@ class Page extends Model {
     }
 
     public static function getAllBanners() {
-        return DB::table('banners')->get(array('banners.id', 'banners.title'));
+        return DB::table('banners')->get(array('banners.id', 'banners.title','banners.type'));
     }
 
     public static function getAllPublished() {
