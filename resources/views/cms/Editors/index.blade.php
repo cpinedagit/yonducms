@@ -3,6 +3,8 @@
 <h2>Editor</h2>
 @stop
 @section('content')
+ <div class="alert alert-success hidden" role="alert">File has been saved. <div class="glyphicon glyphicon-remove" id="close-symbol"> </div> </div>
+
 <div class='main-container__content__info'>
     <div class="row">
         <div class="col-sm-9">
@@ -10,9 +12,10 @@
                 <label for="edit-themes" class='form-title'>Edit Themes</label>
                 {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <textarea id='textarea' class="form-control editor-textarea" name="content" cols="100" rows="30"></textarea>
-                <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
-                <input id ='update' class="btn btn-add" type ="submit" value = "Update file" class = "btn btn-success">
+                <article></article>
+                <input name ='content' type='hidden' value=''>
+                <input id ='hidden' name ='hidden' type='hidden' value=''> <br/>
+                <input id ='update' class="btn btn-add" type="button" value="Update File" class="btn btn-success">
                 {!! Form::close() !!}
             </div>
         </div>
@@ -43,7 +46,8 @@
                     <input type="submit" class="btn btn-add center-block folder-drop" id="add-file" value="Upload File">
                 </div>
                 {!! Form::close() !!}
-                @foreach($parents as $parent)                <ul class=mtree>
+                @foreach($parents as $parent)          
+                      <ul class=mtree>
                     <li class="has-submenu" data-folder='js'>
                         <a href="#">{{ $parent->name}} </a>
                         <button type="button" class="btn fa fa-plus pull-right btn-add-folder" data-path ='{{ $parent->path }}' data-parent='{{$parent->id}}' data-toggle="modal" data-target="#add-folder"></button>
@@ -76,10 +80,8 @@
                 </ul>
                 @endforeach
             </div>
-                @endforeach
     </div>
-                        <a href='#' class="b" id ='{!! $siteFiles !!}'>{!! File::name($siteFiles) !!}.{!! File::extension($siteFiles) !!}</a>
-                        <input id ="ext2" type='hidden' value ="{!! File::extension($cssFiles) !!}">
+                       
     <div class="modal fade" id="add-folder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content modal-content--changepassword">
@@ -87,7 +89,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
                 </div>
-                    @endforeach
         <div class="modal-dialog">
             <div class="modal-content modal-content--changepassword">
                 <div class="modal-header modal-header--changepassword">
@@ -115,6 +116,7 @@
     {!! Form::close() !!} 
 </div>
 <script>
+
     $(document).on("click", '.btn-add-folder', function () {
         var parent = $(this).attr('data-parent');
         var path = $(this).attr('data-path');
@@ -136,52 +138,72 @@
         });
     });
 
-    $('.a').on('click', '', function (e) {
-        var filename = this.id;
-        $.get('../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#textarea').val(data);
-            $('#hidden').val(filename);
+    //Intialize the CodeMirror
+    $('document').ready(function(){
+
+        var code_mirror = CodeMirror(document.body.getElementsByTagName("article")[0], {
+                  value: "Welcome to {{ env('APP_TITLE') }} editor!",
+                  lineNumbers: true,
+                  mode: "javascript",
+                  keyMap: "sublime",
+                  autoCloseBrackets: true,
+                  matchBrackets: true,
+                  showCursorWhenSelecting: true,
+                  theme: "monokai"
         });
 
-    });
 
-//    $(document).on('click', '#css', function () {
-//        var name = prompt('Please enter the folder name:');
-//        var path = $(this).attr('data-path');
-//        var parent = $(this).attr('data-parent');
-//        if (name !== null) {
-//            $.ajax({
-//                type: 'get',
-//                url: 'editor/addFolder',
-//                data: {name: name, path: path, parent: parent},
-//                dataType: 'json',
-//                success: (function (data) {
-//                    location.reload();
-//                })
-//
-//            });
-//        }
-//    });
-//
-//    $(document).on('click', '#site', function () {
-//        var name = prompt('Please enter the folder name:');
-//        var path = $(this).attr('data-path');
-//        var parent = $(this).attr('data-parent');
-//        if (name !== null) {
-//            $.ajax({
-//                type: 'get',
-//                url: 'editor/addFolder',
-//                data: {name: name, path: path, parent: parent},
-//                dataType: 'json',
-//                success: (function (data) {
-//                    location.reload();
-//                })
-//
-//            });
-//        }
-//    });
+        $('.a').on('click', '', function (e) {
+            $('.alert-success').addClass('hidden');
+            var filename = this.id;
+            
+            $.ajax({
+                    type:'POST',
+                    url: "{{ URL().'/cms/editor/readFile' }}",
+                    data: {
+                        '_token':   $('[name=_token]').val(),
+                        'file_dir': filename 
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var value='';
+                        for(x in data)
+                            value += data[x]; 
+
+                        code_mirror.setValue(value); //Set code_mirror value
+                        $('#hidden').val(filename); //Set file name to form
+                        $('.form-title').html("Edit Themes: "+filename); //Set file name in the editor header
+                    },error: function () { 
+                        // if error occured
+                        alert("Error: try again");
+                    }
+            });
+        });
+
+        //Update file using AJAX
+        $('#update').on('click', function(){
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ URL().'/cms/editor/updateFile' }}",
+                    data: {
+                            'hidden': $('#hidden').val(), 
+                            '_token': $('[name=_token]').val(),
+                            'content': code_mirror.getValue()
+                    },
+                    success: function () {
+                         $('.alert-success').removeClass('hidden');
+                    },error: function () { 
+                        // if error occured
+                        alert("Error: try again");
+                    }
+            });
+        }); 
+    });   
+
+    //Close message alert when click close
+    $('#close-symbol').on('click', function(){
+        $('.alert-success').addClass('hidden');
+    });
 
 </script>
 @stop

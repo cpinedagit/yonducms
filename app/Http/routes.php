@@ -115,6 +115,7 @@ Route::get('cms/editor/addFolder','EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addEditorFile', ['as' => 'addEditorFile', 'uses' => 'EditorController@addFile']);
+Route::post('cms/editor/readFile','EditorController@readFile');
 Route::resource('cms/editor', 'EditorController');
 
 //These route are for Banner Management

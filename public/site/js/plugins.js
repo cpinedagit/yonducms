@@ -1,4 +1,4 @@
-// Avoid `console` errors in browsers that lack a console.
+// Avoid `console` errors in browsers that lack a console. haha
 (function() {
     var method;
     var noop = function () {};
