@@ -899,7 +899,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;
@@ -1398,11 +1398,19 @@ table.table--noaction tr td:first-child{
     overflow: hidden;
     margin-bottom: 30px;
 }
+.main-container__content__info__photo--editor{
+    min-height: 627px;
+}
 .file-list > li{
     width: 100%;
     margin: 5px 0;
 }
-.file-list > li > a{
+
+/*.main-container__content__info__photo--editor ul li strong{
+    color: #000;
+}
+.file-list > li > a,
+.main-container__content__info__photo--editor ul li{
     color: #44b6ae;
     
     -webkit-transition: all 0.3s ease-in-out;
@@ -1415,9 +1423,9 @@ table.table--noaction tr td:first-child{
     
     -webkit-transition: all 0.3s ease-in-out;
        -moz-transition: all 0.3s ease-in-out;
-         -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-}
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}*/
 .editor-textarea{
     width: 100%;
     height: 600px!important;
@@ -1715,20 +1723,14 @@ table.table--noaction tr td:first-child{
 .panel--dashboard--notifications .panel-heading{
     border-left: 10px solid #e45c5b;
 }
-.rss-feeds-body{
-    width: 100%;
-}
 .media-list-dashboard > li .media-object{
-    /*width: 170px;*/
+    width: 170px;
 }
 .media-list-dashboard  .media-body .media-heading{
     color: #333333;
 }
 .media-list-dashboard > li.media:not(:first-child){
     margin-top: 30px;
-}
-.media-details-intro{
-    font-weight: 100;
 }
 .media-details{
     display: table;
@@ -1795,6 +1797,199 @@ table.table--noaction tr td:first-child{
 .table-news-summary > tbody > tr.all > td{
     background-color: #5186ae;
     color: #fff;
+}
+.panel-body__nav-position{
+    margin-top: 30px;
+}
+.panel-body__nav-position > .form-group{
+    margin-bottom: 0;
+}
+.editor-action-holder > *{
+    margin-bottom: 10px;
+}
+
+
+
+
+/******** MTREE PLUGIN *******/
+
+ul.mtree {
+  opacity: 0;
+  padding-left: 0;
+}
+ul.mtree ul {
+  margin-left: 1em;
+}
+ul.mtree li {
+  position: relative;
+  list-style: none;
+}
+ul.mtree li a:before{
+    font-family: FontAwesome;
+    content: '\f15b';
+    margin-right: 10px;
+}
+ul.mtree li.has-submenu > a:before{
+    font-family: FontAwesome;
+    content: '\f07c';
+    margin-right: 10px;
+}
+ul.mtree a {
+  display: block;
+}
+ul.mtree li.mtree-node > a {
+  font-weight: bold;
+}
+
+ul.mtree a {
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+}
+
+ul.mtree.bubba ul {
+  margin-left: 0;
+}
+ul.mtree.bubba ul li {
+  font-size: 14px;
+}
+ul.mtree.bubba li.has-submenu > a:after {
+  font-family: FontAwesome;
+  content: '\f107';
+  margin-left: .5em;
+  font-weight: normal;
+}
+ul.mtree.bubba li.mtree-node > a {
+  font-weight: bold;
+  text-transform: upperCase;
+  color: #4C4C4C;
+}
+ul.mtree.bubba > li {
+  border-bottom: 1px solid #DDD;
+    position: relative;
+}
+ul.mtree.bubba > li:last-child {
+  border-bottom: none;
+}
+ul.mtree.bubba li:last-child > a {
+  border: none;
+}
+ul.mtree.bubba > li.mtree-open > a {
+  background: #DDD;
+}
+ul.mtree.bubba li > a:hover {
+  background: #DDD;
+}
+ul.mtree.bubba a {
+  padding: 7px 0px 7px 1em;
+}
+ul.mtree.bubba li li > a {
+  padding-left: 10px;
+}
+ul.mtree.bubba li li li > a {
+  padding-left: 10px;
+}
+ul.mtree.bubba li li li li > a {
+  padding-left: 10px;
+}
+ul.mtree.bubba li li li li li > a {
+  padding-left: 10px;
+}
+.mtree-demo .mtree {
+    opacity: 1;
+}
+
+.mtree-skin-selector {
+  text-align: center;
+  background: #EEE;
+  padding: 10px 0 15px;
+    display: none;
+}
+.mtree-skin-selector li {
+  display: inline-block;
+  float: none;
+}
+.mtree-skin-selector button {
+  padding: 5px 10px;
+  margin-bottom: 1px;
+  background: #BBB;
+}
+.mtree-skin-selector button:hover {
+  background: #999;
+}
+.mtree-skin-selector button.active {
+  background: #999;
+  font-weight: bold;
+}
+.mtree-skin-selector button.csl.active {
+  background: #FFC000;
+}
+.mtree .btn-add-folder{
+    position: absolute;
+    top: 3px;
+    right: 0;
+    background: transparent;
+    color: #4C4C4C;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.mtree .btn-add-folder:hover,
+.mtree .btn-add-folder:focus,
+.mtree .btn-add-folder:active{
+    outline: 0;
+      color: #797979;
+    
+    -webkit-transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
+}
+.folder-drop,
+#added-file{
+    display: none;
+}
+.dropdown-menu--notif{
+    background: #fff;
+    color: #000;
+    padding-top: 0;
+    min-width: 230px;
+    border: 0;
+    border-radius: 0;
+    top: 37px;
+    left: -180px;
+} 
+.dropdown-menu--notif:before{
+    font-family: FontAwesome;
+    content: '\f0d8';
+    color: #44b6ae;
+    position: absolute;
+    top: -27px;
+    font-size: 30px;
+    right: 17px;
+}
+.notif-summary{
+    background: #44b6ae;  
+    margin-top: 0;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+.notif-list{
+    max-height: 500px;
+    overflow: auto;
+    padding: 0 10px 20px;
+}
+.notif-list .media-circle-list{
+    font-size: 12px;
+}
+.notif-list .media-circle-list .image-holder__user-pic{
+    width: 60px;
+    height: 60px;
 }
 
 
@@ -1898,9 +2093,9 @@ table.table--noaction tr td:first-child{
     line-height: 35px;
     
     -webkit-transition: all 0.3s ease-in-out;
-       -moz-transition: all 0.3s ease-in-out;
-         -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
+	   -moz-transition: all 0.3s ease-in-out;
+	     -o-transition: all 0.3s ease-in-out;
+	        transition: all 0.3s ease-in-out;
 }
 .forgot-password:hover,
 .forgot-password:focus{

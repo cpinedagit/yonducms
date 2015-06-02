@@ -9,7 +9,6 @@ use Response;
 use Input;
 use Request;
 use Cache;
-use Arrays;
 
 class EditorController extends Controller {
 
@@ -125,9 +124,9 @@ class EditorController extends Controller {
 //                $file->move('resources/views/site', $filename);
 //            }
             $file->move($path, $filename);
-            return Response::json('ok');
+            return redirect('cms/editor');
         } else {
-            return false;
+            return redirect('cms/editor');
         }
     }
 
