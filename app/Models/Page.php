@@ -65,6 +65,11 @@ class Page extends Model {
         return $data;
     }
 
+    public static function truncate()
+    {
+        return DB::table('pages')->truncate();
+    }
+
 }
 
     class MyCollection extends \Illuminate\Database\Eloquent\Collection {

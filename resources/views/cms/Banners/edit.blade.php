@@ -1,4 +1,7 @@
 @extends('cms.home')
+@section('title')
+<h2>Banner</h2>
+@stop
 @section('content')
 <div class='main-container__content__info'>
     <div role="tabpanel" class="tabpanel-custom">
@@ -10,7 +13,7 @@
             @if($type == 'Advanced')
             <li role="presentation"><a href="#editor" aria-controls="messages" role="tab" data-toggle="tab">Animation</a></li>
             @endif
-        </ul>
+        </ul> 
         <!-- Tab panes --> 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="details">
@@ -64,25 +67,17 @@
                         @else
                         <input type="checkbox" name ="checkbox" value="{!! $currentImage->id !!}">
                         @endif
+                        @if($currentImage->media_path === null)
+                        no image available
+                        @else
                         <div class="banner-content-list__image-container">
-                            @if($currentImage->media_path === null)
-                            {!! HTML::image('public/images/noimage.png',null) !!}
-                            @else
                             {!! HTML::image($currentImage->media_path,null) !!}     
-                            @endif
                         </div>
+
+                        @endif
                         @if($currentImage->media_path === null)                      
                         @else
-                        <div class="banner-content-list__form-container">
-                            <div class="form-group banner-content-list__form-container__image-name">
-                                {!! Form::label('image_name','Image Name',['class' => 'form-title']) !!}
-                                {!! Form::text('image_name',$currentImage->image_name,['class' => 'form-control']) !!}
-                            </div>
-                            <div class="form-group banner-content-list__form-container__image-desc">
-                                {!! Form::label('image_description','Image Description',['class' => 'form-title']) !!}
-                                {!! Form::text('image_description',$currentImage->image_description,['class' => 'form-control']) !!}
-                            </div>
-                        </div>
+
                         <a href='#' id='{!!$currentImage->id!!}' title ='delete this one?' class="glyphicon glyphicon-trash delCur" aria-hidden="true"></a>
                         @endif
                     </li>

@@ -84,17 +84,24 @@ class EditorController extends Controller {
         //
     }
 
+    //Read requested file
+    public function readFile()
+    {
+      $file_dir = file(Input::get('file_dir'));
+      return Response::json($file_dir);
+    }
+
     public function updateFile() {
         //file path
         $file = Input::get('hidden');
         $content = Input::get('content');
         unlink($file);
-        Cache::flush();
+        
         if (file_put_contents($file, $content, FILE_APPEND)) {
-            Cache::flush();
-            return redirect('cms/editor');
+           return Response::json('ok');
+        }else{
+            return Response::json('not ok');
         }
-        Cache::flush();
     }
 
     public function addFile() {
@@ -105,6 +112,7 @@ class EditorController extends Controller {
 
         $file = Input::file('file');
         $path = Input::get('path');
+       
         if ($file) {
             $filename = $file->getClientOriginalName();
 //            $extension = $file->getClientOriginalExtension();            

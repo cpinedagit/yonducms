@@ -35,6 +35,10 @@ class Menu extends Model {
         }
     }
 
+    public static function truncate()
+    {
+        return DB::table('site_menus')->truncate();
+    }
 
 
 }
