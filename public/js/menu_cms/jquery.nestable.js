@@ -42,7 +42,7 @@
         expandBtnHTML: '<button data-action="expand" type="button">Expand</button>',
         collapseBtnHTML: '<button data-action="collapse" type="button">Collapse</button>',
         group: 0,
-        maxDepth: 3,
+        maxDepth: 8,
         threshold: 20
     };
 

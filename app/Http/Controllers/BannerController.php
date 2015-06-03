@@ -53,7 +53,6 @@ class BannerController extends Controller {
         $banner = new Banner;
         $banner->title = Input::get('name');
         $banner->type = Input::get('type');
-        $banner->classes = 'carousel slide myCarousel';
         $banner->save();
         return redirect('cms/banners');
     }
