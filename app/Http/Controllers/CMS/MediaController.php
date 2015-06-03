@@ -140,6 +140,7 @@ class MediaController extends Controller {
           if(Request::ajax()) {
           return Response::json(array($id));
         }
+        Session::flash('message', 'Media saved.');
       return Redirect::to('cms/media');
   }
 
@@ -150,6 +151,7 @@ class MediaController extends Controller {
          unlink($filename);
          }
         $media->delete();
+        Session::flash('message', 'Media deleted.');
         return Response::json(array($id));
     }
 
@@ -185,6 +187,7 @@ class MediaController extends Controller {
          }
          $media->delete();
        }
+       Session::flash('message', 'Media deleted.');
       return Response::json(array($selected)); 
   }
 }
