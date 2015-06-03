@@ -4,7 +4,10 @@ function $id(id) {
 }
 
 
-
+function Output(msg) {
+	var m = $id("messages");
+	m.innerHTML = msg + m.innerHTML;
+}
 
 if (window.File && window.FileList && window.FileReader) {
 	Init();
@@ -51,19 +54,20 @@ function readURL2(input,lengthfile) {
                     $('.uploadfiles-multiple').append(uploadphotocontainer);
                     //$('').append(uploadphotocontainer);
                 }
-                reader.readAsDataURL(input);
-            })(input);
+                reader.readAsDataURL(input.files[x]);
+            })(input.files[x]);
         }
    // }
 }
 
 function FileSelectHandler(e) {
-  /*  $('.uploadfiles-multiple .main-container__content__info__photo__uploaded-photo-container').each(function(){
+    $('.uploadfiles-multiple .main-container__content__info__photo__uploaded-photo-container').each(function(){
         $(this).remove();
-    }); */
+    });
     
 	FileDragHover(e);
     
+    readURL2(fileselect,fileselect.files.length);
   
 	var files = e.target.files || e.dataTransfer.files;
 
@@ -113,7 +117,10 @@ function FileSelectHandler(e) {
 
 function ParseFile(file) {
 
-		 readURL2(file,1)
-	
+	Output(
+		"<p>File information: <strong>" + file.name +
+		"</strong> type: <strong>" + file.type +
+		"</strong> size: <strong>" + file.size +
+		"</strong> bytes</p>"
+	);	
 }
-
