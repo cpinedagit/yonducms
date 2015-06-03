@@ -49,7 +49,9 @@
             </div>
             </div>
             @if((bellCounter())>0)
-              <span class="badge badge--left">{{ bellCounter() }}</span>
+              <a href="#" id="notif" data-target="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                <span class="badge badge--left">{{ bellCounter() }}</span>
+              </a>
             @endif
         </li>
         @endif  

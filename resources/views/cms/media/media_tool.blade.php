@@ -189,7 +189,7 @@ function DoneUpload() {
 
 function populateImgLibrary()
 {
-    $('.img_wrapper').empty();
+    $('.medialibrary__list').empty();
     str = "";
     $.post(
         '{!! URL::route("cms.media.getAll") !!}',

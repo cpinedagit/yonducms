@@ -71,7 +71,7 @@ class NewsController extends Controller {
       $news->image_filename = $filename;
 
       $news->save();
-          
+          Session::flash('message', 'News saved.');
       return Redirect::to('cms/news');
     }
 
@@ -106,6 +106,7 @@ class NewsController extends Controller {
       $slug = str_replace(array(' ','/'), '_', Input::get('slug'));
       $news->slug = $slug;
       $news->save();
+      Session::flash('message', 'News updated.');
       return Redirect::to('cms/news');
   }
 
@@ -121,6 +122,7 @@ class NewsController extends Controller {
          unlink($filename2);
          }
       $news->delete();
+      Session::flash('message', 'News deleted.');
       return Response::json(array($id)); 
     }
 
@@ -140,6 +142,7 @@ class NewsController extends Controller {
 
          $news->delete();
        }
+       Session::flash('message', 'News deleted.');
       return Response::json(array($selected)); 
   }
 }

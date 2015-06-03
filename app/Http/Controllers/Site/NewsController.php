@@ -19,6 +19,23 @@ use App\Models\Menu;
 
 class NewsController extends Controller {
 	public function index() {
+    $pages = Page::preview("news");
+        if (count($pages) > 0) {
+            
+            
+            $objMenu = Menu::ParentNavi();
+            $content = str_replace("[", "<?php echo ", $pages->content);
+            $content = str_replace("]", "?>", $content);
+//            dd($content );
+            $arData = array(
+                'content' => $content,
+                'pages' => $pages,
+                'objMenu' => $objMenu
+            );
+            return view('site/Pages/index', $arData);
+        } else {
+            return view('site/Pages/404');
+        }
      }
 
 	public function show($id, $slug = '') {

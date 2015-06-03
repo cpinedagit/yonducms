@@ -7,7 +7,10 @@
 
 $(document).ready(function ()
 {
-
+    //run js script for editing menu
+    functionReadyToEditMenu();
+    //run for checkbox activate button function
+    activateExtPageBtn();
 // add menu from pages
     $('#addPagestonavi').click(function () {
         var tagitem = document.getElementsByClassName('dd-item');
@@ -18,6 +21,7 @@ $(document).ready(function ()
 
             var label = $(this).val();
             var page_id = $(this).data('page_id');
+            var slug = $(this).data('url');
 
             $.ajax({
                 type: 'POST',
@@ -28,7 +32,7 @@ $(document).ready(function ()
                 },
                 success: function (response) {
 
-                    var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
+                    var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "' data-url='" + slug + "'  data-url_origin='slug'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
 
                     $(htmlmenu).hide().appendTo("#list-cont").fadeIn(1000);
                     nestablecount++;
@@ -37,24 +41,7 @@ $(document).ready(function ()
                     len--;
                     if (len === 0)
                     {
-                        $(".nestable-lists .dd-item").mousedown(function (e) {
-                            var mousetarget = e.target;
-
-                            // enable text input
-                            if ($(mousetarget).hasClass('delete-item')) {
-                            } else {
-
-                                $('#menu_label').attr('readonly', false);
-                                $("#clear_btn").attr('disabled', false);
-
-                                $('#saveMenuChanges').attr('disabled', false);
-
-                                $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
-                                $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
-                            }
-
-
-                        });
+                        functionReadyToEditMenu();
                     }
                     $(".loader-container").removeClass('show');
 
@@ -70,6 +57,42 @@ $(document).ready(function ()
 
     });
 
+
+// add menu from external links
+    $('#addExternalLink').click(function () {
+        var tagitem = document.getElementsByClassName('dd-item');
+        var nestablecount = tagitem.length + 1;
+
+        var label = $('#external_label').val();
+        var external_link = $('#external_link').val();
+        console.log(external_link);
+        $.ajax({
+            type: 'POST',
+            url: window.location + "/addexternallink",
+            data: {'label': label, 'external_link': external_link, 'order_id': nestablecount, '_token': $('[name=_token').val()},
+            beforeSend: function () {
+                $(".loader-container").addClass('show');
+            },
+            success: function (response) {
+
+                var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='0' data-parent_id='0' data-label='" + label + "' data-url='" + external_link + "'  data-url_origin='external'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
+
+                $(htmlmenu).hide().appendTo("#list-cont").fadeIn(1000);
+                updateOutput($('#nestable').data('output', $('#nestable-output')));
+                // call this function for ready edit menu
+                functionReadyToEditMenu();
+                autoClear();
+
+                $(".loader-container").removeClass('show');
+            },
+            error: function () { // if error occured
+                alert("Error: try again");
+                $(".loader-container").removeClass('show');
+
+            }
+        });
+    });
+
     // activate Nestable for list
     $('#nestable').nestable();
 
@@ -81,9 +104,9 @@ $(document).ready(function ()
             getval[countr] = Array(
                     $(this).attr('data-menu_id'), //PK
                     $(this).parent().parent().attr('data-menu_id'), //parent id
-                    $(this).index() + 1, //1 page order
-                    $(this).attr('data-page_id'),
-                    $(this).attr('data-label')
+                    $(this).index() + 1, //1 menu order
+                    $(this).attr('data-page_id'), // page table id
+                    $(this).attr('data-label') // label menu
                     );
             countr++;
         });
@@ -107,31 +130,42 @@ $(document).ready(function ()
         }, 500);
     }
 });
+//end of document ready function
 
+function functionReadyToEditMenu() {
 // changes name and url textboxes if clicked
-$('.nestable-lists .dd-item').each(function () {
-    $(this).mousedown(function (e) {
-        var mousetarget = e.target;
-//            console.log(mousetarget);
-        // enable text input
-        if ($(mousetarget).hasClass('delete-item')) {
-        } else {
-            $('#menu_label').attr('readonly', false);
-            $("#clear_btn").attr('disabled', false);
+    $('.nestable-lists .dd-item').each(function () {
+        $(this).mousedown(function (e) {
+            var mousetarget = e.target;
+            //            console.log(mousetarget);
+            // enable text input
+            if ($(mousetarget).hasClass('delete-item')) {
+            } else {
+                $('#menu_label').attr('readonly', false);
+                $("#clear_btn").attr('disabled', false);
 
-            $('#saveMenuChanges').attr('disabled', false);
-            $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
-            $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
-        }
+                $('#saveMenuChanges').attr('disabled', false);
 
+                if ($(mousetarget).closest('.dd-item').attr('data-url_origin') === 'slug') {
+                    $('#menu-link').attr('readonly', true);
+                } else {
+                    $('#menu-link').attr('readonly', false);
+                }
+                $('#menu_id').val($(mousetarget).closest('.dd-item').attr('data-menu_id'));
+                $('#menu_label').val(mousetarget.closest('.dd-handle').innerText);
+                $('#menu-link').val($(mousetarget).closest('.dd-item').attr('data-url'));
+
+            }
+
+        });
     });
-});
-
+}
 
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
     data_id = $('#menu_id').val();
     var label_text = $('#menu_label').val();
+    var label_link = $('#menu-link').val();
 
     $.ajax({
         type: 'POST',
@@ -141,6 +175,7 @@ $('#saveMenuChanges').click(function () {
             $("div #target_" + data_id).addClass('highlight-menu').css({'background-color': 'white'});
         },
         success: function () {
+            $("#idli_" + data_id).attr('data-url', label_link);
             $("div #target_" + data_id).html(label_text).removeClass('highlight-menu').css({'background-color': '#bcbcbc'});
             autoClear();
         },
@@ -166,22 +201,27 @@ function saveMenuStructure() {
             alert("Error: try again");
             $(".loader-container").removeClass('show');
 
-        },
-    });
-}
-$('.checkbox input[type="checkbox"]').click(function (event) {
-    var checkedAtLeastOne = false;
-    $('.checkbox input[type="checkbox"]').each(function () {
-        if ($(this).is(":checked")) {
-            checkedAtLeastOne = true;
         }
     });
-    if (checkedAtLeastOne === true) {
-        $('#addPagestonavi').attr('disabled', false);
-    } else {
-        $('#addPagestonavi').attr('disabled', true);
-    }
-});
+}
+// activate add external button if atleast 1 is checked
+function activateExtPageBtn() {
+    $('.checkbox input[type="checkbox"]').click(function (event) {
+        var checkedAtLeastOne = false;
+        $('.checkbox input[type="checkbox"]').each(function () {
+            if ($(this).is(":checked")) {
+                checkedAtLeastOne = true;
+            }
+        });
+        if (checkedAtLeastOne === true) {
+            $('#addPagestonavi').attr('disabled', false);
+        } else {
+            $('#addPagestonavi').attr('disabled', true);
+        }
+    });
+}
+
+// select all page data
 $('#selectUs').click(function (event) {
     if (this.checked) { // check select status
         $('.checkbox input[type="checkbox"]').each(function () { //loop through each checkbox
@@ -196,7 +236,87 @@ $('#selectUs').click(function (event) {
     }
 });
 
+// set menu layout position id
+$('#menuposition').change(function () {
+    var posi_id = $('#menuposition').val();
+    $.ajax({
+        type: 'POST',
+        url: window.location + "/setmenupos",
+        data: {'idpos': posi_id, '_token': $('[name=_token').val()},
+        success: function () {
+            $(".loader-container").removeClass('show');
+            $(".alert-success").html('menu position is set to ' + $('#menuposition option:selected').text());
+            $(".alert-success").show();
+            $(".alert-success").delay(1500).fadeOut(400);
+        },
+        error: function () { // if error occured
+            alert("Error: try again");
+            $(".loader-container").removeClass('show');
+        }
+    });
+});
 
+// button validation for adding external menu tab
+$('#external_label, #external_link').keyup(function () {
+    if ($('#external_label, #external_link').val() !== '') {
+        $("#addExternalLink").attr('disabled', false);
+    }
+});
+
+$('#external_label, #external_link').focusout(function () {
+    if ($('#external_label, #external_link').val() === '') {
+        $("#addExternalLink").attr('disabled', true);
+    }
+});
+// end button
+
+// for real time search page list
+$("#livesearch-input").keyup(function () {
+    var search_input = $(this).val();
+    var dataString = {'keyword': search_input, '_token': $('[name=_token').val()};
+    var dataStringEmpty = {'keyword': '', '_token': $('[name=_token').val()};
+    if (search_input.length === 0) {
+        //AJAX POST
+        $.ajax({
+            type: "POST",
+            url: window.location + "/pagelivesearch",
+            data: dataStringEmpty,
+            beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+            },
+            success: function (response) {
+                $("#livesearch_result").empty();
+                $.each(response, function () {
+                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
+
+                    $("#livesearch_result").append(pagehtml);
+                });
+                activateExtPageBtn();
+            }
+        });
+    } else {
+
+        //AJAX POST
+        $.ajax({
+            type: "POST",
+            url: window.location + "/pagelivesearch",
+            data: dataString,
+            beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+            },
+            success: function (response) {
+                $("#livesearch_result").empty();
+                $.each(response, function () {
+                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
+
+                    $("#livesearch_result").append(pagehtml);
+                });
+                activateExtPageBtn();
+            }
+        });
+    }
+});
+// end search page list
 
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);
@@ -204,6 +324,10 @@ function autoClear() {
     $("#clear_btn").attr('disabled', true);
     $('#menu_id').val('');
     $('#menu_label').val('');
+    $('#menu-link').val('');
+    $('#menu-link').attr('readonly', true);
+    $('#external_label, #external_link').val(''); // for auto clear text external menu
+    $("#addExternalLink").attr('disabled', true);
 }
 
 function delThis(idMenu) {
