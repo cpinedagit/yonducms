@@ -252,8 +252,6 @@ $('#menuposition').change(function () {
         error: function () { // if error occured
             alert("Error: try again");
             $(".loader-container").removeClass('show');
-
-
         }
     });
 });
@@ -319,8 +317,6 @@ $("#livesearch-input").keyup(function () {
     }
 });
 // end search page list
-
-
 
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);

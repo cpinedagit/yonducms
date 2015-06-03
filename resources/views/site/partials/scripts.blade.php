@@ -11,6 +11,5 @@
 {!!HTML::script('public/site/js/menu/main.js') !!}
 {!!HTML::script('public/site/js/menu/core.min.js') !!}
 {!!HTML::script('public/site/js/menu/metisMenu.min.js') !!}
-{!! HTML::script('public/site/js/vendor/modernizr-2.8.3.min.js') !!}
 <script>transformicons.add('.tcon')</script>
 <script src="http://maps.googleapis.com/maps/api/js"></script>
