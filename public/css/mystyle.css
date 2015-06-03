@@ -22,10 +22,7 @@
     border-radius: 20px;
 }
 
-#upload{
-    margin-top:100px;
 
-}
 
 .tableFiles{
     border-collapse: collapse;
@@ -33,27 +30,6 @@
     width:100px;
 }
 
-table{
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    width:1000px;
-}
-
-td{
-    text-align: center;
-    padding-top:10px !important;
-    padding-bottom:10px !important;
-    padding-left:10px !important;
-    padding-right:10px !important; 
-}
-
-th{
-    text-align: center;
-    padding-top:10px !important;
-    padding-bottom:10px !important;
-    padding-left:10px !important;
-    padding-right:10px !important;
-}
 
 
 .Nform-control{
