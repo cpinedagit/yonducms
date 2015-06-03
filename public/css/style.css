@@ -2200,6 +2200,14 @@ img.app_logo_header
 }
 /*APP Logo*/
 
+/*Code editor*/
+article
+{
+    background-color: #272822;
+    height: 550px;
+}
+/*Code editor*/
+
 
 /*ALERT MESSAGE*/
 #close-symbol
