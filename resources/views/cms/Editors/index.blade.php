@@ -66,7 +66,7 @@
             <div class="modal-content modal-content--changepassword">
                 <div class="modal-header modal-header--changepassword">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Folder/File</h4>
                 </div>
                 <div class="modal-body modal-body--changepassword">
                     <div role="tabpanel" class="tabpanel-custom">
@@ -78,10 +78,9 @@
                             <div role="tabpanel" class="tab-pane active" id="addFolder">
                                 <div class="form-group">
                                     <label for="folder-name" class='form-title'>Folder Name</label>
-                                    <input name ='foldername' type="text" class="form-control" id="folder-name" placeholder="Enter folder name">
+                                    <input name='foldername' type="text" class="form-control" id="folder-name" placeholder="Folder name">
                                     {!! Form::hidden('path',null,['id' => 'dataPath']) !!}
                                     {!! Form::hidden('parent',null,['id' => 'dataParent']) !!}
-
                                 </div>
                                 <button type="button" class="btn btn-add center-block" id='add-folder-action'>Add</button>
                             </div>
@@ -120,6 +119,22 @@
                     {!! Form::submit('Upload File',['class' => 'btn btn-add center-block']) !!}
                     {!! Form::close() !!}
                 </div>
+            </div>
+        </div>
+    </div> 
+    <div class="modal fade" id="warningInvalidFileFormat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content--changepassword">
+                <div class="modal-header modal-header--changepassword">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Invalid file format: editor only read <b>php, css, js </b> and <b>html</b> file extension.</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
         </div>
     </div> 
@@ -189,7 +204,7 @@
                         $('.form-title').html("Edit Themes: "+filename); //Set file name in the editor header
                     },error: function () { 
                         // if error occured
-                        alert("Error: try again");
+                        $('#warningInvalidFileFormat').modal('show') 
                     }
             });
         });
