@@ -1,2 +1,2 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-{!! HTML::script('public/site/js/vendor/modernizr-2.8.3.min.js') !!}
