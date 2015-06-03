@@ -41,9 +41,12 @@ Route::resource('cms/access', 'CMS\AccessController');
 Route::resource('cms/roleaccess', 'CMS\RoleAccessesController', ['except' => ['show']]);
 
 Route::resource('cms/general_settings', 'CMS\GeneralSettingsController');
+				'CMS\GeneralSettingsController');
+				['only' => ['index', 'update']]);
 
 Route::resource('news_feeds', 'CMS\NewsFeedsController');
 
+Route::get('cms/general_settings/truncateData', array('as' => 'cms.general_settings.truncateData', 'uses' => 'CMS\GeneralSettingsController@truncateData'));
 
 //Start: Middleware Exmaple
 Route::get('test', 'TestController@index', ['middleware' => 'is.allowed']);
@@ -96,6 +99,7 @@ Route::get('cms/editor/addFolder', 'EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'EditorController@Showw');
 Route::post('cms/editor/updateFile', 'EditorController@updateFile');
 Route::post('cms/editor/addEditorFile', ['as' => 'addEditorFile', 'uses' => 'EditorController@addFile']);
+Route::post('cms/editor/readFile','EditorController@readFile');
 Route::resource('cms/editor', 'EditorController');
 
 //These route are for Banner Management

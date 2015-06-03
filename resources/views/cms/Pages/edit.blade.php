@@ -49,12 +49,7 @@
                         <label for="page-title" class='form-title'>Parent Page *</label>
                         {!! Form::hidden('hideParent',$getParentId) !!}                   
                         <select name ='parent' class='form-control'>
-                            @if(empty($getParent))
-                            <option value='0' style='color:red;'>no parent</option>
-                            @else
                             <option disabled selected>{{ $getParent }}</option>
-                            <option value='0' style='color:red;'>no parent</option>
-                            @endif
                             @foreach($getAllPages as $getPages)
                             <option value="{!! $getPages->id !!}">{!! $getPages->title !!}</option>
                             @endforeach
@@ -125,7 +120,11 @@
                                     @foreach($banners as $banner)
                                     <tr>
                                         <td>{{ $banner->title}}</td>
-                                        <td><button type="button" class="btn btn-add addOnCk" var="[banner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                        @if($banner->type === 'Standard')
+                                        <td><button type="button" class="btn btn-add addOnCk" var="[StandardBanner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                        @else
+                                        <td><button type="button" class="btn btn-add addOnCk" var="[AdvancedBanner({{ $banner->id}})]"><span  class="glyphicon glyphicon-plus"></span></button></td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>

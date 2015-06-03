@@ -181,7 +181,7 @@
 							  	                 @endforeach
               							 	     @if(count($data['user_requests'])==0)
               									     <li>No request found!</li>
-              							  	    @endif
+              							  	   @endif
                             </ul>
                         </div>
                       @endif

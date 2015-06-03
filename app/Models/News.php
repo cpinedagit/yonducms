@@ -40,5 +40,10 @@ class News extends Model {
                            ->count();
         return $data;
     }
+
+    public static function truncate()
+    {
+        return DB::table('content_news')->truncate();
+    }
 }
 

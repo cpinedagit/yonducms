@@ -22,20 +22,17 @@ html{
 textarea{
     resize: none;
 }
-.main-container__content__info__panel-custom::-webkit-scrollbar,
-.notif-list::-webkit-scrollbar{
+.main-container__content__info__panel-custom::-webkit-scrollbar {
     width: 1em;
     border-radius: 10px;
 }
  
-.main-container__content__info__panel-custom::-webkit-scrollbar-track,
-.notif-list::-webkit-scrollbar-track {
+.main-container__content__info__panel-custom::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px #c9c9c9;
     border-radius: 10px;
 }
  
-.main-container__content__info__panel-custom::-webkit-scrollbar-thumb,
-.notif-list::-webkit-scrollbar-thumb{
+.main-container__content__info__panel-custom::-webkit-scrollbar-thumb {
     background-color: #aeaeae;
     border-radius: 10px;
 }
@@ -56,9 +53,9 @@ a:focus{
     color: #fff;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .btn-add:hover,
 .btn-add:focus{
@@ -67,9 +64,9 @@ a:focus{
     outline: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .btn-filter,
 .lbl-filter{
@@ -82,9 +79,9 @@ a:focus{
     font-weight: normal;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .btn-filter:hover,
@@ -94,9 +91,9 @@ a:focus{
     outline: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .btn-add--login{
     font-size: 16px;
@@ -115,9 +112,9 @@ a:focus{
     margin-bottom: 0;
 
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .action-list li{
     float: left;
@@ -131,17 +128,17 @@ a:focus{
     color: #7b8698; 
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .action-list li > a:hover{
     color: #fff;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .btn-holder{
     text-align: center;
@@ -169,9 +166,9 @@ a:focus{
     border-color: #666666;
     color: #fff;
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .btn-reset:hover,
 .btn-reset:focus{
@@ -180,9 +177,9 @@ a:focus{
     color: #fff;
     outline: 0;
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .ui-datepicker{
       z-index: 3!important;
@@ -220,26 +217,26 @@ a:focus{
     text-align: center;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .dropdown-menu > li:hover{
     color: #fff;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .dropdown-menu > li > a{
     color: #A1ACC0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus{
@@ -247,9 +244,9 @@ a:focus{
     color: #fff;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .input-group-addon{
     background: #fff;
@@ -297,9 +294,6 @@ a:focus{
     background: #cccccc;
 }
 
-
-
-
 /********* JQUERY DATATABLE OVERWRITE ***************/
 .dataTables_wrapper .dataTables_paginate .paginate_button,
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
@@ -309,18 +303,18 @@ a:focus{
     color: #666!important;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
     background: #6C83A1;
     border:1px solid #ccc;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
@@ -402,9 +396,9 @@ a:focus{
     float: left;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .header__search .input-group{
     width: 200px;
@@ -430,9 +424,9 @@ a:focus{
     color: #fff;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .header__search .input-group > .form-control:focus{
     box-shadow: none;
@@ -564,34 +558,34 @@ a:focus{
     padding-bottom: 50px;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__navigation-container.nav-hide{
     overflow: visible;
     width: 50px;
       
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__navigation-container__navigation__nav-list{
     width: 200px;
     
      -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__navigation-container.nav-hide .main-container__navigation-container__navigation__nav-list{
     width: 50px;
     
      -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 } 
 .main-container__navigation-container .main-container__navigation-container__navigation__nav-list > li{
     position: relative;
@@ -663,9 +657,9 @@ a:focus{
     
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__navigation-container.nav-hide .main-container__navigation-container__search.open{
     position: relative;
@@ -674,9 +668,9 @@ a:focus{
    
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .main-container__navigation-container.nav-hide  .main-container__navigation-container__search{
@@ -717,9 +711,9 @@ a:focus{
     color: #C6D3EA;
     
     -webkit-transition: all 0.2s ease-in-out;
-	   -moz-transition: all 0.2s ease-in-out;
-	     -o-transition: all 0.2s ease-in-out;
-	        transition: all 0.2s ease-in-out;
+       -moz-transition: all 0.2s ease-in-out;
+         -o-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
 }
 .main-container__navigation-container__navigation__nav-list > li > a{
     background: transparent;
@@ -733,9 +727,9 @@ a:focus{
     overflow: hidden;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__navigation-container__navigation__nav-list > li.active > a{
     position: relative;
@@ -776,9 +770,9 @@ a:focus{
     max-height: 0;
     display: none;
     -webkit-transition: all 0.5s ease-in-out;
-	   -moz-transition: all 0.5s ease-in-out;
-	     -o-transition: all 0.5s ease-in-out;
-	        transition: all 0.5 ease-in-out;
+       -moz-transition: all 0.5s ease-in-out;
+         -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5 ease-in-out;
 }
 
 .main-container__navigation-container .main-container__navigation-container__navigation__nav-list > li.open > ul{
@@ -786,9 +780,9 @@ a:focus{
     display: block;
     
     -webkit-transition: all 0.5s ease-in-out;
-	   -moz-transition: all 0.5s ease-in-out;
-	     -o-transition: all 0.5s ease-in-out;
-	        transition: all 0.5s ease-in-out;
+       -moz-transition: all 0.5s ease-in-out;
+         -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
 }
 .main-container__navigation-container .main-container__navigation-container__navigation__nav-list > li.open > ul > li.active{
     background: rgba(255, 255, 255, 0.25);
@@ -868,26 +862,24 @@ a:focus{
 }
 
 
-
-
 /********* MAIN CONTENT ***************/
 .main-container__content{
     padding-bottom: 100px;
     margin-left: 200px;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .main-container__navigation-container.nav-hide + .main-container__content{
     margin-left: 50px;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__content__title{
     overflow: hidden;
@@ -907,7 +899,7 @@ a:focus{
 .main-container__content__breadcrumbs .breadcrumb>li *{
     color: #656565;
 }
-.main-container__content__breadcrumbs .breadcrumb>li:first-child > a:before{
+.main-container__content__breadcrumbs .breadcrumb>li:first-child:before{
     font-family:FontAwesome;
     content: '\f015';
     color: #656565;
@@ -919,7 +911,7 @@ a:focus{
     color: #656565;
 }
 .main-container__content__info{
-    margin-top: 50px;
+    margin-top: 0px;
     position: relative;
 }
 .main-container__content__info__summary{
@@ -969,9 +961,9 @@ table.table--noaction tr td:first-child{
     background-color: transparent;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .table--lastaction .action  i{
@@ -987,9 +979,9 @@ table.table--noaction tr td:first-child{
     transform: rotate(0deg);
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .table--lastaction .action.open-action i{
@@ -1000,27 +992,27 @@ table.table--noaction tr td:first-child{
     transform: rotate(180deg);
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .table--lastaction .action.open-action .action-list{
     right: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 
 .table--lastaction .action > i:hover{
    color: #808080; 
 
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .table--lastaction .action.open-action > i:hover{
     color: #44b6ae;
@@ -1088,17 +1080,17 @@ table.table--noaction tr td:first-child{
     color: #b6b6b6;
       
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__content__info__tabpanel .nav-tabs li a:hover{
     background: #E8E8E8;
     border: 0;
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__content__info__tabpanel .tab-content{
     position: relative;
@@ -1132,9 +1124,7 @@ table.table--noaction tr td:first-child{
 .page-list-holder ol li label{
     color: #666666;
 }
-.main-container__content__info__properties{
-    margin-top: 30px;
-}
+
 .panel-body__textbox-holder{
     padding:10px 80px 10px;
 }
@@ -1200,18 +1190,18 @@ table.table--noaction tr td:first-child{
     border-radius: 0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .tabpanel-custom > .nav-tabs > li > a:hover,
 .tabpanel-custom > .nav-tabs > li > a:focus{
     background-color: #eee;
   
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .tabpanel-custom  > .tab-content{
     padding: 20px 0;
@@ -1366,18 +1356,18 @@ table.table--noaction tr td:first-child{
     color: #b6b6b6;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__content__info__photo__delete > a:hover,
 .main-container__content__info__photo__delete > a:focus{
     color: #6B6B6B;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .main-container__content__info__photo__limitations{
     margin-top: 25px;
@@ -1428,8 +1418,7 @@ table.table--noaction tr td:first-child{
          -o-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
 }
-.file-list > li > a:hover,
-.main-container__content__info__photo--editor li a:hover{
+.file-list > li > a:hover{
     color: #49CFC5;
     
     -webkit-transition: all 0.3s ease-in-out;
@@ -1628,6 +1617,11 @@ table.table--noaction tr td:first-child{
     padding:25px 15px!important;
     background: none;
 }
+
+.media-details-intro{
+    font-weight: 100;
+}
+
 .modal-body__media--usermngt .tab-footer{
     border-top: 1px solid #ddd;
     background: none;
@@ -1735,7 +1729,7 @@ table.table--noaction tr td:first-child{
     border-left: 10px solid #e45c5b;
 }
 .media-list-dashboard > li .media-object{
-    width: 170px;
+    /*width: 170px;*/
 }
 .media-list-dashboard  .media-body .media-heading{
     color: #333333;
@@ -2086,8 +2080,8 @@ ul.mtree.bubba li li li li li > a {
 }
 .login-holder-form__logo{
     /*max-height: 40px;*/
-    width: 200px;
-    margin: 0 auto 50px;
+    width: 320px;
+    margin: 0 auto 25px;
     display: block;
 }
 .login-holder-form__footer{
@@ -2113,9 +2107,9 @@ ul.mtree.bubba li li li li li > a {
     color: #8799B0;
     
     -webkit-transition: all 0.3s ease-in-out;
-	   -moz-transition: all 0.3s ease-in-out;
-	     -o-transition: all 0.3s ease-in-out;
-	        transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 }
 .login-holder-form_title{
     margin-top: 0;
@@ -2185,6 +2179,10 @@ ul.mtree.bubba li li li li li > a {
     margin-top: -7%;
 }
 
+.rss-feeds-body{
+    width: 100%;
+}
+
 #APP_LOGO_img{
     height: 88px;
     position: inherit;
@@ -2195,11 +2193,23 @@ ul.mtree.bubba li li li li li > a {
 /*Dashboard*/
 
 /*APP Logo*/
-.app_logo_header
+img.app_logo_header
 {
-   max-height: 50px;
+   max-height: 34px;
+   vertical-align: bottom;
 }
 /*APP Logo*/
+
+
+/*ALERT MESSAGE*/
+#close-symbol
+{
+  float: right!important;
+  cursor: pointer;
+  padding-right: 8px;
+  padding-top: 3px;
+}
+/*ALERT MESSAGE*/
 
 /*==========  Non-Mobile First Method  ==========*/
 

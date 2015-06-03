@@ -47,7 +47,7 @@ class Page extends Model {
     }
 
     public static function getAllBanners() {
-        return DB::table('banners')->get(array('banners.id', 'banners.title'));
+        return DB::table('banners')->get(array('banners.id', 'banners.title','banners.type'));
     }
 
     public static function getAllPublished() {
@@ -63,6 +63,11 @@ class Page extends Model {
                            ->where('status', '=', 1)
                            ->count();
         return $data;
+    }
+
+    public static function truncate()
+    {
+        return DB::table('pages')->truncate();
     }
 
 }

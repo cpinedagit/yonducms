@@ -12,6 +12,7 @@
                 <ul id="menu" class="nav masthead-nav">
                     @if(isset($objMenu))
                     @foreach($objMenu as $siteMenu)
+
                     <li>
                         <a href="{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
                             <span class="link-title">{!! $siteMenu->label !!}</span> 

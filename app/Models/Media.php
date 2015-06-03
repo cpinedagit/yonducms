@@ -28,5 +28,10 @@ class Media extends Model {
                      
             }            
         	return $arView;
+    }
+
+    public static function truncate()
+    {
+        return DB::table('content_media')->truncate();
     }	
 }

@@ -87,6 +87,25 @@
 
         </div>
    </div>
+<div class="modal fade" id="saveinfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content modal-content--changepassword">
+        <div class="modal-header modal-header--changepassword">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Save Information</h4>
+        </div>
+        <div class="modal-body modal-body--changepassword">
+          Are you sure you want to save this information?
+
+        </div>
+        <div class="modal-footer modal-footer--changepassword">
+          <button type="submit" class="btn btn-add">Yes</button>
+          <button type="button" class="btn btn-reset" data-dismiss="modal" aria-label="Close">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                
 <script type = "text/javascript">
 	$('#UserCreateUpdate').on('click', function(){
 		if($('#UserCreateForm').parsley().validate()) {

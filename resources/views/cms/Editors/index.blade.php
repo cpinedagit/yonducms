@@ -3,6 +3,8 @@
 <h2>Editor</h2>
 @stop
 @section('content')
+ <div class="alert alert-success hidden" role="alert">File has been saved. <div class="glyphicon glyphicon-remove" id="close-symbol"> </div> </div>
+
 <div class='main-container__content__info'>
     <div class="row">
         <div class="col-sm-9">
@@ -10,9 +12,10 @@
                 <label for="edit-themes" class='form-title'>Edit Themes</label>
                 {!! Form::open(array('url' => 'cms/editor/updateFile','method' => 'post')) !!}
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <textarea id='textarea' class="form-control editor-textarea" name="content" cols="100" rows="30"></textarea>
-                <input id ='hidden' name ='hidden' type='hidden' value=''><br><br><br>
-                <input id ='update' class="btn btn-add" type ="submit" value = "Update file" class = "btn btn-success">
+                <article></article>
+                <input name ='content' type='hidden' value=''>
+                <input id ='hidden' name ='hidden' type='hidden' value=''> <br/>
+                <input id ='update' class="btn btn-add" type="button" value="Update File" class="btn btn-success">
                 {!! Form::close() !!}
             </div>
         </div>
@@ -63,7 +66,7 @@
             <div class="modal-content modal-content--changepassword">
                 <div class="modal-header modal-header--changepassword">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add Folder</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Folder/File</h4>
                 </div>
                 <div class="modal-body modal-body--changepassword">
                     <div role="tabpanel" class="tabpanel-custom">
@@ -75,10 +78,9 @@
                             <div role="tabpanel" class="tab-pane active" id="addFolder">
                                 <div class="form-group">
                                     <label for="folder-name" class='form-title'>Folder Name</label>
-                                    <input name ='foldername' type="text" class="form-control" id="folder-name" placeholder="Enter folder name">
+                                    <input name='foldername' type="text" class="form-control" id="folder-name" placeholder="Folder name">
                                     {!! Form::hidden('path',null,['id' => 'dataPath']) !!}
                                     {!! Form::hidden('parent',null,['id' => 'dataParent']) !!}
-
                                 </div>
                                 <button type="button" class="btn btn-add center-block" id='add-folder-action'>Add</button>
                             </div>
@@ -120,6 +122,22 @@
             </div>
         </div>
     </div> 
+    <div class="modal fade" id="warningInvalidFileFormat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-content--changepassword">
+                <div class="modal-header modal-header--changepassword">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Invalid file format: editor only read <b>php, css, js </b> and <b>html</b> file extension.</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+        </div>
+    </div> 
 </div>
 <script>
     $(document).on("click", '.btn-add-folder', function () {
@@ -149,15 +167,71 @@
         });
     });
 
-    $('.linkFile').on('click', '', function (e) {
-        var filename = this.id;
-        $.get('../' + filename, function (data)//Remember, same domain
-        {
-            var _data = data;
-            $('#textarea').val(data);
-            $('#hidden').val(filename);
+    //Intialize the CodeMirror
+    $('document').ready(function(){
+
+        var code_mirror = CodeMirror(document.body.getElementsByTagName("article")[0], {
+                  value: "Welcome to {{ env('APP_TITLE') }} editor!",
+                  lineNumbers: true,
+                  mode: "javascript",
+                  keyMap: "sublime",
+                  autoCloseBrackets: true,
+                  matchBrackets: true,
+                  showCursorWhenSelecting: true,
+                  theme: "monokai"
         });
 
+
+        $('.linkFile').on('click', '', function (e) {
+            $('.alert-success').addClass('hidden');
+            var filename = this.id;
+            
+            $.ajax({
+                    type:'POST',
+                    url: "{{ URL().'/cms/editor/readFile' }}",
+                    data: {
+                        '_token':   $('[name=_token]').val(),
+                        'file_dir': filename 
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var value='';
+                        for(x in data)
+                            value += data[x]; 
+
+                        code_mirror.setValue(value); //Set code_mirror value
+                        $('#hidden').val(filename); //Set file name to form
+                        $('.form-title').html("Edit Themes: "+filename); //Set file name in the editor header
+                    },error: function () { 
+                        // if error occured
+                        $('#warningInvalidFileFormat').modal('show') 
+                    }
+            });
+        });
+
+        //Update file using AJAX
+        $('#update').on('click', function(){
+            $.ajax({
+                    type: 'POST',
+                    url: "{{ URL().'/cms/editor/updateFile' }}",
+                    data: {
+                            'hidden': $('#hidden').val(), 
+                            '_token': $('[name=_token]').val(),
+                            'content': code_mirror.getValue()
+                    },
+                    success: function () {
+                         $('.alert-success').removeClass('hidden');
+                    },error: function () { 
+                        // if error occured
+                        alert("Error: try again");
+                    }
+            });
+        }); 
+    });   
+
+    //Close message alert when click close
+    $('#close-symbol').on('click', function(){
+        $('.alert-success').addClass('hidden');
     });
 
 </script>
