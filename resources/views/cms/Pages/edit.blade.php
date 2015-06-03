@@ -49,7 +49,13 @@
                         <label for="page-title" class='form-title'>Parent Page *</label>
                         {!! Form::hidden('hideParent',$getParentId) !!}                   
                         <select name ='parent' class='form-control'>
+                             @if(empty($getParent))
+                            <option value='0' style='color:red;'>no parent</option>
+                            @else
                             <option disabled selected>{{ $getParent }}</option>
+                            <option value='0' style='color:red;'>no parent</option>
+                            @endif
+                            
                             @foreach($getAllPages as $getPages)
                             <option value="{!! $getPages->id !!}">{!! $getPages->title !!}</option>
                             @endforeach

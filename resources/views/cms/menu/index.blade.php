@@ -61,18 +61,10 @@
                     </div>
 
                     <form id="structure_menu" name="structure_menu">
-
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-
                         <input type="hidden" name="nestable-output" id="nestable-output">
                     </form>
-
-
-
-
                 </div>
-
-
             </div>
         </div>
         <div class="col-sm-6">
@@ -95,7 +87,6 @@
                                     <input type="text" class="form-control" placeholder="Link" readonly name='menu-link' id='menu-link'>                                    
                                 </form>
                                 <br>
-
 
                                 <button id="saveMenuChanges" disabled="true" class="btn btn-add">Apply Changes</button>
                                 <button class="btn btn-warning" disabled="true" id='clear_btn' onclick="autoClear()">Cancel</button>
