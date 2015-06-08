@@ -10,7 +10,7 @@ class Module_Editor
 
 	//Adds a route.
 	function addRoute($url, $controller, $method) {
-		$routeString = "\nRoute::get('" . $url . "', '" . $controller . "@" . $method . "');\n";
+		$routeString = "\nRoute::resource('" . $url . "', '" . $controller . "@" . "');\n";
 		$this->appendString(self::MODULE_ROUTES, $routeString);
 	}
 

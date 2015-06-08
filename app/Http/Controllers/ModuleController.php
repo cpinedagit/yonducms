@@ -2,6 +2,9 @@
 
 use app\Http\Requests;
 use app\Http\Controllers\Controller;
+use App\Models\Access;
+use App\Models\SubAccess;
+use App\Models\Role;
 //use Controller;
 
 use DB;
@@ -142,7 +145,9 @@ class ModuleController extends Controller {
 			if($upload_success) {
 				try{
 					$response = require_once(app_path() . '/Modules/Install_Module.php');
+					$this->addNewModuleAccess($_SESSION['installed_module']);
 					$message = "Module installed.";
+
 				} catch (Exception $e) {
 					$message = $e->getMessage();
 				}
@@ -152,9 +157,23 @@ class ModuleController extends Controller {
 		} else {
 			$message = "No file selected for upload.";
 		}
-		//echo $message;
+		
 		Session::flash("upload-message", $message);
 		return Redirect::to('modules');
+	}
+
+	public function addNewModuleAccess($id)
+	{
+		$roles = Role::all();
+		$module_id = $id;
+
+		foreach($roles as $role):
+			$access = new Access;
+			$access->role_id = $role->id;
+			$access->module_id = $module_id;
+			$access->is_enabled = 1;
+			$access->save();
+		endforeach;
 	}
 
 }

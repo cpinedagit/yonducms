@@ -30,4 +30,16 @@ class Module extends Model {
 		return $modules;
 	}
 
+	public static function saveGetId($module)
+	{
+		return DB::table('modules')
+				->insertGetId(array(
+					'module_name' => $module->module_name,
+					'module_description' => $module->module_description,
+					'module_path' => $module->module_path,
+					'module_icon' => $module->module_icon,
+					'module_type' => $module->module_type
+					));
+	}
+
 }
