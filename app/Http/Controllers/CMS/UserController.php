@@ -149,8 +149,6 @@ class UserController extends Controller {
 			$user->reset_password_timestamp = \Carbon\Carbon::now(); 
 			//Set new password
 			$user->password   = Hash::make(Input::get('password'));
-		}else{
-			$user->password   = Hash::make(Input::get('password'));	
 		}
 
 		if(Input::file('profile_pic') != '') {
