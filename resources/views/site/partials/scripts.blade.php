@@ -9,3 +9,11 @@
 {!!HTML::script('public/site/js/vendor/modernizr-2.8.3.min.js') !!}
 {!! HTML::script('public/site/js/transformicon.js') !!}
 <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+
+<!-- Standard Banner-->
+{!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
+{!! HTML::script('public/js/beam/modernizr.js') !!}
+{!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
+{!! HTML::script('public/js/beam/carousel.js') !!}
+<!-- Standard Banner-->

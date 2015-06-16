@@ -20,3 +20,19 @@
 {!! HTML::style('public/js/codemirror/addon/dialog/dialog.css') !!} 
 {!! HTML::style('public/css/codemirror/monokai.css') !!} 
 <!-- CodeMirror -->
+
+<!--Standard Banner-->
+{!! HTML::style('public/css/beam/ekko-lightbox.min.css') !!}
+{!! HTML::style('public/css/beam/lightslider.min.css') !!}
+{!! HTML::style('public/css/beam/styles.css') !!}
+{!! HTML::style('public/css/beam/carousel.css') !!}
+<!--Standard Banner-->
+
+
+<!--Scheduler-->
+{!! HTML::style('public/beam/css/normalize.css') !!}
+{!! HTML::style('public/beam/font-awesome/css/font-awesome.min.css') !!}
+{!! HTML::style('public/beam/css/slick.css') !!}
+{!! HTML::style('public/beam/css/slick-theme.css') !!}
+<!--Scheduler-->
+

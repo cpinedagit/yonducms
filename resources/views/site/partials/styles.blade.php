@@ -13,3 +13,10 @@
 {!! HTML::style('public/site/font-awesome/css/font-awesome.min.css') !!}
 {!! HTML::style('public/site/css/transformicon.css') !!}
 {!! HTML::style('public/site/css/style.css') !!}
+
+<!--Standard Banner-->
+{!! HTML::style('public/css/beam/ekko-lightbox.min.css') !!}
+{!! HTML::style('public/css/beam/lightslider.min.css') !!}
+{!! HTML::style('public/css/beam/styles.css') !!}
+{!! HTML::style('public/css/beam/carousel.css') !!}
+<!--Standard Banner-->
