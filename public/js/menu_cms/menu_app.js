@@ -10,7 +10,7 @@ $(document).ready(function ()
     //run js script for editing menu
     functionReadyToEditMenu();
     //run for checkbox activate button function
-    activateExtPageBtn();
+    activateAddPageBtn();
 // add menu from pages
     $('#addPagestonavi').click(function () {
         var tagitem = document.getElementsByClassName('dd-item');
@@ -27,9 +27,6 @@ $(document).ready(function ()
                 type: 'POST',
                 url: window.location + "/addpagetomenu",
                 data: {'label': label, 'page_id': page_id, 'order_id': nestablecount, '_token': $('[name=_token').val()},
-                beforeSend: function () {
-                    $(".loader-container").addClass('show');
-                },
                 success: function (response) {
 
                     var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='" + page_id + "' data-parent_id='0' data-label='" + label + "' data-url='" + slug + "'  data-url_origin='slug'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
@@ -49,12 +46,10 @@ $(document).ready(function ()
                 error: function () { // if error occured
                     alert("Error: try again");
                     $(".loader-container").removeClass('show');
-
+                    location.reload();
                 }
             });
-
         });
-
     });
 
 
@@ -70,9 +65,6 @@ $(document).ready(function ()
             type: 'POST',
             url: window.location + "/addexternallink",
             data: {'label': label, 'external_link': external_link, 'order_id': nestablecount, '_token': $('[name=_token').val()},
-            beforeSend: function () {
-                $(".loader-container").addClass('show');
-            },
             success: function (response) {
 
                 var htmlmenu = "<li id='idli_" + response['last_id'] + "' class='dd-item' data-menu_id='" + response['last_id'] + "' data-page_id='0' data-parent_id='0' data-label='" + label + "' data-url='" + external_link + "'  data-url_origin='external'><div class='dd-handle'  id='target_" + response['last_id'] + "'>" + label + "</div><button class='circle btn--remove-menu delete-item' onclick='delThis(" + response['last_id'] + ")'></button></li>";
@@ -88,7 +80,7 @@ $(document).ready(function ()
             error: function () { // if error occured
                 alert("Error: try again");
                 $(".loader-container").removeClass('show');
-
+                location.reload();
             }
         });
     });
@@ -130,7 +122,8 @@ $(document).ready(function ()
         }, 500);
     }
 });
-//end of document ready function
+//end of jquery document ready
+
 
 function functionReadyToEditMenu() {
 // changes name and url textboxes if clicked
@@ -156,11 +149,11 @@ function functionReadyToEditMenu() {
                 $('#menu-link').val($(mousetarget).closest('.dd-item').attr('data-url'));
 
             }
-
         });
     });
 }
 
+// update text label or external links
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
     data_id = $('#menu_id').val();
@@ -181,10 +174,12 @@ $('#saveMenuChanges').click(function () {
         },
         error: function () { // if error occured
             alert("Error: select menu and try again");
+            location.reload();
         }
     });
 });
 
+// save the hierarchy of menu in every drag and drop event 
 function saveMenuStructure() {
     var data = $("#structure_menu").serialize();
     $.ajax({
@@ -200,12 +195,31 @@ function saveMenuStructure() {
         error: function () { // if error occured
             alert("Error: try again");
             $(".loader-container").removeClass('show');
-
+            location.reload();
         }
     });
 }
+
+// we use window on load because we need to disregard #nestable-output value in first milisecond load which is equal to null hahaha
+$(window).load(function () {
+
+    var jsonnestable = $("#nestable-output");
+    jsonnestable.data("value", jsonnestable.val());
+
+    setInterval(function () {
+        var data = jsonnestable.data("value"),
+                val = jsonnestable.val();
+
+        if (data !== val) {
+            jsonnestable.data("value", val);
+            // saves structure of menu whenever there's change of json value
+            saveMenuStructure();
+        }
+    }, 1);
+});
+
 // activate add external button if atleast 1 is checked
-function activateExtPageBtn() {
+function activateAddPageBtn() {
     $('.checkbox input[type="checkbox"]').click(function (event) {
         var checkedAtLeastOne = false;
         $('.checkbox input[type="checkbox"]').each(function () {
@@ -244,10 +258,7 @@ $('#menuposition').change(function () {
         url: window.location + "/setmenupos",
         data: {'idpos': posi_id, '_token': $('[name=_token').val()},
         success: function () {
-            $(".loader-container").removeClass('show');
-            $(".alert-success").html('menu position is set to ' + $('#menuposition option:selected').text());
-            $(".alert-success").show();
-            $(".alert-success").delay(1500).fadeOut(400);
+            setMsgAlert('navigation is set to ' + $('#menuposition option:selected').text(), '#menuposition')
         },
         error: function () { // if error occured
             alert("Error: try again");
@@ -273,51 +284,56 @@ $('#external_label, #external_link').focusout(function () {
 // for real time search page list
 $("#livesearch-input").keyup(function () {
     var search_input = $(this).val();
-    var dataString = {'keyword': search_input, '_token': $('[name=_token').val()};
+    var datahasString = {'keyword': search_input, '_token': $('[name=_token').val()};
     var dataStringEmpty = {'keyword': '', '_token': $('[name=_token').val()};
     if (search_input.length === 0) {
-        //AJAX POST
-        $.ajax({
-            type: "POST",
-            url: window.location + "/pagelivesearch",
-            data: dataStringEmpty,
-            beforeSend: function () {
-//                $('input#search_input').addClass('loading');
-            },
-            success: function (response) {
-                $("#livesearch_result").empty();
-                $.each(response, function () {
-                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
-
-                    $("#livesearch_result").append(pagehtml);
-                });
-                activateExtPageBtn();
-            }
-        });
+        data = dataStringEmpty;
     } else {
-
-        //AJAX POST
-        $.ajax({
-            type: "POST",
-            url: window.location + "/pagelivesearch",
-            data: dataString,
-            beforeSend: function () {
-//                $('input#search_input').addClass('loading');
-            },
-            success: function (response) {
-                $("#livesearch_result").empty();
-                $.each(response, function () {
-                    var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
-
-                    $("#livesearch_result").append(pagehtml);
-                });
-                activateExtPageBtn();
-            }
-        });
+        data = datahasString;
     }
+    //AJAX POST
+    $.ajax({
+        type: "POST",
+        url: window.location + "/pagelivesearch",
+        data: data,
+        beforeSend: function () {
+//                $('input#search_input').addClass('loading');
+        },
+        success: function (response) {
+            $("#livesearch_result").empty();
+            $.each(response, function () {
+                var pagehtml = "<li><label><input type='checkbox' class='check_pages' name='pages[]' value='" + this.title + "' data-page_id='" + this.id + "' data-label='" + this.title + "' data-url='" + this.slug + "'> " + this.title + "</label></li>";
+
+                $("#livesearch_result").append(pagehtml);
+            });
+            activateAddPageBtn();
+        }
+    });
 });
 // end search page list
 
+// real time notification alert
+function setMsgAlert(msg, btntriger) {
+
+    $(btntriger).attr('disabled', true);
+    // create the notification
+    var notification = new NotificationFx({
+        message: '<p>' + msg + '</p>',
+        layout: 'growl',
+        effect: 'genie', // genie, jelly, slide
+        type: 'notice', // notice, warning or error
+        onClose: function () {
+            $(btntriger).attr('disabled', false);
+        }
+    });
+
+    // show the notification
+    notification.show();
+}
+;
+// end alert
+
+// clear text field and other
 function autoClear() {
     $('#saveMenuChanges').attr('disabled', true);
     $('#menu_label').attr('readonly', true);
@@ -330,6 +346,7 @@ function autoClear() {
     $("#addExternalLink").attr('disabled', true);
 }
 
+// deletes menu
 function delThis(idMenu) {
     if (confirm('this action will affect to data record permanently, are you sure of this?')) {
         autoClear();
@@ -343,8 +360,8 @@ function delThis(idMenu) {
             },
             error: function () {
                 alert("Error: try again");
+                location.reload();
             }
         });
-
     }
 }

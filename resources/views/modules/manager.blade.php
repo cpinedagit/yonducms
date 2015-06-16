@@ -127,5 +127,6 @@
         	$("#upload-form").submit();
         };
         $(".upload-dialog").change( submitUpload );
+
 	</script>
 @stop

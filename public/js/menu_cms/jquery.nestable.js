@@ -121,7 +121,7 @@
                     e.preventDefault();
                     list.dragStop(e.touches ? e.touches[0] : e);
                     // added this for update structure menu, Allan Perez, May 20,2015 4:47pm
-                    saveMenuStructure();
+//                    saveMenuStructure();
                 }
             };
 

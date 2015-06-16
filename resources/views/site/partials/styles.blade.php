@@ -14,6 +14,12 @@
 {!! HTML::style('public/site/css/transformicon.css') !!}
 {!! HTML::style('public/site/css/style.css') !!}
 
+<!-- css for site menu -->
+{!! HTML::style('public/site/css/menu/main.css') !!}
+{!! HTML::style('public/site/css/menu/top.css') !!}
+{!! HTML::style('public/site/css/menu/right.css') !!}
+{!! HTML::style('public/site/css/menu/left.css') !!}
+
 <!--Standard Banner-->
 {!! HTML::style('public/css/beam/ekko-lightbox.min.css') !!}
 {!! HTML::style('public/css/beam/lightslider.min.css') !!}

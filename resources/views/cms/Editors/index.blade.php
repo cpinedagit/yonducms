@@ -3,7 +3,7 @@
 <h2>Editor</h2>
 @stop
 @section('content')
- <div class="alert alert-success hidden" role="alert">File has been saved. <div class="glyphicon glyphicon-remove" id="close-symbol"> </div> </div>
+
 
 <div class='main-container__content__info'>
     <div class="row">
@@ -133,8 +133,8 @@
                     <p>Invalid file format: editor only read <b>php, css, js </b> and <b>html</b> file extension.</p>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div> 
@@ -168,69 +168,69 @@
     });
 
     //Intialize the CodeMirror
-    $('document').ready(function(){
+    $('document').ready(function () {
 
         var code_mirror = CodeMirror(document.body.getElementsByTagName("article")[0], {
-                  value: "Welcome to {{ env('APP_TITLE') }} editor!",
-                  lineNumbers: true,
-                  mode: "javascript",
-                  keyMap: "sublime",
-                  autoCloseBrackets: true,
-                  matchBrackets: true,
-                  showCursorWhenSelecting: true,
-                  theme: "monokai"
+            value: "Welcome to {{ env('APP_TITLE') }} editor!",
+            lineNumbers: true,
+            mode: "javascript",
+            keyMap: "sublime",
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            showCursorWhenSelecting: true,
+            theme: "monokai"
         });
 
 
         $('.linkFile').on('click', '', function (e) {
             $('.alert-success').addClass('hidden');
             var filename = this.id;
-            
-            $.ajax({
-                    type:'POST',
-                    url: "{{ URL().'/cms/editor/readFile' }}",
-                    data: {
-                        '_token':   $('[name=_token]').val(),
-                        'file_dir': filename 
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        var value='';
-                        for(x in data)
-                            value += data[x]; 
 
-                        code_mirror.setValue(value); //Set code_mirror value
-                        $('#hidden').val(filename); //Set file name to form
-                        $('.form-title').html("Edit Themes: "+filename); //Set file name in the editor header
-                    },error: function () { 
-                        // if error occured
-                        $('#warningInvalidFileFormat').modal('show') 
-                    }
+            $.ajax({
+                type: 'POST',
+                url: "{{ URL().'/cms/editor/readFile' }}",
+                data: {
+                    '_token': $('[name=_token]').val(),
+                    'file_dir': filename
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var value = '';
+                    for (x in data)
+                        value += data[x];
+
+                    code_mirror.setValue(value); //Set code_mirror value
+                    $('#hidden').val(filename); //Set file name to form
+                    $('.form-title').html("Edit Themes: " + filename); //Set file name in the editor header
+                }, error: function () {
+                    // if error occured
+                    $('#warningInvalidFileFormat').modal('show')
+                }
             });
         });
 
         //Update file using AJAX
-        $('#update').on('click', function(){
+        $('#update').on('click', function () {
             $.ajax({
-                    type: 'POST',
-                    url: "{{ URL().'/cms/editor/updateFile' }}",
-                    data: {
-                            'hidden': $('#hidden').val(), 
-                            '_token': $('[name=_token]').val(),
-                            'content': code_mirror.getValue()
-                    },
-                    success: function () {
-                         $('.alert-success').removeClass('hidden');
-                    },error: function () { 
-                        // if error occured
-                        alert("Error: try again");
-                    }
+                type: 'POST',
+                url: "{{ URL().'/cms/editor/updateFile' }}",
+                data: {
+                    'hidden': $('#hidden').val(),
+                    '_token': $('[name=_token]').val(),
+                    'content': code_mirror.getValue()
+                },
+                success: function () {
+                    setMsgAlert('File has been saved', '#update');
+                }, error: function () {
+                    // if error occured
+                    alert("Error: try again");
+                }
             });
-        }); 
-    });   
+        });
+    });
 
     //Close message alert when click close
-    $('#close-symbol').on('click', function(){
+    $('#close-symbol').on('click', function () {
         $('.alert-success').addClass('hidden');
     });
 

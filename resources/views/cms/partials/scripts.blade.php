@@ -1,6 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
-	
+
+{!! HTML::script('public/js/jquery.js') !!}	
 {!! HTML::script('public/js/jquery.dataTables.min.js') !!}
 {!! HTML::script('public/js/bootstrap.min.js'); !!}
 {!! HTML::script('public/ckeditor/ckeditor.js'); !!}
@@ -19,9 +20,13 @@
     formats = formats.split(',');
     var default_size = "{{ env('APP_MEDIA_MAX_FILE_SIZE') }}";
 </script>
+<!--menu cms-->
 {!! HTML::script('public/js/main.js') !!}
 {!! HTML::script('public/js/menu_cms/jquery.nestable.js') !!}
 {!! HTML::script('public/js/menu_cms/menu_app.js') !!}
+{!! HTML::script('public/js/menu_cms/classie.js') !!}
+{!! HTML::script('public/js/menu_cms/notificationFx.js') !!}
+<!--menu cms-->
 
 <!-- CodeMirror -->
 {!! HTML::script('public/js/codemirror/lib/codemirror.js'); !!}
@@ -46,10 +51,11 @@
 {!! HTML::script('public/js/beam/carousel.js') !!}
 <!-- Standard Banner-->
 
-
 <script>
 
     $(document).ready(function () {
-        $('.datepicker').datepicker();
+	  $('.datepicker').datepicker();
     })
 </script>	
+
+

@@ -13,10 +13,7 @@
     <div class="row">            
 
         <div class="col-sm-6">
-            <div class="alert alert-success" role="alert"  style="display: none"></div>
-            <div class="alert alert-info" role="alert" style="display: none"></div>
-            <div class="alert alert-warning" role="alert" style="display: none"></div>
-            <div class="alert alert-danger" role="alert" style="display: none"></div>
+
             <div class="panel panel-default panel--custom">
                 <div class="panel-heading"><h4>Menu Structure</h4></div>
                 <div class="panel-body">
@@ -34,8 +31,6 @@
                                 @endif
                             </select>
                         </div>
-						
-
                     </div>
 
                     <div class="cf nestable-lists">
@@ -61,18 +56,10 @@
                     </div>
 
                     <form id="structure_menu" name="structure_menu">
-
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-
                         <input type="hidden" name="nestable-output" id="nestable-output">
                     </form>
-
-
-
-
                 </div>
-
-
             </div>
         </div>
         <div class="col-sm-6">
@@ -95,7 +82,6 @@
                                     <input type="text" class="form-control" placeholder="Link" readonly name='menu-link' id='menu-link'>                                    
                                 </form>
                                 <br>
-
 
                                 <button id="saveMenuChanges" disabled="true" class="btn btn-add">Apply Changes</button>
                                 <button class="btn btn-warning" disabled="true" id='clear_btn' onclick="autoClear()">Cancel</button>
@@ -163,11 +149,8 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-</main>
 
 </div>
 @stop

@@ -9,7 +9,12 @@
 {!! HTML::style('public/css/bootstrap-switch.css') !!}
 {!! HTML::style('public/css/style.css') !!}
 {!! HTML::style('public/css/mystyle.css') !!}
+
+<!--for menu cms-->
+{!! HTML::style('public/css/menu_cms/ns-default.css') !!}
+{!! HTML::style('public/css/menu_cms/ns-style-growl.css') !!}
 {!! HTML::style('public/css/menu_cms/nestable.css') !!}
+<!--menu-->
 
 <!-- for loading page display if ajax -->
 {!! HTML::style('public/css/loader.css') !!} 

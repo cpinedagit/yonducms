@@ -206,6 +206,7 @@ class Module_SqlHandler
 
    function runScript($filepath)
    {
+      session_start();
       $sql_query = fread(fopen($filepath, 'r'), filesize($filepath)) or die("problem");
       $sql_query = $this->remove_remarks($sql_query);
       $sql_query = $this->split_sql_file($sql_query, ';');
@@ -222,8 +223,9 @@ class Module_SqlHandler
       foreach ( $sql_query as $sql ) {
          // echo $i++;
          // echo ": ";
-         if( $mysqli->query($sql) === TRUE ) {
+         if( ($mysqli->query($sql)) === TRUE ) {
             // echo "Query run successfully.";
+            $_SESSION['installed_module'] = $mysqli->insert_id;
          } else {
             // echo "Error in query execution.";
          // echo "\n";
