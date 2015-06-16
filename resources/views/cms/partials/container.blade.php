@@ -1,5 +1,6 @@
       <div class="loader-container">
        <div class="loader">
+          <span class="loadtext">loading</span>
           <div class="dot dot1"></div>
           <div class="dot dot2"></div>
           <div class="dot dot3"></div>

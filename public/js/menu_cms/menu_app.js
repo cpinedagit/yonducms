@@ -153,6 +153,7 @@ function functionReadyToEditMenu() {
     });
 }
 
+// update text label or external links
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
     data_id = $('#menu_id').val();
@@ -173,10 +174,12 @@ $('#saveMenuChanges').click(function () {
         },
         error: function () { // if error occured
             alert("Error: select menu and try again");
+            location.reload();
         }
     });
 });
 
+// save the hierarchy of menu in every drag and drop event 
 function saveMenuStructure() {
     var data = $("#structure_menu").serialize();
     $.ajax({
@@ -197,7 +200,7 @@ function saveMenuStructure() {
     });
 }
 
-// we use window on load because we need to disregard #nestable-output value in first milisecond load which is equal to null hahaha edited by allan
+// we use window on load because we need to disregard #nestable-output value in first milisecond load which is equal to null hahaha
 $(window).load(function () {
 
     var jsonnestable = $("#nestable-output");
@@ -311,7 +314,7 @@ $("#livesearch-input").keyup(function () {
 
 // real time notification alert
 function setMsgAlert(msg, btntriger) {
-    
+
     $(btntriger).attr('disabled', true);
     // create the notification
     var notification = new NotificationFx({
