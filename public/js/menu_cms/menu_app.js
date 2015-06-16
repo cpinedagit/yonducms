@@ -153,6 +153,7 @@ function functionReadyToEditMenu() {
     });
 }
 
+// update text label or external links
 $('#saveMenuChanges').click(function () {
     var data = $("#menu_form").serialize();
     data_id = $('#menu_id').val();
@@ -173,10 +174,12 @@ $('#saveMenuChanges').click(function () {
         },
         error: function () { // if error occured
             alert("Error: select menu and try again");
+            location.reload();
         }
     });
 });
 
+// save the hierarchy of menu in every drag and drop event 
 function saveMenuStructure() {
     var data = $("#structure_menu").serialize();
     $.ajax({
@@ -197,7 +200,7 @@ function saveMenuStructure() {
     });
 }
 
-// we use window on load because we need to disregard #nestable-output value in first milisecond load which is equal to null hahaha edited by allan
+// we use window on load because we need to disregard #nestable-output value in first milisecond load which is equal to null hahaha
 $(window).load(function () {
 
     var jsonnestable = $("#nestable-output");
@@ -254,11 +257,8 @@ $('#menuposition').change(function () {
         type: 'POST',
         url: window.location + "/setmenupos",
         data: {'idpos': posi_id, '_token': $('[name=_token').val()},
-        beforeSend: function () {
-            $('#menuposition').attr('disabled', true);
-        },
         success: function () {
-            setMsgAlert('navigation is set to ' + $('#menuposition option:selected').text())
+            setMsgAlert('navigation is set to ' + $('#menuposition option:selected').text(), '#menuposition')
         },
         error: function () { // if error occured
             alert("Error: try again");
@@ -313,8 +313,9 @@ $("#livesearch-input").keyup(function () {
 // end search page list
 
 // real time notification alert
-function setMsgAlert(msg) {
+function setMsgAlert(msg, btntriger) {
 
+    $(btntriger).attr('disabled', true);
     // create the notification
     var notification = new NotificationFx({
         message: '<p>' + msg + '</p>',
@@ -322,7 +323,7 @@ function setMsgAlert(msg) {
         effect: 'genie', // genie, jelly, slide
         type: 'notice', // notice, warning or error
         onClose: function () {
-            $('#menuposition').attr('disabled', false);
+            $(btntriger).attr('disabled', false);
         }
     });
 

@@ -99,7 +99,7 @@ trait AuthenticatesAndRegistersUsers {
 
 				return $this->redirectToLogInPage($request, "Account locked due to ". $this->logInAttempCtr(Auth::user()->id) ." invalid login attempts!");
 			}
-			elseif(Auth::user()->reset_password==1)
+			elseif(Auth::user()->reset_password==1 AND Auth::user()->user_type!='admin')
 			{ 
 				//New User Or Recently Reset User's Password
 				//Require the User To Update his temporary Password
@@ -119,7 +119,6 @@ trait AuthenticatesAndRegistersUsers {
 				//Check if password is nearly expiring
 				//Exception if Admin
 				//Add notification to user
-			
 				if(Auth::user()->user_type=='user' AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)>=1 AND $this->checkIfPasswordExpired(Auth::user()->reset_password_timestamp)<= env('DAYS_BEFORE_PASSWORD_EXPIRES')){
 					
 					//Add warning message when his password will expire
