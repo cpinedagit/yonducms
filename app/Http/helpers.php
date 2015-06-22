@@ -159,7 +159,6 @@ function AdvancedBanner($id) {
 
 
 ";
-
 	  foreach ($objBanner as $obj) {
 		$banner .= "<div>";
 		$banner .= HTML::image($obj->media_path, null, ['style' => 'width:900px;height:400px;']);
@@ -216,4 +215,27 @@ function checkAccess($module_id) {
     return \App\Models\Access::checkAccess($role_id, $module_id);
 }
 
-/*Check if user can access the module*/
+/* Check if user can access the module */
+
+function Schedule_banner() {
+
+    $objScheduleBanner = \App\Models\Schedule::all();
+    $arData = array(
+	  'schedules' => $objScheduleBanner
+    );
+    return View('site.Banners.scheduleBanner')->with($arData)->render();
+}
+
+//
+//function StandardBanner($id) {
+//    $objBanner = \App\Models\Banner::myBanner($id);
+//    $standardBannerWidth = \App\Models\Banner::getStandardBannerWidth($id);
+//    $numberOfImages = \App\Models\Banner::getNumberOfImages($id);
+//    $arData = array(
+//	  'Banners' => $objBanner,
+//	  'standardBannerWidth' => $standardBannerWidth,
+//	  'numberOfImages' => $numberOfImages
+//    );
+//    return View('site.Schedules.index')->with($arData)->render();
+////    return View('site.news.featured_news')->with(array('slug' => $slug, 'featured_news' => $featured))->render();
+//}

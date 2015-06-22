@@ -24,4 +24,16 @@ abstract class Controller extends BaseController {
 		Session::put('module', $module);
 		Session::put('submenu', $submenu);
 	}
+	
+	// marking the label buttons of scheduler
+	public function markDayScheduleList($day, $time, $tv_title)
+	{
+	    Session::forget('day_tv');
+	    Session::forget('time_tv');
+	    Session::forget('tv_title');
+	    
+	    Session::put('day_tv', $day);
+	    Session::put('time_tv', $time);
+	    Session::put('tv_title', $tv_title);
+	}
 }

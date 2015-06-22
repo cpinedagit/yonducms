@@ -26,3 +26,10 @@
 {!! HTML::style('public/css/beam/styles.css') !!}
 {!! HTML::style('public/css/beam/carousel.css') !!}
 <!--Standard Banner-->
+
+<!--Scheduler-->
+{!! HTML::style('public/site/css/beam/css/normalize.css') !!}
+{!! HTML::style('public/site/css/beam/font-awesome/css/font-awesome.min.css') !!}
+{!! HTML::style('public/site/css/beam/css/slick.css') !!}
+{!! HTML::style('public/site/css/beam/css/slick-theme.css') !!}
+<!--Scheduler-->

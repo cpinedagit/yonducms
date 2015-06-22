@@ -118,6 +118,7 @@ Route::get('site/page/{id}/{url}/{url2}/{url3}', 'CMS\PageController@preview');
 Route::resource('cms/pages', 'CMS\PageController');
 
 //These routes are for Beam Scheduler
+Route::get('cms/getAllDaySchedule/{scheduleId}', 'CMS\SchedulerController@getAllDaySchedule');
 Route::put('cms/insertMainBannerImage', ['as' => 'cms.scheduler.insertMainBannerImage', 'uses' => 'CMS\SchedulerController@insertMainBannerImage']);
 Route::put('cms/saveScheduleBannerImage',['as' => 'cms.scheduler.saveScheduleBannerImage', 'uses' => 'CMS\SchedulerController@saveScheduleBannerImage']);
 Route::delete('cms/deleteSchedule','CMS\SchedulerController@deleteSchedule');

@@ -49,13 +49,13 @@
                         <label for="page-title" class='form-title'>Parent Page *</label>
                         {!! Form::hidden('hideParent',$getParentId) !!}                   
                         <select name ='parent' class='form-control'>
-                             @if(empty($getParent))
+				    @if(empty($getParent))
                             <option value='0' style='color:red;'>no parent</option>
                             @else
                             <option disabled selected>{{ $getParent }}</option>
                             <option value='0' style='color:red;'>no parent</option>
                             @endif
-                            
+
                             @foreach($getAllPages as $getPages)
                             <option value="{!! $getPages->id !!}">{!! $getPages->title !!}</option>
                             @endforeach
@@ -79,11 +79,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
-
-
-
-                </div>
+		    <!--                <div class="col-sm-12">
+		    
+		    
+		    
+					  </div>-->
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="editor1" class='form-title'>Content *</label>
@@ -109,8 +109,6 @@
                     <input type="submit" class="btn btn-add" value="Save">
                 </div>
             </div>
-
-
             <h3>Plugin</h3>
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
@@ -138,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+		    <!--NEWS-->
                 <div class="panel panel-default">
                     <div class="panel-heading" style="cursor:pointer" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <h4 class="panel-title">
@@ -171,6 +170,29 @@
                         </div>
                     </div>
                 </div>
+		    <!--NEWS-->
+		    <!--Scheduler-->
+		    <div class="panel panel-default">
+                    <div class="panel-heading" style="cursor:pointer" role="tab" id="headingThree" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <h4 class="panel-title">
+                            Schedule Banner
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            <table class="table table--banner">
+                                <tbody>
+                                    <tr>
+                                        <td> Add Schedule Banner </td>
+                                        <td>
+                                            <button class="btn btn-add addOnCk" type="button" var="[Schedule_banner()]"><span  class="glyphicon glyphicon-plus"></span></button>
+                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+		    <!--Scheduler-->
             </div> 
 
         </div>
@@ -182,41 +204,41 @@
     $('#editableUrl').hide();
     $(document).on("click", "#edit", function (e) {
 
-        $('#editableUrl').show();
-        $('#nonEditableUrl').hide();
-        $('#slug').focus();
-        $('#slug').focusTextToEnd();
-        e.stopPropagation();
+	  $('#editableUrl').show();
+	  $('#nonEditableUrl').hide();
+	  $('#slug').focus();
+	  $('#slug').focusTextToEnd();
+	  e.stopPropagation();
     });
 
     $(document).on("dblclick", "#nonEditableUrl", function () {
-        $('#editableUrl').show();
-        $('#nonEditableUrl').hide();
-        $('#slug').focus();
+	  $('#editableUrl').show();
+	  $('#nonEditableUrl').hide();
+	  $('#slug').focus();
     });
 
     $(document).on("click", "#cancel", function () {
-        $('#editableUrl').hide();
-        $('#nonEditableUrl').show();
+	  $('#editableUrl').hide();
+	  $('#nonEditableUrl').show();
     });
 
     function cancel() {
-        window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
+	  window.location = ("{!!URL::to('/')!!}" + "/cms/pages");
     }
 
     function focusTextToEnd() {
-        this.focus();
-        var $thisVal = this.val();
-        this.val('').val($thisVal);
-        return this;
+	  this.focus();
+	  var $thisVal = this.val();
+	  this.val('').val($thisVal);
+	  return this;
     }
 </script>
 @include('cms.media.media_tool')
 <script>
 
     $('.addOnCk').on('click', function () {
-        text = $(this).attr('var');
-        editor.insertHtml(text);
+	  text = $(this).attr('var');
+	  editor.insertHtml(text);
     })
 </script>
 
