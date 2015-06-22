@@ -3,6 +3,7 @@
 <h2>Banner</h2>
 @stop
 @section('content')
+{!! HTML::script('public/js/beam/modernizr.js') !!}
 <div class='main-container__content__info'>
     <div role="tabpanel" class="tabpanel-custom">
         <!-- Nav tabs -->
@@ -12,6 +13,8 @@
             <li role="presentation"><a href="#upload" aria-controls="messages" role="tab" data-toggle="tab">Upload</a></li>
             @if($type == 'Advanced')
             <li role="presentation"><a href="#editor" aria-controls="messages" role="tab" data-toggle="tab">Animation</a></li>
+            @else
+            <li role="presentation"><a href="#customBanner" aria-controls="messages" role="tab" data-toggle="tab">Customize Banner</a></li>
             @endif
         </ul> 
         <!-- Tab panes --> 
@@ -28,7 +31,7 @@
                             {!! Form::label('name', 'Name *') !!} 
                             {!! Form::text('name', $banners['title'],['class' => 'form-control Nform-control ']) !!}
                             {!! Form::hidden('curType',$type) !!}
-                            {!! Form::hidden('id',$banners['id'],['id' => 'id']) !!}  
+                            {!! Form::hidden('id',$banners['id'],['id' => 'BannerId']) !!}  
                             {!! Form::hidden('defaultAnimation','{$Duration:700,$Opacity:2,$Brother:{$Duration:1000,$Opacity:2}}') !!}
                             {!! Form::hidden('animationTitle',null,['id' => 'animationTitle']) !!}                                                 {!! Form::hidden('CurrentCode',$bannerCurrentAnimation,['id' => 'currentCode']) !!}
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
@@ -159,84 +162,101 @@
                     </tr>
                 </table>
                 <script>
-                    slideshow_transition_controller_starter("slider1_container");
-                    var code = $('#currentCode').val();
-                    $('#ssTransition').val(code);
-                    $('#stTransition').val(code);
-                    $('#sButtonPlay').click();
-                </script>
-                @endif
+			  slideshow_transition_controller_starter("slider1_container");
+			  var code = $('#currentCode').val();
+			  $('#ssTransition').val(code);
+			  $('#stTransition').val(code);
+			  $('#sButtonPlay').click();
+                </script>                
             </div><br><br><br>
-            <div class="btn-holder pull-left">
-                <input type="submit" class="btn btn-add" value="Save">
-                {!! Form::button('Cancel',['class' => 'btn btn-reset','id' => 'cancel']) !!}
-                {!! Form::close() !!}
+            @else
+            <div role="tabpanel" class="tab-pane" id="customBanner">
+                {!! Form::label('carouselHeight','Height:') !!}
+                {!! Form::text('carouselHeight',null,['class' => 'form-control Nform-control']) !!}
+                {!! Form::label('numberOfImages','Number of Images:') !!}
+                {!! Form::text('numberOfImages',null,['class' => 'form-control Nform-control', 'id' => 'numberOfImages']) !!}
+                <div class="carousel carousel-showmanymoveone slide" id="main-carousel" style ="">
+                    <div class="carousel-inner">
+				@foreach($currentImages as $currentImage)
+				<div class="item">
+				    <div style="{{ 'width:'.$standardBannerWidth.'%' }}" class ='divImg'> {!! HTML::image($currentImage->media_path) !!}</a></div>
+				</div>
+				@endforeach 
+
+                    </div>
+                    <a class="left carousel-control" href="#main-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                    <a class="right carousel-control" href="#main-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right" ></i></a>
+                </div>
             </div>
+            @endif
+        </div>
+        <div class="btn-holder pull-left">
+            <input type="submit" class="btn btn-add" value="Save">
+            {!! Form::button('Cancel',['class' => 'btn btn-reset','id' => 'cancel']) !!}
+            {!! Form::close() !!}
         </div>
     </div>
     <script>
-        $(document).ready(function () {
-            //        code editor for banner effects
-            var filename = 'public/css/banner.css';
-            $.get('../../../' + filename, function (data)//Remember, same domain
-            {
-                var _data = data;
-                $('#codeEditor').val(data);
-            });
-            $(document).on("click", "#cancel", function () {
-                window.location = ("{!! URL::to('/') !!}" + "/cms/banners");
-            });
-            $(document).on("click", '#apply', function () {
-                var action = $('#action').val();
-                if (action === 'Delete') {
-                    var selected = new Array();
-                    $("input:checkbox[name=checkbox]:checked").each(function () {
-                        selected.push($(this).val());
-                        console.log(selected);
-                    });
-                    if (confirm('do you really want to delete the selected image(s) for this banner?')) {
-                        $.ajax({
-                            type: "DELETE",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: {selected: selected},
-                            url: "{!! URL::to('/') !!}" + '/cms/delImage',
-                            dataType: "json",
-                            success: (function (data) {
-                                location.reload();
-                            })
-                        });
-                    } else {
-                        return false;
-                    }
-                }
-            });
 
-            $(document).on("click", '.delCur', function () {
-                var id = this.id;
-                if (confirm('do you really want to delete this current image for this banner?')) {
-                    $.ajax({
-                        type: "DELETE",
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url: "{!! URL::to('/') !!}" + "/cms/delCurrentImage/" + id,
-                        dataType: "json",
-                        success: (function (data) {
-                            location.reload();
-                        })
-                    });
-                }
-            });
 
-            $('#ssTransition').on('change', function () {
-                var e = document.getElementById("ssTransition");
-                var strUser = e.options[e.selectedIndex].text;
-                $('#animationTitle').val(strUser);
-            });
+	  $(document).ready(function () {
+		$(".item:first-child").addClass("active");
+		$(document).on("click", "#cancel", function () {
+		    window.location = ("{!! URL::to('/') !!}" + "/cms/banners");
+		});
+		$(document).on("click", '#apply', function () {
+		    var action = $('#action').val();
+		    if (action === 'Delete') {
+			  var selected = new Array();
+			  $("input:checkbox[name=checkbox]:checked").each(function () {
+				selected.push($(this).val());
+				console.log(selected);
+			  });
+			  if (confirm('do you really want to delete the selected image(s) for this banner?')) {
+				$.ajax({
+				    type: "DELETE",
+				    headers: {
+					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				    },
+				    data: {selected: selected},
+				    url: "{!! URL::to('/') !!}" + '/cms/delImage',
+				    dataType: "json",
+				    success: (function (data) {
+					  location.reload();
+				    })
+				});
+			  } else {
+				return false;
+			  }
+		    }
+		});
 
-        });
+		$(document).on("click", '.delCur', function () {
+		    var id = this.id;
+		    if (confirm('do you really want to delete this current image for this banner?')) {
+			  $.ajax({
+				type: "DELETE",
+				headers: {
+				    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: "{!! URL::to('/') !!}" + "/cms/delCurrentImage/" + id,
+				dataType: "json",
+				success: (function (data) {
+				    location.reload();
+				})
+			  });
+		    }
+		});
+
+		$('#ssTransition').on('change', function () {
+		    var e = document.getElementById("ssTransition");
+		    var strUser = e.options[e.selectedIndex].text;
+		    $('#animationTitle').val(strUser);
+		});
+
+	  });
     </script>
     @stop
+
+
 

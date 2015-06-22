@@ -7,7 +7,7 @@
         </a>
     </div>
     <div class="pull-left header__search">
-        <a href="#"><i class="fa fa-globe"></i> View Site</a>
+        <a onclick='gotoSite("{!! URL::to('site') !!}")' id="viewSite"><i class="fa fa-globe"></i> View Site</a>
         <div class="input-group">
               <span class="input-group-addon" id="search-icon"><i class="fa fa-search"></i></span>
               <input type="text" class="form-control" placeholder="Search..." id="search">
@@ -90,3 +90,14 @@
     </ul>
    </div> 
 </header>
+<style>
+#viewSite {
+  cursor: pointer;
+}
+</style>
+<script>
+  function gotoSite(site)
+  {
+    window.open(site);
+  }
+</script>

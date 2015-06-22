@@ -65,6 +65,16 @@ class Page extends Model {
         return $data;
     }
 
+    public static function checkIfEmpty()
+    {
+        return DB::table('pages')->count();
+    }
+
+    public static function getFirstPage()
+    {
+        return DB::table('pages')->first();
+    }
+
     public static function truncate()
     {
         return DB::table('pages')->truncate();

@@ -18,7 +18,7 @@
                 <strong>Sub Banner</strong> ({{ $getAllSubBannerCount }})
             </span>
         </div>
-        
+
         <div class="main-container__content__info__filter">
             <select name="" id="" class="form-control">
                 <option value="" disabled selected>Choose Action</option>

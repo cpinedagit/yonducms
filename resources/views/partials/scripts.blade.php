@@ -2,3 +2,6 @@
 <!-- PARSLEY JS -->
 <script type="text/javascript" src="{{ asset('public/js/parsley.js') }}"></script>
 <!-- PARSLEY JS -->
+
+<!--standard banner-->
+{!! !!}

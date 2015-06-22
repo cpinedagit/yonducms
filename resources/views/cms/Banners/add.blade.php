@@ -25,8 +25,9 @@
             </div>
             <div class="btn-holder with-border-top">
                 <div class="pull-right">
-                    {!! Form::reset('Reset',['class'=> 'btn btn-reset']) !!}
-                    {!! Form::submit('Save',['class'=> 'btn btn-add']) !!}
+                    {!! Form::reset('Reset',['class' => 'btn btn-reset']) !!}
+                    {!! Form::submit('Save',['class' => 'btn btn-add']) !!}
+                    {!! Form::reset('Reset',['class' => 'btn btn-reset']) !!}
                 </div>
             </div>
         </div>

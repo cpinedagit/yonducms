@@ -94,42 +94,36 @@
         </div>
     </div>
 </div>
-
-
-
 <script>
+    populateImgLibrary();
+//    $(document).ready(function () {
+    $('#insert').on('click', function () {
+        var selected = new Array();
 
-    $(document).ready(function () {
-
-        populateImgLibrary();
-
-
-        $('#insert').on('click', function () {
-            var selected = new Array();
-            $("input:checkbox[name=cbfiles]:checked").each(function () {
-                selected.push($(this).val());
-            });
-            var id = $('#id').val();
-            console.log(selected);
-            $.ajax({
-                method: 'put',
-                url: '{!! route("cms.banner.saveImage") !!}',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {id: id, selected: selected},
-                cache: false,
-                success: function (msg)
-                {
-                    location.reload();
-                }
-            })
-            $('#fileModal').modal("hide");
-
-
+        $("input:checkbox[name=cbfiles]:checked").each(function () {
+            selected.push($(this).val());
         });
+        var id = $('#BannerId').val();
+        console.log(selected);
+        $.ajax({
+            method: 'put',
+            url: '{!! route("cms.banner.saveImage") !!}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {id: id, selected: selected},
+            cache: false,
+            success: function (msg)
+            {
+                location.reload();
+            }
+        });
+        $('#fileModal').modal("hide");
+
 
     });
+
+//    });
 
 
     function DoneUpload() {

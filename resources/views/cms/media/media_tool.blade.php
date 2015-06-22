@@ -120,21 +120,14 @@ editor.ui.addButton('MediaButton', {
 });
 
 
-
+  populateImgLibrary();
 $(document).ready(function () {
-
-    populateImgLibrary();
-
-
+    
     $('#insert').on('click', function () {
         var selected = new Array();
         $("input:checkbox[name=cbfiles]:checked").each(function () {
             selected.push($(this).val());
         });
-
-
-
-
         $.ajax({
             type: 'POST',
             url: '{!! URL::route("cms.media.gallery") !!}',
