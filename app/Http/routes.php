@@ -110,7 +110,7 @@ Route::resource('cms/banners', 'CMS\BannerController', ['middleware' => 'is.allo
 //These routes are for Page Management
 Route::get('cms/addPage', ['as' => 'cms.pages.addPage', 'uses' => 'CMS\PageController@addPage']);
 Route::delete('cms/delPage', 'CMS\PageController@delPage');
-Route::get('site/', 'CMS\PageController@index');
+Route::resource('site/', 'Site\SiteController@index', ['only' => ['index']]);
 Route::get('site/{slug}', 'CMS\PageController@preview');
 Route::get('site/{slug}/{slug2}/', 'Site\NewsController@preview');
 Route::get('site/page/{id}/{url}/{url2}', 'CMS\PageController@preview');
