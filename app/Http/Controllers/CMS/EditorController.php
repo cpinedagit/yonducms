@@ -14,37 +14,31 @@ use View;
 
 class EditorController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function __construct()
-    {
-        //Read the settings .env set app title and tag line
-        View::share('APP_TITLE', env('APP_TITLE'));
-        View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
+    public function __construct() {
+	  //Read the settings .env set app title and tag line
+	  View::share('APP_TITLE', env('APP_TITLE'));
+	  View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
 
-        //$this->middleware('guest');    //Doesn't require active user
-        $this->middleware('is.allowed'); //Require require active user
+	  //$this->middleware('guest'); 	 //Doesn't require active user
+	  $this->middleware('is.allowed'); //Require require active user
     }
-    
-    public function index() {
-        $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
-        $parents = Editor::getAllParent();
 
-        $arData = array(
-            'parents' => $parents
-        );
-        return View('cms.Editors.index', $arData);
+    public function index() {
+	  $this->regenerateMenuSession('cms.editor.index', 'cms.editor.index');
+	  $parents = Editor::getAllParent();
+
+	  $arData = array(
+		'parents' => $parents
+	  );
+	  return View('cms.Editors.index', $arData);
     }
 
     public function folder() {
-        return 'test';
+	  return 'test';
     }
 
     public function create() {
-        //
+	  //
     }
 
     /**
@@ -53,7 +47,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function store() {
-        
+	  
     }
 
     /**
@@ -63,7 +57,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function Show($id) {
-        
+	  
     }
 
     /**
@@ -73,7 +67,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+	  //
     }
 
     /**
@@ -83,7 +77,7 @@ class EditorController extends Controller {
      * @return Response
      */
     public function update($id) {
-        //
+	  //
     }
 
     /**
@@ -93,58 +87,57 @@ class EditorController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+	  //
     }
 
     //Read requested file
-    public function readFile()
-    {
-      $file_dir = file(Input::get('file_dir'));
-      return Response::json($file_dir);
+    public function readFile() {
+	  $file_dir = file(Input::get('file_dir'));
+	  return Response::json($file_dir);
     }
 
     public function updateFile() {
-        //file path
-        $file = Input::get('hidden');
-        $content = Input::get('content');
-        unlink($file);
-        
-        if (file_put_contents($file, $content, FILE_APPEND)) {
-           return Response::json('ok');
-        }else{
-            return Response::json('not ok');
-        }
+	  //file path
+	  $file = Input::get('hidden');
+	  $content = Input::get('content');
+	  unlink($file);
+
+	  if (file_put_contents($file, $content, FILE_APPEND)) {
+		return Response::json('ok');
+	  } else {
+		return Response::json('not ok');
+	  }
     }
 
     public function addFile() {
-        //dd(Input::hasFile('file'));
+	  //dd(Input::hasFile('file'));
 //        
 //        $file= Input::file('file');
 //        dd($file->getClientOriginalName());
 
-        $file = Input::file('file');
-        $path = Input::get('path');
-       
-        if ($file) {
-            $filename = $file->getClientOriginalName();
-            $file->move($path, $filename);
-            return redirect('cms/editor');
-        } else {
-            return redirect('cms/editor');
-        }
+	  $file = Input::file('file');
+	  $path = Input::get('path');
+
+	  if ($file) {
+		$filename = $file->getClientOriginalName();
+		$file->move($path, $filename);
+		return redirect('cms/editor');
+	  } else {
+		return redirect('cms/editor');
+	  }
     }
 
     public function addFolder() {
-        $name = Input::get('foldername');
-        $path = Input::get('path');
-        $parent = Input::get('parent');
-        $editor = new Editor;
-        $editor->name = $name;
-        $editor->path = $path . '/' . $name;
-        $editor->parent_id = $parent;
-        $editor->save();
-        $result = File::makeDirectory($path . '/' . $name);
-        return Response::json('ok');
+	  $name = Input::get('foldername');
+	  $path = Input::get('path');
+	  $parent = Input::get('parent');
+	  $editor = new Editor;
+	  $editor->name = $name;
+	  $editor->path = $path . '/' . $name;
+	  $editor->parent_id = $parent;
+	  $editor->save();
+	  $result = File::makeDirectory($path . '/' . $name);
+	  return Response::json('ok');
     }
 
 }

@@ -110,7 +110,7 @@ Route::resource('cms/banners', 'CMS\BannerController', ['middleware' => 'is.allo
 //These routes are for Page Management
 Route::get('cms/addPage', ['as' => 'cms.pages.addPage', 'uses' => 'CMS\PageController@addPage']);
 Route::delete('cms/delPage', 'CMS\PageController@delPage');
-Route::resource('site/', 'Site\SiteController@index', ['only' => ['index']]);
+Route::get('site/', 'CMS\PageController@index');
 Route::get('site/{slug}', 'CMS\PageController@preview');
 Route::get('site/{slug}/{slug2}/', 'Site\NewsController@preview');
 Route::get('site/page/{id}/{url}/{url2}', 'CMS\PageController@preview');
@@ -118,6 +118,7 @@ Route::get('site/page/{id}/{url}/{url2}/{url3}', 'CMS\PageController@preview');
 Route::resource('cms/pages', 'CMS\PageController');
 
 //These routes are for Beam Scheduler
+Route::get('cms/getAllDaySchedule/{scheduleId}', 'CMS\SchedulerController@getAllDaySchedule');
 Route::put('cms/insertMainBannerImage', ['as' => 'cms.scheduler.insertMainBannerImage', 'uses' => 'CMS\SchedulerController@insertMainBannerImage']);
 Route::put('cms/saveScheduleBannerImage',['as' => 'cms.scheduler.saveScheduleBannerImage', 'uses' => 'CMS\SchedulerController@saveScheduleBannerImage']);
 Route::delete('cms/deleteSchedule','CMS\SchedulerController@deleteSchedule');

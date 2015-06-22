@@ -63,5 +63,27 @@ class Schedule extends Model {
 	   return $scheduleCount;
 		
     }
+    
+    public static function getAllDaySchedule($id){
+	  return DB::table('schedules')
+		    ->leftJoin('fk_day_schedules','schedules.id', '=', 'fk_day_schedules.schedule_id')
+		    ->where('fk_day_schedules.schedule_id', '=', $id)
+		    ->get(array('fk_day_schedules.day'));
+    }
+    
+    public static function getFirstScheduleImages(){
+	 	  return DB::table('schedules')
+				->leftJoin('fk_schedules', 'schedules.id', '=', 'fk_schedules.schedule_id')
+				->leftJoin('content_media', 'content_media.media_id', '=', 'fk_schedules.image_id')
+				->where('schedules.id', '=', 1)
+				->get();
+    }
+    
+    public static function getFirstScheduleVideo(){
+	  return DB::table('schedules')
+		    ->where('id','=', 1)
+		    ->pluck('video');
+    }
+		
 
 }

@@ -10,23 +10,21 @@ use Cache;
 use Response;
 use DB;
 use Request;
+use View;
 
 class SchedulerController extends Controller {
 
-//    public function __construct() {
-//	  $this->middleware('is.allowed'); //Require require active user
-//    }
-	public function __construct()
-	{
-		//Read the settings .env set app title and tag line
-		View::share('APP_TITLE', env('APP_TITLE'));
-		View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
+    public function __construct() {
+	  //Read the settings .env set app title and tag line
+	  View::share('APP_TITLE', env('APP_TITLE'));
+	  View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
 
-		//$this->middleware('guest'); 	 //Doesn't require active user
-		$this->middleware('is.allowed'); //Require require active user
-	}
-	
+	  //$this->middleware('guest'); 	 //Doesn't require active user
+	  $this->middleware('is.allowed'); //Require require active user
+    }
+
     public function index() {
+	  $this->regenerateMenuSession('cms.scheduler.index', 'cms.scheduler.index');
 	  $schedules = Schedule::all();
 	  $countAllSchedules = count($schedules);
 	  $arData = array(
@@ -51,6 +49,7 @@ class SchedulerController extends Controller {
      * @return Response
      */
     public function store() {
+	  $this->regenerateMenuSession('cms.scheduler.index', 'cms.scheduler.index');
 	  $file = Input::file('imageSchedule');
 	  if ($file) {
 		$filename = $file->getClientOriginalName();
@@ -61,7 +60,7 @@ class SchedulerController extends Controller {
 		$sched->descriptions = Input::get('description');
 		$sched->schedule = Input::get('schedule');
 		$sched->save();
-		return redirect('cms/addSchedule');
+		return redirect('cms/scheduler');
 	  } else {
 		echo"<script>
                 alert('please choose file');
@@ -77,14 +76,17 @@ class SchedulerController extends Controller {
     }
 
     public function edit($id) {
-
+	  $this->regenerateMenuSession('cms.scheduler.index', 'cms.scheduler.index');
 	  $sched = Schedule::find($id);
 	  $schedCount = Schedule::getMainBannerImagesCount($id);
 	  $bannerImages = Schedule::getAllImages($id);
+	  $daySchedules = Schedule::getAllDaySchedule($id);
 	  $arData = array(
 		'schedules' => $sched,
 		'bannerImages' => $bannerImages,
-		'schedCount' => $schedCount
+		'schedCount' => $schedCount,
+		'daySchedules' => $daySchedules,
+		'scheduleId' => $id
 	  );
 	  return view('cms.Schedules.edit', $arData);
     }
@@ -113,9 +115,15 @@ class SchedulerController extends Controller {
     }
 
     public function preview() {
+	  $firstSchedule = Schedule::first();
+	  $firstScheduleImages = Schedule::getFirstScheduleImages();
+	  $firstScheduleVideo = Schedule::getFirstScheduleVideo();
 	  $schedules = Schedule::all();
 	  $arData = array(
-		'schedules' => $schedules
+		'schedules' => $schedules,
+		'firstScheduleImages' => $firstScheduleImages,
+		'firstSchedule' => $firstSchedule,
+		'firstScheduleVideo' => $firstScheduleVideo
 	  );
 	  return view('cms/Schedules/preview', $arData);
     }
@@ -143,6 +151,12 @@ class SchedulerController extends Controller {
 		$schedImage->delete();
 	  }
 	  return Response::json('ok');
+    }
+
+    public function getAllDaySchedule($id) {
+	  $daySchedules = Schedule::getAllDaySchedule($id);
+	  $decodedSchedules = json_encode($daySchedules);
+	  return Response::json(array($decodedSchedules));
     }
 
 }
