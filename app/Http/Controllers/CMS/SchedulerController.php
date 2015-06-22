@@ -119,11 +119,13 @@ class SchedulerController extends Controller {
 	  $firstScheduleImages = Schedule::getFirstScheduleImages();
 	  $firstScheduleVideo = Schedule::getFirstScheduleVideo();
 	  $schedules = Schedule::all();
+	  $scheduleCount = count($schedules);
 	  $arData = array(
 		'schedules' => $schedules,
 		'firstScheduleImages' => $firstScheduleImages,
 		'firstSchedule' => $firstSchedule,
-		'firstScheduleVideo' => $firstScheduleVideo
+		'firstScheduleVideo' => $firstScheduleVideo,
+		'scheduleCount' => $scheduleCount
 	  );
 	  return view('cms/Schedules/preview', $arData);
     }

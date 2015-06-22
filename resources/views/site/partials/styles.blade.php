@@ -28,8 +28,8 @@
 <!--Standard Banner-->
 
 <!--Scheduler-->
-{!! HTML::style('public/site/css/beam/css/normalize.css') !!}
-{!! HTML::style('public/site/css/beam/font-awesome/css/font-awesome.min.css') !!}
-{!! HTML::style('public/site/css/beam/css/slick.css') !!}
-{!! HTML::style('public/site/css/beam/css/slick-theme.css') !!}
+{!! HTML::style('public/scheduler/css/normalize.css') !!}
+{!! HTML::style('public/scheduler/font-awesome/css/font-awesome.min.css') !!}
+{!! HTML::style('public/scheduler/css/slick.css') !!}
+{!! HTML::style('public/scheduler/css/slick-theme.css') !!}
 <!--Scheduler-->

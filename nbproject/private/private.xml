@@ -8,8 +8,13 @@
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/routes.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/Controllers/CMS/SchedulerController.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/edit.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/public/scheduler/js/main.js</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Models/Schedule.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/add.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/site/Banners/scheduleBanner.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/site/partials/styles.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/app/Http/Controllers/CMS/PageController.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/public/scheduler/js/slick.js</file>
         </group>
     </open-files>
 </project-private>

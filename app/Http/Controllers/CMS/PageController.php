@@ -162,18 +162,12 @@ class PageController extends Controller {
     }
 
     public function delPage() {
-//        $selected = Request::get('selected');
-//        foreach ($selected as $select) {
-//            $fk_banner = DB::table('fk_banners')->where('id', '=', $select);
-//            $fk_banner->delete();
-//        }
-//        return Response::json('ok');
-
 	  $checked = Request::get('checked');
-
-	  foreach ($checked as $che) {
-		$page = Page::find($che);
+	  foreach ($checked as $check) {
+		$page = Page::find($check);
 		$page->delete();
+		
+		DB::table('site_menus')->where('page_id', '=', $check)->delete();
 	  }
 	  return Response::json('ok');
     }
