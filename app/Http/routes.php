@@ -92,6 +92,7 @@ Route::post('/cms/news/deleteSelected', ['as' => 'cms.news.deleteSelected', 'use
 Route::resource('cms/news', 'CMS\NewsController');
 Route::resource('site/news', 'Site\NewsController');
 //end news management
+
 //These routes are for Code Editor Management
 Route::get('cms/editor/addFolder', 'CMS\EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'CMS\EditorController@Showw');

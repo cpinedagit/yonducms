@@ -707,7 +707,7 @@
 
         if (_.options.dots === true && _.options.pauseOnDotsHover === true && _.options.autoplay === true) {
             $('li', _.$dots)
-                .off('mouseenter.slick', _.setPaused.bind(_, true))
+                .off('mouseenter.slick', _.setPaused.bind(_, false))
                 .off('mouseleave.slick', _.setPaused.bind(_, false));
         }
 
@@ -1121,7 +1121,7 @@
 
         if (_.options.dots === true && _.options.pauseOnDotsHover === true && _.options.autoplay === true) {
             $('li', _.$dots)
-                .on('mouseenter.slick', _.setPaused.bind(_, true))
+                .on('mouseenter.slick', _.setPaused.bind(_, false))
                 .on('mouseleave.slick', _.setPaused.bind(_, false));
         }
 
