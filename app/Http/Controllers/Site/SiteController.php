@@ -15,7 +15,7 @@ class SiteController extends Controller {
 
 		if($pagesNum == 0 || $pagesNum == null) {
 			return view('site/Pages/empty');
-		} else {			
+		} else {
 			$first = Page::getFirstPage();			
 			$pages = Page::preview($first->slug);
 

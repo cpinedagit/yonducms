@@ -10,6 +10,7 @@ use Cache;
 use Response;
 use DB;
 use Request;
+use View;
 
 class BannerController extends Controller {
 

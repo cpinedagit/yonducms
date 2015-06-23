@@ -2,6 +2,10 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
 {!! HTML::script('public/site/js/bootstrap.min.js'); !!}
 
+{!! HTML::script('public/beam/js/bootstrap.min.js') !!}
+{!! HTML::script('public/beam/js/slick.js') !!}
+{!! HTML::script('public/beam/js/main.js') !!}
+
 <!--this scripts are used for page management-->
 
 {!!HTML::script('public/site/js/plugins.js') !!}
@@ -22,3 +26,17 @@
 {!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
 {!! HTML::script('public/js/beam/carousel.js') !!}
 <!-- Standard Banner-->
+
+ <script>
+
+      $('.thumbnails').slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          autoplay: false,
+          autoplaySpeed: 2000,               
+          slidesToShow: 8,
+          slidesToScroll: 1
+
+      });
+  </script>
