@@ -207,3 +207,24 @@ Breadcrumbs::register('cms.pages.addPage', function($breadcrumbs)
     $breadcrumbs->push('Add New', route('cms.pages.addPage'));
 });
 
+//Home > Scheduler
+Breadcrumbs::register('cms.scheduler.index', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.index');
+    $breadcrumbs->push('Scheduler', route('cms.scheduler.index'));
+});
+
+//Home > Scheduler > Add New
+Breadcrumbs::register('cms.scheduler.add', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.scheduler.index');
+    $breadcrumbs->push('Add New', route('cms.scheduler.add'));
+});
+
+//Home > Scheduler > Edit
+Breadcrumbs::register('cms.scheduler.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('cms.scheduler.index');
+    $breadcrumbs->push('Edit', route('cms.scheduler.edit'));
+});
+

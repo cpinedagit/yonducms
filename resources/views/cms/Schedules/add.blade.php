@@ -1,7 +1,8 @@
 @extends('cms.home')
+@section('title')
+<h2>Add Schedule</h2>
+@stop
 @section('content')
-<h1>Add Schedule</h1>
-
 {!! Form::open(array('url' => 'cms/scheduler','files' => 'true')) !!}
 {!! Form::label('title','Title:') !!}
 {!! Form::text('title',null,['class' => 'form-control']) !!}<br><br>

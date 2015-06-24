@@ -171,8 +171,6 @@
             </div><br><br><br>
             @else
             <div role="tabpanel" class="tab-pane" id="customBanner">
-                {!! Form::label('carouselHeight','Height:') !!}
-                {!! Form::text('carouselHeight',null,['class' => 'form-control Nform-control']) !!}
                 {!! Form::label('numberOfImages','Number of Images:') !!}
                 {!! Form::text('numberOfImages',null,['class' => 'form-control Nform-control', 'id' => 'numberOfImages']) !!}
                 <div class="carousel carousel-showmanymoveone slide" id="main-carousel" style ="">
