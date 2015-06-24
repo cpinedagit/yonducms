@@ -6,7 +6,7 @@ setTimeout(function () {
 		element.addClass('schedule__list--active');
 	  });
     });
-}, 300);
+});
 
 //
 //$(".slick-next,.slick-prev").click(function () {
