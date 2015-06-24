@@ -146,21 +146,23 @@
 
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
-	  
-	  $('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-
-	  $('.modal').on('shown.bs.modal', function () {
-		$('.modal-body').empty();
-		$('.modal-body').removeData();
-		if (videofile) {
-		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-		}
-	  });
+//	  
+//	  $('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+//
+//	  $('.modal').on('shown.bs.modal', function () {
+//		$('.modal-body').empty();
+//		$('.modal-body').removeData();
+//		if (videofile) {
+//		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+//		}
+//	  });
     }
     
     
 
     window.onload = slicky();
+    
+    
     $('.banner-slider').on('afterChange', function () {
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
@@ -176,14 +178,14 @@
 				$('.schedule__list--active .scheduleId:first-child').trigger('click');
 				    });
 								    
-			  },1000);
+			  },4000);
 		 }else{
 		     setTimeout(function () {
 			  $('.slick-next').click();
 			  $('.schedule__list--active').next().addClass('schedule__list--active');
 			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
 			  $('.schedule__list--active .scheduleId:first-child').click();				    
-		    },1000);
+		    },4000);
 		 }
 		    
 		}
@@ -199,8 +201,8 @@
 		autoplay: true,
 		dots: true,
 		infinite: true,
-		autoplaySpeed: 1000,
-		pauseOnHover: true
+		autoplaySpeed: 4000,
+		pauseOnHover: false
 	  });
 	  
 	  $('.schedule__list').slick({

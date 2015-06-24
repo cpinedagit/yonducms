@@ -204,7 +204,7 @@
 		dots: true,
 		infinite: true,
 		autoplaySpeed: 1000,
-		pauseOnHover: true
+		pauseOnHover: false
 	  });
 	  
 	  $('.schedule__list').slick({
