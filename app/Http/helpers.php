@@ -223,11 +223,14 @@ function Schedule_banner() {
     $firstSchedule = \App\Models\Schedule::first();
     $firstScheduleImages = \App\Models\Schedule::getFirstScheduleImages();
     $firstScheduleVideo = App\Models\Schedule::getFirstScheduleVideo();
+    $schedules = App\Models\Schedule::all();
+    $scheduleCount = count($schedules);
     $arData = array(
 	  'schedules' => $objScheduleBanner,  
 	  'firstSchedule' => $firstSchedule,
 	  'firstScheduleImages' => $firstScheduleImages,
-	  'firstScheduleVideo' => $firstScheduleVideo
+	  'firstScheduleVideo' => $firstScheduleVideo,
+	  'scheduleCount' => $scheduleCount
     );
     return View('site.Banners.scheduleBanner')->with($arData)->render();
 }
