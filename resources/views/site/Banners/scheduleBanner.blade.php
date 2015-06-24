@@ -164,7 +164,6 @@
     
     
     $('.banner-slider').on('afterChange', function () {
-	  $('.slick-cloned').removeClass('schedule__list--active');
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
 	  console.log(scheduleCount-1 +" "+ scheduleIndeces);
@@ -179,14 +178,14 @@
 				$('.schedule__list--active .scheduleId:first-child').trigger('click');
 				    });
 								    
-			  },500);
+			  },1000);
 		 }else{
 		     setTimeout(function () {
 			  $('.slick-next').click();
 			  $('.schedule__list--active').next().addClass('schedule__list--active');
 			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
 			  $('.schedule__list--active .scheduleId:first-child').click();				    
-		    },500);
+		    },1000);
 		 }
 		    
 		}
@@ -202,8 +201,8 @@
 		autoplay: true,
 		dots: true,
 		infinite: true,
-		autoplaySpeed: 500,
-		pauseOnHover: false
+		autoplaySpeed: 1000,
+		pauseOnHover: true
 	  });
 	  
 	  $('.schedule__list').slick({
