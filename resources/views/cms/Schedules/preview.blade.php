@@ -42,7 +42,7 @@
                 </h4>
                 <div class="schedule__list">
                     @foreach($schedules as $schedule)
-                    <div class="scheduleDiv">
+                    <div class="scheduleDiv{!!$schedule->id!!}">
 				<a class='scheduleId' data-id='{{$schedule->id}}' data-image='{{ $schedule->image }}' href='#' value='{{ $schedule->id }}'>
 				    <div class="schedule__list--image">
 					  {!! HTML::image('public/scheduleImages/'.$schedule->image) !!}
@@ -95,10 +95,10 @@
     $('.modal').on('hidden.bs.modal', function () {
 	  $('.modal-body').empty();
     });
-    
-    setTimeout(function () {
-	  $('.slick-active:nth-child(5)').first().click();
+        setTimeout(function () {
+	  $('.scheduleDiv1').addClass('schedule__list--active');
     }, 400);
+
 
     //this function is trigger when an image schedule is clicked.
     $(document).ready(function () {
@@ -166,15 +166,16 @@
     var scheduleCount = {{ $scheduleCount }};
     
     $('.banner-slider').on('afterChange', function () {
+	  $('.slick-cloned').removeClass('schedule__list--active');
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
-	  console.log(scheduleCount-1 +" "+ scheduleIndeces);
+	  console.log(scheduleCount +" "+ scheduleIndeces);
 	   if (item_length-2 === window.currentSlide) {
 		    setTimeout(function () {
 			  $('.slick-next').click();
 			  $('.schedule__list--active').next().addClass('schedule__list--active');
 			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
 			  $('.schedule__list--active .scheduleId:first-child').click();				    
-		    },3000);
+		    },1000);
 		}
 	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
 		 currentSlide = $('.banner-slider').slick('slickCurrentSlide');
@@ -188,8 +189,8 @@
 		autoplay: true,
 		dots: true,
 		infinite: true,
-		autoplaySpeed: 3000,
-		pauseOnHover: false
+		autoplaySpeed: 1000,
+		pauseOnHover: true
 	  });
 	  
 	  $('.schedule__list').slick({
