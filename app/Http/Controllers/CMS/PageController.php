@@ -171,5 +171,10 @@ class PageController extends Controller {
 	  }
 	  return Response::json('ok');
     }
+    
+    public function getPageStatus($id){
+	  $pageStatus = Page::getPageStatus($id);
+	  return Response::json($pageStatus);
+    }
 
 }

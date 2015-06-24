@@ -158,8 +158,7 @@ class SchedulerController extends Controller {
 
     public function getAllDaySchedule($id) {
 	  $daySchedules = Schedule::getAllDaySchedule($id);
-	  $decodedSchedules = json_encode($daySchedules);
-	  return Response::json(array($decodedSchedules));
+	  return Response::json(array($daySchedules));
     }
 
 }

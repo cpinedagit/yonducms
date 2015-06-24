@@ -146,23 +146,21 @@
 
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
-//	  
-//	  $('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-//
-//	  $('.modal').on('shown.bs.modal', function () {
-//		$('.modal-body').empty();
-//		$('.modal-body').removeData();
-//		if (videofile) {
-//		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-//		}
-//	  });
+	  
+	  $('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+
+	  $('.modal').on('shown.bs.modal', function () {
+		$('.modal-body').empty();
+		$('.modal-body').removeData();
+		if (videofile) {
+		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		}
+	  });
     }
     
     
 
     window.onload = slicky();
-    
-    
     $('.banner-slider').on('afterChange', function () {
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
