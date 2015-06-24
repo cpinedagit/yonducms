@@ -220,8 +220,14 @@ function checkAccess($module_id) {
 function Schedule_banner() {
 
     $objScheduleBanner = \App\Models\Schedule::all();
+    $firstSchedule = \App\Models\Schedule::first();
+    $firstScheduleImages = \App\Models\Schedule::getFirstScheduleImages();
+    $firstScheduleVideo = App\Models\Schedule::getFirstScheduleVideo();
     $arData = array(
-	  'schedules' => $objScheduleBanner
+	  'schedules' => $objScheduleBanner,  
+	  'firstSchedule' => $firstSchedule,
+	  'firstScheduleImages' => $firstScheduleImages,
+	  'firstScheduleVideo' => $firstScheduleVideo
     );
     return View('site.Banners.scheduleBanner')->with($arData)->render();
 }

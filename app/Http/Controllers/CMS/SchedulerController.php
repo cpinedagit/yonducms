@@ -120,6 +120,7 @@ class SchedulerController extends Controller {
 	  $firstScheduleVideo = Schedule::getFirstScheduleVideo();
 	  $schedules = Schedule::all();
 	  $scheduleCount = count($schedules);
+	  $scheduleImages = 
 	  $arData = array(
 		'schedules' => $schedules,
 		'firstScheduleImages' => $firstScheduleImages,
