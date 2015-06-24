@@ -164,8 +164,9 @@
 
     window.onload = slicky();
     var scheduleCount = {{ $scheduleCount }};
-    var scheduleIndeces = $('.schedule__list--active').attr('aria-hidden');
+    
     $('.banner-slider').on('afterChange', function () {
+	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
 	  console.log(scheduleCount +" "+ scheduleIndeces);
 	   if (item_length-2 === window.currentSlide) {
 		    setTimeout(function () {
