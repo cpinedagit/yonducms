@@ -167,7 +167,7 @@
     
     $('.banner-slider').on('afterChange', function () {
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
-	  console.log(scheduleCount +" "+ scheduleIndeces);
+	  console.log(scheduleCount-1 +" "+ scheduleIndeces);
 	   if (item_length-2 === window.currentSlide) {
 		    setTimeout(function () {
 			  $('.slick-next').click();
