@@ -171,7 +171,7 @@
 	  console.log(scheduleCount-1 +" "+ scheduleIndeces);
 	   if (item_length-2 === window.currentSlide) {
 		 if(scheduleCount-1 == scheduleIndeces){
-		     alert('reset');
+//		     alert('reset');
 			  setTimeout(function () {
 				$('.slick-next').click();
 				    setTimeout(function () {
