@@ -51,6 +51,12 @@
 {!! HTML::script('public/js/beam/carousel.js') !!}
 <!-- Standard Banner-->
 
+<!--Scheduler-->
+{!! HTML::script('public/slide/js/jssor.js') !!} 
+{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
+{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
+<!--Scheduler-->
+
 <script>
 
     $(document).ready(function () {

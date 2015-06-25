@@ -26,12 +26,13 @@ class SiteController extends Controller {
 	            $arData = array(
 	                'content' => $content,
 	                'pages' => $pages,
-	                'objMenu' => $objMenu
+	                'objMenu' => $objMenu,
+	                'fromHeader' => true
 	            );
 	            return view('site/Pages/index', $arData);
 	        } else {
 	            return view('site/Pages/404');
-	        }	    
+ 	        }	    
 		}		
 	}
 

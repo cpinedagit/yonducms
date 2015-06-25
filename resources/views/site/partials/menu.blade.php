@@ -19,11 +19,20 @@
                 @foreach($objMenu as $siteMenu)
 
                 <li>
-                    <a href="{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
+                    @if(isset($fromHeader))
+                      <a href="site/{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
                         {!! $siteMenu->label !!}
                         {!! parentCssElement($siteMenu->menu_id, 'caret') !!}
                     </a> 
                     {!! getSubMenuSite($siteMenu->menu_id) !!}
+                    @else
+                      <a href="{!! $siteMenu->slug ? $siteMenu->slug : 'http://'.$siteMenu->external_link !!}"> 
+                          {!! $siteMenu->label !!}
+                          {!! parentCssElement($siteMenu->menu_id, 'caret') !!}
+                      </a> 
+                      {!! getSubMenuSite($siteMenu->menu_id) !!}
+                    @endif
+                    
                 </li>
                 @endforeach
                 @endif

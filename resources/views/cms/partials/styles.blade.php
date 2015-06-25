@@ -8,7 +8,7 @@
 {!! HTML::style('public/css/media_style.css') !!}
 {!! HTML::style('public/css/bootstrap-switch.css') !!}
 {!! HTML::style('public/css/style.css') !!}
-{!! HTML::style('public/css/mystyle.css') !!}
+
 
 <!--for menu cms-->
 {!! HTML::style('public/css/menu_cms/ns-default.css') !!}
