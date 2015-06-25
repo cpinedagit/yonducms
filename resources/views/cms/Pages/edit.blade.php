@@ -96,7 +96,7 @@
             <div class="main-container__content__info__options">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" checked> Publish Page
+                        <input type="checkbox" id ="checkboxPageStatus" value="Published" name="checkboxPageStatus"> Publish Page
                     </label>
                 </div>
                 <!--                <div class="checkbox">
@@ -201,6 +201,24 @@
 </div>
 {!! Form::close() !!}
 <script>
+    $(document).ready(function () {
+
+    //checks the checkbox
+    var pageId = {{ $pages->id }};
+	  $.ajax({
+	  type: "get",
+		    url: "{!! URL::to('/') !!}/cms/getPageStatus/" + pageId,
+		    success: function (status) {
+			  console.log(status);
+			  if(status === 'Published'){
+				$('#checkboxPageStatus').prop('checked',true);
+			  }else{
+				$('#checkboxPageStatus').prop('checked',false);
+			  }
+		    }
+		})
+    });
+    
     $('#editableUrl').hide();
     $(document).on("click", "#edit", function (e) {
 

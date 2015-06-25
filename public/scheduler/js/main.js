@@ -7,8 +7,3 @@ setTimeout(function () {
 	  });
     });
 });
-
-//
-//$(".slick-next,.slick-prev").click(function () {
-//    $('.schedule__list--active').removeClass('schedule__list--active');
-//});

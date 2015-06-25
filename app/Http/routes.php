@@ -109,6 +109,7 @@ Route::delete('cms/delCurrentImage/{id}', 'CMS\BannerController@delCurrentImage'
 Route::resource('cms/banners', 'CMS\BannerController', ['middleware' => 'is.allowed']);
 
 //These routes are for Page Management
+Route::get('cms/getPageStatus/{pageId}','CMS\PageController@getPageStatus');
 Route::get('cms/addPage', ['as' => 'cms.pages.addPage', 'uses' => 'CMS\PageController@addPage']);
 Route::delete('cms/delPage', 'CMS\PageController@delPage');
 Route::resource('site/', 'Site\SiteController@index', ['only' => ['index']]);
