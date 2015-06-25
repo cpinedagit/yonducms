@@ -1,12 +1,3 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
-{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
-{!! HTML::script('public/js/beam/modernizr.js'); !!}
-<!--Scheduler-->
-{!! HTML::script('public/slide/js/jssor.js') !!} 
-{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
-{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
-<!--Scheduler-->
 @extends('cms.home')
 @section('content'){!! HTML::style('public/scheduler/css/style.css') !!}
 <div id="fb-root"></div>
@@ -21,6 +12,15 @@
 	  fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
+{!! HTML::script('public/js/beam/modernizr.js'); !!}
+<!--Scheduler-->
+{!! HTML::script('public/slide/js/jssor.js') !!} 
+{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
+{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
+<!--Scheduler-->
 <main class="main">
     <div class="container">
         <div class="row">
@@ -35,10 +35,14 @@
                     </div>
                     <div class="banner-slider">
 				@foreach($firstScheduleImages as $images)
-                        <div class ='divImage'>
+				@if($images->media_path == null)
+				<span id ='nextSlide'></span>
+				@else
+				<div class ='divImage'>
 				    {!! HTML::image($images->media_path,null,['class' => 'scheduleImage']) !!}
                             <div class="mask"></div>				   
                         </div>
+				@endif
 				@endforeach
                     </div>
                 </div>
@@ -160,16 +164,18 @@ window.onload = slicky();
 		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
 		}
 	  });
-    }    
-    $('.banner-slider').on('afterChange', function () {
+    }
+    
+    $('.banner-slider').on('afterChange', function () {	  
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
 	  if(window.currentSlide === undefined){
 		currentSlide = 0;
 	  }
-	  console.log(item_length-2 +" "+ currentSlide);
-	  if (item_length-2 === currentSlide) {
-		 if(scheduleCount-1 == scheduleIndeces){
+	  console.log(item_length-1 +" "+ currentSlide);
+	  if (item_length-1 === currentSlide) {
+		 if(scheduleCount-1 === scheduleIndeces){
+		     currentSlide = '0';
 			  setTimeout(function () {
 				$('.slick-next').click();
 				    setTimeout(function () {
@@ -193,13 +199,13 @@ window.onload = slicky();
     });
 
     function slicky() {
-	  item_length = $('.banner-slider > div').length;
+	  item_length = $('.banner-slider > div').length -1;
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
 		infinite: true,
 		autoplaySpeed: 1000,
-		pauseOnHover: true
+		pauseOnHover: false
 	  });
 	  $('.btn-custom-lg').on('click', function(){
 		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
@@ -228,7 +234,11 @@ window.onload = slicky();
     }
     
     function nextSlide(){
-	  
+	  alert();
+	  $('.slick-next').click();
+	  $('.scheduleDiv2.slick-active').addClass('schedule__list--active');
+	  $('#nextSlide').html(nextSlide());
     }
+    
 </script>
 @stop    

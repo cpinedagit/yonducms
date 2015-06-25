@@ -3,7 +3,8 @@
 <head>
 	<title>{{ env('APP_TITLE') }}</title>
 	@include('cms.partials.meta')
-	@include('cms.partials.styles')        
+	@include('cms.partials.styles')
+	{!! HTML::script('public/js/jquery.js') !!}
 </head>
 <body>
 		@include('cms.partials.header')

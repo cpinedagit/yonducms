@@ -6,6 +6,8 @@
             <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/preview.blade.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/Controllers/CMS/SchedulerController.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/helpers.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/site/Banners/scheduleBanner.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/public/scheduler/js/slick.js</file>
         </group>
     </open-files>
 </project-private>
