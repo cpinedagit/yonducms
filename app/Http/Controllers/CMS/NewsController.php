@@ -47,17 +47,17 @@ class NewsController extends Controller {
   
   }
 
-  public function store()Image::make($file->getRealPath())
-                ->save($imagesPath.$filename)
-                ->fit('150', '150')
-                ->save($imagesPath.'thumbnail-'.$filename)
-                ->destroy();
+  public function store()
   {
       $file = Input::file('file');
       $filename = $file->getClientOriginalName();
    //   $file->move('uploads/news_image/', $filename);
       $imagesPath = 'uploads/news_image/';
-       
+       Image::make($file->getRealPath())
+                ->save($imagesPath.$filename)
+                ->fit('150', '150')
+                ->save($imagesPath.'thumbnail-'.$filename)
+                ->destroy();
 
       $news = new News;
       $news->news_title = Input::get('news_title');
@@ -73,7 +73,7 @@ class NewsController extends Controller {
       $news->save();
           Session::flash('message', 'News saved.');
       return Redirect::to('cms/news');
-    }
+  }
 
   public function edit($slug) {
     
