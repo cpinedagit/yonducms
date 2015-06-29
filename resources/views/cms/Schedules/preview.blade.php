@@ -110,8 +110,13 @@ window.onload = slicky();
     //click the first schedule
     setTimeout(function () {
 	  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');
+	  $('.schedule__list--active .scheduleId:first-child').click();
     }, 400);
     $(document).ready(function () {
+//	  var xcurrentSlide = $('.banner-slider').slick('slickCurrentSlide');
+//	  if(xcurrentSlide === 1 || xcurrentSlide === 0){
+//		nextSlide();
+//	  }
 	  //change the images of Main Banner
 	  $('.scheduleId').each(function () {
 		$(this).on('click', function () {
@@ -140,8 +145,10 @@ window.onload = slicky();
 				}
 				str = "";
 				for (x in data[0]) {
-				    str += ('<div class ="divImage"><img data-lazy = "{{ URL::to("/") }}/' + data[0][x]['media_path'] + '"></div>');
-				    $('.banner-slider').html(str);
+				    if(data[0][x]['media_path'] != null){
+					  str += ('<div class ="divImage"><img data-lazy = "{{ URL::to("/") }}/' + data[0][x]['media_path'] + '"></div>');
+					  $('.banner-slider').html(str);
+				    }
 				}
 
 
@@ -166,45 +173,18 @@ window.onload = slicky();
 	  });
     }
     
-    $('.banner-slider').on('afterChange', function () {	  
-	  var scheduleCount = {{ $scheduleCount }};
-	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
-	  if(window.currentSlide === undefined){
-		currentSlide = 0;
-	  }
-	  console.log(item_length-1 +" "+ currentSlide);
-	  if (item_length-1 === currentSlide) {
-		 if(scheduleCount-1 === scheduleIndeces){
-		     currentSlide = '0';
-			  setTimeout(function () {
-				$('.slick-next').click();
-				    setTimeout(function () {
-					  $('.schedule__list--active').removeClass('schedule__list--active'); 
-					  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
-				$('.schedule__list--active .scheduleId:first-child').trigger('click');
-				    });		    
-			  },1000);
-		 }else{
-		     setTimeout(function () {
-			  $('.slick-next').click();
-			  $('.schedule__list--active').next().addClass('schedule__list--active');
-			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
-			  $('.schedule__list--active .scheduleId:first-child').click();				    
-		    },1000);
-		 } 
-	  }
-	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		currentSlide = $('.banner-slider').slick('slickCurrentSlide');
-	  });
-    });
-
     function slicky() {
-	  item_length = $('.banner-slider > div').length -1;
+	  item_length = $('.banner-slider > div').length;
+//	  xitem_length = $('div.banner-slider div.divImage').length;
+//	  if(xitem_length === 1){
+//		alert('next slide');
+//		$('.slick-next').click();
+//	  }	  
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
 		infinite: true,
-		autoplaySpeed: 1000,
+		autoplaySpeed: 2000,
 		pauseOnHover: false
 	  });
 	  $('.btn-custom-lg').on('click', function(){
@@ -228,17 +208,30 @@ window.onload = slicky();
 		pauseOnHover: false
 
 	  });
-
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-
+	  currentsLide = 1;
     }
-    
-    function nextSlide(){
-	  alert();
-	  $('.slick-next').click();
-	  $('.scheduleDiv2.slick-active').addClass('schedule__list--active');
-	  $('#nextSlide').html(nextSlide());
-    }
+	  
+        $('.banner-slider').on('afterChange', function () {
+	  
+	  currentsLide++;
+	  var scheduleCount = {{ $scheduleCount }};
+	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
+	  console.log(item_length +' '+currentsLide);
+	  if(item_length === currentsLide){
+		currentsLide -1;
+		    setTimeout(function () {
+			  $('.slick-next').click();
+			  $('.schedule__list--active').next().addClass('schedule__list--active');
+			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
+			  $('.schedule__list--active .scheduleId:first-child').click();
+		    },2000);	
+	  }
+//		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+//		    currentSlide = $('.banner-slider').slick('slickCurrentSlide');
+//		});
+	  
+    });
     
 </script>
 @stop    
