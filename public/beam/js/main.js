@@ -1,11 +1,25 @@
+ $(window).resize(function(){
+    setTimeout(function(){
+        $('.schedule__list .slick-slide').each(function(){
+            $(this).click(function(){
+                var element = $(this);
+                $('.schedule__list--active').removeClass('schedule__list--active');
+                element.addClass('schedule__list--active');
+            })
+        });
+    },500);
+})
+ 
 setTimeout(function(){
-    $('.schedule__list.slick-vertical .slick-slide').each(function(){
+    $('.schedule__list .slick-slide').each(function(){
         $(this).click(function(){
             var element = $(this);
             $('.schedule__list--active').removeClass('schedule__list--active');
             element.addClass('schedule__list--active');
         })
     })
+    
+   
    /* $(".slick-next,.slick-prev").click(function(){
         $('.schedule__list--active').removeClass('schedule__list--active');
     });*/
@@ -34,7 +48,13 @@ setTimeout(function(){
     
     $('.modal-close').click(function(){
         $(this).closest('.modal-wrapper').fadeOut();
+        $('.menu-toggle').css("z-index",101);
         $('body').removeClass('adjustment-div');
+        $('#video-modal')[0].pause();
+        setTimeout(function(){
+            $('#video-modal')[0].currentTime = 0;
+        },1000)
+       
     });
     
     /*$('.accordion-updates').on('show.bs.collapse', function () {
@@ -68,6 +88,8 @@ setTimeout(function(){
         $('a[data-toggle="modal"]').each(function(){
             $(this).on('click',function(){
                 var target='#'+$(this).attr('data-target');
+                $('.menu-toggle').css("z-index",0);
+                $('body').addClass('adjustment-div');
                 $(target).fadeIn();
             });
         });
@@ -93,7 +115,23 @@ setTimeout(function(){
         },200)
     },200);
    
-        
+    
+    $('.menu-toggle').click(function(){
+        $('.nav-holder').toggleClass('active');
+        $('body').toggleClass('adjustment-div');
+    });
    
+    $('.header__nav-list li').each(function(){
+       $(this).click(function(e){
+           if($(this).hasClass('has-sub')){
+               $(this).children('ul').toggleClass('open');
+               e.preventDefault();
+           }else{
+               /*window.location=$(this).children('a').attr('src');*/
+               return true;
+           }
+           e.stopPropagation();
+       })
+    });
 },500);
 

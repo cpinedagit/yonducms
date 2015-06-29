@@ -8,10 +8,7 @@
     </div>
     <div class="pull-left header__search">
         <a onclick='gotoSite("{!! URL::to('site') !!}")' id="viewSite"><i class="fa fa-globe"></i> View Site</a>
-        <div class="input-group">
-              <span class="input-group-addon" id="search-icon"><i class="fa fa-search"></i></span>
-              <input type="text" class="form-control" placeholder="Search..." id="search">
-        </div>
+        
     </div>
     <ul class="pull-right list-unstyled header__menu-list">
         @if(checkAccess(8)>0)
@@ -83,7 +80,6 @@
                 </li>
                <li> {!! HTML::link('cms/user/profile','My Profile') !!} </li>
                <li> {!! HTML::link('auth/logout','Log-out') !!} </li>
-               <li><a href="#">Help</a></li>
               </ul>
             </div>
         </li>

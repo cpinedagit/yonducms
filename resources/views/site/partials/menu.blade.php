@@ -1,21 +1,9 @@
-<div id="fb-root"></div>
-<script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1480129802245390";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <header class="header">
-   <div class="container clearfix">
-       <nav>
+   <div class="container-fluid clearfix">
+       <nav class="nav-holder">
            <ul class="list-unstyled header__nav-list clearfix">
               <!-- add "active" class -->
-                
-                @if(isset($objMenu))
+               @if(isset($objMenu))
                 @foreach($objMenu as $siteMenu)
 
                 <li>
@@ -36,9 +24,16 @@
                 </li>
                 @endforeach
                 @endif
-                
            </ul>
        </nav>
-       <div class="fb-share-button pull-right" data-href="http://www.beam.com.ph/" data-layout="button"></div>
-    </div>
- </header>
+       <button type="button" class="tcon tcon-menu--xcross menu-toggle" aria-label="toggle menu">
+          <span class="tcon-menu__lines" aria-hidden="true"></span>
+          <span class="tcon-visuallyhidden">toggle menu</span>
+        </button>
+      
+      <!-- <i class="fa fa-bars menu-toggle"></i>-->
+       <h2 class="title-head">home</h2>
+       
+       <div class="fb-share-button pull-right" data-href="http://www.beam.com.ph/" data-layout="button" ></div>
+   </div>
+</header>
