@@ -5,9 +5,15 @@
         <group>
             <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/preview.blade.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/Controllers/CMS/SchedulerController.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/home.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/newEmptyPHP.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/app/Http/helpers.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/app/Models/Schedule.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/partials/scripts.blade.php</file>
+            <file>file:/C:/xampp/htdocs/yonducms/storage/framework/views/ba87b8e7720e1763f89bc385fa79762b</file>
+            <file>file:/C:/xampp/htdocs/yonducms/app/Http/Controllers/CMS/NewsController.php</file>
             <file>file:/C:/xampp/htdocs/yonducms/resources/views/site/Banners/scheduleBanner.blade.php</file>
-            <file>file:/C:/xampp/htdocs/yonducms/public/scheduler/js/slick.js</file>
+            <file>file:/C:/xampp/htdocs/yonducms/resources/views/cms/Schedules/photo_tool.blade.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,5 +1,6 @@
 @extends('cms.home')
 @section('content')
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
 {!! Form::model($pages,array('method'=>'PUT','url'=>'cms/pages/'.$pages['id'],'files'=>'true')) !!}
 <div class='main-container__content__title'>
     <h2>Pages</h2>

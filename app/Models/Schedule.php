@@ -71,6 +71,12 @@ class Schedule extends Model {
 		    ->get(array('fk_day_schedules.day'));
     }
     
+    public static function getFirstSchedule(){
+	  return DB::table('schedules')
+		    ->where('id', '=', 1)
+		    ->get();
+    }
+    
     public static function getFirstScheduleImages(){
 	 	  return DB::table('schedules')
 				->leftJoin('fk_schedules', 'schedules.id', '=', 'fk_schedules.schedule_id')
@@ -79,10 +85,30 @@ class Schedule extends Model {
 				->get();
     }
     
+    public static function getSecondScheduleImages(){
+	    return DB::table('schedules')
+			  ->leftJoin('fk_schedules', 'schedules.id', '=', 'fk_schedules.schedule_id')
+			  ->leftJoin('content_media', 'content_media.media_id', '=', 'fk_schedules.image_id')
+			  ->where('schedules.id', '=', 2)
+			  ->get();
+    }
+    
     public static function getFirstScheduleVideo(){
 	  return DB::table('schedules')
 		    ->where('id','=', 1)
 		    ->pluck('video');
+    }
+    
+    public static function getSecondScheduleVideo(){
+	  return DB::table('schedules')
+		    ->where('id','=', 2)
+		    ->pluck('video');
+    }
+    
+    public static function getSecondSchedule(){
+	  return DB::table('schedules')
+		    ->where('id', '=', 2)
+		    ->get();
     }
 		
 
