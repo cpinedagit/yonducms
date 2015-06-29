@@ -56,8 +56,10 @@
                     </li>
                 </ul>
                 @endforeach
-            </div>
-        </div>   
+		    {!! Form::text('newParentFolder',null,['class' => 'form-control','id' => 'addParentFolder']) !!}<br>
+		    <center>{!! Form::button('add',['class' => 'btn btn-add','id' => 'addParentFolderButton']) !!}</center>
+            </div>		
+        </div>   	  
     </div>
     <!-- MODAL -->
     {!! Form::open(array('id' => 'addFolderForm')) !!}
@@ -233,6 +235,19 @@
     $('#close-symbol').on('click', function () {
         $('.alert-success').addClass('hidden');
     });
-
+    
+    //add new parent folder
+    
+    $('#addParentFolderButton').on('click',function(){
+	  var parentFolderName = $('#addParentFolder').val();
+	  $.ajax({
+		type : 'POST',
+		url : "{!! URL::to('/') !!}/cms/editor/addParentFolder",
+		data : {'parentFolderName' : parentFolderName, '_token': $('[name=_token]').val()},
+		success: function(){
+		    location.reload();
+		}
+	  });
+    });
 </script>
 @stop

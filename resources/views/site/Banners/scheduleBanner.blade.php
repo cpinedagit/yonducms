@@ -1,4 +1,4 @@
-{!! HTML::style('public/scheduler/css/style.css') !!}
+
 <div id="fb-root"></div>
 <script>
     (function (d, s, id) {
@@ -11,6 +11,16 @@
 	  fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
+{!! HTML::script('public/js/beam/modernizr.js'); !!}
+<!--Scheduler-->
+{!! HTML::script('public/slide/js/jssor.js') !!} 
+{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
+{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
+{!! HTML::style('public/scheduler/css/style.css') !!}
+<!--Scheduler-->
 <main class="main">
     <div class="container">
         <div class="row">
@@ -25,10 +35,14 @@
                     </div>
                     <div class="banner-slider">
 				@foreach($firstScheduleImages as $images)
-                        <div class ='divImage'>
+				@if($images->media_path == null)
+				<span id ='nextSlide'></span>
+				@else
+				<div class ='divImage'>
 				    {!! HTML::image($images->media_path,null,['class' => 'scheduleImage']) !!}
                             <div class="mask"></div>				   
                         </div>
+				@endif
 				@endforeach
                     </div>
                 </div>
@@ -88,23 +102,22 @@
 {!! HTML::script('public/scheduler/js/slick.js') !!}
 {!! HTML::script('public/scheduler/js/main.js') !!}
 <script>
-//    var id = $('.scheduleId').attr('data-id');
+window.onload = slicky();
     //emptying modal;
     $('.modal').on('hidden.bs.modal', function () {
 	  $('.modal-body').empty();
     });
-        setTimeout(function () {
+    //click the first schedule
+    setTimeout(function () {
 	  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');
+//	  $('.schedule__list--active .scheduleId:first-child').click();
     }, 400);
-
-
-    //this function is trigger when an image schedule is clicked.
     $(document).ready(function () {
-
-	  //click the first schedule
-
+//	  var xcurrentSlide = $('.banner-slider').slick('slickCurrentSlide');
+//	  if(xcurrentSlide === 1 || xcurrentSlide === 0){
+//		nextSlide();
+//	  }
 	  //change the images of Main Banner
-
 	  $('.scheduleId').each(function () {
 		$(this).on('click', function () {
 		    var id = $(this).attr('data-id');
@@ -123,7 +136,7 @@
 				$('.slider__details__title').html(data[0][0]['title']);
 				$('.slider__details__description').html(data[0][0]['descriptions']);
 				$.getScript("../public/scheduler/js/slick.js", function () {
-				    slicky();
+				    slicky2();
 				});
 				$('.modal-body').empty();
 				$('.modal-body').removeData();
@@ -132,8 +145,10 @@
 				}
 				str = "";
 				for (x in data[0]) {
-				    str += ('<div class ="divImage"><img data-lazy = "{{ URL::to("/") }}/' + data[0][x]['media_path'] + '"></div>');
-				    $('.banner-slider').html(str);
+				    if(data[0][x]['media_path'] != null){
+					  str += ('<div class ="divImage"><img data-lazy = "{{ URL::to("/") }}/' + data[0][x]['media_path'] + '"></div>');
+					  $('.banner-slider').html(str);
+				    }
 				}
 
 
@@ -146,63 +161,43 @@
 
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
-//	  
-//	  $('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-//
-//	  $('.modal').on('shown.bs.modal', function () {
-//		$('.modal-body').empty();
-//		$('.modal-body').removeData();
-//		if (videofile) {
-//		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-//		}
-//	  });
+	  if(videofile !== ''){
+		$('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+	  }
+	  $('.modal').on('shown.bs.modal', function () {
+		$('.modal-body').empty();
+		$('.modal-body').removeData();
+		if (videofile !== '') {
+		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		}
+	  });
     }
     
-    
-
-    window.onload = slicky();
-    
-    
-    $('.banner-slider').on('afterChange', function () {
-	  var scheduleCount = {{ $scheduleCount }};
-	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
-	  console.log(scheduleCount-1 +" "+ scheduleIndeces);
-	   if (item_length-2 === window.currentSlide) {
-		 if(scheduleCount-1 == scheduleIndeces){
-//		     alert('reset');
-			  setTimeout(function () {
-				$('.slick-next').click();
-				    setTimeout(function () {
-					  $('.schedule__list--active').removeClass('schedule__list--active'); 
-					  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
-				$('.schedule__list--active .scheduleId:first-child').trigger('click');
-				    });
-								    
-			  },4000);
-		 }else{
-		     setTimeout(function () {
-			  $('.slick-next').click();
-			  $('.schedule__list--active').next().addClass('schedule__list--active');
-			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
-			  $('.schedule__list--active .scheduleId:first-child').click();				    
-		    },4000);
-		 }
-		    
-		}
-	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		 currentSlide = $('.banner-slider').slick('slickCurrentSlide');
-	  }); 
-
-    });
-
     function slicky() {
+	  currentsLide = 1;
 	  item_length = $('.banner-slider > div').length;
+//	  xitem_length = $('div.banner-slider div.divImage').length;
+//	  if(xitem_length === 1){
+//		alert('next slide');
+//		$('.slick-next').click();
+//	  }	  
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
 		infinite: true,
 		autoplaySpeed: 4000,
 		pauseOnHover: false
+	  });
+	  $('.btn-custom-lg').on('click', function(){
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPause');
+		}); 		
+	  });
+	  
+	  $('.close').on('click', function(){
+		 $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		     $('.banner-slider').slick('slickPlay');
+		 }); 
 	  });
 	  
 	  $('.schedule__list').slick({
@@ -214,8 +209,76 @@
 		pauseOnHover: false
 
 	  });
-
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-
+	   
     }
+    function slicky2() {
+	  currentsLide = 0;
+	  item_length = $('.banner-slider > div').length;
+//	  xitem_length = $('div.banner-slider div.divImage').length;
+//	  if(xitem_length === 1){
+//		alert('next slide');
+//		$('.slick-next').click();
+//	  }	  
+	  var slider = $('.banner-slider').slick({
+		autoplay: true,
+		dots: true,
+		infinite: true,
+		autoplaySpeed: 4000,
+		pauseOnHover: true
+	  });
+	  $('.btn-custom-lg').on('click', function(){
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPause');
+		}); 		
+	  });
+	  
+	  $('.close').on('click', function(){
+		 $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		     $('.banner-slider').slick('slickPlay');
+		 }); 
+	  });
+	  
+	  $('.schedule__list').slick({
+		vertical: true,
+		dots: false,
+		infinite: true,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		pauseOnHover: false
+
+	  });
+	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
+	   
+    }
+    
+        $('.banner-slider').on('afterChange', function () {
+	  currentsLide++;
+	  var scheduleCount = {{ $scheduleCount }};
+	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
+//	  console.log(item_length +' '+currentsLide);
+//	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
+	  if(item_length === currentsLide){	
+		if(scheduleCount-1 == scheduleIndeces){
+		    setTimeout(function () {
+		    $('.slick-next').click();
+			  setTimeout(function () {
+				$('.schedule__list--active').removeClass('schedule__list--active'); 
+				$('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+				$('.schedule__list--active .scheduleId:first-child').trigger('click');
+			  });		    
+		    },4000);
+		}else{
+		    setTimeout(function () {
+			  currentsLide--;
+			  $('.slick-next').click();
+			  $('.schedule__list--active').next().addClass('schedule__list--active');
+			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
+			  $('.schedule__list--active .scheduleId:first-child').click();
+		    },4000);
+		}
+	  }
+	  
+    });
+    
 </script>

@@ -94,6 +94,7 @@ Route::resource('site/news', 'Site\NewsController');
 //end news management
 
 //These routes are for Code Editor Management
+Route::post('cms/editor/addParentFolder','CMS\EditorController@addParentFolder');
 Route::get('cms/editor/addFolder', 'CMS\EditorController@addFolder');
 Route::post('cms/editor/Showw/{filename}', 'CMS\EditorController@Showw');
 Route::post('cms/editor/updateFile', 'CMS\EditorController@updateFile');

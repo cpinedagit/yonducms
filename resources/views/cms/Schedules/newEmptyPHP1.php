@@ -1,150 +1,257 @@
 @extends('cms.home')
-@section('content')
+@section('content'){!! HTML::style('public/scheduler/css/style.css') !!}
+<div id="fb-root"></div>
 <script>
-    $(document).ready(function () {
-
-        slider_blah();
-    });
-
+    (function (d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id))
+		return;
+	  js = d.createElement(s);
+	  js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1480129802245390";
+	  fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
-<div id='motherDiv'>
-    <div class='col-md-8' id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 400px; height: 300px;margin-left:20px;margin-top:20px; ">
-        <!-- Slides Container -->
-        <div id='container' u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;">
-            <div class ='divImage'>
-                {!! HTML::image('public/images/ilong.png',null,['style' => 'width:400px;height:auto;']) !!}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
+{!! HTML::script('public/js/beam/modernizr.js'); !!}
+<!--Scheduler-->
+{!! HTML::script('public/slide/js/jssor.js') !!} 
+{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
+{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
+<!--Scheduler-->
+<main class="main">
+    <div class="container">
+        <div class="row">
+            <div id="mainBannerDivParent">
+                <div class="col-xs-9 col-sm-9 col-md-9 banner mainBanner">
+                    <div class="banner-slider__details">
+                        <h3 class='slider__details__title'>{{ $firstSchedule->title }}</h3>
+                        <p class="slider__details__description">
+                            {{ $firstSchedule->descriptions }}
+                        </p>
+                        <a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>
+                    </div>
+                    <div class="banner-slider">
+				@foreach($firstScheduleImages as $images)
+				@if($images->media_path == null)
+				<span id ='nextSlide'></span>
+				@else
+				<div class ='divImage'>
+				    {!! HTML::image($images->media_path,null,['class' => 'scheduleImage']) !!}
+                            <div class="mask"></div>				   
+                        </div>
+				@endif
+				@endforeach
+                    </div>
+                </div>
             </div>
+            <!--vertical slider-->
+            <aside class="col-xs-3 col-sm-3 col-md-3">
+                <h4 class="schedule__title">
+                    schedule for <span class="red">today</span>
+                </h4>
+                <div class="schedule__list">
+                    @foreach($schedules as $schedule)
+                    <div class="scheduleDiv{!!$schedule->id!!}">
+				<a class='scheduleId' data-id='{{$schedule->id}}' data-image='{{ $schedule->image }}' href='#' value='{{ $schedule->id }}'>
+				    <div class="schedule__list--image">
+					  {!! HTML::image('public/scheduleImages/'.$schedule->image) !!}
+				    </div>
+				    <div class="schedule__list--details">
+					  <div class="time">
+						<?php
+						date_default_timezone_set('Asia/Manila');
+						$sched = new DateTime($schedule->schedule);
+						echo $sched->format('H:i a');
+						?>
+					  </div>
+					  <div>
+						{{ $schedule->title }}<br>
+					  </div>
+				    </div>
+				</a> 
+                    </div>
+                    @endforeach
+                </div>
+            </aside>
+            <!--vertical slider-->
         </div>
-        <!-- bullet navigator container -->
-        <div u="navigator" class="jssorb05" style="position: absolute; bottom: 16px; right: 6px;">
-            <!-- bullet navigator item prototype -->
-            <div u="prototype" style="POSITION: absolute; WIDTH: 16px; HEIGHT: 16px;"></div>
-        </div>
-        <!-- Arrow Left -->
-        <span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 123px; left: 0px;">
-        </span>
-        <!-- Arrow Right -->
-        <span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 123px; right: 0px">
-        </span>
     </div>
-
-<!--    <div class="col-md-8" id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 400px; height: 300px;margin-left:20px;margin-top:20px;">
-
-        <div id="container" u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;"> 
-            <div class ="divImage">
-            </div>
-        </div>
-        <div u="navigator" class="jssorb05" style="position: absolute; bottom: 16px; right: 6px;">
-            <div u="prototype" style="POSITION: absolute; WIDTH: 16px; HEIGHT: 16px;"></div>
-        </div>
-        <span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 123px; left: 0px;"></span>
-        <span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 123px; right: 0px"></span>
-    </div>-->
-</div>
-<!-- Jssor Slider End -->
-
-<!--vertical slider-->
-<div style='margin-left: 700px' class=".col-md-4">
-    <div class="slider2">
-        @foreach($schedules as $schedule)
-        <a class='scheduleId' data-id='{{$schedule->id}}' data-image='{{ $schedule->image }}' href='#'>{!! HTML::image('public/scheduleImages/'.$schedule->image) !!}</a>            
-        @endforeach
-    </div>
-</div>
+</main>
 
 <!--modal for Main Banner Video link-->
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  data-backdrop="static">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Video</h4>
             </div>
             <div class="modal-body">
-                <!--body-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" aria-hidden="true">Close</button>
+                <center>
+			  <video id="video" width="550" controls>
+				<source src="{!! URL::to('/') !!}/public/scheduleImages/{{$firstScheduleVideo}}">
+			  </video>
+		    </center>
             </div>
         </div>
     </div>
 </div>
-{!! HTML::script('public/vertical_slider/js/slick.js') !!}
+{!! HTML::script('public/scheduler/js/slick.js') !!}
+{!! HTML::script('public/scheduler/js/main.js') !!}
 <script>
+window.onload = slicky();
+    //emptying modal;
     $('.modal').on('hidden.bs.modal', function () {
-        $('.modal-body').empty();
+	  $('.modal-body').empty();
+    });
+    //click the first schedule
+    setTimeout(function () {
+	  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');
+    }, 400);
+    $(document).ready(function () {
+//	  var xcurrentSlide = $('.banner-slider').slick('slickCurrentSlide');
+//	  if(xcurrentSlide === 1 || xcurrentSlide === 0){
+//		nextSlide();
+//	  }
+	  //change the images of Main Banner
+	  $('.scheduleId').each(function () {
+		$(this).on('click', function () {
+		    var id = $(this).attr('data-id');
+		    $.ajax({
+			  type: "get",
+			  url: '{!! URL::to("/") !!}' + "/cms/getBannerImages/" + id,
+			  dataType: "json",
+			  success: (function (data) {
+				//console.log(data);
+				var origMainBanner = "<div class='col-xs-9 col-sm-9 col-md-9 banner mainBanner'><div class='banner-slider__details'><h3 class='slider__details__title'></h3><p class='slider__details__description'></p><div id ='divVideo'></div></div><div class='banner-slider'><div class ='divImage'><div class='mask'></div></div></div></div>";
+				$('#mainBannerDivParent').empty();
+				$('#mainBannerDivParent').append(origMainBanner);
+				if (data[0][0]['video'] !== "") {
+				    $('#divVideo').append("<a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>");
+				}
+				$('.slider__details__title').html(data[0][0]['title']);
+				$('.slider__details__description').html(data[0][0]['descriptions']);
+				$.getScript("../public/scheduler/js/slick.js", function () {
+				    slicky();
+				});
+				$('.modal-body').empty();
+				$('.modal-body').removeData();
+				if (data[0][0]['video'] != null) {
+				    videoPlay(data[0][0]['video']);
+				}
+				str = "";
+				for (x in data[0]) {
+				    if(data[0][x]['media_path'] != null){
+					  str += ('<div class ="divImage"><img data-lazy = "{{ URL::to("/") }}/' + data[0][x]['media_path'] + '"></div>');
+					  $('.banner-slider').html(str);
+				    }
+				}
+
+
+			  })
+		    });
+
+		});
+	  });
     });
 
-
-    $('.scheduleId').on('click', function () {
-        var id = $(this).attr('data-id');
-        $.ajax({
-            type: "get",
-            url: "{!! URL::to('/') !!}" + "/cms/getBannerImages/" + id,
-            dataType: "json",
-            success: (function (data) {
-                console.log(data);
-                $('#mainBannerDivParent').empty();
-                var origSlider = '<div class="col-md-8" id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 400px; height: 300px;margin-left:20px;margin-top:20px; "><div id="container" u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 600px; height: 300px; overflow: hidden;"> <div class ="divImage"></div></div><div u="navigator" class="jssorb05" style="position: absolute; bottom: 16px; right: 6px;"><div u="prototype" style="POSITION: absolute; WIDTH: 16px; HEIGHT: 16px;"></div></div><span u="arrowleft" class="jssora12l" style="width: 30px; height: 46px; top: 123px; left: 0px;"></span><span u="arrowright" class="jssora12r" style="width: 30px; height: 46px; top: 123px; right: 0px"></span></div>';
-                $('#mainBannerDivParent').append(origSlider);
-                $('.modal-body').empty();
-                videoPlay(data[0][1]['video']);
-
-                str = "";
-                for (x in data[0]) {
-                    str += ('<div class ="divImage">{!! HTML::image("' + data[0][x]['media_path'] + '", null, ["style" => "width:400px;height:auto;"]) !!}');
-                    if (data[0][x]['video'] === "") {
-                        str += ('</div>');
-                    } else {
-                        str += ('<div style="position: absolute; top: 200px; left: 30px">\n\
-            <button id="buttonVideow" data-video="' + data[0][x]['video'] + '" dat a-videoplay="' + data[0][x]['video'] + '" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="border-radius: 5px;background-color: red;color:white;">Video</button></div></div>');
-                    }
-                }
-                $('#container').html(str);
-                slider_blah();
-
-            })
-        });
-
-    });
-
-
-    function videoPlay(videofile) {
-
-        $('.modal-body').append('<center><video id="video" width="550" controls><source src="{!! URL::to(' / ') !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-
-        $('.modal').on('shown.bs.modal', function () {
-            $('.modal-body').empty();
-            $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to(' / ') !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-        });
+    //this function is ofr appending video for video modal.
+    function videoPlay(videofile) {	    
+	  if(videofile !== ''){
+		$('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+	  }
+	  $('.modal').on('shown.bs.modal', function () {
+		$('.modal-body').empty();
+		$('.modal-body').removeData();
+		if (videofile !== '') {
+		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		}
+	  });
     }
-
-
-    $('.slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        centerMode: true
+    
+    $('.banner-slider').on('afterChange', function () {
+	  
+	  var scheduleCount = {{ $scheduleCount }};
+	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
+	  if(window.currentSlide === undefined){
+		currentSlide = 0;
+	  }
+	  console.log(item_length-1 +" "+ currentSlide);
+	  if (item_length-1 === currentSlide) {
+		 if(scheduleCount-1 === scheduleIndeces){
+		     currentSlide = '0';
+			  setTimeout(function () {
+				$('.slick-next').click();
+				    setTimeout(function () {
+					  $('.schedule__list--active').removeClass('schedule__list--active'); 
+					  $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+					  $('.schedule__list--active .scheduleId:first-child').trigger('click');
+					  alert(xitem_length);
+//					  if(xitem_length === 0 || xitem_length === 1){
+//						$('.slick-next').click();
+//						$('.scheduleDiv2.slick-active').addClass('schedule__list--active');
+//						$('.schedule__list--active .scheduleId:first-child').click();
+//					  }
+				    });		    
+			  },1000);
+		 }else{
+		     setTimeout(function () {
+			  $('.slick-next').click();
+			  $('.schedule__list--active').next().addClass('schedule__list--active');
+			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
+			  $('.schedule__list--active .scheduleId:first-child').click();
+//			  console.log(xitem_length);
+		    },1000);
+		 } 
+	  }
+	  if(item_length >= 3){
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    currentSlide = $('.banner-slider').slick('slickCurrentSlide');
+		});
+	  }
     });
+    
+    
+    function slicky() {
+	  item_length = $('.banner-slider > div').length -1;
+	  xitem_length = $('div.banner-slider div.divImage').length;
+	  if(xitem_length === 1){
+		alert('next slide');
+		$('.slick-next').click();
+	  }	  
+	  var slider = $('.banner-slider').slick({
+		autoplay: true,
+		dots: true,
+		infinite: true,
+		autoplaySpeed: 1000,
+		pauseOnHover: false
+	  });
+	  $('.btn-custom-lg').on('click', function(){
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPause');
+		}); 		
+	  });
+	  
+	  $('.close').on('click', function(){
+		 $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		     $('.banner-slider').slick('slickPlay');
+		 }); 
+	  });
+	  
+	  $('.schedule__list').slick({
+		vertical: true,
+		dots: false,
+		infinite: true,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		pauseOnHover: false
 
-    $('.slider2').slick({
-        vertical: true,
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: false,
-        autoplaySpeed: 1000
-
-    });
-
-    $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-
+	  });
+	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
+    }
+    
 </script>
-
-
-
-@stop
+@stop    

@@ -139,5 +139,16 @@ class EditorController extends Controller {
 	  $result = File::makeDirectory($path . '/' . $name);
 	  return Response::json('ok');
     }
+    
+    public function addParentFolder(){
+	  $newParentFolderName = Request::get('parentFolderName');
+	  $editor =  new Editor;
+	  $editor->name = $newParentFolderName;
+	  $editor->path = 'public/'.$newParentFolderName;
+	  $editor->parent_id = 0;
+	  $editor->save();
+	  File::makeDirectory('public/'.$newParentFolderName);
+	  return Response::json('ok');	  
+    }
 
 }

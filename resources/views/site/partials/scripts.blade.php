@@ -2,10 +2,13 @@
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.3.min.js"><\/script>')</script>
 {!! HTML::script('public/beam/js/loader.js') !!}
 {!! HTML::script('public/beam/js/bootstrap.min.js') !!}
+
+{!! HTML::script('public/beam/js/jPages.min.js') !!}
+<script src="http://maps.googleapis.com/maps/api/js"></script>
 {!! HTML::script('public/beam/js/slick.js') !!}
 {!! HTML::script('public/beam/js/transformicon.js') !!}
+{!! HTML::script('public/beam/js/jquery.dotdotdot.js') !!}
 {!! HTML::script('public/beam/js/main.js') !!}
-
  <script>
     transformicons.add('.tcon');
       $('.banner-slider').slick({
