@@ -4,7 +4,7 @@
 {!! HTML::script('public/js/jquery.js') !!}	
 {!! HTML::script('public/js/jquery.dataTables.min.js') !!}
 {!! HTML::script('public/js/bootstrap.min.js'); !!}
-{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+
 {!! HTML::script('public/ckeditor/adapters/jquery.js'); !!}
 {!! HTML::script('public/js/jquery-ui.min.js'); !!}
 {!! HTML::script('public/js/bootstrap-switch.min.js'); !!}

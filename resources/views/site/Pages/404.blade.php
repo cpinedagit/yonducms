@@ -1,60 +1,33 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Page Not Found</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+<html class="no-js" lang="en">
+    <head>
+        <title>{{ $APP_TITLE }}</title>
+        @include('site.partials.meta')
+        @include('site.partials.styles')
+        {!! HTML::script('public/js/jquery.js') !!}
+        {!! HTML::script('public/beam/js/vendor/modernizr-2.8.3.min.js') !!}
+    </head>
+    <body id="nav-{!! menuLayout() !!}" class="home adjustment-div">          
+        @include('site.partials.loader')
+        
+        <main class="main">
+         <div class="container">
+            <div class="row">
+               <div class="construction-container error-404-holder">
+                
+                    {!! HTML::image(asset('public/beam/images/Error404.png', 'beam-tv', ['class' => 'img-responsive'])) !!}
+                    <h3 class='oops'>OOPS!</h3>
+                    <p>The requested URL /sample/sample.php was not found on our server.</p>
+                    <p>Go back to <a href="{!! URL().'/site' !!}" class='link-back'>BEAM's home page</a></p>
+                    
+                   
+               </div>
+           </div>
+         </div>
+         
+       </main>
 
-        * {
-            line-height: 1.2;
-            margin: 0;
-        }
+    </body>
+    @include('site.partials.scripts')
 
-        html {
-            color: #888;
-            display: table;
-            font-family: sans-serif;
-            height: 100%;
-            text-align: center;
-            width: 100%;
-        }
-
-        body {
-            display: table-cell;
-            vertical-align: middle;
-            margin: 2em auto;
-        }
-
-        h1 {
-            color: #555;
-            font-size: 2em;
-            font-weight: 400;
-        }
-
-        p {
-            margin: 0 auto;
-            width: 280px;
-        }
-
-        @media only screen and (max-width: 280px) {
-
-            body, p {
-                width: 95%;
-            }
-
-            h1 {
-                font-size: 1.5em;
-                margin: 0 0 0.3em;
-            }
-
-        }
-
-    </style>
-</head>
-<body>
-    <h1>Page Not Found</h1>
-    <p>Sorry, but the page you were trying to view does not exist.</p>
-</body>
 </html>
-<!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->

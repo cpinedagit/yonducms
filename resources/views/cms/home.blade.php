@@ -3,7 +3,8 @@
 <head>
 	<title>{{ env('APP_TITLE') }}</title>
 	@include('cms.partials.meta')
-	@include('cms.partials.styles')        
+	@include('cms.partials.styles') 
+	@include('cms.partials.upperscript')
 </head>
 <body>
 		@include('cms.partials.header')
