@@ -31,6 +31,7 @@ class ModuleController extends Controller {
 		//$moduleList = DB::select($moduleScript, array(1));
 		$moduleList = DB::table('modules')
 					->where('module_type', '=', '1')
+					->where('is_deleted', '=', '0')					
 					->select('id', 'module_name', 'module_description', 'enabled', 'module_type')
 					->get();
 		return view('modules.manager')->with([
