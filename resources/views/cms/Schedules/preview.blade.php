@@ -256,15 +256,27 @@ window.onload = slicky();
 	  currentsLide++;
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
-	  console.log(item_length +' '+currentsLide);
-	  if(item_length === currentsLide){	 
+//	  console.log(item_length +' '+currentsLide);
+//	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
+	  if(item_length === currentsLide){	
+		if(scheduleCount-1 == scheduleIndeces){
+		    setTimeout(function () {
+		    $('.slick-next').click();
+			  setTimeout(function () {
+				$('.schedule__list--active').removeClass('schedule__list--active'); 
+				$('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+				$('.schedule__list--active .scheduleId:first-child').trigger('click');
+			  });		    
+		    },500);
+		}else{
 		    setTimeout(function () {
 			  currentsLide--;
 			  $('.slick-next').click();
 			  $('.schedule__list--active').next().addClass('schedule__list--active');
 			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
 			  $('.schedule__list--active .scheduleId:first-child').click();
-		    },500);	
+		    },500);
+		}
 	  }
 	  
     });
