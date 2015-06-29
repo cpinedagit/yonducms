@@ -1,5 +1,6 @@
 @extends('cms.home')
-@section('content'){!! HTML::style('public/scheduler/css/style.css') !!}
+@section('content')
+
 <div id="fb-root"></div>
 <script>
     (function (d, s, id) {
@@ -20,6 +21,7 @@
 {!! HTML::script('public/slide/js/jssor.js') !!} 
 {!! HTML::script('public/slide/js/jssor.slider.js') !!} 
 {!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
+{!! HTML::style('public/scheduler/css/style.css') !!}
 <!--Scheduler-->
 <main class="main">
     <div class="container">
@@ -80,9 +82,7 @@
         </div>
     </div>
 </main>
-
 <!--modal for Main Banner Video link-->
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -150,11 +150,8 @@ window.onload = slicky();
 					  $('.banner-slider').html(str);
 				    }
 				}
-
-
 			  })
 		    });
-
 		});
 	  });
     });
@@ -172,15 +169,10 @@ window.onload = slicky();
 		}
 	  });
     }
-    
+    //first initialized slicky
     function slicky() {
-	  currentsLide = 2;
+	  currentsLide = 1;
 	  item_length = $('.banner-slider > div').length;
-//	  xitem_length = $('div.banner-slider div.divImage').length;
-//	  if(xitem_length === 1){
-//		alert('next slide');
-//		$('.slick-next').click();
-//	  }	  
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
@@ -210,22 +202,28 @@ window.onload = slicky();
 
 	  });
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-	   
+//	  console.log(item_length);
+//	  if(item_length === 1){
+//		setTimeout(function(){
+//		    $('.slick-next').click();
+//		    $('.schedule__list--active').next().addClass('schedule__list--active');
+//		    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+//		    $('.schedule__list--active .scheduleId:first-child').click();  
+//		},4000);
+//		
+//	  }
     }
+    
+//    re-initialize slicky when a schedule banner is being clicked
     function slicky2() {
 	  currentsLide = 0;
 	  item_length = $('.banner-slider > div').length;
-//	  xitem_length = $('div.banner-slider div.divImage').length;
-//	  if(xitem_length === 1){
-//		alert('next slide');
-//		$('.slick-next').click();
-//	  }	  
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
 		infinite: true,
 		autoplaySpeed: 4000,
-		pauseOnHover: true
+		pauseOnHover: false
 	  });
 	  $('.btn-custom-lg').on('click', function(){
 		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
@@ -249,14 +247,14 @@ window.onload = slicky();
 
 	  });
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-	   
+//	  console.log(item_length);
     }
     
         $('.banner-slider').on('afterChange', function () {
 	  currentsLide++;
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
-	  console.log(item_length +' '+currentsLide);
+//	  console.log(item_length +' = '+currentsLide);
 //	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
 	  if(item_length === currentsLide){	
 		if(scheduleCount-1 == scheduleIndeces){
@@ -278,8 +276,17 @@ window.onload = slicky();
 		    },4000);
 		}
 	  }
-	  
     });
-    
+    $('.btn-custom-lg').on('click', function(){
+	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		$('.banner-slider').slick('slickPause');
+	  }); 		
+    });
+
+    $('.close').on('click', function(){
+	   $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		 $('.banner-slider').slick('slickPlay');
+	   }); 
+    });
 </script>
 @stop    

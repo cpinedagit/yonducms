@@ -225,7 +225,7 @@ window.onload = slicky();
 		dots: true,
 		infinite: true,
 		autoplaySpeed: 4000,
-		pauseOnHover: true
+		pauseOnHover: false
 	  });
 	  $('.btn-custom-lg').on('click', function(){
 		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
