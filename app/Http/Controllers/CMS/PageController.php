@@ -24,11 +24,10 @@ class PageController extends Controller {
 
 	  //$this->middleware('guest'); 	 //Doesn't require active user
 	   // $this->middleware('is.allowed'); Require require active user
-	  $this->middleware('is.allowed');
     }
 
     public function index() {
-      $this->middleware('is.allowed');
+    $this->middleware('is.allowed');
 	  $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
 	  $pages = Page::all();
 	  $pagesCount = count($pages);
