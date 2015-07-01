@@ -4,6 +4,11 @@
 <a href="{!! URL::route('cms.scheduler.add') !!}" class="btn btn-add">Add New</a>
 @stop
 @section('content')
+@if((Session::has('message')))
+  <!-- Flash Update Your Password Message -->
+      <div class="alert alert-success" role="alert">{{ Session::get('message') }} <div class="glyphicon glyphicon-remove" id="close-symbol"> </div></div>
+  <!-- Flash Update Your Password Message -->
+@endif
 <!-- Add your site or application content here -->
 <div class="main-container">
     <div class='main-container__content__info'>

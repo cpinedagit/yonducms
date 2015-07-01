@@ -11,6 +11,7 @@ use Response;
 use DB;
 use Request;
 use View;
+use Session;
 
 class SchedulerController extends Controller {
 
@@ -51,23 +52,19 @@ class SchedulerController extends Controller {
     public function store() {
 	  $this->regenerateMenuSession('cms.scheduler.index', 'cms.scheduler.index');
 	  $file = Input::file('imageSchedule');
+	  $sched = new Schedule;
 	  if ($file) {
 		$filename = $file->getClientOriginalName();
 		$file->move('public/scheduleImages', $filename);
-		$sched = new Schedule;
-		$sched->image = $filename;
-		$sched->title = Input::get('title');
-		$sched->descriptions = Input::get('description');
-		$sched->schedule = Input::get('schedule');
-		$sched->save();
-		return redirect('cms/scheduler');
-	  } else {
-		echo"<script>
-                alert('please choose file');
-                </script>
-                    ";
+		$sched->image = $filename;		
+	  }else{
+		$sched->image = 'imageComingSoon';
 	  }
-
+	  $sched->title = Input::get('title');
+	  $sched->descriptions = Input::get('description');
+	  $sched->schedule = Input::get('schedule');
+	  $sched->save();
+	  Session::flash('message', 'A new schedule has been added.');
 	  return redirect('cms/scheduler');
     }
 
@@ -88,11 +85,13 @@ class SchedulerController extends Controller {
 		'daySchedules' => $daySchedules,
 		'scheduleId' => $id
 	  );
+	  Session::flash('message', 'schedule has been updated.');
 	  return view('cms.Schedules.edit', $arData);
     }
 
     public function update($id) {
 	  Schedule::updateSchedule($id);
+	  Session::flash('message', 'schedule has been updated.');
 	  return redirect('cms/scheduler');
     }
 
@@ -102,11 +101,13 @@ class SchedulerController extends Controller {
 
     public function deleteSchedule() {
 	  $checked = Request::get('checked');
-
-	  foreach ($checked as $check) {
-		$sched = Schedule::find($check);
+	  foreach ($checked as $checkId) {
+		$sched = Schedule::find($checkId);
+		$getScheduleVideo = Schedule::getscheduleVideo($checkId);
+		File::delete('public/scheduleImages'.$getScheduleVideo);
 		$sched->delete();
 	  }
+	  Session::flash('message', 'schedule(s) has been deleted.');
 	  return Response::json('ok');
     }
 

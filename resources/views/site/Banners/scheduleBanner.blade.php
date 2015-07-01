@@ -1,4 +1,6 @@
-
+@if($scheduleCount == 0)
+<div class="alert alert-warning" role="alert">no schedule yet</div>
+@else
 <div id="fb-root"></div>
 <script>
     (function (d, s, id) {
@@ -80,9 +82,7 @@
         </div>
     </div>
 </main>
-
 <!--modal for Main Banner Video link-->
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -113,10 +113,6 @@ window.onload = slicky();
 //	  $('.schedule__list--active .scheduleId:first-child').click();
     }, 400);
     $(document).ready(function () {
-//	  var xcurrentSlide = $('.banner-slider').slick('slickCurrentSlide');
-//	  if(xcurrentSlide === 1 || xcurrentSlide === 0){
-//		nextSlide();
-//	  }
 	  //change the images of Main Banner
 	  $('.scheduleId').each(function () {
 		$(this).on('click', function () {
@@ -150,11 +146,8 @@ window.onload = slicky();
 					  $('.banner-slider').html(str);
 				    }
 				}
-
-
 			  })
 		    });
-
 		});
 	  });
     });
@@ -172,15 +165,10 @@ window.onload = slicky();
 		}
 	  });
     }
-    
+    //first initialized slicky
     function slicky() {
 	  currentsLide = 1;
 	  item_length = $('.banner-slider > div').length;
-//	  xitem_length = $('div.banner-slider div.divImage').length;
-//	  if(xitem_length === 1){
-//		alert('next slide');
-//		$('.slick-next').click();
-//	  }	  
 	  var slider = $('.banner-slider').slick({
 		autoplay: true,
 		dots: true,
@@ -209,54 +197,14 @@ window.onload = slicky();
 		pauseOnHover: false
 
 	  });
-	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-	   
-    }
-    function slicky2() {
-	  currentsLide = 0;
-	  item_length = $('.banner-slider > div').length;
-//	  xitem_length = $('div.banner-slider div.divImage').length;
-//	  if(xitem_length === 1){
-//		alert('next slide');
-//		$('.slick-next').click();
-//	  }	  
-	  var slider = $('.banner-slider').slick({
-		autoplay: true,
-		dots: true,
-		infinite: true,
-		autoplaySpeed: 4000,
-		pauseOnHover: false
-	  });
-	  $('.btn-custom-lg').on('click', function(){
-		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		    $('.banner-slider').slick('slickPause');
-		}); 		
-	  });
-	  
-	  $('.close').on('click', function(){
-		 $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		     $('.banner-slider').slick('slickPlay');
-		 }); 
-	  });
-	  
-	  $('.schedule__list').slick({
-		vertical: true,
-		dots: false,
-		infinite: true,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		pauseOnHover: false
-
-	  });
-	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-	   
+	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active'); 
     }
     
         $('.banner-slider').on('afterChange', function () {
 	  currentsLide++;
 	  var scheduleCount = {{ $scheduleCount }};
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
-//	  console.log(item_length +' '+currentsLide);
+//	  console.log(item_length +' = '+currentsLide);
 //	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
 	  if(item_length === currentsLide){	
 		if(scheduleCount-1 == scheduleIndeces){
@@ -278,7 +226,52 @@ window.onload = slicky();
 		    },4000);
 		}
 	  }
-	  
     });
-    
+//    re-initialize slicky when a schedule banner is being clicked
+    function slicky2() {
+	  currentsLide = 0;
+	  item_length = $('.banner-slider > div').length;
+	  var slider = $('.banner-slider').slick({
+		autoplay: true,
+		dots: true,
+		infinite: true,
+		autoplaySpeed: 4000,
+		pauseOnHover: false
+	  });
+	  $('.btn-custom-lg').on('click', function(){
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPause');
+		}); 		
+	  });
+	  
+	  $('.close').on('click', function(){
+		 $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		     $('.banner-slider').slick('slickPlay');
+		 }); 
+	  });
+	  
+	  $('.schedule__list').slick({
+		vertical: true,
+		dots: false,
+		infinite: true,
+		slidesToShow: 4,
+		slidesToScroll: 1,
+		pauseOnHover: false
+
+	  });
+	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
+    }
+
+    $('.btn-custom-lg').on('click', function(){
+	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		$('.banner-slider').slick('slickPause');
+	  }); 		
+    });
+
+    $('.close').on('click', function(){
+	   $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		 $('.banner-slider').slick('slickPlay');
+	   }); 
+    });
 </script>
+@endif

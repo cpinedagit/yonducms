@@ -105,7 +105,12 @@
 window.onload = slicky();
     //emptying modal;
     $('.modal').on('hidden.bs.modal', function () {
-	  $('.modal-body').empty();
+	  $('video').trigger('pause');	  
+    });
+    
+    $('.modal').on('shown.bs.modal', function () {
+	 status = 1;
+	 console.log(status);
     });
     //click the first schedule
     setTimeout(function () {
@@ -113,10 +118,7 @@ window.onload = slicky();
 //	  $('.schedule__list--active .scheduleId:first-child').click();
     }, 400);
     $(document).ready(function () {
-//	  var xcurrentSlide = $('.banner-slider').slick('slickCurrentSlide');
-//	  if(xcurrentSlide === 1 || xcurrentSlide === 0){
-//		nextSlide();
-//	  }
+	  status = 0;
 	  //change the images of Main Banner
 	  $('.scheduleId').each(function () {
 		$(this).on('click', function () {
@@ -159,15 +161,8 @@ window.onload = slicky();
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
 	  if(videofile !== ''){
-		$('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		$('.modal-body').append('<center><video id="video" width="569px" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
 	  }
-	  $('.modal').on('shown.bs.modal', function () {
-		$('.modal-body').empty();
-		$('.modal-body').removeData();
-		if (videofile !== '') {
-		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-		}
-	  });
     }
     //first initialized slicky
     function slicky() {
@@ -201,19 +196,43 @@ window.onload = slicky();
 		pauseOnHover: false
 
 	  });
-	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-//	  console.log(item_length);
-//	  if(item_length === 1){
-//		setTimeout(function(){
-//		    $('.slick-next').click();
-//		    $('.schedule__list--active').next().addClass('schedule__list--active');
-//		    $('.schedule__list--active').prev().removeClass('schedule__list--active');
-//		    $('.schedule__list--active .scheduleId:first-child').click();  
-//		},4000);
-//		
-//	  }
+	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active'); 
     }
     
+        $('.banner-slider').on('afterChange', function () {
+	  currentsLide++;
+	  var scheduleCount = {{ $scheduleCount }};
+	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
+//	  console.log(item_length +' = '+currentsLide);
+//	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
+	//  alert(status);
+	  if(status == 0){
+		if(item_length === currentsLide){
+		    if(scheduleCount-1 == scheduleIndeces){
+		    setTimeout(function () {
+			  setTimeout(function () {
+				if(status == 0){
+				    $('.slick-next').click();
+				    $('.schedule__list--active').removeClass('schedule__list--active'); 
+				    $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+				    $('.schedule__list--active .scheduleId:first-child').trigger('click');
+				}
+			  });		    
+		    },4000);
+		    }else{
+			  setTimeout(function () {
+				if(status == 0){
+				    currentsLide--;
+				    $('.slick-next').click();
+				    $('.schedule__list--active').next().addClass('schedule__list--active');
+				    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+				    $('.schedule__list--active .scheduleId:first-child').click();
+				}
+			  },4000);
+		    }
+		}
+	  }
+    });
 //    re-initialize slicky when a schedule banner is being clicked
     function slicky2() {
 	  currentsLide = 0;
@@ -247,46 +266,29 @@ window.onload = slicky();
 
 	  });
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
-//	  console.log(item_length);
     }
-    
-        $('.banner-slider').on('afterChange', function () {
-	  currentsLide++;
-	  var scheduleCount = {{ $scheduleCount }};
-	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
-//	  console.log(item_length +' = '+currentsLide);
-//	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
-	  if(item_length === currentsLide){	
-		if(scheduleCount-1 == scheduleIndeces){
-		    setTimeout(function () {
-		    $('.slick-next').click();
-			  setTimeout(function () {
-				$('.schedule__list--active').removeClass('schedule__list--active'); 
-				$('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
-				$('.schedule__list--active .scheduleId:first-child').trigger('click');
-			  });		    
-		    },4000);
-		}else{
-		    setTimeout(function () {
-			  currentsLide--;
-			  $('.slick-next').click();
-			  $('.schedule__list--active').next().addClass('schedule__list--active');
-			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
-			  $('.schedule__list--active .scheduleId:first-child').click();
-		    },4000);
-		}
-	  }
-    });
+
     $('.btn-custom-lg').on('click', function(){
 	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		$('.banner-slider').slick('slickPause');
+		$('.banner-slider').slick('slickPause');		
 	  }); 		
     });
 
     $('.close').on('click', function(){
-	   $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		 $('.banner-slider').slick('slickPlay');
-	   }); 
+	   status = 0;
+	   if(item_length == 1){
+		setTimeout(function () {
+		    $('.slick-next').click();
+		    $('.schedule__list--active').next().addClass('schedule__list--active');
+		    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+		    $('.schedule__list--active .scheduleId:first-child').click();
+		},4000);
+	   }else{
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPlay');
+		    console.log(status);
+		});
+	   }
     });
 </script>
 @stop    

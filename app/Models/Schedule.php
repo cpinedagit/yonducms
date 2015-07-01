@@ -105,6 +105,12 @@ class Schedule extends Model {
 		    ->pluck('video');
     }
     
+    public static function getScheduleVideo($id){
+	  return DB::table('')
+		    ->where('id', '=', $id)
+		    ->pluck('video');
+    }
+    
     public static function getSecondSchedule(){
 	  return DB::table('schedules')
 		    ->where('id', '=', 2)
