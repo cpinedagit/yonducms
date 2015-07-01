@@ -7,7 +7,7 @@
         </a>
     </div>
     <div class="pull-left header__search">
-        <a onclick='gotoSite("{!! URL::to('site') !!}")' id="viewSite"><i class="fa fa-globe"></i> View Site</a>
+        <a onclick='gotoSite("{!! URL::to('/') !!}")' id="viewSite"><i class="fa fa-globe"></i> View Site</a>
         
     </div>
     <ul class="pull-right list-unstyled header__menu-list">
@@ -87,7 +87,7 @@
    </div> 
 </header>
 <style>
-#viewSite {
+#viewSite { 
   cursor: pointer;
 }
 </style>

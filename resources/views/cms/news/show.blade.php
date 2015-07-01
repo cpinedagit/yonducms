@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="page-url" class='form-title'>URL Key</label>
                     <div class="form-group" id="editableUrl">
-                    <label>{!! URL::to('/site/news')!!}/</label>
+                    <label>{!! URL::to('/news')!!}/</label>
                      {!! Form::text('slug',$result->slug,array('class'=>'form-control', 'required' )) !!}
                   </div>
             </div>

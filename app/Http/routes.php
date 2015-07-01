@@ -90,7 +90,7 @@ Route::resource('cms/media', 'CMS\MediaController');
 //News Management
 Route::post('/cms/news/deleteSelected', ['as' => 'cms.news.deleteSelected', 'uses' => 'CMS\NewsController@deleteSelected']);
 Route::resource('cms/news', 'CMS\NewsController');
-Route::resource('site/news', 'Site\NewsController');
+Route::resource('news', 'Site\NewsController');
 //end news management
 
 //These routes are for Code Editor Management
@@ -113,8 +113,8 @@ Route::resource('cms/banners', 'CMS\BannerController', ['middleware' => 'is.allo
 Route::get('cms/getPageStatus/{pageId}','CMS\PageController@getPageStatus');
 Route::get('cms/addPage', ['as' => 'cms.pages.addPage', 'uses' => 'CMS\PageController@addPage']);
 Route::delete('cms/delPage', 'CMS\PageController@delPage');
-Route::resource('site/', 'Site\SiteController@index', ['only' => ['index']]);
-Route::get('site/{slug}', 'CMS\PageController@preview');
+Route::resource('/', 'Site\SiteController@index', ['only' => ['index']]);
+Route::get('{slug}', 'CMS\PageController@preview');
 Route::get('site/{slug}/{slug2}/', 'Site\NewsController@preview');
 Route::get('site/page/{id}/{url}/{url2}', 'CMS\PageController@preview');
 Route::get('site/page/{id}/{url}/{url2}/{url3}', 'CMS\PageController@preview');

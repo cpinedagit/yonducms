@@ -41,7 +41,7 @@
                     <i class="fa fa-chevron-left"></i>
                     <ul class="list-unstyled action-list">
                         <li><a href ="pages/{!! $page['id'] !!}/edit">edit</a><a href ="#" onclick = ""></a></li>                          
-                        <li>{!! HTML::link(URL::to('/site').'/'.$page['slug'],'preview',['target' => '_blank']) !!}</li>
+                        <li>{!! HTML::link(URL::to('/').'/'.$page['slug'],'preview',['target' => '_blank']) !!}</li>
                     </ul>
                 </td>
             </tr>

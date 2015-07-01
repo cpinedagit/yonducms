@@ -68,12 +68,12 @@
                         <label for="page-url" class='form-title'>URL Key</label>
                         <div class="form-inline">
                             <div class="form-group" id ="nonEditableUrl">
-                                <label>{!! URL::to('/site')!!}/</label>
+                                <label>{!! URL::to('/')!!}/</label>
                                 <input type="text" name ="slug" class="form-control textbox--editable" value="{!! $pages['slug'] !!}" id="texturlkey" disabled style='cursor:pointer;'>
                                 <button id="edit" type="button" class="btn btn-reset">Edit</button>
                             </div>
                             <div class="form-group" id="editableUrl">
-                                <label>{!! URL::to('/site')!!}/</label>
+                                <label>{!! URL::to('/')!!}/</label>
                                 <input type="text" name="slug" class="form-control" value="{!! $pages['slug'] !!}" id="texturlkey">
                                 <button id="cancel" type="button" class="btn btn-reset">cancel</button>
                             </div>
