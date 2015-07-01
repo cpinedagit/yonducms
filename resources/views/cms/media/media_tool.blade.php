@@ -150,9 +150,9 @@ $(document).ready(function () {
                     } else {
 
                         str += "<video width='320' height='240' controls>";
-                        str += "<source src='../" + data[0][x]['media_path'] + "' type='video/mp4'>";
-                        str += "<source src='../" + data[0][x]['media_path'] + "' type='video/ogg'>";
-                        str += "<source src='../" + data[0][x]['media_path'] + "' type='video/wmv'>";
+                        str += "<source src='"+ data[0][x]['media_path'] + "' type='video/mp4'>";
+                        str += "<source src='" + data[0][x]['media_path'] + "' type='video/ogg'>";
+                        str += "<source src='" + data[0][x]['media_path'] + "' type='video/wmv'>";
                         str += "  Your browser does not support the video tag.";
                         str += "</video>";
                     }

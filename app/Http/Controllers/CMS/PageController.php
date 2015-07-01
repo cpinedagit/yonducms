@@ -23,10 +23,12 @@ class PageController extends Controller {
 	  View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
 
 	  //$this->middleware('guest'); 	 //Doesn't require active user
-	  $this->middleware('is.allowed'); //Require require active user
+	   // $this->middleware('is.allowed'); Require require active user
+	  $this->middleware('is.allowed');
     }
 
     public function index() {
+      $this->middleware('is.allowed');
 	  $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
 	  $pages = Page::all();
 	  $pagesCount = count($pages);
@@ -55,6 +57,7 @@ class PageController extends Controller {
      * @return Response
      */
     public function store() {
+    	$this->middleware('is.allowed');
 	  $content = Input::get('Editor1');
 	  $page = new Page;
 	  $page->content = $content;
@@ -83,6 +86,7 @@ class PageController extends Controller {
     }
 
     public function edit($id) {
+    	$this->middleware('is.allowed');
 	  $this->regenerateMenuSession('cms.pages.index', 'cms.pages.index');
 //        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
 //        $bannerId = DB::table('pages')
@@ -111,6 +115,7 @@ class PageController extends Controller {
     }
 
     public function preview($slug) {
+    	$this->middleware('guest'); 
 	  $pages = Page::preview($slug);
 	  if (count($pages) > 0) {
 
@@ -137,6 +142,7 @@ class PageController extends Controller {
      * @return Response
      */
     public function update($id) {
+    	$this->middleware('is.allowed');
 	  Page::updatePage($id);
 	  return redirect('cms/pages');
     }
@@ -152,6 +158,7 @@ class PageController extends Controller {
     }
 
     public function addPage() {
+    	$this->middleware('is.allowed');
 //        $banners = DB::table('banners')->get(array('banners.title', 'banners.id'));
 	  $this->regenerateMenuSession('cms.pages.index', 'cms.pages.addPage');
 	  $Pages = Page::all();
@@ -162,6 +169,7 @@ class PageController extends Controller {
     }
 
     public function delPage() {
+    	$this->middleware('is.allowed');
 	  $checked = Request::get('checked');
 	  foreach ($checked as $check) {
 		$page = Page::find($check);
@@ -173,6 +181,7 @@ class PageController extends Controller {
     }
     
     public function getPageStatus($id){
+    	$this->middleware('is.allowed');
 	  $pageStatus = Page::getPageStatus($id);
 	  return Response::json($pageStatus);
     }
