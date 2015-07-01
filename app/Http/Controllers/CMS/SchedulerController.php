@@ -58,7 +58,7 @@ class SchedulerController extends Controller {
 		$file->move('public/scheduleImages', $filename);
 		$sched->image = $filename;		
 	  }else{
-		$sched->image = 'imageComingSoon';
+		$sched->image = 'imageComingSoon.png';
 	  }
 	  $sched->title = Input::get('title');
 	  $sched->descriptions = Input::get('description');
