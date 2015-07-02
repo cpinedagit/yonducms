@@ -282,8 +282,7 @@ window.onload = slicky();
 	  $('.slider2.slick-vertical .slick-slide.slick-active').first().addClass('custom-slick-active');
     }
 
-    $('.btn-custom-lg').on('click', function(){
-	  alert('wakoko')
+    $('.btn-custom-lg').on('click', function(){	
 	  status = 1;
 	  console.log(status);
 	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){

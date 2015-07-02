@@ -20,11 +20,11 @@
         </div>
 
         <div class="main-container__content__info__filter">
-            <select name="" id="" class="form-control">
+            <select name="" id="action" class="form-control">
                 <option value="" disabled selected>Choose Action</option>
-                <option value="">Delete</option>
+                <option value="Delete">Delete</option>
             </select>
-            <input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
+            <input type="button" id="apply" class='btn btn-filter' value="Apply">
         </div>
 
         <table id="example" class="superTable table table-striped table--data table--lastaction ">
@@ -39,7 +39,7 @@
             <tbody>
                 @foreach($banners as $banner)
                 <tr>
-                    <td><input type="checkbox" name="cbox" id="{!! $banner->id !!}"></td>
+                    <td><input type="checkbox" name="checkbox" value="{!! $banner->id !!}"></td>
                     <td> {!! $banner->title !!}</td>
                     <td> {!! $banner->type !!}</td>
                     <td class='action'>
@@ -57,32 +57,59 @@
 </div>
 </form>
 <script>
-            function del(id){
-//            console.log($('meta[name="csrf-token"]').attr('content'));
-            if (confirm('do you really want to delete this banner') == true)
-            {
-            $.ajax({
-            type:"DELETE",
-                    headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url:  'banners' + "/" + id,
-                    dataType: "json",
-                    success:(function(data) {
-                    window.location = ("banners");
-                    })
-            });
-            } else{
-            return false;
-            }
+    function del(id){
+    //            console.log($('meta[name="csrf-token"]').attr('content'));
+    if (confirm('do you really want to delete this banner') == true)
+    {
+    $.ajax({
+    type:"DELETE",
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:  'banners' + "/" + id,
+        dataType: "json",
+        success:(function(data) {
+        window.location = ("banners");
+        })
+    });
+    } else{
+    return false;
+    }
 
-            }
+    }
     $(document).ready(function(){
 
     $(document).on('click', '#addBanner', function(){
 
     window.location = ('addBanner');
     });
+    });
+    
+    $(document).on("click", '#apply', function () {
+      var action = $('#action').val();
+      if (action === 'Delete') {
+        var checked = new Array();
+        $("input:checkbox[name=checkbox]:checked").each(function () {
+            checked.push($(this).val());
+            console.log(checked);
+        });
+        if (confirm('do you really want to delete the selected banner(s)?')) {
+            $.ajax({
+              type: "DELETE",
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              data: {checked: checked},
+              url: "{!! URL::to('/') !!}" + '/cms/delBanner',
+              dataType: "json",
+              success: (function (data) {
+                location.reload();
+              })
+            });
+        } else {
+            return false;
+        }
+      }
     });
 
 
