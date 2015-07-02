@@ -42,6 +42,9 @@
                             </div>
                           </li>
             					  @endforeach
+                        @if(empty($data['news_feeds']['items']))
+                          <li>No RSS Link found, please check general settings menu.</li>
+                        @endif
                     </ul>
                 </div>
                     
@@ -85,23 +88,23 @@
                                 <tbody>
                                     <tr class="all">
                                         <td class="indent-right"><strong>{{ $news['all_news'] }}</strong></td>
-                                        <td class="indent-right"> Articles</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/news', 'Articles', ['class'=>'dboard-link-active']) !!}  </td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $news['published'] }}</strong></td>
-                                        <td class="indent-right">Published</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/news', 'Published', ['class'=>'dboard-link']) !!} </td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $news['all_news']-$news['published'] }}</strong></td>
-                                        <td class="indent-right">Unpublished</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/news', 'Unpublished', ['class'=>'dboard-link']) !!} </td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $news['featured'] }}</strong></td>
-                                        <td class="indent-right">Featured</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/news', 'Featured', ['class'=>'dboard-link']) !!} </td>
                                     </tr> 
                                     <tr>
                                         <td class="indent-right"><strong>{{ $news['all_news']-$news['featured'] }}</strong></td>
-                                        <td class="indent-right">Unfeatured</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/news', 'Unfeatured', ['class'=>'dboard-link']) !!} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -117,15 +120,15 @@
                                 <tbody>
                                     <tr class="all">
                                         <td class="indent-right"><strong>{{ $pages['all_pages'] }}</strong></td>
-                                        <td class="indent-right"> Articles</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/pages', 'Articles', ['class'=>'dboard-link-active']) !!}</td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $pages['published'] }}</strong></td>
-                                        <td class="indent-right">Published</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/pages', 'Published', ['class'=>'dboard-link']) !!}</td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $pages['all_pages']-$pages['published'] }}</strong></td>
-                                        <td class="indent-right">Unpublished</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/pages', 'Unpublished', ['class'=>'dboard-link']) !!}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -141,15 +144,15 @@
                                 <tbody>
                                     <tr class="all">
                                         <td class="indent-right"><strong>{{ $banners['all_banners'] }}</strong></td>
-                                        <td class="indent-right"> Banners</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/banners', 'Banners', ['class'=>'dboard-link-active']) !!} </td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $banners['advanced'] }}</strong></td>
-                                        <td class="indent-right">Advanced</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/banners', 'Advanced', ['class'=>'dboard-link']) !!}</td>
                                     </tr>
                                     <tr>
                                         <td class="indent-right"><strong>{{ $banners['all_banners']-$banners['advanced'] }}</strong></td>
-                                        <td class="indent-right">Standard</td>
+                                        <td class="indent-right"> {!! HTML::link(URL().'/cms/banners', 'Standard', ['class'=>'dboard-link']) !!}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -175,7 +178,7 @@
               	                    </div>
                                       <div class='desc-holder'>
                                         <p>{{ $user->username }}: {{ $user->first_name." ".$user->last_name }}</p>
-                                        <p>Change password request</p>
+                                        {!! HTML::linkRoute('cms.user.edit', 'Change password request', $user->username, ['class'=>'dboard-link']) !!} 
                                       </div>
             									      </li>
 							  	                 @endforeach
@@ -204,4 +207,28 @@
     $('.breadcrumb').first().append("<li class='active'>Dashboard</li>");
   });
 </script>
+
+<!-- 
+  Check if RSS Feeds is enabled 
+  Hide RSS Div and extend notifications summary
+-->
+@if(empty($data['news_feeds']['items']))
+<style type="text/css">
+  .col-sm-8{
+    display: none;
+  }
+
+  .col-sm-4{
+    width: 100%;
+  }
+</style>
+@endif
+<!-- Check if RSS Feeds is enabled -->
+
+<!-- 
+John 3:16
+For God so loved the world that he gave his one and only Son, 
+that whoever believes in him shall not perish but have eternal life.
+-->
+
 @endsection

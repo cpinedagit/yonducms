@@ -48,7 +48,7 @@ class CMSController extends Controller {
 	public function getNewsFeedsFromVendor()
 	{
 		//Add .rss link
-		$feed = Feeds::make(env('APP_RSS_FEED_VENDOR'));
+		$feed = Feeds::make(env('APP_RSS_FEED'));
 	    $data = array(
 	      'title'     => $feed->get_title(),
 	      'permalink' => $feed->get_permalink(),

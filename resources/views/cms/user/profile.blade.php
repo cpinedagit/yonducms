@@ -82,7 +82,7 @@
 		</div>
 	@endif
 
-      {!! Form::open(['url'=>url('/change_password_user/update'), 'method'=>'PUT', 'id'=>'ChangePasswordForm', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+      {!! Form::open(['url'=>url('/cms/change_password_user/update'), 'method'=>'PUT', 'id'=>'ChangePasswordForm', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 	    <div class="modal-body modal-body--changepassword">	      	
 			<div class="form-group">	            
 	            {!! Form::label('password', 'Current Password', ['class' =>'form-title', 'for' => 'password-current']) !!}	            

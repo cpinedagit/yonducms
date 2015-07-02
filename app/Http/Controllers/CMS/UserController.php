@@ -76,6 +76,9 @@ class UserController extends Controller {
 		} else {
 			if($userCount[0]->c_user > 0) {
 				$error_msg = "Username is already in use.";
+			} else 
+			{
+				$error_msg = "";
 			}
 
 			return redirect()->back()

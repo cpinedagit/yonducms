@@ -26,6 +26,7 @@
              <ul class="list-unstyled media-circle-list">
               @foreach (notification_lists() as $user)
                 <li>
+                   <a href="{{ URL().'/cms/user/'.$user->username.'/edit' }}">
                     <div class='image-holder'>
                        <div class="circle image-holder__user-pic">
                           @if($user->profile_pic!="")
@@ -36,9 +37,10 @@
                        </div>
                     </div>
                     <div class='desc-holder'>
-                        <p>{{ $user->username }}: {{ $user->first_name." ".$user->last_name }}</p>
-                        <p>Change password request</p>
+                        <p class="dboard-link">{{ $user->username }}: {{ $user->first_name." ".$user->last_name }}</p>
+                        <p class="dboard-link"> Change password request </p>
                     </div>
+                   </a>
                  </li>              
                @endforeach
              <!-- notif lists -->

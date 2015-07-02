@@ -2,7 +2,7 @@
 
 @section('title')
 		<h2>Module Management</h2>
-       	    {!! Form::open(['url' => 'modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
+       	    {!! Form::open(['url' => 'cms/modules/upload', 'files' => TRUE, 'id' => 'upload-form']) !!}
 				<br/><input id="moduleUpload" type='button' value="Add New Module" class='btn btn-add'/>
 			{!! Form::file('module', array('class' => 'upload-dialog', 'style' => 'visibility:hidden')) !!}
 			{!! Form::close() !!}
@@ -114,6 +114,7 @@
 				cache: false,
 	            success: proxiedCallback
             });
+            
 		}
 		// $(".moduleToggle").click(updateModuleStatus);
 		// $(".bootstrap-switch").change( function a() {$(".toggle-module").bootstrapSwitch("toggleDisabled", "TRUE", "TRUE");});

@@ -160,7 +160,7 @@ class ModuleController extends Controller {
 		}
 		
 		Session::flash("upload-message", $message);
-		return Redirect::to('modules');
+		return Redirect::to('cms/modules');
 	}
 
 	public function addNewModuleAccess($id)

@@ -23,7 +23,7 @@
                     <div class="form-inline panel-body__nav-position">
                         <div class="form-group">
                             <label for="position-nav">Select Position of Navigaiton</label>
-                            <select class="form-control"  name="menuposition" id="menuposition" disabled>
+                            <select class="form-control"  name="menuposition" id="menuposition">
                                 @if(isset($objMenuPosition))
                                 @foreach($objMenuPosition as $objmenupos)
                                 <option value="{{ $objmenupos->id}}" {{ ($objmenupos->is_selected == 1) ? 'selected' : '' }}>{{ $objmenupos->position }}</option>

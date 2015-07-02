@@ -196,11 +196,12 @@ a:focus{
     position: relative;
 }
 
-.header__nav-list > li ul li.has-sub > a:after{
-    font-family: FontAwesome;
-    content: '\f107';
-    color: #fff;
-    float: right;
+.header__nav-list li.has-sub > a:after{
+   font-family: FontAwesome;
+   content: '\f107';
+   color: #fff;
+   float: right;
+   margin-left: 10px;
 }
 .header__nav-list > li.has-sub ul.open{
     display: block;

@@ -2143,6 +2143,15 @@ ul.mtree.bubba li li li li li > a {
 /********* CAPTCHA ***************/
 
 /*General Settings*/
+.dboard-link{
+    color: #6b6b6b;
+}
+
+.dboard-link-active{
+    color: white;
+}
+
+
 #APP_LOGO_selector
 {
     width: 100%;

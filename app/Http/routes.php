@@ -62,7 +62,7 @@ Route::get('captcha-generator', 'CMS\CaptchaController@index');
 //Change Password Controller Front-End
 Route::resource('change_password', 'CMS\ChangePasswordController');
 //Change Password Controller Back-End
-Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemController', ['middleware' => 'is.allowed']);
+Route::resource('cms/change_password_user', 'CMS\ChangePasswordInsideSystemController');
 //End Gian Modules
 // Menu management route
 Route::post('cms/menu/updatelabel', ['as' => 'updatelabel', 'uses' => 'CMS\CmsMenuController@updateLabelMenu']);
@@ -134,9 +134,9 @@ Route::resource('cms/scheduler', 'CMS\SchedulerController', ['middleware' => 'is
 //These routes are for Error Pages
 //Route::get('notfound', 'ErrorController@index');
 //These routes are for Module Management
-Route::get('modules', 'ModuleController@index');
-Route::resource('modules', 'ModuleController');
-Route::post('modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
-Route::post('modules/upload', 'ModuleController@upload');
+Route::get('cms/modules', 'ModuleController@index');
+Route::resource('cms/modules', 'ModuleController');
+Route::post('cms/modules/toggle', ['as' => 'togglemodule', 'uses' => 'ModuleController@toggleModule']);
+Route::post('cms/modules/upload', 'ModuleController@upload');
 
 require_once(__DIR__ . '/../Modules/Module_Routes.php');

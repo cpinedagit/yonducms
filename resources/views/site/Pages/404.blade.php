@@ -19,7 +19,7 @@
                     <img src="{!! URL() . '/public/beam/images/Error404.png' !!}" class="img-responsive" alt="beam-tv">
                     <h3 class='oops'>OOPS!</h3>
                     <p>The requested URL /sample/sample.php was not found on our server.</p>
-                    <p>Go back to <a href="{!! URL().'/' !!}" class='link-back'>BEAM's home page</a></p>
+                    <p>Go back to <a href="{!! URL().'/site' !!}" class='link-back'>BEAM's home page</a></p>
                     
                    
                </div>

@@ -136,7 +136,8 @@
                                 <div class="form-group">
                                     <label for="rss-link" class="col-sm-2 control-label">RSS Link</label>
                                     <div class="col-sm-10">
-                                      {!! Form::text('APP_RSS_FEED', str_replace('APP_RSS_FEED=', '', $env[21]), ['class'=>'form-control', 'data-parsley-required'=>'true', 'data-parsley-type'=>'url'] ) !!}
+                                      {!! Form::text('APP_RSS_FEED', str_replace('APP_RSS_FEED=', '', $env[21]), ['class'=>'form-control', 'data-parsley-required'=>'false', 'data-parsley-type'=>'url'] ) !!}
+                                      <small><em>leave empty if you want to disable rss feeds on dashboard.</em></small>
                                     </div>
                                 </div>
                            </div>  
