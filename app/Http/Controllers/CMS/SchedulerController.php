@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CMS;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\MyCollection;
 use Input;
 use Cache;
 use Response;
@@ -51,7 +52,18 @@ class SchedulerController extends Controller {
      */
     public function store() {
 	  $this->regenerateMenuSession('cms.scheduler.index', 'cms.scheduler.index');
-	  $file = Input::file('imageSchedule');
+	  $file = Request::file('imageSchedule');
+//	  $scheduleLastId = DB::table('schedules')->orderBy('id', 'desc')->pluck('id');
+//	  $scheduleLastIdInc = ++$scheduleLastId;
+	  $selectedDays = Request::get('selectedDay');
+//	  foreach($selectedDays as $selectedDay){
+//		DB::table('fk_day_schedules')->insert(
+//			  array(
+//				'schedule_id' => $scheduleLastIdInc,
+//				'day' => $selectedDay
+//				)
+//			  );
+//	  }
 	  $sched = new Schedule;
 	  if ($file) {
 		$filename = $file->getClientOriginalName();
@@ -60,9 +72,9 @@ class SchedulerController extends Controller {
 	  }else{
 		$sched->image = 'imageComingSoon.png';
 	  }
-	  $sched->title = Input::get('title');
-	  $sched->descriptions = Input::get('description');
-	  $sched->schedule = Input::get('schedule');
+	  $sched->title = Request::get('title');
+	  $sched->descriptions = Request::get('description');
+	  $sched->schedule = Request::get('schedule');
 	  $sched->save();
 	  Session::flash('message', 'A new schedule has been added.');
 	  return redirect('cms/scheduler');
@@ -104,11 +116,9 @@ class SchedulerController extends Controller {
 	  $checked = Request::get('checked');
 	  foreach ($checked as $checkId) {
 		$sched = Schedule::find($checkId);
-		$getScheduleVideo = Schedule::getscheduleVideo($checkId);
-		File::delete('public/scheduleImages'.$getScheduleVideo);
 		$sched->delete();
 	  }
-	  Session::flash('message', 'schedule(s) has been deleted.');
+	  Session::flash('message', 'schedule(s) had been deleted.');
 	  return Response::json('ok');
     }
 
