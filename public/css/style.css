@@ -1147,7 +1147,7 @@ table.table--noaction tr td:first-child{
     color: #44b4ac;
 }
 .cke_contents{
-    height: 300px!important;
+    height: 520px !important;
 }
 .cke_resizer{
     display: none;
