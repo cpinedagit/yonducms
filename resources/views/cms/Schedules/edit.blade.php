@@ -35,7 +35,7 @@
                             <label for="banner-title" class='form-title'>Edit Time Schedule</label>   
                             {!! Form::input('time','schedule',$schedules->schedule,['class' => 'form-control','style'=>'width:120px;']) !!}
                         </div> 
-				<div class="form-group">
+<!--				<div class="form-group">
 				    <label for="banner-title" class='form-title'>Edit Day Schedule</label><br>  
 				    {!! Form::label('','Monday:') !!}
 				    {!! Form::checkbox('daySchedule','Monday',null,['id' => 'Monday']) !!}
@@ -51,7 +51,7 @@
 				    {!! Form::checkbox('daySchedule','Saturday',null,['id' => 'Saturday']) !!}
 				    {!! Form::label('','Sunday:') !!}
 				    {!! Form::checkbox('daySchedule','Sunday',null,['id' => 'Sunday']) !!}
-				</div>
+				</div>-->
 			  </div>
 		    </div>
 		</div>
@@ -175,32 +175,32 @@
     $(document).ready(function () {
 
 	  //checks the checkbox
-	  var scheduleId = {{ $scheduleId }};
-		$.ajax({
-		type: "get",
-			  url: "{!! URL::to('/') !!}/cms/getAllDaySchedule/" + scheduleId,
-			  success: function (day) {
-				console.log(day);
-				for (x in day[0]) {
-					  if ($('#Monday').val() === day[0][x]['day']) {
-						$('#Monday').prop('checked', true);
-					  } else if ($('#Tuesday').val() === day[0][x]['day']) {
-						$('#Tuesday').prop('checked', true);
-					  } else if ($('#Wednesday').val() === day[0][x]['day']){
-						$('#Wednesday').prop('checked',true);
-					  } else if ($('#Thursday').val() === day[0][x]['day']){
-						$('#Thursday').prop('checked',true);
-					  } else if ($('#Friday').val() === day[0][x]['day']){
-						$('#Friday').prop('checked',true);
-					  } else if ($('#Saturday').val() === day[0][x]['day']){
-						$('#Saturday').prop('checked',true);
-					  }else if ($('#Sunday').val() === day[0][x]['day']){
-						$('#Sunday').prop('checked',true);
-					  }
-
-				    }
-			  }
-		    })
+//	  var scheduleId = {{ $scheduleId }};
+//		$.ajax({
+//		type: "get",
+//			  url: "{!! URL::to('/') !!}/cms/getAllDaySchedule/" + scheduleId,
+//			  success: function (day) {
+//				console.log(day);
+//				for (x in day[0]) {
+//					  if ($('#Monday').val() === day[0][x]['day']) {
+//						$('#Monday').prop('checked', true);
+//					  } else if ($('#Tuesday').val() === day[0][x]['day']) {
+//						$('#Tuesday').prop('checked', true);
+//					  } else if ($('#Wednesday').val() === day[0][x]['day']){
+//						$('#Wednesday').prop('checked',true);
+//					  } else if ($('#Thursday').val() === day[0][x]['day']){
+//						$('#Thursday').prop('checked',true);
+//					  } else if ($('#Friday').val() === day[0][x]['day']){
+//						$('#Friday').prop('checked',true);
+//					  } else if ($('#Saturday').val() === day[0][x]['day']){
+//						$('#Saturday').prop('checked',true);
+//					  }else if ($('#Sunday').val() === day[0][x]['day']){
+//						$('#Sunday').prop('checked',true);
+//					  }
+//
+//				    }
+//			  }
+//		    })
 		});
 
 

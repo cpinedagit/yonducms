@@ -28,18 +28,19 @@
                         <p class="slider__details__description">
                             {{ $firstSchedule->descriptions }}
                         </p>
-                        <a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>
+                        <!--<a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>-->
+				<a href="#" data-toggle="modal" data-target="#modal-movie" class="btn btn-red btn-custom-lg">Watch Video</a>
                     </div>
                     <div class="banner-slider">
 				@foreach($firstScheduleImages as $images)
-				@if($images->media_path == null)
-				<span id ='nextSlide'></span>
-				@else
-				<div class ='divImage'>
-				    {!! HTML::image($images->media_path,null,['class' => 'scheduleImage']) !!}
-                            <div class="mask"></div>				   
-                        </div>
-				@endif
+				    @if($images->media_path == null)
+				    <span id ='nextSlide'></span>
+				    @else
+				    <div class ='divImage'>
+					  {!! HTML::image($images->media_path,null,['class' => 'scheduleImage']) !!}
+					  <div class="mask"></div>				   
+				    </div>
+				    @endif
 				@endforeach
                     </div>
                 </div>
@@ -78,7 +79,7 @@
     </div>
 </main>
 <!--modal for Main Banner Video link-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<!--<div class="modal fade modal-wrapper" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,13 +94,23 @@
             </div>
         </div>
     </div>
+</div>-->
+<div class="modal modal-wrapper wakoko" id="modal-movie" aria-hidden="true" role="dialog" data-backdrop="static">
+    <div class="modal-container">
+	  <i class="fa fa-times-circle modal-close fa-2x" data-dismiss="modal"></i>
+	  <div class="modal-slider">
+		<video width="800" height="500" id='video-modal' controls>
+		  <source src="{!! URL::to('/') !!}/public/scheduleImages/{{$firstScheduleVideo}}">
+		Your browser does not support the video tag.
+		</video>
+	  </div>
+    </div>
 </div>
 {!! HTML::script('public/scheduler/js/slick.js') !!}
 {!! HTML::script('public/scheduler/js/main.js') !!}
 <script>
 window.onload = slicky();
-    //emptying modal;
-    $('.modal').on('hidden.bs.modal', function () {
+    $('.modal-close').on('.modal-close', function () {
 	  $('video').trigger('pause');	  
     });
     
@@ -128,15 +139,15 @@ window.onload = slicky();
 				$('#mainBannerDivParent').empty();
 				$('#mainBannerDivParent').append(origMainBanner);
 				if (data[0][0]['video'] !== "") {
-				    $('#divVideo').append("<a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>");
+				    $('#divVideo').append("<a onclick='wohoo()' href='#' id='wakeke' data-toggle='modal' data-target='#modal-movie' class='btn btn-red btn-custom-lg'>Watch Video</a>");
 				}
 				$('.slider__details__title').html(data[0][0]['title']);
 				$('.slider__details__description').html(data[0][0]['descriptions']);
 				$.getScript("../public/scheduler/js/slick.js", function () {
 				    slicky2();
 				});
-				$('.modal-body').empty();
-				$('.modal-body').removeData();
+				$('.modal-slider').empty();
+				$('.modal-slider').removeData();
 				if (data[0][0]['video'] != null) {
 				    videoPlay(data[0][0]['video']);
 				}
@@ -156,7 +167,8 @@ window.onload = slicky();
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
 	  if(videofile !== ''){
-		$('.modal-body').append('<center><video id="video" width="569px" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+//		$('.modal-slider').append('<center><video id="video" width="569px" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		$('.modal-slider').append('<video width="800" height="500" id="video-modal" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/'+ videofile+'">Your browser does not support the video tag.</video>');
 	  }
     }
     //first initialized slicky
@@ -200,7 +212,7 @@ window.onload = slicky();
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
 //	  console.log(item_length +' = '+currentsLide);
 //	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
-	//  alert(status);
+//	  alert(status);
 	  if(status == 0){
 		if(item_length === currentsLide){
 		    if(scheduleCount-1 == scheduleIndeces){
@@ -229,6 +241,13 @@ window.onload = slicky();
 	  }
     });
 //    re-initialize slicky when a schedule banner is being clicked
+    function wohoo(){
+	  status = 1;
+	  console.log(status);
+	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		$('.banner-slider').slick('slickPause');		
+	  }); 
+    }
     function slicky2() {
 	  currentsLide = 0;
 	  item_length = $('.banner-slider > div').length;
@@ -264,13 +283,18 @@ window.onload = slicky();
     }
 
     $('.btn-custom-lg').on('click', function(){
+	  alert('wakoko')
+	  status = 1;
+	  console.log(status);
 	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
 		$('.banner-slider').slick('slickPause');		
 	  }); 		
     });
 
-    $('.close').on('click', function(){
+    $('.modal-close').on('click', function(){
+	   $('video').trigger('pause');
 	   status = 0;
+	   console.log(status);
 	   if(item_length == 1){
 		setTimeout(function () {
 		    $('.slick-next').click();
@@ -281,7 +305,6 @@ window.onload = slicky();
 	   }else{
 		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
 		    $('.banner-slider').slick('slickPlay');
-		    console.log(status);
 		});
 	   }
     });

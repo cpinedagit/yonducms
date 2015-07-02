@@ -13,10 +13,6 @@
 	  fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
-{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
-{!! HTML::script('public/js/beam/modernizr.js'); !!}
 <!--Scheduler-->
 {!! HTML::script('public/slide/js/jssor.js') !!} 
 {!! HTML::script('public/slide/js/jssor.slider.js') !!} 
@@ -33,7 +29,19 @@
                         <p class="slider__details__description">
                             {{ $firstSchedule->descriptions }}
                         </p>
-                        <a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>
+                        <!--<a href='#' class='btn btn-red btn-custom-lg' data-toggle='modal' data-target='#myModal'>Watch Video</a>-->
+				<a href="#" data-toggle="modal" data-target="#modal-movie" class="btn btn-red btn-custom-lg">Watch Video</a>
+				<div class="modal-wrapper" id="modal-movie">
+				    <div class="modal-container">
+					  <i class="fa fa-times-circle modal-close fa-2x" data-dismiss="modal"></i>
+					  <div class="modal-slider">
+						<video width="800" height="500" id='video-modal' controls>
+						  <source src="{!! URL::to('/') !!}/public/scheduleImages/{{$firstScheduleVideo}}">
+						Your browser does not support the video tag.
+						</video>
+					  </div>
+				    </div>
+				</div>
                     </div>
                     <div class="banner-slider">
 				@foreach($firstScheduleImages as $images)
@@ -83,7 +91,7 @@
     </div>
 </main>
 <!--modal for Main Banner Video link-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<!--<div class="modal fade modal-wrapper" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,14 +106,20 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
+
 {!! HTML::script('public/scheduler/js/slick.js') !!}
 {!! HTML::script('public/scheduler/js/main.js') !!}
 <script>
 window.onload = slicky();
     //emptying modal;
     $('.modal').on('hidden.bs.modal', function () {
-	  $('.modal-body').empty();
+	  $('video').trigger('pause');	  
+    });
+    
+    $('.modal').on('shown.bs.modal', function () {
+	 status = 1;
+	 console.log(status);
     });
     //click the first schedule
     setTimeout(function () {
@@ -113,6 +127,7 @@ window.onload = slicky();
 //	  $('.schedule__list--active .scheduleId:first-child').click();
     }, 400);
     $(document).ready(function () {
+	  status = 0;
 	  //change the images of Main Banner
 	  $('.scheduleId').each(function () {
 		$(this).on('click', function () {
@@ -131,7 +146,7 @@ window.onload = slicky();
 				}
 				$('.slider__details__title').html(data[0][0]['title']);
 				$('.slider__details__description').html(data[0][0]['descriptions']);
-				$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+				$.getScript("../public/scheduler/js/slick.js", function () {
 				    slicky2();
 				});
 				$('.modal-body').empty();
@@ -149,21 +164,14 @@ window.onload = slicky();
 			  })
 		    });
 		});
-	  });
+	  }); 
     });
 
     //this function is ofr appending video for video modal.
     function videoPlay(videofile) {	    
 	  if(videofile !== ''){
-		$('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		$('.modal-body').append('<center><video id="video" width="569px" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
 	  }
-	  $('.modal').on('shown.bs.modal', function () {
-		$('.modal-body').empty();
-		$('.modal-body').removeData();
-		if (videofile !== '') {
-		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-		}
-	  });
     }
     //first initialized slicky
     function slicky() {
@@ -206,24 +214,31 @@ window.onload = slicky();
 	  var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index'); 
 //	  console.log(item_length +' = '+currentsLide);
 //	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
-	  if(item_length === currentsLide){	
-		if(scheduleCount-1 == scheduleIndeces){
+	//  alert(status);
+	  if(status == 0){
+		if(item_length === currentsLide){
+		    if(scheduleCount-1 == scheduleIndeces){
 		    setTimeout(function () {
-		    $('.slick-next').click();
 			  setTimeout(function () {
-				$('.schedule__list--active').removeClass('schedule__list--active'); 
-				$('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
-				$('.schedule__list--active .scheduleId:first-child').trigger('click');
+				if(status == 0){
+				    $('.slick-next').click();
+				    $('.schedule__list--active').removeClass('schedule__list--active'); 
+				    $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+				    $('.schedule__list--active .scheduleId:first-child').trigger('click');
+				}
 			  });		    
 		    },4000);
-		}else{
-		    setTimeout(function () {
-			  currentsLide--;
-			  $('.slick-next').click();
-			  $('.schedule__list--active').next().addClass('schedule__list--active');
-			  $('.schedule__list--active').prev().removeClass('schedule__list--active');
-			  $('.schedule__list--active .scheduleId:first-child').click();
-		    },4000);
+		    }else{
+			  setTimeout(function () {
+				if(status == 0){
+				    currentsLide--;
+				    $('.slick-next').click();
+				    $('.schedule__list--active').next().addClass('schedule__list--active');
+				    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+				    $('.schedule__list--active .scheduleId:first-child').click();
+				}
+			  },4000);
+		    }
 		}
 	  }
     });
@@ -264,14 +279,25 @@ window.onload = slicky();
 
     $('.btn-custom-lg').on('click', function(){
 	  $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		$('.banner-slider').slick('slickPause');
+		$('.banner-slider').slick('slickPause');		
 	  }); 		
     });
 
     $('.close').on('click', function(){
-	   $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-		 $('.banner-slider').slick('slickPlay');
-	   }); 
+	   status = 0;
+	   if(item_length == 1){
+		setTimeout(function () {
+		    $('.slick-next').click();
+		    $('.schedule__list--active').next().addClass('schedule__list--active');
+		    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+		    $('.schedule__list--active .scheduleId:first-child').click();
+		},4000);
+	   }else{
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPlay');
+		    console.log(status);
+		});
+	   }
     });
 </script>
 @endif

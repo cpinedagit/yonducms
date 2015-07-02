@@ -127,9 +127,11 @@ Route::put('cms/saveScheduleBannerImage',['as' => 'cms.scheduler.saveScheduleBan
 Route::delete('cms/deleteSchedule','CMS\SchedulerController@deleteSchedule');
 Route::delete('cms/deleteScheduleBannerImage','CMS\SchedulerController@deleteScheduleBannerImage');
 Route::get('cms/addSchedule', ['as' => 'cms.scheduler.add', 'uses' => 'CMS\SchedulerController@addSchedule']);
+Route::get('cms/insertSchedule', ['as' => 'cms.scheduler.insertSchedule', 'uses' => 'CMS\SchedulerController@insertSchedule']);
 Route::get('cms/schedulepreview', ['as' => 'cms.scheduler.schedulepreview', 'uses' => 'CMS\SchedulerController@preview']);
 Route::get('cms/getBannerImages/{id}', 'CMS\SchedulerController@getBannerImages');
 Route::resource('cms/scheduler', 'CMS\SchedulerController', ['middleware' => 'is.allowed']);
+
 
 //These routes are for Error Pages
 //Route::get('notfound', 'ErrorController@index');
