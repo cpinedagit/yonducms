@@ -105,7 +105,7 @@ class MediaController extends Controller {
   }
 
   public function update($id) {
-      $desc = Input::get('description');
+      $desc = Input::get('Editor1');
       $media = Media::find($id);
       $file = Input::file('file');
       $file_count = count($file);

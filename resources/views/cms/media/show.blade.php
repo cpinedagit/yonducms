@@ -107,6 +107,7 @@
   });
 
   $('.save').on('click',function(){
+    for (instance in CKEDITOR.instances) { CKEDITOR.instances[instance].updateElement(); }
 
     $( "#blah" ).attr("src", "");
     $.ajax({
