@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
-use \App\Models\cms\User;
+use \App\Models\User;
 use Input;
 use Validator;
 use Auth;
