@@ -22,9 +22,9 @@
 		</span>
 	</div>
 	<div class="main-container__content__info__filter">
-		<select name="" id="" class="form-control">
-			<option value="" disabled selected>Choose Action</option>
-			<option value="">Delete</option>
+		<select name="" id="selectAction" class="form-control">
+			<option value="0" disabled selected>Choose Action</option>
+			<option value="1">Delete</option>
 		</select>
 		<input type="button" onclick="deleteSelected()" class='btn btn-filter' value="Apply">
 		
@@ -74,6 +74,8 @@
 
 <script>
 function deleteSelected(){
+	if($('#selectAction').val() == "1")
+	{
 
 	if (confirm('Are your sure you want to delete the files') == true)
 	{
@@ -96,6 +98,9 @@ function deleteSelected(){
 	} else{
 		return false;
 	}
+}
+else
+	alert("Please select an action");
 
 }
 

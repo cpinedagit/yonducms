@@ -25,7 +25,7 @@ class MediaController extends Controller {
     //$this->middleware('guest');    //Doesn't require active user
       $this->middleware('is.allowed');// Require require active user
     }
-    
+
   public function index() {
     $this->regenerateMenuSession('cms.media.index', 'cms.media.index');
     $all = DB::table('content_media')->count();
@@ -56,8 +56,9 @@ class MediaController extends Controller {
 
   public function store()
   {
-
-     $files = Input::file('fileselect');
+      $m_id=DB::table('content_media')->max('media_id')+1;
+      $media = new Media;
+      $files = Input::file('fileselect');
       $file_count = count($files);
       $uploadcount = 0;
       foreach($files as $file) {
@@ -65,8 +66,10 @@ class MediaController extends Controller {
           $month = date("m");
           $imagesPath = 'uploads/image/'.$year.'/'.$month.'/';
           $videosPath = 'uploads/video/'.$year.'/'.$month.'/';
-          $filename = $file->getClientOriginalName();
+          $_filename = $file->getClientOriginalName();
+          $fname = before_last ('.',$_filename); 
           $extension = $file->getClientOriginalExtension();
+          $filename = $fname.$m_id.'.'.$extension;
           $filePath = realpath($file);
 
           $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -87,7 +90,7 @@ class MediaController extends Controller {
                 ->destroy(); */
           }
           //  $image = Image::make(url($destinationPath.'/'.$year.'/'.$month.'/'.$filename))->resize(300, 400)->save(public_path($original_path));
-          $media = new Media;
+
           $media->media_path = $original_path;
           $media->media_type = $fileType;
           $media->save();
@@ -102,7 +105,7 @@ class MediaController extends Controller {
   }
 
   public function update($id) {
-
+      $desc = Input::get('description');
       $media = Media::find($id);
       $file = Input::file('file');
       $file_count = count($file);
@@ -114,7 +117,6 @@ class MediaController extends Controller {
           $filename = $file->getClientOriginalName();
           $extension = $file->getClientOriginalExtension();
           $filePath = realpath($file);
-
           $finfo = finfo_open(FILEINFO_MIME_TYPE);
           $mime=finfo_file($finfo, $filePath);
           if(strstr($mime, "video/")){
@@ -142,7 +144,7 @@ class MediaController extends Controller {
           rename($path.'/'.$old_filename,$path.'/'.$new_filename);
         }
           $media->caption= Input::get('caption');
-          $media->description= Input::get('description');
+          $media->description= $desc;
           $media->alternative_text= Input::get('alternative_text');
           $media->save();
 

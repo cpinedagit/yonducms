@@ -3,6 +3,7 @@
 <h2>Media</h2>
 @stop
 @section('content')
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
 <div class="main-container__content__reminder">
   <i class="fa fa-exclamation-circle"></i>
   <small>Reminder: Fields with asterisk(*) are required.</small>
@@ -73,21 +74,21 @@
 
       <div class="col-sm-12">
        <div class="form-group">
-        <label for="editor1" class='form-title'>Caption</label>
+        <label for="caption" class='form-title'>Caption</label>
         <textarea name="caption" class='form-control' rows="3">{{$file->caption}}</textarea>
       </div>
       <div class="form-group">
         <label for="alt" class='form-title'>Alternative Text</label>
         {!! Form::text('alternative_text',$file->alternative_text,array('class'=>'form-control')) !!}
       </div>
-      <div class="form-group">
-        <label for="editor2" class='form-title'>Description</label>
-        {!! Form::textarea('description',$file->description,array('id'=>'Editor1','class' =>'ckeditor form-control')) !!} 
-      </div>
 
+      <div class="form-group">
+                        <label for="editor1" class='form-title'>Description</label>
+                        {!! Form::textarea('Editor1',$file->description,['cols' => '100','rows' => '100','class' => 'ckeditor','id' => 'Editor1']) !!}
+                    </div>
     </div>
   </div>
-
+</div>
   {!! Form::close() !!}
 
   <script>
