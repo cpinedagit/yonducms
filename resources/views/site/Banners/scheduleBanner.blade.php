@@ -13,10 +13,14 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+{!! HTML::script('public/ckeditor/ckeditor.js'); !!}
+{!! HTML::script('public/js/beam/bootstrap.min.js'); !!}
+{!! HTML::script('public/js/beam/modernizr.js'); !!}
 <!--Scheduler-->
-{!! HTML::script('public/slide/js/jssor.js') !!}
-{!! HTML::script('public/slide/js/jssor.slider.js') !!}
-{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!}
+{!! HTML::script('public/slide/js/jssor.js') !!} 
+{!! HTML::script('public/slide/js/jssor.slider.js') !!} 
+{!! HTML::script('public/vertical_slider/js/sliderScheduler.js') !!} 
 {!! HTML::style('public/scheduler/css/style.css') !!}
 <!--Scheduler-->
 <main class="main">
@@ -166,11 +170,17 @@
     });
 
     //this function is ofr appending video for video modal.
-    function videoPlay(videofile) {
-        if(videofile !== ''){
-//		$('.modal-slider').append('<center><video id="video" width="569px" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
-            $('.modal-slider').append('<video width="800" height="500" id="video-modal" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/'+ videofile+'">Your browser does not support the video tag.</video>');
-        }
+    function videoPlay(videofile) {	    
+	  if(videofile !== ''){
+		$('.modal-body').append('<center><video id="video" width="750" controls><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+	  }
+	  $('.modal').on('shown.bs.modal', function () {
+		$('.modal-body').empty();
+		$('.modal-body').removeData();
+		if (videofile !== '') {
+		    $('.modal-body').append('<center><video id="video" width="550" controls autoplay><source src="{!! URL::to("/") !!}/public/scheduleImages/' + videofile + '" type="video/mp4"></video></center>');
+		}
+	  });
     }
     //first initialized slicky
     function slicky() {
@@ -213,31 +223,24 @@
         var scheduleIndeces = $('.schedule__list--active').attr('data-slick-index');
 //	  console.log(item_length +' = '+currentsLide);
 //	  console.log(scheduleCount-1 +' '+ scheduleIndeces)
-//	  alert(status);
-        if(status == 0){
-            if(item_length === currentsLide){
-                if(scheduleCount-1 == scheduleIndeces){
+		if(item_length === currentsLide){
+		    if(scheduleCount-1 == scheduleIndeces){
                     setTimeout(function () {
+		    $('.slick-next').click();
                         setTimeout(function () {
-                            if(status == 0){
-                                $('.slick-next').click();
-                                $('.schedule__list--active').removeClass('schedule__list--active');
-                                $('.scheduleDiv1.slick-active').addClass('schedule__list--active');
-                                $('.schedule__list--active .scheduleId:first-child').trigger('click');
-                            }
+				    $('.schedule__list--active').removeClass('schedule__list--active'); 
+				    $('.scheduleDiv1.slick-active').addClass('schedule__list--active');					  
+				    $('.schedule__list--active .scheduleId:first-child').trigger('click');
                         });
                     },4000);
-                }else{
-                    setTimeout(function () {
-                        if(status == 0){
-                            currentsLide--;
-                            $('.slick-next').click();
-                            $('.schedule__list--active').next().addClass('schedule__list--active');
-                            $('.schedule__list--active').prev().removeClass('schedule__list--active');
-                            $('.schedule__list--active .scheduleId:first-child').click();
-                        }
-                    },4000);
-                }
+		    }else{
+			  setTimeout(function () {
+				    currentsLide--;
+				    $('.slick-next').click();
+				    $('.schedule__list--active').next().addClass('schedule__list--active');
+				    $('.schedule__list--active').prev().removeClass('schedule__list--active');
+				    $('.schedule__list--active .scheduleId:first-child').click();
+			  },4000);
             }
         }
     });
@@ -288,26 +291,16 @@
         status = 1;
         console.log(status);
         $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-            $('.banner-slider').slick('slickPause');
+		$('.banner-slider').slick('slickPause');		
         });
     });
 
     $('.modal-close').on('click', function(){
         $('video').trigger('pause');
-        status = 0;
         console.log(status);
-        if(item_length == 1){
-            setTimeout(function () {
-                $('.slick-next').click();
-                $('.schedule__list--active').next().addClass('schedule__list--active');
-                $('.schedule__list--active').prev().removeClass('schedule__list--active');
-                $('.schedule__list--active .scheduleId:first-child').click();
-            },4000);
-        }else{
-            $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
-                $('.banner-slider').slick('slickPlay');
-            });
-        }
+		$.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
+		    $('.banner-slider').slick('slickPlay');
+		});
     });
 </script>
 @endif

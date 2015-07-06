@@ -63,14 +63,14 @@
     {
     $.ajax({
     type:"DELETE",
-		headers: {
-		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url:  'banners' + "/" + id,
-		dataType: "json",
-		success:(function(data) {
-		window.location = ("banners");
-		})
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url:  'banners' + "/" + id,
+        dataType: "json",
+        success:(function(data) {
+        window.location = ("banners");
+        })
     });
     } else{
     return false;
@@ -86,30 +86,30 @@
     });
     
     $(document).on("click", '#apply', function () {
-	  var action = $('#action').val();
-	  if (action === 'Delete') {
-		var checked = new Array();
-		$("input:checkbox[name=checkbox]:checked").each(function () {
-		    checked.push($(this).val());
-		    console.log(checked);
-		});
-		if (confirm('do you really want to delete the selected banner(s)?')) {
-		    $.ajax({
-			  type: "DELETE",
-			  headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			  },
-			  data: {checked: checked},
-			  url: "{!! URL::to('/') !!}" + '/cms/delBanner',
-			  dataType: "json",
-			  success: (function (data) {
-				location.reload();
-			  })
-		    });
-		} else {
-		    return false;
-		}
-	  }
+      var action = $('#action').val();
+      if (action === 'Delete') {
+        var checked = new Array();
+        $("input:checkbox[name=checkbox]:checked").each(function () {
+            checked.push($(this).val());
+            console.log(checked);
+        });
+        if (confirm('do you really want to delete the selected banner(s)?')) {
+            $.ajax({
+              type: "DELETE",
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              },
+              data: {checked: checked},
+              url: "{!! URL::to('/') !!}" + '/cms/delBanner',
+              dataType: "json",
+              success: (function (data) {
+                location.reload();
+              })
+            });
+        } else {
+            return false;
+        }
+      }
     });
 
 
