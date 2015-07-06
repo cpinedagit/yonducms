@@ -49,7 +49,6 @@
 <!-- Standard Banner-->
 {!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
 {!! HTML::script('public/js/beam/modernizr.js') !!}
-{!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
 {!! HTML::script('public/js/beam/carousel.js') !!}
 <!-- Standard Banner-->
 

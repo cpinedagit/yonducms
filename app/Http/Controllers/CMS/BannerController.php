@@ -161,5 +161,15 @@ class BannerController extends Controller {
 	  );
 	  return View('cms/Images.frontend', $arData);
     }
+    
+    public function delBanner() {
+	  $this->middleware('is.allowed');
+	  $checked = Request::get('checked');
+	  foreach ($checked as $check) {
+		$page = Banner::find($check);
+		$page->delete();
+	  }
+	  return Response::json('ok');
+    }
 
 }

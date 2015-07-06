@@ -105,6 +105,7 @@ Route::resource('cms/editor', 'CMS\EditorController');
 //These route are for Banner Management
 Route::get('cms/addBanner', ['as' => 'cms.Banners.add', 'uses' => 'CMS\BannerController@addBanner']);
 Route::put('cms/saveImage', ['as' => 'cms.banner.saveImage', 'uses' => 'CMS\BannerController@saveImage']);
+Route::delete('cms/delBanner', ['as' => 'cms.banner.delBanner', 'uses' => 'CMS\BannerController@delBanner']);
 Route::delete('cms/delImage', 'CMS\BannerController@delImage');
 Route::delete('cms/delCurrentImage/{id}', 'CMS\BannerController@delCurrentImage');
 Route::resource('cms/banners', 'CMS\BannerController', ['middleware' => 'is.allowed']);

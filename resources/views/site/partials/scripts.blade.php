@@ -9,6 +9,8 @@
 {!! HTML::script('public/beam/js/transformicon.js') !!}
 {!! HTML::script('public/beam/js/jquery.dotdotdot.js') !!}
 {!! HTML::script('public/beam/js/main.js') !!}
+
+
  <script>
     transformicons.add('.tcon');
       $('.banner-slider').slick({
@@ -134,3 +136,9 @@
             } 
         });
   </script>
+
+<!-- Standard Banner-->
+{!! HTML::script('public/js/beam/ekko-lightbox.min.js') !!}
+{!! HTML::script('public/js/beam/modernizr.js') !!}
+{!! HTML::script('public/js/beam/carousel.js') !!}
+<!-- Standard Banner-->

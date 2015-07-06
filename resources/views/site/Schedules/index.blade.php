@@ -6,7 +6,7 @@
 	  <div class="item">
 		<div style="{{ 'width:'.$standardBannerWidth.'%' }}" class ='divImg'> {!! HTML::image($currentImage->media_path) !!}</a></div>
 	  </div>
-	  @endforeach 
+	  @endforeach
 
     </div>
     <a class="left carousel-control" href="#main-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
@@ -16,7 +16,7 @@
 
 <script>
     $(document).ready(function () {
-	  $(".item:first-child").addClass("active"); 
+	  $(".item:first-child").addClass("active");
 
     });
 

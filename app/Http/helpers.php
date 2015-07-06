@@ -184,7 +184,7 @@ function StandardBanner($id) {
 	  'standardBannerWidth' => $standardBannerWidth,
 	  'numberOfImages' => $numberOfImages
     );
-    return View('site.Schedules.index')->with($arData)->render();
+    return View('site.Banners.standardBanner')->with($arData)->render();
 //    return View('site.news.featured_news')->with(array('slug' => $slug, 'featured_news' => $featured))->render();
 }
 

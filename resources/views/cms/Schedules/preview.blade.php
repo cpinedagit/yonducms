@@ -143,7 +143,7 @@ window.onload = slicky();
 				}
 				$('.slider__details__title').html(data[0][0]['title']);
 				$('.slider__details__description').html(data[0][0]['descriptions']);
-				$.getScript("../public/scheduler/js/slick.js", function () {
+                $.getScript("{{ URL::to('/')}}/public/scheduler/js/slick.js",function(){
 				    slicky2();
 				});
 				$('.modal-slider').empty();
