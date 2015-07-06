@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\MenuPosition;
 use App\Models\Page;
-use App\Models\CMS\User;
+use App\Models\User;
 use Input;
 use View;
 use DB;
