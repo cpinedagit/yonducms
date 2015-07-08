@@ -22,7 +22,7 @@ class SchedulerController extends Controller {
 	  View::share('APP_TAG_LINE', env('APP_TAG_LINE'));
 
 	  //$this->middleware('guest'); 	 //Doesn't require active user
-	  $this->middleware('is.allowed'); //Require require active user
+	  //$this->middleware('is.allowed'); //Require require active user
     }
 
     public function index() {

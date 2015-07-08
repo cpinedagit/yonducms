@@ -9,3 +9,13 @@
 {!! HTML::style('public/beam/css/slick-theme.css') !!}
 {!! HTML::style('public/beam/css/transformicon.css') !!}
 {!! HTML::style('public/beam/css/style.css') !!}
+
+
+<!--Standard Banner-->
+{!! HTML::style('public/css/beam/ekko-lightbox.min.css') !!}
+{!! HTML::style('public/css/beam/lightslider.min.css') !!}
+{!! HTML::style('public/css/beam/styles.css') !!}
+{!! HTML::style('public/css/beam/carousel.css') !!}
+<!--Standard Banner-->
+
+{!! HTML::style('public/css/loaderSlider.css') !!}

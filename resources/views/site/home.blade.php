@@ -16,5 +16,4 @@
         <!--test-->
     </body>
     @include('site.partials.scripts')
-
 </html>
